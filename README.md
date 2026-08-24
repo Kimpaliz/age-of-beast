@@ -87,8 +87,8 @@ Ende genau, wie viele Abschnitte, Attribute und Verknüpfungen entstanden sind.
 Es gibt zwei Änderungsprotokolle mit demselben Inhalt in unterschiedlicher
 Sprache:
 
-- **[AENDERUNGEN.md](AENDERUNGEN.md)** – in normalem Deutsch, ohne Fachbegriffe.
-- **[CHANGELOG.md](CHANGELOG.md)** – in der üblichen Entwicklerform.
+- **[CHANGELOG.md](CHANGELOG.md)** – in normalem Deutsch, ohne Fachbegriffe.
+- **[CHANGELOG-TECHNIK.md](CHANGELOG-TECHNIK.md)** – in der üblichen Entwicklerform.
 
 ---
 

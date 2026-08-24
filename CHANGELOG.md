@@ -1,136 +1,131 @@
-# Changelog
+# Änderungen – einfach erklärt
 
-Alle nennenswerten Änderungen an diesem Projekt werden hier festgehalten.
+Hier steht in normalem Deutsch, was sich im Wiki geändert hat. Ohne Fachbegriffe.
+Dieselben Änderungen stehen in Entwicklersprache in [CHANGELOG-TECHNIK.md](CHANGELOG-TECHNIK.md).
 
-Das Format orientiert sich an [Keep a Changelog](https://keepachangelog.com/de/1.1.0/),
-die Versionierung an [Semantic Versioning](https://semver.org/lang/de/).
+Das Neueste steht immer oben.
 
-Eine Fassung desselben Protokolls in Alltagssprache liegt unter
-[AENDERUNGEN.md](AENDERUNGEN.md).
+---
 
-## [Unveröffentlicht]
+## Fassung 1.0.0 – 24. August 2026
 
-—
+**Das Wiki gibt es jetzt.** Bisher lagen die Inhalte nur in der Weltenschmiede.
+Dort muss man sich anmelden und sich durch die Bearbeitungsoberfläche klicken.
+Jetzt gibt es zusätzlich eine reine Leseseite, die sich schnell öffnet, auf dem
+Handy funktioniert und keine Anmeldung braucht.
 
-## [1.0.0] – 2026-08-24
+### Was drin ist
 
-Erstveröffentlichung. Statischer Wiki-Client für das
-Weltenschmiede-Projekt `project-sturmwende-20260730`.
+Alle **29 Einträge** aus dem Sturmwende-Projekt:
 
-### Hinzugefügt
+- die Kampagnenübersicht,
+- die beiden Fraktionen **Maschinisten** und **Goldene Garde**,
+- alle **24 Spezies**,
+- **Lukas' Spielfigur**,
+- die **Uniform der Goldenen Garde**.
 
-**Anwendung**
+Dazu 103 Textabschnitte, 106 Angaben in den Steckbriefen und 9 feste
+Verbindungen zwischen Einträgen.
 
-- `index.html` / `stil.css` / `wiki.js`: SPA ohne Build-Schritt und ohne
-  Laufzeitabhängigkeiten. Hash-basiertes Routing (`#/`,
-  `#/kategorie/<schluessel>`, `#/eintrag/<id>`).
-- Datenübergabe über `window.STURMWENDE_WELT` aus `daten/welt.js`, damit die
-  Seite auch unter `file://` läuft (`fetch` scheitert dort an CORS).
-  `daten/welt.json` wird zusätzlich für Diffs und Fremdnutzung geschrieben.
-- Automatische Verlinkung: eine nach Länge absteigend sortierte Alternation
-  über 45 Wörterbucheinträge, angewandt per `TreeWalker` auf Textknoten.
-  Ausgeschlossen sind Nachfahren von `a`, `code` und `h1`.
-  Wortgrenzen über Unicode-Lookarounds `(?<![\p{L}\p{N}])…(?![\p{L}\p{N}])`.
-- Zwei Heuristiken gegen Übersättigung und Fehltreffer: ein Ziel wird je
-  Eintrag nur einmal verlinkt (gemeinsames `Set` über alle Abschnitte), und
-  der Treffer muss mit einem Großbuchstaben beginnen (deutsche Substantive;
-  verhindert das Numerale „elf" → Spezies `Elf`).
-- Vorschaukarte an Verweisen: Einblenden nach 170 ms bei `pointerover`,
-  Ausblenden nach 160 ms Karenz, damit die Karte selbst erreichbar bleibt.
-  Zusätzlich `focusin` für Tastaturbedienung und ein Zwei-Stufen-Pfad für
-  `pointerType === 'touch'` (erster Tap zeigt, „Öffnen" navigiert).
-  Positionierung mit Viewport-Clamping und Flip nach oben.
-- Beziehungsgraph zur Laufzeit: ausgehende `verbindungen`, invertierte
-  eingehende Verbindungen sowie Texterwähnungen in beide Richtungen.
-  `verknuepfungsZahl()` liefert die Zahl distinkter verwandter Einträge.
-  Gegenrichtungen einer bereits gelisteten Beziehung werden unterdrückt.
-- Volltextsuche mit gestufter Gewichtung (Name exakt 100 / Präfix 80 /
-  Teilstring 60 / Alias 50 / Kurztext 35 / Fließtext 20), Trefferhervorhebung,
-  Pfeiltasten-Navigation und `/` als Fokus-Kürzel.
-- Kategoriefilter auf der Startseite über `hidden` statt Neuaufbau des DOM.
-- Umschalter für Seitenleiste und Farbschema, beide in `localStorage`
-  persistiert und gegen gesperrten Speicher abgesichert.
-- Reifegrad-Kennzeichnung je Eintrag, abgeleitet aus Abschnittszahl (≥ 3) und
-  Textlänge (> 900 Zeichen).
+### Die wichtigste Neuerung: Verweise mit Vorschau
 
-**Werkzeuge**
+Wenn im Text der Name eines anderen Eintrags vorkommt, wird er automatisch zu
+einem Verweis. Hält man die Maus darüber, klappt ein kleines Fenster auf und
+zeigt, worum es bei diesem Eintrag geht — man muss die Seite nicht verlassen.
+Auf dem Handy genügt ein Antippen; ein zweites Tippen auf „Öffnen" führt hin.
 
-- `werkzeuge/welt-holen.mjs`: lesender Export aus der Realtime Database über
-  `google-auth-library` mit Application Default Credentials. Keine
-  Schreiboperationen.
-- `werkzeuge/welt-aufbereiten.mjs`: Transformation der Weltenschmiede-Struktur
-  in das Wiki-Schema, inklusive Bilanzausgabe.
-- `werkzeuge/vorschau-server.mjs`: statischer Server auf Port 4173 mit
-  Path-Traversal-Schutz über `normalize()` und `..`-Prüfung.
+Insgesamt erkennt das Wiki **45 Begriffe**. Elf davon hattest du selbst in der
+Weltenschmiede hinterlegt, die übrigen sind die Namen und Zweitbezeichnungen
+der Einträge.
 
-**Infrastruktur**
+Zwei Regeln sorgen dafür, dass der Text lesbar bleibt:
 
-- GitHub-Actions-Workflow zur Veröffentlichung auf GitHub Pages.
+- Ein Begriff wird pro Seite nur **beim ersten Mal** verlinkt. Sonst wäre bei
+  den Maschinisten fast jedes zweite Wort unterstrichen.
+- Ein Begriff wird nur verlinkt, wenn er **groß geschrieben** ist. Deutsche
+  Hauptwörter sind das immer. Dadurch wird aus der Zahl „elf" kein Verweis auf
+  die Spezies „Elf".
 
-### Gestaltung
+### Zwei Begriffe werden mit Absicht nicht verlinkt
 
-- Gestaltungssprache nach dem Design-Canvas „Aschekodex Wiki": Grund `#0b0b0d`,
-  Flächen `#141417` / `#1b1b20`, Ränder `#26262c` / `#34343d`,
-  Akzent `#8b8bf0`. Serifen-Stack für Überschriften, System-Sans für Fließtext,
-  gesperrte Versalien (`0.14em`) als Etikettenmotiv.
-- Sämtliche Farben als Custom Properties auf `:root`; das helle Schema
-  überschreibt ausschließlich Tokens unter `html[data-thema="hell"]`.
-- Kachel-Schein als `radial-gradient` in `::before` innerhalb von
-  `overflow: hidden`, gespeist aus `--maus-x` / `--maus-y`, die ein
-  gedrosselter `pointermove`-Handler setzt.
-- Umbruchpunkte: 68 rem (Artikel einspaltig, Kopf-Metadaten aus),
-  60 rem (Seitenleiste als Overlay), 40 rem (Kacheln einspaltig,
-  Suchfeld auf 16 px gegen iOS-Autozoom).
-- `prefers-reduced-motion` deaktiviert Transitions und Animationen.
+- **„Elemental Kin"** gehört gleichzeitig zu vier Spezies (Earthkin, Emberkin,
+  Skykin, Tidekin). Ein Verweis müsste sich für eine entscheiden und läge in
+  drei von vier Fällen falsch.
+- **„Prototyp"** ist eine alte Zweitbezeichnung des Kampagnen-Eintrags. Das Wort
+  kommt im Text in ganz anderer Bedeutung vor.
 
-### Datenaufbereitung
+Beide Bezeichnungen stehen weiterhin bei ihren Einträgen — sie werden nur nicht
+automatisch verlinkt.
 
-- Panels werden über `panelOrder` sortiert und aus `textFields[].html`
-  gerendert, mit Rückfall auf `textFields[].text` und `panel.text`.
-- Abdeckungsprüfung gegen Textverlust: Jedes Feld aus `richText` und `fields`
-  wird satzweise gegen den bereits gerenderten Panelinhalt geprüft. Bei unter
-  80 % Deckung wird es als eigener Abschnitt mit Flag `ergaenzt` ergänzt.
-  Ergebnis: 93 Panel-Abschnitte, 10 ergänzte Texte, 75 als Dublette verworfen.
-- HTML-Bereinigung auf eine Positivliste
-  (`p, br, strong, b, em, i, u, ul, ol, li, h3, h4, blockquote, code`);
-  Attribute, `script`, `style` und `javascript:` werden entfernt.
-- Wörterbuchaufbau mit Vorrang für kuratierte `textLinks` aus der
-  Weltenschmiede, danach Namen und eindeutige Aliase. Aliase, die mehr als ein
-  Element beanspruchen, werden verworfen und im Lauf gemeldet
-  (betrifft `Elemental Kin`). Eine explizite Sperrliste enthält `prototyp`.
-- `unterart` je Kategorie aus einem definierten Feld, begrenzt auf 28 Zeichen,
-  mit Klartext-Mapping für Kürzel (`sc` → `Spielfigur`) und Unterdrückung von
-  Dopplungen zur Kategoriebezeichnung.
-- Attributwerte über 110 Zeichen werden nicht in die Steckbriefspalte
-  übernommen; sie stehen ohnehin im Fließtext.
+### Was jede Eintragsseite zeigt
 
-### Behoben
+Links der Fließtext, rechts ein Steckbrief mit vier Blöcken:
 
-- `htmlSaeubern()` verwarf sämtliche schließenden Tags: Der Tagname wurde per
-  `split(/[\s/>]/)[0]` ermittelt, was bei `</strong>` den Leerstring liefert
-  und die Positivliste nie trifft. Folge war unbalanciertes Markup, wodurch
-  `<strong>` bis zum Ende des Abschnitts durchlief. Ersetzt durch
-  `/<\s*(\/?)\s*([a-zA-Z][a-zA-Z0-9]*)[^>]*>/`, das öffnende und schließende
-  Tags getrennt behandelt. Balance ist über alle 29 Einträge verifiziert.
-- Auf Viewports ≤ 60 rem gewann `.rahmen.leiste-zu` mit
-  `grid-template-columns: 0 minmax(0, 1fr)` per Spezifität gegen die
-  Einspalten-Regel der Media Query. Da die Navigation dort `position: fixed`
-  ist, rückte `main` in die 0-Pixel-Spalte; der Fließtext war 0 px breit.
-  Beide Selektoren werden in der Media Query nun gemeinsam zurückgesetzt.
-- Der Kopfbereich lief bei 1000 px um 24 px über, weil `.marke` mit
-  `white-space: nowrap` auf 427 px wuchs und die Suchspalte `minmax(0, 1fr)`
-  auf 0 px kollabierte. Die Spalte hat jetzt `minmax(12.5rem, 1fr)`, `.marke`
-  bekam `min-width: 0` mit `text-overflow: ellipsis`, und unterhalb von 68 rem
-  entfallen Untertitel und Kopf-Metadaten.
+| Block | Inhalt |
+| --- | --- |
+| **Attribute** | die Kurzangaben, etwa Klassifikation oder Lebenserwartung |
+| **Verknüpfungen** | womit der Eintrag fest verbunden ist, mit Erklärung |
+| **Erwähnt in** | wo er sonst noch im Text vorkommt |
+| **Herkunft** | Regelquelle und wann er zuletzt bearbeitet wurde |
 
-### Sicherheit
+Auf schmalen Bildschirmen rutschen diese Blöcke unter den Text.
 
-- Kein Netzwerkzugriff zur Laufzeit; keine externen Ressourcen, keine Analytik.
-- Sämtliche aus Daten stammenden Zeichenketten laufen durch `sicher()`
-  (HTML-Entity-Kodierung), bevor sie in Templates eingesetzt werden.
-  Ausgenommen ist der bereits serverseitig bereinigte Abschnitts-HTML.
-- Die Datendateien wurden vor dem Commit auf Zugangsdaten, Schlüssel und
-  E-Mail-Adressen geprüft; Treffer: keine.
+### Kein Text ist verlorengegangen
 
-[Unveröffentlicht]: https://github.com/Kimpaliz/sturmwende-wiki/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/Kimpaliz/sturmwende-wiki/releases/tag/v1.0.0
+Die Weltenschmiede legt Texte an zwei Stellen ab: in Anzeigefeldern und in
+Hintergrundfeldern. Beim Übertragen wurde geprüft, ob wirklich jeder Text im
+Wiki ankommt.
+
+Ergebnis: **10 Texte** standen nur in den Hintergrundfeldern. Sie wurden als
+eigene Abschnitte ergänzt und sind mit dem Vermerk *aus der Weltenschmiede*
+gekennzeichnet. Weitere **75 Texte** waren doppelt vorhanden und wurden nur
+einmal übernommen.
+
+### Ein Hinweis auf den Reifegrad
+
+Jede Kachel zeigt unten rechts **ausgebaut** oder **knapp**. Das ist keine
+Bewertung, sondern nur eine Messung des Umfangs: mindestens drei Abschnitte und
+mehr als 900 Zeichen gelten als ausgebaut. So siehst du auf einen Blick, wo noch
+Arbeit wartet.
+
+### Aussehen
+
+Das Wiki folgt deinem Entwurf **„Aschekodex"** aus dem Design-Projekt: sehr
+dunkler Hintergrund, Serifenschrift für Überschriften, blauviolette Akzente,
+kleine gesperrte Großbuchstaben als Etiketten und ein sanfter Schein, wenn die
+Maus über eine Kachel fährt.
+
+Zusätzlich gibt es oben rechts einen Schalter zwischen hell und dunkel. Dunkel
+ist voreingestellt.
+
+### Drei Fehler, die beim Bauen auffielen und behoben wurden
+
+1. **Alles war fett.** Beim Übertragen aus der Weltenschmiede gingen die
+   schließenden Markierungen verloren, dadurch lief eine Fettschrift bis zum
+   Seitenende weiter. Jetzt ist geprüft, dass in allen 29 Einträgen jede
+   Auszeichnung sauber geschlossen wird.
+2. **Auf dem Handy war der Text unsichtbar.** Wenn die Seitenleiste zugeklappt
+   war, bekam der Inhalt eine null Pixel breite Spalte zugewiesen. Behoben.
+3. **Der Kopfbereich lief über.** Der lange Untertitel drückte das Suchfeld auf
+   null. Jetzt behält die Suche immer mindestens 200 Pixel, und der Untertitel
+   weicht bei schmalen Fenstern.
+
+### Womit das Wiki gebaut ist
+
+Mit nichts. Es sind drei Dateien — die Seite, die Gestaltung und die Logik —
+dazu die Daten. Kein Baukasten, keine Installation, keine fremden Bausteine,
+die man pflegen müsste. Wer den Ordner in fünf Jahren öffnet, kann ihn immer
+noch benutzen.
+
+---
+
+## Wie es hier weitergeht
+
+Bei jeder Änderung kommt oben ein neuer Abschnitt dazu. Die Nummer davor
+bedeutet:
+
+- **Dritte Stelle** (1.0.**1**): Ein Fehler wurde behoben, sonst nichts.
+- **Zweite Stelle** (1.**1**.0): Es ist etwas dazugekommen.
+- **Erste Stelle** (**2**.0.0): Etwas funktioniert grundlegend anders als vorher.
+
+Reines Auffrischen der Inhalte aus der Weltenschmiede bekommt keine neue Nummer.
