@@ -7,6 +7,26 @@ Das Neueste steht immer oben.
 
 ---
 
+## Inhalt aufgefrischt – 24. August 2026
+
+**Der Kampagnen-Eintrag heißt jetzt auch in der Weltenschmiede „Age of Beast".**
+Bisher stand dort noch der alte Name — im Wiki war das an der Überschrift
+„Kampagnen-Frame: Sturmwende" zu sehen.
+
+Geändert wurden genau drei sichtbare Stellen: der Name des Eintrags und der
+Weltname an zwei Stellen im Text des Kampagnenkastens. Vorher wurde eine
+Sicherung des kompletten Eintrags abgelegt unter
+`OneDrive\Dokumente\RPG\backups\age-of-beast-umbenennung-20260824`.
+
+Nicht angefasst wurden die internen Kennungen der Datenbank. Die tragen den
+alten Namen weiter im Schlüssel — das ist Absicht: Sie sind die Adresse, unter
+der die Daten liegen, und ein Ändern würde die Verbindung kappen.
+
+Diese Änderung bekommt keine neue Fassungsnummer, weil sich nur Inhalt geändert
+hat und nicht das Wiki selbst.
+
+---
+
 ## Fassung 1.2.0 – 24. August 2026
 
 **Das Wiki sieht jetzt aus wie dein Entwurf.** Grundlage ist die Design-Datei

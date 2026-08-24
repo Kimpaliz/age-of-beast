@@ -10,7 +10,24 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ## [Unveröffentlicht]
 
-—
+### Geändert
+
+- Inhaltliche Umbenennung in der Realtime Database (Quelle, nicht Repository):
+  `elements/wiki/wiki-sturmwende-kampagnenframe/name` sowie `html` und
+  `text` des ersten `textFields`-Eintrags von `customPanels[0]` von
+  „Sturmwende" auf „Age of Beast". Drei Schreibvorgänge, jeder einzeln per
+  `PUT` auf den Blattknoten; kein Überschreiben ganzer Teilbäume.
+  Vollsicherung des Knotens vor dem Schreiben unter
+  `RPG/backups/age-of-beast-umbenennung-20260824/kampagnenframe-vorher.json`.
+  Schlüssel und IDs (`wiki-sturmwende-kampagnenframe`,
+  `panel-sturmwende-*`, `text-sturmwende-grundidee`) bleiben unverändert.
+- `daten/welt.json`, `daten/welt.js` und
+  `werkzeuge/rohdaten-weltenschmiede.json` entsprechend neu erzeugt.
+  Bilanz unverändert: 29 Einträge, 93 Panel-Abschnitte, 45 Wörterbucheinträge.
+  Der Wörterbuchschlüssel lautet jetzt `kampagnen-frame: age of beast`.
+
+Ohne Versionsnummer: reine Inhaltsänderung an der Quelle, keine Änderung am
+Wiki-Code.
 
 ## [1.2.0] – 2026-08-24
 

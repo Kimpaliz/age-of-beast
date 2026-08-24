@@ -4709,10 +4709,10 @@
             "text": "Kernkonzept: Eine düstere, abenteuerliche Super-Low-Magic-Welt, in der Monster die wichtigste übernatürliche Bedrohung und der hauptsächliche Kampagnenfokus sind.\nWiederkehrende Aktivität: Erkunden, Hinweise auf Monster untersuchen, Gefahren einschätzen, kämpfen und schwierige Entscheidungen treffen.\nZentrale Spannung: Magie existiert, ist aber äußerst selten. Die meisten Gefahren müssen ohne verlässliche magische Lösungen bewältigt werden. Der bestehende Aufstieg der Maschinisten und der Konflikt zwischen Technologie, Natur und der verbliebenen Magie bleiben erhalten, stehen jedoch hinter dem Monsteraspekt zurück.",
             "textFields": [
               {
-                "html": "<h2>Sturmwende</h2><h3>Kernkonzept</h3><p>Eine düstere, abenteuerliche <strong>Super-Low-Magic-Welt</strong>, in der Monster die wichtigste übernatürliche Bedrohung und der hauptsächliche Kampagnenfokus sind.</p><h3>Wiederkehrende Aktivität</h3><p>Erkunden, Hinweise auf Monster untersuchen, Gefahren einschätzen, kämpfen und schwierige Entscheidungen treffen.</p><h3>Zentrale Spannung</h3><p>Magie existiert, ist aber äußerst selten. Die meisten Gefahren müssen ohne verlässliche magische Lösungen bewältigt werden.</p><p>Der bestehende Aufstieg der Maschinisten und der Konflikt zwischen Technologie, Natur und der verbliebenen Magie bleiben erhalten, stehen jedoch hinter dem Monsteraspekt zurück.</p>",
+                "html": "<h2>Age of Beast</h2><h3>Kernkonzept</h3><p>Eine düstere, abenteuerliche <strong>Super-Low-Magic-Welt</strong>, in der Monster die wichtigste übernatürliche Bedrohung und der hauptsächliche Kampagnenfokus sind.</p><h3>Wiederkehrende Aktivität</h3><p>Erkunden, Hinweise auf Monster untersuchen, Gefahren einschätzen, kämpfen und schwierige Entscheidungen treffen.</p><h3>Zentrale Spannung</h3><p>Magie existiert, ist aber äußerst selten. Die meisten Gefahren müssen ohne verlässliche magische Lösungen bewältigt werden.</p><p>Der bestehende Aufstieg der Maschinisten und der Konflikt zwischen Technologie, Natur und der verbliebenen Magie bleiben erhalten, stehen jedoch hinter dem Monsteraspekt zurück.</p>",
                 "id": "text-sturmwende-grundidee",
                 "label": "Text",
-                "text": "Sturmwende\nKernkonzept\nEine düstere, abenteuerliche Super-Low-Magic-Welt, in der Monster die wichtigste übernatürliche Bedrohung und der hauptsächliche Kampagnenfokus sind.\nWiederkehrende Aktivität\nErkunden, Hinweise auf Monster untersuchen, Gefahren einschätzen, kämpfen und schwierige Entscheidungen treffen.\nZentrale Spannung\nMagie existiert, ist aber äußerst selten. Die meisten Gefahren müssen ohne verlässliche magische Lösungen bewältigt werden.\nDer bestehende Aufstieg der Maschinisten und der Konflikt zwischen Technologie, Natur und der verbliebenen Magie bleiben erhalten, stehen jedoch hinter dem Monsteraspekt zurück."
+                "text": "Age of Beast\nKernkonzept\nEine düstere, abenteuerliche Super-Low-Magic-Welt, in der Monster die wichtigste übernatürliche Bedrohung und der hauptsächliche Kampagnenfokus sind.\nWiederkehrende Aktivität\nErkunden, Hinweise auf Monster untersuchen, Gefahren einschätzen, kämpfen und schwierige Entscheidungen treffen.\nZentrale Spannung\nMagie existiert, ist aber äußerst selten. Die meisten Gefahren müssen ohne verlässliche magische Lösungen bewältigt werden.\nDer bestehende Aufstieg der Maschinisten und der Konflikt zwischen Technologie, Natur und der verbliebenen Magie bleiben erhalten, stehen jedoch hinter dem Monsteraspekt zurück."
               }
             ],
             "textLayout": "single",
@@ -4910,7 +4910,7 @@
           "zoom": 100
         },
         "module": "wiki",
-        "name": "Kampagnen-Frame: Sturmwende",
+        "name": "Kampagnen-Frame: Age of Beast",
         "panelHeights": {
           "panel-sturmwende-charaktere": 4,
           "panel-sturmwende-distinktionen": 5,

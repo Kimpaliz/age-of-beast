@@ -2,7 +2,7 @@
   "titel": "Age of Beast",
   "untertitel": "Daggerheart-Welt zwischen Magie, Natur und Maschinen",
   "standDerDaten": "2026-08-22T07:54:45.193Z",
-  "erzeugtAm": "2026-08-24T11:12:24.833Z",
+  "erzeugtAm": "2026-08-24T11:36:21.817Z",
   "kategorien": [
     {
       "schluessel": "wiki",
@@ -38,7 +38,7 @@
   "eintraege": [
     {
       "id": "wiki-sturmwende-kampagnenframe",
-      "name": "Kampagnen-Frame: Sturmwende",
+      "name": "Kampagnen-Frame: Age of Beast",
       "kategorie": "wiki",
       "unterart": "",
       "kurz": "Eine düstere, abenteuerliche Super-Low-Magic-Daggerheart-Kampagne, in der Monster die wichtigste übernatürliche Bedrohung und der hauptsächliche Kampagnenfokus sind. Der technologische und politische Aufstieg der Maschinisten bleibt als nachrangiger Weltkonflikt erhalten.",
@@ -55,7 +55,7 @@
       "abschnitte": [
         {
           "titel": "Grundidee und Konflikt",
-          "html": "Sturmwende<h3>Kernkonzept</h3><p>Eine düstere, abenteuerliche <strong>Super-Low-Magic-Welt</strong>, in der Monster die wichtigste übernatürliche Bedrohung und der hauptsächliche Kampagnenfokus sind.</p><h3>Wiederkehrende Aktivität</h3><p>Erkunden, Hinweise auf Monster untersuchen, Gefahren einschätzen, kämpfen und schwierige Entscheidungen treffen.</p><h3>Zentrale Spannung</h3><p>Magie existiert, ist aber äußerst selten. Die meisten Gefahren müssen ohne verlässliche magische Lösungen bewältigt werden.</p><p>Der bestehende Aufstieg der Maschinisten und der Konflikt zwischen Technologie, Natur und der verbliebenen Magie bleiben erhalten, stehen jedoch hinter dem Monsteraspekt zurück.</p>"
+          "html": "Age of Beast<h3>Kernkonzept</h3><p>Eine düstere, abenteuerliche <strong>Super-Low-Magic-Welt</strong>, in der Monster die wichtigste übernatürliche Bedrohung und der hauptsächliche Kampagnenfokus sind.</p><h3>Wiederkehrende Aktivität</h3><p>Erkunden, Hinweise auf Monster untersuchen, Gefahren einschätzen, kämpfen und schwierige Entscheidungen treffen.</p><h3>Zentrale Spannung</h3><p>Magie existiert, ist aber äußerst selten. Die meisten Gefahren müssen ohne verlässliche magische Lösungen bewältigt werden.</p><p>Der bestehende Aufstieg der Maschinisten und der Konflikt zwischen Technologie, Natur und der verbliebenen Magie bleiben erhalten, stehen jedoch hinter dem Monsteraspekt zurück.</p>"
         },
         {
           "titel": "Ton, Themen und Vorbilder",
@@ -1312,7 +1312,7 @@
     "gelbröcke": "faction-sturmwende-gelbroecke-provisorisch",
     "goldene garde": "faction-sturmwende-gelbroecke-provisorisch",
     "unbenannte spielfigur von lukas": "character-sturmwende-lukas-sc-unbenannt",
-    "kampagnen-frame: sturmwende": "wiki-sturmwende-kampagnenframe",
+    "kampagnen-frame: age of beast": "wiki-sturmwende-kampagnenframe",
     "aetheris": "species-dh-aetheris",
     "drakona": "species-dh-drakona",
     "earthkin": "species-dh-earthkin",
