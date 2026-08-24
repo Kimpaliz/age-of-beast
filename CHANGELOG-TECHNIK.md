@@ -57,9 +57,12 @@ Weltenschmiede-Projekt `project-sturmwende-20260730`.
 
 **Werkzeuge**
 
-- `werkzeuge/welt-holen.mjs`: lesender Export aus der Realtime Database über
-  `google-auth-library` mit Application Default Credentials. Keine
-  Schreiboperationen.
+- `werkzeuge/welt-holen.mjs`: lesender Export aus der Realtime Database.
+  Bewusst ohne npm-Abhängigkeit: Das Bearer-Token kommt aus
+  `gcloud auth application-default print-access-token`, der Abruf über das in
+  Node eingebaute `fetch`. Unter Windows via `cmd /c call gcloud.cmd`, weil die
+  PowerShell-Skriptausführung auf diesem Rechner gesperrt ist. Keine
+  Schreiboperationen; 401/403 führen zu einem Hinweis auf die Neuanmeldung.
 - `werkzeuge/welt-aufbereiten.mjs`: Transformation der Weltenschmiede-Struktur
   in das Wiki-Schema, inklusive Bilanzausgabe.
 - `werkzeuge/vorschau-server.mjs`: statischer Server auf Port 4173 mit
