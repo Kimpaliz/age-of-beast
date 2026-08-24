@@ -7,6 +7,49 @@ Das Neueste steht immer oben.
 
 ---
 
+## Fassung 1.3.0 – 24. August 2026
+
+**Erster Schritt zum Bearbeiten im Wiki.** Oben rechts gibt es jetzt einen
+Knopf **Anmelden**. Meldest du dich mit deinem Google-Konto an, zeigt das Wiki
+nicht mehr die gespeicherte Kopie, sondern den **aktuellen Stand direkt aus der
+Weltenschmiede**.
+
+### Was jetzt geht
+
+- Anmelden mit Google.
+- Angemeldet siehst du den Live-Stand. Oben im Kopf steht dann
+  „live aus der Weltenschmiede" statt „aus der Weltenschmiede".
+- Das Wiki merkt sich die Anmeldung. Beim nächsten Öffnen bist du noch
+  angemeldet, bis du auf **Abmelden** klickst.
+
+### Was noch nicht geht
+
+**Ändern kannst du noch nichts.** Dieser Schritt baut nur die Verbindung auf.
+Das eigentliche Bearbeiten kommt als Nächstes — siehe unten.
+
+### Für alle anderen ändert sich nichts
+
+Wer nicht angemeldet ist, sieht die Seite wie bisher: dieselbe Kopie, sofort
+da, ohne Anmeldung. Für diese Besucher wird auch **nichts** von Google
+nachgeladen — die Anmelde-Technik wird erst geholt, wenn du sie brauchst. Die
+Seite bleibt also so schnell und eigenständig wie vorher.
+
+### Dein Konto ist die einzige Tür
+
+Nur `kimpaliz1989@gmail.com` kommt an die Daten. Das ist nicht nur eine
+Abfrage in der Seite, die man umgehen könnte: Firebase selbst lässt niemanden
+sonst lesen oder schreiben. Meldet sich jemand mit einem anderen Google-Konto
+an, wird er sofort wieder abgemeldet und bekommt keine Daten zu sehen.
+
+### Was im Hintergrund passiert ist
+
+Die Umwandlung der Rohdaten ins Wiki-Format lief bisher nur als Skript auf
+deinem PC. Jetzt läuft sie auch im Browser — und zwar dieselbe. Das ist
+wichtig, damit die Live-Ansicht **exakt** so aussieht wie die gespeicherte
+Kopie. Nachgeprüft: Beide erzeugen Zeichen für Zeichen dasselbe Ergebnis.
+
+---
+
 ## Inhalt aufgefrischt – 24. August 2026
 
 **Der Kampagnen-Eintrag heißt jetzt auch in der Weltenschmiede „Age of Beast".**

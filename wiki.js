@@ -22,7 +22,7 @@
      1. Daten einlesen und Nachschlagewerke aufbauen
      ================================================================ */
 
-  const WELT = window.AGE_OF_BEAST_WELT;
+  let WELT = window.AGE_OF_BEAST_WELT;
 
   if (!WELT || !Array.isArray(WELT.eintraege)) {
     document.getElementById('inhalt').innerHTML =
@@ -32,22 +32,33 @@
     return;
   }
 
+  /* ----------------------------------------------------------------
+     Nachschlagewerke
+
+     Alles Folgende wird aus WELT abgeleitet. Die Werte stehen bewusst
+     als `let` und werden in nachschlagewerkeAufbauen() gesetzt: So kann
+     die Bearbeitungsansicht die Weltdaten austauschen und neu zeichnen,
+     ohne die Seite neu zu laden.
+     ---------------------------------------------------------------- */
+
   /** id -> Eintrag */
-  const nachId = new Map(WELT.eintraege.map((e) => [e.id, e]));
-
-  /** Kategorieschlüssel -> Beschreibung der Kategorie */
-  const kategorieInfo = new Map(WELT.kategorien.map((k) => [k.schluessel, k]));
-
-  /** Kategorieschlüssel -> Einträge, alphabetisch */
-  const nachKategorie = new Map();
-  for (const kategorie of WELT.kategorien) {
-    nachKategorie.set(
-      kategorie.schluessel,
-      WELT.eintraege
-        .filter((e) => e.kategorie === kategorie.schluessel)
-        .sort((a, b) => a.name.localeCompare(b.name, 'de')),
-    );
-  }
+  let nachId;
+  /** Kategorieschluessel -> Beschreibung der Kategorie */
+  let kategorieInfo;
+  /** Kategorieschluessel -> Eintraege, alphabetisch */
+  let nachKategorie;
+  /** id -> reiner Text des Eintrags */
+  let volltext;
+  /** Alle Woerterbuchbegriffe, laengste zuerst */
+  let begriffe;
+  /** Ein einziger Suchausdruck ueber alle Begriffe */
+  let verweisMuster;
+  /** id -> Set von IDs, die diesen Eintrag im Text erwaehnen */
+  let erwaehntVon;
+  /** id -> Set von IDs, die dieser Eintrag im Text erwaehnt */
+  let erwaehnt;
+  /** id -> Liste eingehender fester Verbindungen */
+  let verbundenVon;
 
   /** Reiner Text eines Eintrags – für Suche und Erwähnungen */
   const alsText = (eintrag) =>
@@ -56,7 +67,6 @@
       .replace(/<[^>]*>/g, ' ')
       .replace(/\s+/g, ' ');
 
-  const volltext = new Map(WELT.eintraege.map((e) => [e.id, alsText(e)]));
 
   /* ================================================================
      2. Automatische Verlinkung
@@ -72,15 +82,6 @@
      ================================================================ */
 
   const maskieren = (text) => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-
-  const begriffe = Object.keys(WELT.woerterbuch).sort((a, b) => b.length - a.length);
-
-  const verweisMuster = begriffe.length
-    ? new RegExp(
-        '(?<![\\p{L}\\p{N}])(' + begriffe.map(maskieren).join('|') + ')(?![\\p{L}\\p{N}])',
-        'giu',
-      )
-    : null;
 
   /** Beginnt der Treffer mit einem Großbuchstaben? */
   const grossGeschrieben = (treffer) => {
@@ -102,29 +103,57 @@
     return gefunden;
   }
 
-  /** id -> Set von IDs, die diesen Eintrag im Text erwähnen */
-  const erwaehntVon = new Map(WELT.eintraege.map((e) => [e.id, new Set()]));
-  /** id -> Set von IDs, die dieser Eintrag im Text erwähnt */
-  const erwaehnt = new Map();
-  for (const eintrag of WELT.eintraege) {
-    const ziele = erwaehnteEintraege(volltext.get(eintrag.id), eintrag.id);
-    erwaehnt.set(eintrag.id, ziele);
-    for (const ziel of ziele) erwaehntVon.get(ziel).add(eintrag.id);
-  }
+  /** Baut saemtliche Nachschlagewerke aus dem aktuellen WELT neu auf. */
+  function nachschlagewerkeAufbauen() {
+    nachId = new Map(WELT.eintraege.map((e) => [e.id, e]));
 
-  /** id -> Liste eingehender fester Verbindungen */
-  const verbundenVon = new Map(WELT.eintraege.map((e) => [e.id, []]));
-  for (const eintrag of WELT.eintraege) {
-    for (const verbindung of eintrag.verbindungen) {
-      if (verbundenVon.has(verbindung.ziel)) {
-        verbundenVon.get(verbindung.ziel).push({
-          art: verbindung.art,
-          text: verbindung.text,
-          ziel: eintrag.id,
-        });
+    kategorieInfo = new Map(WELT.kategorien.map((k) => [k.schluessel, k]));
+
+    nachKategorie = new Map();
+    for (const kategorie of WELT.kategorien) {
+      nachKategorie.set(
+        kategorie.schluessel,
+        WELT.eintraege
+          .filter((e) => e.kategorie === kategorie.schluessel)
+          .sort((a, b) => a.name.localeCompare(b.name, 'de')),
+      );
+    }
+
+    volltext = new Map(WELT.eintraege.map((e) => [e.id, alsText(e)]));
+
+    begriffe = Object.keys(WELT.woerterbuch).sort((a, b) => b.length - a.length);
+
+    verweisMuster = begriffe.length
+      ? new RegExp(
+          '(?<![\\p{L}\\p{N}])(' + begriffe.map(maskieren).join('|') + ')(?![\\p{L}\\p{N}])',
+          'giu',
+        )
+      : null;
+
+    erwaehntVon = new Map(WELT.eintraege.map((e) => [e.id, new Set()]));
+    /** id -> Set von IDs, die dieser Eintrag im Text erwähnt */
+    erwaehnt = new Map();
+    for (const eintrag of WELT.eintraege) {
+      const ziele = erwaehnteEintraege(volltext.get(eintrag.id), eintrag.id);
+      erwaehnt.set(eintrag.id, ziele);
+      for (const ziel of ziele) erwaehntVon.get(ziel).add(eintrag.id);
+    }
+
+    verbundenVon = new Map(WELT.eintraege.map((e) => [e.id, []]));
+    for (const eintrag of WELT.eintraege) {
+      for (const verbindung of eintrag.verbindungen) {
+        if (verbundenVon.has(verbindung.ziel)) {
+          verbundenVon.get(verbindung.ziel).push({
+            art: verbindung.art,
+            text: verbindung.text,
+            ziel: eintrag.id,
+          });
+        }
       }
     }
   }
+
+  nachschlagewerkeAufbauen();
 
   /** Wie viele andere Einträge hängen mit diesem zusammen? */
   function verknuepfungsZahl(eintrag) {
@@ -864,10 +893,37 @@
 
   /* ------------------------------ Start --------------------------- */
 
-  document.getElementById('welt-titel').textContent = WELT.titel;
-  document.getElementById('welt-untertitel').textContent = WELT.untertitel;
-  document.getElementById('kopf-stand').textContent = 'Stand ' + datumKurz(WELT.standDerDaten);
+  function kopfzeileSetzen() {
+    document.getElementById('welt-titel').textContent = WELT.titel;
+    document.getElementById('welt-untertitel').textContent = WELT.untertitel;
+    document.getElementById('kopf-stand').textContent = 'Stand ' + datumKurz(WELT.standDerDaten);
+  }
+
+  kopfzeileSetzen();
 
   navigationZeichnen();
   seiteZeichnen();
+
+  /* ----------------------------------------------------------------
+     Schnittstelle fuer die Bearbeitungsansicht
+
+     bearbeiten.js laedt die Weltdaten angemeldet live aus der
+     Weltenschmiede und reicht sie hier herein. Die Seite wird dann
+     ohne Neuladen neu gezeichnet.
+     ---------------------------------------------------------------- */
+
+  window.ageOfBeast = {
+    /** Tauscht die Weltdaten aus und zeichnet alles neu. */
+    weltSetzen(neueWelt) {
+      if (!neueWelt || !Array.isArray(neueWelt.eintraege)) return false;
+      WELT = neueWelt;
+      nachschlagewerkeAufbauen();
+      kopfzeileSetzen();
+      navigationZeichnen();
+      seiteZeichnen();
+      return true;
+    },
+    /** Der gerade angezeigte Weltstand. */
+    weltHolen: () => WELT,
+  };
 })();

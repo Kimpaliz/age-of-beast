@@ -670,3 +670,57 @@ a.verweis:hover, a.verweis:focus-visible, a.verweis.aktiv {
   .bezugsliste li { flex-wrap: wrap; }
   .bezugsliste .art { text-align: left; }
 }
+
+/* ------------------------------------------------------------------ *
+   Anmeldung und Live-Stand
+   ------------------------------------------------------------------ */
+
+.anmelde-knopf {
+  flex: none;
+  padding: 0.32rem 0.7rem;
+  background: transparent;
+  color: var(--schrift-matt);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.anmelde-knopf:hover {
+  background: var(--akzent-schleier);
+  border-color: var(--akzent-rand);
+  color: var(--akzent-hell);
+}
+.anmelde-knopf[data-zustand="angemeldet"] {
+  border-color: var(--akzent-rand);
+  color: var(--akzent-hell);
+}
+.anmelde-knopf[data-zustand="laedt"] { opacity: 0.6; cursor: progress; }
+.anmelde-knopf[data-zustand="fehler"] {
+  border-color: #d98a8a;
+  color: #e9a9a9;
+}
+
+.anmelde-status {
+  flex: none;
+  font-size: 0.74rem;
+  color: var(--schrift-leise);
+  white-space: nowrap;
+  max-width: 18rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Live-Stand: die Quellenangabe im Kopf bekommt den Akzentton. */
+html[data-quelle="live"] #kopf-quelle {
+  color: var(--akzent-hell);
+  font-weight: 600;
+}
+
+/* Auf schmalen Fenstern verschwindet der Meldungstext, der Knopf bleibt. */
+@media (max-width: 68rem) {
+  .anmelde-status { display: none; }
+}

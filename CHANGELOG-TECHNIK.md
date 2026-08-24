@@ -29,6 +29,76 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 Ohne Versionsnummer: reine Inhaltsänderung an der Quelle, keine Änderung am
 Wiki-Code.
 
+## [1.3.0] – 2026-08-24
+
+Grundlage für den Bearbeitungsmodus: Google-Anmeldung, Live-Bezug aus der
+Realtime Database und ein austauschbarer Weltstand zur Laufzeit. Noch **ohne**
+Schreibpfad.
+
+### Hinzugefügt
+
+- `werkzeuge/welt-umwandeln.mjs`: Die Umwandlung wurde aus
+  `welt-aufbereiten.mjs` herausgelöst und exportiert jetzt die reine Funktion
+  `umwandeln(roh)`. Keine Node-Importe, dadurch identisch im Browser lauffähig.
+  `welt-aufbereiten.mjs` ist auf einen dünnen Node-Mantel geschrumpft
+  (430 → 80 Zeilen), der liest, `umwandeln()` aufruft, schreibt und die Bilanz
+  ausgibt.
+- `bearbeiten.js` (ES-Modul): Google-Anmeldung über `signInWithPopup`,
+  Einmal-Lesen von `rooms/project-sturmwende-20260730/project`, Umwandlung und
+  Übergabe an das Wiki. Das Firebase-SDK (12.16.0, gstatic) wird per
+  dynamischem `import()` **erst bei Bedarf** geladen: entweder auf Klick oder
+  wenn `localStorage` eine frühere Anmeldung vermerkt. Nicht angemeldete
+  Besucher erzeugen null Anfragen an gstatic.
+- `window.ageOfBeast` in `wiki.js` mit `weltSetzen(welt)` und `weltHolen()`.
+
+### Geändert
+
+- `wiki.js`: `const WELT` → `let WELT`. Die neun aus `WELT` abgeleiteten
+  Strukturen (`nachId`, `kategorieInfo`, `nachKategorie`, `volltext`,
+  `begriffe`, `verweisMuster`, `erwaehntVon`, `erwaehnt`, `verbundenVon`) sind
+  ebenfalls `let` und werden in `nachschlagewerkeAufbauen()` gesetzt. Die
+  Kopfzeile ist als `kopfzeileSetzen()` gekapselt.
+  Bewusst **kein** erneutes Ausführen der IIFE: Sie bindet 21 Ereignisse,
+  davon 11 an `document`/`window`; ein zweiter Durchlauf hätte sie doppelt
+  registriert. Der Datenwechsel setzt deshalb nur Zustand und zeichnet neu.
+- `werkzeuge/vorschau-server.mjs`: `.mjs` → `text/javascript`. Ohne das lehnt
+  der Browser den Modulimport wegen der strengen MIME-Prüfung ab.
+- `index.html`: Knopf `#anmelde-knopf` und Statusfeld `#anmelde-status` im
+  Kopf; `bearbeiten.js` als `type="module"` nach `wiki.js`.
+- `stil.css`: Gestaltung für Knopf und Status; `html[data-quelle="live"]`
+  hebt die Quellenangabe hervor.
+
+### Sicherheit
+
+- Die Adressprüfung in `bearbeiten.js` dient allein der Anzeige. Verbindlich
+  ist die Regel auf `rooms/$roomId`, live geprüft: `auth != null`,
+  `email_verified == true`, `sign_in_provider == 'google.com'` und
+  `email.toLowerCase() == 'kimpaliz1989@gmail.com'` — für `.read` **und**
+  `.write`. Die Wurzel steht auf `.read: false` / `.write: false`.
+- `kimpaliz.github.io` wurde den `authorizedDomains` des Projekts hinzugefügt.
+  Ohne diesen Eintrag verweigert Firebase Auth die Anmeldung von der
+  veröffentlichten Seite.
+- Der Firebase-Web-Schlüssel steht im Repository. Das ist bei Firebase
+  vorgesehen: Er identifiziert das Projekt, er berechtigt nicht. Der Zugriff
+  wird ausschließlich über die Datenbankregeln entschieden.
+
+### Verifiziert
+
+- Node-Mantel nach dem Herauslösen: `daten/welt.json` ist gegenüber vorher
+  **identisch** (nur `erzeugtAm` weicht ab), Bilanz unverändert.
+- Im Browser: `umwandeln()` auf denselben Rohdaten liefert ein Ergebnis, das
+  zeichengenau mit `window.AGE_OF_BEAST_WELT` übereinstimmt.
+- `weltSetzen()` mit einem geänderten Eintragsnamen: Navigation und Kacheln
+  zeichnen neu, 29 Einträge, kein Neuladen.
+- Ohne Anmeldung: 29 Kacheln, Suche, Verweise und Vorschau unverändert,
+  **0** Anfragen an gstatic, keine Konsolenfehler.
+
+### Offen
+
+- Kein Schreibpfad. Der Bearbeitungsmodus folgt in 1.4.0.
+- Der Anmeldevorgang selbst wurde nicht durchgespielt: Das Google-Fenster
+  verlangt Janniks eigene Bestätigung.
+
 ## [1.2.0] – 2026-08-24
 
 Übernahme des Design-Canvas „Aschekodex Wiki" (Nocturne-Designsystem) in
@@ -262,7 +332,8 @@ Weltenschmiede-Projekt `project-sturmwende-20260730`.
 - Die Datendateien wurden vor dem Commit auf Zugangsdaten, Schlüssel und
   E-Mail-Adressen geprüft; Treffer: keine.
 
-[Unveröffentlicht]: https://github.com/Kimpaliz/age-of-beast/compare/v1.2.0...HEAD
+[Unveröffentlicht]: https://github.com/Kimpaliz/age-of-beast/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/Kimpaliz/age-of-beast/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/Kimpaliz/age-of-beast/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/Kimpaliz/age-of-beast/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/Kimpaliz/age-of-beast/releases/tag/v1.0.0

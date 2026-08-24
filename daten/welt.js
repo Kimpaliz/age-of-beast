@@ -3,7 +3,7 @@ window.AGE_OF_BEAST_WELT = {
   "titel": "Age of Beast",
   "untertitel": "Daggerheart-Welt zwischen Magie, Natur und Maschinen",
   "standDerDaten": "2026-08-22T07:54:45.193Z",
-  "erzeugtAm": "2026-08-24T11:36:21.817Z",
+  "erzeugtAm": "2026-08-24T12:15:15.322Z",
   "kategorien": [
     {
       "schluessel": "wiki",
