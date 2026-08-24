@@ -1,64 +1,68 @@
 /* ===================================================================
    Age-of-Beast-Wiki – Gestaltung
    -------------------------------------------------------------------
-   Der Stil folgt dem Entwurf „Aschekodex" aus Janniks Design-Projekt:
-   sehr dunkler Grund, Serifen-Überschriften, blauviolette Akzente,
-   kleine gesperrte Großbuchstaben-Etiketten, Kacheln mit Schein beim
-   Überfahren und Vorschaukarten an verlinkten Begriffen.
+   Der Stil folgt dem Entwurf „Aschekodex" aus Janniks Design-Projekt
+   (Stand 24.08.2026): dunkler olivfarbener Grund mit Licht in der oberen
+   linken Ecke, durchgehend Grotesk, blauviolette Akzente, kleine gesperrte
+   Großbuchstaben-Etiketten, Kacheln mit Schein beim Überfahren und
+   Vorschaukarten an verlinkten Begriffen.
 
    Alle Farben stehen als Variablen ganz oben.
    =================================================================== */
 
 :root {
-  --grund:        #0b0b0d;
-  --grund-tief:   #08080a;
-  --flaeche:      #141417;
-  --flaeche-hoch: #1b1b20;
-  --rand:         #26262c;
-  --rand-hell:    #34343d;
+  /* Grundflächen – dunkles Oliv statt Neutralschwarz */
+  --grund:        #161815;
+  --grund-tief:   #22251f;   /* nur für den Lichtverlauf oben links */
+  --flaeche:      #1e211d;
+  --flaeche-hoch: #262a24;
+  --rand:         rgba(233, 233, 237, 0.16);
+  --rand-hell:    rgba(233, 233, 237, 0.26);
 
-  --schrift:       #e9e9ec;
-  --schrift-matt:  #a0a0a8;
-  --schrift-leise: #6e6e78;
+  --schrift:       #e9e9ed;
+  --schrift-matt:  rgba(233, 233, 237, 0.70);
+  --schrift-leise: rgba(233, 233, 237, 0.42);
 
-  --akzent:          #8b8bf0;
-  --akzent-hell:     #a8a8f7;
-  --akzent-schleier: rgba(139, 139, 240, 0.12);
-  --akzent-rand:     rgba(139, 139, 240, 0.45);
+  /* Akzent: blauviolett. Verweise und Etiketten nehmen den hellen Ton. */
+  --akzent:          #9184d9;
+  --akzent-hell:     #d2cefd;
+  --akzent-schleier: rgba(145, 132, 217, 0.16);
+  --akzent-rand:     rgba(145, 132, 217, 0.42);
 
-  --schein: rgba(139, 139, 240, 0.18);
-  --schatten: 0 18px 44px rgba(0, 0, 0, 0.62);
-  --schatten-klein: 0 6px 18px rgba(0, 0, 0, 0.45);
+  --schein: rgba(145, 132, 217, 0.34);
+  --schatten:       0 0 0 1px rgba(89, 93, 108, 0.9), 0 16px 40px rgba(0, 0, 0, 0.65);
+  --schatten-klein: 0 0 0 1px rgba(89, 93, 108, 0.7), 0 6px 18px rgba(0, 0, 0, 0.55);
 
-  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Charter, Georgia, "Times New Roman", serif;
-  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* Der Entwurf setzt durchgehend eine Grotesk, auch in den Überschriften. */
+  --serif: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --sans:  "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
   --kopf-hoehe: 3.25rem;
   --nav-breite: 15.5rem;
-  --radius: 0.55rem;
-  --radius-klein: 0.35rem;
+  --radius: 0.75rem;
+  --radius-klein: 0.5rem;
 }
 
 html[data-thema="hell"] {
-  --grund:        #f7f6f3;
-  --grund-tief:   #efeee9;
+  --grund:        #f6f6f3;
+  --grund-tief:   #ecece6;
   --flaeche:      #ffffff;
-  --flaeche-hoch: #fbfaf8;
-  --rand:         #e0ded7;
-  --rand-hell:    #cbc8be;
+  --flaeche-hoch: #fbfbf8;
+  --rand:         rgba(22, 24, 21, 0.14);
+  --rand-hell:    rgba(22, 24, 21, 0.24);
 
-  --schrift:       #17171b;
-  --schrift-matt:  #55555f;
-  --schrift-leise: #7c7c87;
+  --schrift:       #171916;
+  --schrift-matt:  rgba(23, 25, 22, 0.70);
+  --schrift-leise: rgba(23, 25, 22, 0.48);
 
-  --akzent:          #5a5ad0;
-  --akzent-hell:     #4444b8;
-  --akzent-schleier: rgba(90, 90, 208, 0.10);
-  --akzent-rand:     rgba(90, 90, 208, 0.38);
+  --akzent:          #5d5294;
+  --akzent-hell:     #423a6a;
+  --akzent-schleier: rgba(93, 82, 148, 0.10);
+  --akzent-rand:     rgba(93, 82, 148, 0.38);
 
-  --schein: rgba(90, 90, 208, 0.14);
-  --schatten: 0 18px 44px rgba(40, 38, 60, 0.16);
-  --schatten-klein: 0 6px 18px rgba(40, 38, 60, 0.12);
+  --schein: rgba(93, 82, 148, 0.16);
+  --schatten:       0 0 0 1px rgba(23, 25, 22, 0.12), 0 16px 40px rgba(40, 38, 60, 0.16);
+  --schatten-klein: 0 0 0 1px rgba(23, 25, 22, 0.10), 0 6px 18px rgba(40, 38, 60, 0.12);
 }
 
 * { box-sizing: border-box; }
@@ -71,7 +75,10 @@ html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
+  /* Der Entwurf legt ein weiches Licht in die obere linke Ecke. */
   background: var(--grund);
+  background-image: radial-gradient(1200px 700px at 8% -18%, var(--grund-tief), var(--grund) 60%);
+  background-attachment: fixed;
   color: var(--schrift);
   font-family: var(--sans);
   font-size: 0.95rem;
@@ -83,9 +90,9 @@ body {
 /* Kleines gesperrtes Etikett – das Leitmotiv des Entwurfs */
 .mikro {
   font-family: var(--sans);
-  font-size: 0.66rem;
+  font-size: 0.68rem;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--schrift-leise);
 }
@@ -353,16 +360,16 @@ body {
 
 /* Kachelraster */
 .kacheln {
-  display: grid; gap: 0.75rem;
-  grid-template-columns: repeat(auto-fill, minmax(15.5rem, 1fr));
+  display: grid; gap: 0.7rem;
+  grid-template-columns: repeat(auto-fill, minmax(17.6rem, 1fr));
 }
 
 .kachel {
   position: relative;
   display: flex; flex-direction: column;
-  min-height: 10.5rem;
+  min-height: 10.4rem;
   padding: 0.85rem 0.95rem 0.7rem;
-  background: var(--flaeche);
+  background: color-mix(in srgb, var(--flaeche) 82%, transparent);
   border: 1px solid var(--rand);
   border-radius: var(--radius);
   text-decoration: none; color: inherit;
@@ -381,15 +388,15 @@ body {
 }
 .kachel:hover, .kachel:focus-visible {
   border-color: var(--akzent-rand);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   box-shadow: var(--schatten-klein);
 }
 .kachel:hover::before, .kachel:focus-visible::before { opacity: 1; }
 
-.kachel .k-etikett { color: var(--akzent); margin-bottom: 0.4rem; }
+.kachel .k-etikett { color: var(--akzent-hell); margin-bottom: 0.4rem; }
 .kachel h2 {
   font-family: var(--serif);
-  font-size: 1.12rem; font-weight: 500;
+  font-size: 1.16rem; font-weight: 500; letter-spacing: -0.01em;
   margin: 0 0 0.4rem; line-height: 1.25;
 }
 .kachel p {
@@ -402,7 +409,7 @@ body {
   font-size: 0.72rem; color: var(--schrift-leise);
 }
 .kachel .k-fuss .reife { font-weight: 600; }
-.kachel .k-fuss .reife.ausgebaut { color: var(--akzent); }
+.kachel .k-fuss .reife.ausgebaut { color: var(--akzent-hell); opacity: 0.85; }
 
 .leermeldung {
   padding: 2rem; text-align: center;
@@ -535,9 +542,9 @@ body {
    ------------------------------------------------------------------ */
 
 a.verweis {
-  color: var(--schrift);
+  color: var(--akzent-hell);
   text-decoration: none;
-  border-bottom: 1px solid var(--rand-hell);
+  border-bottom: 1px solid var(--akzent-rand);
   padding: 0.05em 0.1em;
   margin: 0 -0.1em;
   border-radius: 2px;
@@ -545,15 +552,9 @@ a.verweis {
   transition: background 0.14s, border-color 0.14s, color 0.14s;
 }
 a.verweis:hover, a.verweis:focus-visible, a.verweis.aktiv {
-  background: var(--flaeche-hoch);
+  background: var(--akzent-schleier);
   border-bottom-color: var(--akzent);
-  color: var(--schrift);
-}
-.artikel-seite a.verweis, .bezugsliste a.verweis {
-  border-bottom-color: transparent;
-}
-.artikel-seite a.verweis:hover, .bezugsliste a.verweis:hover {
-  border-bottom-color: var(--akzent);
+  color: var(--akzent-hell);
 }
 
 .vorschau {
@@ -564,24 +565,24 @@ a.verweis:hover, a.verweis:focus-visible, a.verweis.aktiv {
   border: 1px solid var(--rand-hell);
   border-radius: var(--radius);
   box-shadow: var(--schatten);
-  animation: einblenden 0.13s ease-out;
+  animation: einblenden 0.18s ease both;
 }
 @keyframes einblenden {
-  from { opacity: 0; transform: translateY(4px); }
+  from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: none; }
 }
 
-.vorschau .v-etikett { color: var(--akzent); }
+.vorschau .v-etikett { color: var(--akzent-hell); }
 .vorschau .v-name {
   font-family: var(--serif);
-  font-size: 1.05rem; font-weight: 500;
-  margin: 0.28rem 0 0.35rem;
-  line-height: 1.25;
+  font-size: 1rem; font-weight: 500;
+  margin: 0.25rem 0 0.375rem;
+  line-height: 1.2;
 }
 .vorschau .v-text {
   color: var(--schrift-matt);
-  font-size: 0.84rem; line-height: 1.55;
-  margin: 0 0 0.6rem;
+  font-size: 0.82rem; line-height: 1.5;
+  margin: 0 0 0.5rem;
 }
 .vorschau .v-fuss {
   display: flex; align-items: center; justify-content: space-between;
@@ -589,7 +590,7 @@ a.verweis:hover, a.verweis:focus-visible, a.verweis.aktiv {
   color: var(--schrift-leise); font-size: 0.72rem;
 }
 .vorschau .v-oeffnen {
-  color: var(--akzent); text-decoration: none; font-weight: 600;
+  color: var(--akzent-hell); text-decoration: none; font-weight: 600;
 }
 .vorschau .v-oeffnen:hover { text-decoration: underline; }
 

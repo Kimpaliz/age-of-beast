@@ -12,6 +12,57 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 —
 
+## [1.2.0] – 2026-08-24
+
+Übernahme des Design-Canvas „Aschekodex Wiki" (Nocturne-Designsystem) in
+`stil.css`. Reine Präsentationsschicht: kein Markup-, Verhaltens- oder
+Datenmodellwechsel.
+
+### Geändert
+
+- Farbtoken in `:root` auf die Werte des Entwurfs gesetzt:
+  `--grund #161815`, `--flaeche #1e211d`, `--schrift #e9e9ed`,
+  `--akzent #9184d9`, `--akzent-hell #d2cefd` (entspricht
+  `--color-accent-300` des Entwurfs). Ränder und matte Textfarben laufen
+  jetzt über `rgba()`-Deckungen statt fester Grautöne, damit sie auf dem
+  olivfarbenen Grund neutral bleiben.
+- `body` erhält den Lichtverlauf des Entwurfs:
+  `radial-gradient(1200px 700px at 8% -18%, var(--grund-tief), var(--grund) 60%)`,
+  mit `background-attachment: fixed`, damit er beim Scrollen ruhig steht.
+- `--serif` zeigt nicht länger auf eine Serifenschrift. Der Entwurf setzt
+  `--font-heading` auf Inter, also führen beide Stapel `"Inter", system-ui, …`.
+  Bewusst ohne `@font-face` und ohne Google-Fonts-Einbindung: das Wiki soll
+  weiterhin ohne Netzzugriff vollständig funktionieren.
+- `a.verweis` von `--schrift` mit neutraler Unterlinie auf `--akzent-hell`
+  mit `--akzent-rand` umgestellt; Hover hinterlegt mit `--akzent-schleier`.
+  Die Sonderregel, die Verweise in `.artikel-seite` und `.bezugsliste`
+  unterlinienlos zeichnete, ist entfallen — der Entwurf zeigt die Unterlinie
+  durchgehend.
+- `.kacheln`: Spaltenmindestbreite 15.5rem → 17.6rem (Entwurf: 282 px).
+  `.kachel` mit `color-mix(in srgb, var(--flaeche) 82%, transparent)` und
+  `translateY(-3px)` beim Überfahren.
+- `.vorschau`: Name 16 px / `line-height 1.2`, Text 13 px / 1.5,
+  Einblendung auf `0.18s ease both` mit 6 px Versatz (Entwurf: `wkPop`).
+- Radien auf `0.75rem` / `0.5rem`; Schatten als Ring plus Schlagschatten
+  analog `--shadow-md` des Entwurfs.
+- Favicon in `index.html` auf die neue Palette (`#161815` / `#d2cefd`).
+
+### Helles Thema
+
+Der Entwurf liefert nur eine dunkle Palette. Das helle Thema wurde aus
+denselben Farbfamilien abgeleitet: Grund `#f6f6f3`, Akzent `#5d5294`,
+Verweise `#423a6a` (entspricht `--color-accent-800` des Entwurfs).
+
+### Verifiziert
+
+- Kontrastmessung im laufenden Wiki, Übergänge für die Messung deaktiviert:
+  Verweis auf Grund **11,90:1** dunkel und **9,48:1** hell; Fließtext auf
+  Grund **16,34:1** hell. WCAG AA verlangt 4,5:1.
+- Aufgelöste Werte gegen den gerenderten Entwurf abgeglichen: Grund, Kachel-
+  fläche, Kachelüberschrift (18,56 px vs. 18,5 px), Etikett (`#d2cefd`,
+  10,88 px, `letter-spacing` 0,1em) und Vorschauname (16 px) stimmen überein.
+- Keine Konsolenfehler im Wiki; 29 Kacheln werden gerendert.
+
 ## [1.1.0] – 2026-08-24
 
 Umbenennung der Welt von *Sturmwende* zu **Age of Beast**. Reine Namens- und
@@ -194,6 +245,7 @@ Weltenschmiede-Projekt `project-sturmwende-20260730`.
 - Die Datendateien wurden vor dem Commit auf Zugangsdaten, Schlüssel und
   E-Mail-Adressen geprüft; Treffer: keine.
 
-[Unveröffentlicht]: https://github.com/Kimpaliz/age-of-beast/compare/v1.1.0...HEAD
+[Unveröffentlicht]: https://github.com/Kimpaliz/age-of-beast/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/Kimpaliz/age-of-beast/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/Kimpaliz/age-of-beast/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/Kimpaliz/age-of-beast/releases/tag/v1.0.0

@@ -7,6 +7,47 @@ Das Neueste steht immer oben.
 
 ---
 
+## Fassung 1.2.0 – 24. August 2026
+
+**Das Wiki sieht jetzt aus wie dein Entwurf.** Grundlage ist die Design-Datei
+„Aschekodex Wiki", die du geschickt hast. Am Inhalt ändert sich nichts, nur am
+Aussehen.
+
+### Was anders aussieht
+
+- **Der Hintergrund** ist nicht mehr neutrales Schwarz, sondern ein dunkles
+  Oliv. Oben links liegt ein weiches Licht, so wie im Entwurf.
+- **Die Schrift** ist jetzt durchgehend eine Grotesk. Vorher waren die
+  Überschriften in einer Serifenschrift gesetzt; dein Entwurf verwendet
+  überall dieselbe Schrift.
+- **Verlinkte Begriffe** stehen jetzt in hellem Violett mit einer feinen
+  Unterlinie. Vorher waren sie kaum von normalem Text zu unterscheiden. Beim
+  Überfahren werden sie zusätzlich hinterlegt.
+- **Die Kacheln** sind etwas breiter, leicht durchscheinend und heben sich
+  beim Überfahren einen Tick stärker an.
+- **Die Vorschaufenster** an den Verweisen folgen exakt den Maßen aus dem
+  Entwurf.
+
+### Was gleich geblieben ist
+
+Alle 29 Einträge, sämtliche Texte, die Suche, der Kategoriefilter, die
+Verknüpfungen und die Bedienung. Es wurde keine Funktion geändert und kein
+Inhalt angefasst.
+
+### Lesbarkeit geprüft
+
+Verlinkte Begriffe erreichen einen Kontrast von 11,9 zu 1 im dunklen und
+9,5 zu 1 im hellen Thema. Verlangt werden 4,5 zu 1 — beide Werte liegen also
+weit darüber.
+
+### Keine Schriftart aus dem Netz
+
+Der Entwurf verwendet die Schrift „Inter". Sie wird benutzt, wenn sie auf dem
+Gerät vorhanden ist; sonst nimmt das Wiki die Systemschrift. Nachgeladen wird
+nichts. Das Wiki funktioniert weiterhin vollständig ohne Internet.
+
+---
+
 ## Fassung 1.1.0 – 24. August 2026
 
 **Die Welt heißt jetzt „Age of Beast".** Vorher hieß sie „Sturmwende". Der neue

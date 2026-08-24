@@ -101,6 +101,10 @@ Spezies-Einträge beruhen auf dem Daggerheart-Grundregelwerk beziehungsweise
 der SRD 1.0 sowie den Erweiterungen; die jeweilige Quelle steht auf jeder
 Spezies-Seite unter **Herkunft**.
 
+Die Gestaltung folgt Janniks Design-Entwurf *Aschekodex Wiki*. Es wird keine
+Schriftart aus dem Netz nachgeladen: Ist „Inter“ auf dem Gerät vorhanden, wird
+sie verwendet, sonst die Systemschrift.
+
 Daggerheart ist ein Produkt von Darrington Press. Dieses Wiki ist ein
 privates Hilfsmittel für eine Heimrunde und steht in keiner Verbindung zum
 Verlag.
