@@ -34,11 +34,22 @@ jobs:
       - name: Repository holen
         uses: actions/checkout@v4
 
+      - name: Node bereitstellen
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
       - name: Prüfen, ob die Weltdaten gültig sind
         run: |
           node --check wiki.js
+          cp bearbeiten.js "$RUNNER_TEMP/bearbeiten.mjs"
+          node --check "$RUNNER_TEMP/bearbeiten.mjs"
+          node --check werkzeuge/welt-umwandeln.mjs
+          node --check werkzeuge/welt-aufbereiten.mjs
           node -e "JSON.parse(require('fs').readFileSync('daten/welt.json','utf8'))"
           test -f daten/welt.js
+          # Die Live-Ansicht muss dasselbe erzeugen wie die abgelegte Kopie.
+          node werkzeuge/pruefe-gleichstand.mjs
 
       - name: Pages vorbereiten
         uses: actions/configure-pages@v5
