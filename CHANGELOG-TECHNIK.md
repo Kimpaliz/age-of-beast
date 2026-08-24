@@ -29,7 +29,9 @@ Weltenschmiede-Projekt `project-sturmwende-20260730`.
   `daten/welt.json` wird zusätzlich für Diffs und Fremdnutzung geschrieben.
 - Automatische Verlinkung: eine nach Länge absteigend sortierte Alternation
   über 45 Wörterbucheinträge, angewandt per `TreeWalker` auf Textknoten.
-  Ausgeschlossen sind Nachfahren von `a`, `code` und `h1`.
+  Ausgeschlossen sind Nachfahren von `a`, `code` und `h1`–`h4`; eine
+  unterstrichene Überschrift stört den Lesefluss und verbrauchte zudem den
+  Erstvorkommen-Platz des Begriffs für den Text darunter.
   Wortgrenzen über Unicode-Lookarounds `(?<![\p{L}\p{N}])…(?![\p{L}\p{N}])`.
 - Zwei Heuristiken gegen Übersättigung und Fehltreffer: ein Ziel wird je
   Eintrag nur einmal verlinkt (gemeinsames `Set` über alle Abschnitte), und
@@ -91,6 +93,15 @@ Weltenschmiede-Projekt `project-sturmwende-20260730`.
   wird satzweise gegen den bereits gerenderten Panelinhalt geprüft. Bei unter
   80 % Deckung wird es als eigener Abschnitt mit Flag `ergaenzt` ergänzt.
   Ergebnis: 93 Panel-Abschnitte, 10 ergänzte Texte, 75 als Dublette verworfen.
+- Anschließend werden Abschnitte verworfen, deren Vergleichsform vollständig in
+  der Kurzbeschreibung enthalten ist (betrifft alle 24 Spezies, deren erstes
+  Panel wortgleich der `description` entspricht). Die Prüfung läuft nach der
+  Abdeckungsbilanz, damit ein verworfener Abschnitt nicht anschließend als
+  fehlend gilt und über den Zusatztext-Pfad zurückkehrt. Netto 79 Abschnitte.
+- Der abschließende Absatz `Regelquelle: …` wird aus dem letzten Abschnitt
+  entfernt, sofern `fields.source` gesetzt ist; die Angabe erscheint
+  stattdessen im Steckbrief-Block „Herkunft" (24 Fälle). Bleibt danach kein
+  Text übrig, entfällt der Abschnitt ganz.
 - HTML-Bereinigung auf eine Positivliste
   (`p, br, strong, b, em, i, u, ul, ol, li, h3, h4, blockquote, code`);
   Attribute, `script`, `style` und `javascript:` werden entfernt.

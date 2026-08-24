@@ -169,7 +169,7 @@ for (const [kategorie, gruppe] of Object.entries(rohElemente)) {
   }
 }
 
-const bilanz = { panels: 0, zusatztexte: 0, uebersprungen: 0, attribute: 0, verbindungen: 0 };
+const bilanz = { panels: 0, zusatztexte: 0, uebersprungen: 0, anrissDubletten: 0, quellenzeilen: 0, attribute: 0, verbindungen: 0 };
 const eintraege = [];
 
 for (const kategorieInfo of KATEGORIEN) {
@@ -197,7 +197,9 @@ for (const kategorieInfo of KATEGORIEN) {
       bilanz.panels += 1;
     }
 
-    // Alles, was bereits in den Panels steht
+    // Alles, was bereits in den Panels steht. Diese Bilanz wird VOR dem
+    // Aussortieren gezogen, sonst gälte ein aussortierter Text später
+    // fälschlich als fehlend und käme hinten wieder herein.
     const bestand = vergleichsform(abschnitte.map((a) => a.html).join(' ') + ' ' + (element.description || ''));
 
     // --- Zusatztexte, die in keinem Panel vorkommen ------------------
@@ -211,6 +213,35 @@ for (const kategorieInfo of KATEGORIEN) {
         ergaenzt: true,
       });
       bilanz.zusatztexte += 1;
+    }
+
+    // --- Abschnitte aussortieren, die nur den Anriss wiederholen -----
+    // Bei den Spezies ist die Kurzbeschreibung wortgleich das erste Panel.
+    // Beides untereinander zu drucken sähe nach einem Fehler aus.
+    const anriss = vergleichsform(element.description);
+    if (anriss.length > 40) {
+      for (let i = abschnitte.length - 1; i >= 0; i -= 1) {
+        const text = vergleichsform(abschnitte[i].html);
+        if (text.length > 20 && anriss.includes(text)) {
+          abschnitte.splice(i, 1);
+          bilanz.anrissDubletten += 1;
+        }
+      }
+    }
+
+    // --- Quellenangabe aus dem Fließtext nehmen ---------------------
+    // In der Weltenschmiede endet jede Spezies mit einem Absatz
+    // „Regelquelle: …". Dieselbe Angabe steht im Wiki im Steckbrief unter
+    // „Herkunft"; im Text wäre sie eine sichtbare Dopplung.
+    if (nurText(element.fields?.source)) {
+      for (let i = abschnitte.length - 1; i >= 0; i -= 1) {
+        const vorher = abschnitte[i].html;
+        const nachher = vorher.replace(/<p>(?:<strong>)?\s*Regelquelle:\s*(?:<\/strong>)?[^<]*<\/p>\s*$/i, '');
+        if (nachher === vorher) continue;
+        if (nurText(nachher)) abschnitte[i].html = nachher;
+        else abschnitte.splice(i, 1);
+        bilanz.quellenzeilen += 1;
+      }
     }
 
     // --- Attributtabelle --------------------------------------------
@@ -373,6 +404,8 @@ for (const k of welt.kategorien) {
 console.log(`Abschnitte aus Panels:  ${bilanz.panels}`);
 console.log(`Ergänzte Zusatztexte:   ${bilanz.zusatztexte}   (Texte, die in keinem Panel standen)`);
 console.log(`Als Dublette erkannt:   ${bilanz.uebersprungen}   (bereits in einem Panel enthalten)`);
+console.log(`Anriss-Wiederholungen:  ${bilanz.anrissDubletten}   (Abschnitte, die nur den Anriss wiederholten)`);
+console.log(`Quellenzeilen entfernt: ${bilanz.quellenzeilen}   (stehen stattdessen im Steckbrief)`);
 console.log(`Attributzeilen:         ${bilanz.attribute}`);
 console.log(`Feste Verbindungen:     ${bilanz.verbindungen}`);
 console.log(

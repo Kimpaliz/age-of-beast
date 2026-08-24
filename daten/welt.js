@@ -3,7 +3,7 @@ window.STURMWENDE_WELT = {
   "titel": "Sturmwende",
   "untertitel": "Daggerheart-Welt zwischen Magie, Natur und Maschinen",
   "standDerDaten": "2026-08-22T07:54:45.193Z",
-  "erzeugtAm": "2026-08-24T02:09:13.936Z",
+  "erzeugtAm": "2026-08-24T02:15:17.277Z",
   "kategorien": [
     {
       "schluessel": "wiki",
@@ -262,16 +262,12 @@ window.STURMWENDE_WELT = {
       ],
       "abschnitte": [
         {
-          "titel": "Biologie und Erscheinung",
-          "html": "<p>Aetheris sind geflügelte Humanoide und Nachfahren von Engeln aus den Hallows Above. Ihre heiligen Zeichen verändern sich mit Reife, Offenbarungen und göttlicher Führung; ihre strahlende Aura zeigt sich freiwillig oder bei starken Gefühlen.</p>"
-        },
-        {
           "titel": "Daggerheart-Merkmale",
           "html": "<h3>Geweihte Aura</h3><p>Einmal pro langer Rast kann ein Wurf mit Furcht eines Verbündeten in naher Reichweite in einen Wurf mit Hoffnung verwandelt werden.</p><h3>Himmlische Flügel</h3><p>Aetheris können fliegen. Einmal pro Szene kann während des Fliegens 1 Hoffnung ausgegeben werden, statt einen Rüstungsplatz zu markieren.</p>"
         },
         {
           "titel": "Einordnung in Sturmwende",
-          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p><p><strong>Regelquelle:</strong> Daggerheart: Hope &amp; Fear</p>"
+          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p>"
         }
       ],
       "verbindungen": [],
@@ -305,16 +301,12 @@ window.STURMWENDE_WELT = {
       ],
       "abschnitte": [
         {
-          "titel": "Biologie und Erscheinung",
-          "html": "<p>Clanks sind empfindungsfähige mechanische Wesen. Ihre Körper können aus Metall, Holz, Stein und vielen weiteren Materialien bestehen und sind häufig für einen bestimmten Zweck konstruiert.</p>"
-        },
-        {
           "titel": "Daggerheart-Merkmale",
           "html": "<h3>Gezieltes Design</h3><p>Lege fest, wer den Clank erschaffen hat und zu welchem Zweck. Wähle bei der Charaktererschaffung eine passende Erfahrung; sie erhält dauerhaft +1.</p><h3>Effizient</h3><p>Bei einer kurzen Rast darf der Clank anstelle einer kurzen Rastaktion eine Aktion der langen Rast wählen.</p>"
         },
         {
           "titel": "Einordnung in Sturmwende",
-          "html": "<p>In Sturmwende wurden die Clanks von den Maschinisten erschaffen, damit sie deren Arbeiten erledigen.</p><p>Clanks besitzen <strong>vom ersten Erwachen an ein eigenes Bewusstsein</strong>. Das ist keine Vermutung, kein technischer Fehler und keine offene metaphysische Frage, sondern eine Tatsache dieser Welt. Sie entwickeln Persönlichkeit, Erinnerungen, Wünsche und eigene Entscheidungen.</p><p>Der gesellschaftliche Konflikt entsteht ausschließlich daraus, wie andere sie behandeln: Manche betrachten sie weiterhin als Maschinen, Werkzeuge oder Eigentum ihrer Schöpfer, andere erkennen sie als eigenständige Lebewesen mit Würde, Rechten und Selbstbestimmung an.</p><p><strong>Regelquelle:</strong> Daggerheart-Grundregelwerk / SRD 1.0</p>"
+          "html": "<p>In Sturmwende wurden die Clanks von den Maschinisten erschaffen, damit sie deren Arbeiten erledigen.</p><p>Clanks besitzen <strong>vom ersten Erwachen an ein eigenes Bewusstsein</strong>. Das ist keine Vermutung, kein technischer Fehler und keine offene metaphysische Frage, sondern eine Tatsache dieser Welt. Sie entwickeln Persönlichkeit, Erinnerungen, Wünsche und eigene Entscheidungen.</p><p>Der gesellschaftliche Konflikt entsteht ausschließlich daraus, wie andere sie behandeln: Manche betrachten sie weiterhin als Maschinen, Werkzeuge oder Eigentum ihrer Schöpfer, andere erkennen sie als eigenständige Lebewesen mit Würde, Rechten und Selbstbestimmung an.</p>"
         }
       ],
       "verbindungen": [],
@@ -348,16 +340,12 @@ window.STURMWENDE_WELT = {
       ],
       "abschnitte": [
         {
-          "titel": "Biologie und Erscheinung",
-          "html": "<p>Drakona sind große, drachenartige Humanoide ohne natürliche Flügel. Sie besitzen kräftige Schuppen und einen elementaren Atem, dessen Ausprägung meist innerhalb einer Familie weitergegeben wird.</p>"
-        },
-        {
           "titel": "Daggerheart-Merkmale",
           "html": "<h3>Schuppen</h3><p>Wenn schwerer Schaden erlitten würde, kann 1 Stress markiert werden, um 1 Trefferpunkt weniger zu markieren.</p><h3>Elementarer Atem</h3><p>Wähle ein Element. Der Atem gilt als Instinkt-Waffe in sehr naher Reichweite und verursacht mit Kompetenz W8 magischen Schaden.</p>"
         },
         {
           "titel": "Einordnung in Sturmwende",
-          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p><p><strong>Regelquelle:</strong> Daggerheart-Grundregelwerk / SRD 1.0</p>"
+          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p>"
         }
       ],
       "verbindungen": [],
@@ -394,16 +382,12 @@ window.STURMWENDE_WELT = {
       ],
       "abschnitte": [
         {
-          "titel": "Biologie und Erscheinung",
-          "html": "<p>Earthkin stammen von Erdelementaren ab. Ihre Körper verbinden Fleisch mit Stein, Kristall, Lehm, Erde oder Sand und kehren nach dem Tod vollständig zu ihrem Element zurück.</p>"
-        },
-        {
           "titel": "Daggerheart-Merkmale",
           "html": "<h3>Steinhaut</h3><p>Bei der Charaktererschaffung erhält die Figur dauerhaft +1 auf Rüstungswert und Schadensschwellen.</p><h3>Unbeweglich</h3><p>Solange die Figur den Boden berührt, kann sie nicht gegen ihren Willen angehoben oder bewegt werden.</p>"
         },
         {
           "titel": "Einordnung in Sturmwende",
-          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p><p><strong>Regelquelle:</strong> Daggerheart: Hope &amp; Fear</p>"
+          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p>"
         }
       ],
       "verbindungen": [],
@@ -437,16 +421,12 @@ window.STURMWENDE_WELT = {
       ],
       "abschnitte": [
         {
-          "titel": "Biologie und Erscheinung",
-          "html": "<p>Elfen sind meist große Humanoide mit spitzen Ohren und ausgeprägten Sinnen. Statt gewöhnlich zu schlafen, können sie in eine himmlische Trance fallen.</p>"
-        },
-        {
           "titel": "Daggerheart-Merkmale",
           "html": "<h3>Schnelle Reaktionen</h3><p>Markiere 1 Stress, um bei einem Reaktionswurf Vorteil zu erhalten.</p><h3>Himmlische Trance</h3><p>Während einer Rast kann durch Trance eine zusätzliche Rastaktion gewählt werden.</p>"
         },
         {
           "titel": "Einordnung in Sturmwende",
-          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p><p><strong>Regelquelle:</strong> Daggerheart-Grundregelwerk / SRD 1.0</p>"
+          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p>"
         }
       ],
       "verbindungen": [],
@@ -483,16 +463,12 @@ window.STURMWENDE_WELT = {
       ],
       "abschnitte": [
         {
-          "titel": "Biologie und Erscheinung",
-          "html": "<p>Emberkin stammen von Feuerelementaren ab. Flammendes Haar, glühende Augen, rauchende Haut oder Licht unter der Oberfläche spiegeln ihre Gefühle wider; nach dem Tod verbrennen sie zu Asche.</p>"
-        },
-        {
           "titel": "Daggerheart-Merkmale",
           "html": "<h3>Feuerfest</h3><p>Die Figur ist gegen Schaden durch magische und gewöhnliche Flammen immun.</p><h3>Entzündung</h3><p>Markiere 1 Stress, um die Primärwaffe bis zum Ende der Szene in Flammen zu hüllen. Sie spendet helles Licht und verursacht zusätzlich W6 Schaden.</p>"
         },
         {
           "titel": "Einordnung in Sturmwende",
-          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p><p><strong>Regelquelle:</strong> Daggerheart: Hope &amp; Fear</p>"
+          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p>"
         }
       ],
       "verbindungen": [],
@@ -526,16 +502,12 @@ window.STURMWENDE_WELT = {
       ],
       "abschnitte": [
         {
-          "titel": "Biologie und Erscheinung",
-          "html": "<p>Faune verbinden humanoide und ziegenartige Merkmale. Typisch sind gebogene Hörner, gespaltene Hufe, quadratische Pupillen und ein kräftiger, sprungfähiger Körper.</p>"
-        },
-        {
           "titel": "Daggerheart-Merkmale",
           "html": "<h3>Bocksprung</h3><p>Die Figur kann innerhalb naher Reichweite springen, als würde sie sich normal bewegen, und dabei Hindernisse, Lücken und Höhenunterschiede überwinden.</p><h3>Tritt</h3><p>Nach einem erfolgreichen Angriff in Nahkampfreichweite kann 1 Stress markiert werden, um zusätzlich 2W6 Schaden zu verursachen und entweder die eigene Figur oder das Ziel in sehr nahe Reichweite zurückzustoßen.</p>"
         },
         {
           "titel": "Einordnung in Sturmwende",
-          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p><p><strong>Regelquelle:</strong> Daggerheart-Grundregelwerk / SRD 1.0</p>"
+          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p>"
         }
       ],
       "verbindungen": [],
@@ -571,16 +543,12 @@ window.STURMWENDE_WELT = {
       ],
       "abschnitte": [
         {
-          "titel": "Biologie und Erscheinung",
-          "html": "<p>Feen sind geflügelte Humanoide mit insektenartigen Merkmalen. Flügel, Fühler, Chitin und andere körperliche Ausprägungen können sehr unterschiedlich aussehen.</p>"
-        },
-        {
           "titel": "Daggerheart-Merkmale",
           "html": "<h3>Glücksbeuger</h3><p>Einmal pro Sitzung können nach einem Aktionswurf der eigenen Figur oder eines willigen Verbündeten in naher Reichweite 3 Hoffnung ausgegeben werden, um beide Dualitätswürfel neu zu würfeln.</p><h3>Flügel</h3><p>Feen können fliegen. Nach einem Angriff gegen die fliegende Figur kann 1 Stress markiert werden, um gegen diesen Angriff +2 Ausweichen zu erhalten.</p>"
         },
         {
           "titel": "Einordnung in Sturmwende",
-          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p><p><strong>Regelquelle:</strong> Daggerheart-Grundregelwerk / SRD 1.0</p>"
+          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p>"
         }
       ],
       "verbindungen": [],
@@ -614,16 +582,12 @@ window.STURMWENDE_WELT = {
       ],
       "abschnitte": [
         {
-          "titel": "Biologie und Erscheinung",
-          "html": "<p>Firbolgs sind rinderartige Humanoide mit breiten Nasen, langen Ohren, Hörnern und großer körperlicher Standfestigkeit.</p>"
-        },
-        {
           "titel": "Daggerheart-Merkmale",
           "html": "<h3>Ansturm</h3><p>Nach einem erfolgreichen Beweglichkeitswurf, der aus weiter oder sehr weiter Entfernung in Nahkampfreichweite zu einem oder mehreren Zielen führt, kann 1 Stress markiert werden, um allen Zielen in Nahkampfreichweite W12 körperlichen Schaden zuzufügen.</p><h3>Unerschütterlich</h3><p>Wenn Stress markiert werden müsste, würfle einen W6. Bei einer 6 wird der Stress nicht markiert.</p>"
         },
         {
           "titel": "Einordnung in Sturmwende",
-          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p><p><strong>Regelquelle:</strong> Daggerheart-Grundregelwerk / SRD 1.0</p>"
+          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p>"
         }
       ],
       "verbindungen": [],
@@ -657,16 +621,12 @@ window.STURMWENDE_WELT = {
       ],
       "abschnitte": [
         {
-          "titel": "Biologie und Erscheinung",
-          "html": "<p>Fungril sind pilzartige Humanoide mit äußerst vielfältigen Formen, Farben und Größen. Über ein weitreichendes Myzelnetz können sie Informationen mit anderen Fungril austauschen.</p>"
-        },
-        {
           "titel": "Daggerheart-Merkmale",
           "html": "<h3>Fungril-Netzwerk</h3><p>Ein Instinktwurf gegen 12 ermöglicht die Verbindung mit dem Myzelnetz. Bei Erfolg kann über jede Entfernung mit anderen Fungril kommuniziert werden.</p><h3>Totenverbindung</h3><p>Durch Berührung eines kürzlich verstorbenen Körpers kann 1 Stress markiert werden, um eine Erinnerung zu gewinnen, die mit einer gewählten Emotion oder Sinneswahrnehmung verbunden ist.</p>"
         },
         {
           "titel": "Einordnung in Sturmwende",
-          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p><p><strong>Regelquelle:</strong> Daggerheart-Grundregelwerk / SRD 1.0</p>"
+          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p>"
         }
       ],
       "verbindungen": [],
@@ -700,16 +660,12 @@ window.STURMWENDE_WELT = {
       ],
       "abschnitte": [
         {
-          "titel": "Biologie und Erscheinung",
-          "html": "<p>Galapas sind schildkrötenartige Humanoide mit großen, gewölbten Panzern. Sie können sich vollständig in ihren Panzer zurückziehen.</p>"
-        },
-        {
           "titel": "Daggerheart-Merkmale",
           "html": "<h3>Panzer</h3><p>Die Schadensschwellen erhalten einen Bonus in Höhe der Kompetenz.</p><h3>Rückzug</h3><p>Markiere 1 Stress, um dich in den Panzer zurückzuziehen. Währenddessen besteht Widerstand gegen körperlichen Schaden, Nachteil bei Aktionswürfen und die Figur kann sich nicht bewegen.</p>"
         },
         {
           "titel": "Einordnung in Sturmwende",
-          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p><p><strong>Regelquelle:</strong> Daggerheart-Grundregelwerk / SRD 1.0</p>"
+          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p>"
         }
       ],
       "verbindungen": [],
@@ -745,16 +701,12 @@ window.STURMWENDE_WELT = {
       ],
       "abschnitte": [
         {
-          "titel": "Biologie und Erscheinung",
-          "html": "<p>Gnomes sind kleine Humanoide mit kegelförmigen Köpfen, langen Armen und großen, geschickten Händen. Ihre angeborene Teleportation zeigt sich in jeder Familie auf eigene Weise.</p>"
-        },
-        {
           "titel": "Daggerheart-Merkmale",
           "html": "<h3>Flinke Finger</h3><p>Bei einem Finessewurf können 2 Hoffnung ausgegeben werden, um den Hope-Würfel neu zu würfeln.</p><h3>Flimmerschritt</h3><p>Einmal pro Szene kann sich die Figur zu einem sichtbaren Punkt in weiter Reichweite teleportieren.</p>"
         },
         {
           "titel": "Einordnung in Sturmwende",
-          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p><p><strong>Regelquelle:</strong> Daggerheart: Hope &amp; Fear</p>"
+          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p>"
         }
       ],
       "verbindungen": [],
@@ -788,16 +740,12 @@ window.STURMWENDE_WELT = {
       ],
       "abschnitte": [
         {
-          "titel": "Biologie und Erscheinung",
-          "html": "<p>Goblins sind kleine Humanoide mit großen Augen und auffälligen, häutigen Ohren. Ihre scharfen Sinne und sichere Bewegung helfen ihnen in schwierigem Gelände.</p>"
-        },
-        {
           "titel": "Daggerheart-Merkmale",
           "html": "<h3>Trittsicher</h3><p>Nachteile bei Beweglichkeitswürfen werden ignoriert.</p><h3>Gefahrensinn</h3><p>Einmal pro Rast kann 1 Stress markiert werden, um einen Gegner zu zwingen, einen Angriff gegen die Figur oder einen Verbündeten in sehr naher Reichweite neu zu würfeln.</p>"
         },
         {
           "titel": "Einordnung in Sturmwende",
-          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p><p><strong>Regelquelle:</strong> Daggerheart-Grundregelwerk / SRD 1.0</p>"
+          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p>"
         }
       ],
       "verbindungen": [],
@@ -833,16 +781,12 @@ window.STURMWENDE_WELT = {
       ],
       "abschnitte": [
         {
-          "titel": "Biologie und Erscheinung",
-          "html": "<p>Halblinge sind kleine Humanoide mit großen, behaarten Füßen und markanten, abgerundeten Ohren. Ihr sprichwörtliches Glück wirkt häufig auf die gesamte Gruppe.</p>"
-        },
-        {
           "titel": "Daggerheart-Merkmale",
           "html": "<h3>Glücksbringer</h3><p>Zu Beginn jeder Sitzung erhält jede Figur der Gruppe 1 Hoffnung.</p><h3>Innerer Kompass</h3><p>Zeigt der Hope-Würfel eine 1, darf er neu gewürfelt werden.</p>"
         },
         {
           "titel": "Einordnung in Sturmwende",
-          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p><p><strong>Regelquelle:</strong> Daggerheart-Grundregelwerk / SRD 1.0</p>"
+          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p>"
         }
       ],
       "verbindungen": [],
@@ -876,16 +820,12 @@ window.STURMWENDE_WELT = {
       ],
       "abschnitte": [
         {
-          "titel": "Biologie und Erscheinung",
-          "html": "<p>Infernis sind Nachfahren von Dämonen aus den Kreisen unterhalb der sterblichen Welt. Typisch sind spitze Zähne und Ohren, Hörner sowie ungewöhnliche Haut- und Haarfarben.</p>"
-        },
-        {
           "titel": "Daggerheart-Merkmale",
           "html": "<h3>Furchtlos</h3><p>Bei einem Wurf mit Furcht können 2 Stress markiert werden, um ihn stattdessen in einen Wurf mit Hoffnung umzuwandeln.</p><h3>Schreckensgestalt</h3><p>Die Figur hat Vorteil bei Würfen, mit denen feindliche Kreaturen eingeschüchtert werden.</p>"
         },
         {
           "titel": "Einordnung in Sturmwende",
-          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p><p><strong>Regelquelle:</strong> Daggerheart-Grundregelwerk / SRD 1.0</p>"
+          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p>"
         }
       ],
       "verbindungen": [],
@@ -919,16 +859,12 @@ window.STURMWENDE_WELT = {
       ],
       "abschnitte": [
         {
-          "titel": "Biologie und Erscheinung",
-          "html": "<p>Katari sind katzenartige Humanoide mit einziehbaren Krallen, senkrechten Pupillen, beweglichen Ohren und ausgeprägten Sinnen.</p>"
-        },
-        {
           "titel": "Daggerheart-Merkmale",
           "html": "<h3>Katzeninstinkte</h3><p>Bei einem Beweglichkeitswurf können 2 Hoffnung ausgegeben werden, um den Hope-Würfel neu zu würfeln.</p><h3>Einziehbare Krallen</h3><p>Mit einem Beweglichkeitswurf kann ein Ziel in Nahkampfreichweite gekratzt werden. Bei Erfolg wird es vorübergehend verwundbar.</p>"
         },
         {
           "titel": "Einordnung in Sturmwende",
-          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p><p><strong>Regelquelle:</strong> Daggerheart-Grundregelwerk / SRD 1.0</p>"
+          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p>"
         }
       ],
       "verbindungen": [],
@@ -964,16 +900,12 @@ window.STURMWENDE_WELT = {
       ],
       "abschnitte": [
         {
-          "titel": "Biologie und Erscheinung",
-          "html": "<p>Menschen sind anpassungsfähige Humanoide mit geschickten Händen, abgerundeten Ohren und einer auf Ausdauer ausgelegten Körperlichkeit.</p>"
-        },
-        {
           "titel": "Daggerheart-Merkmale",
           "html": "<h3>Hohe Ausdauer</h3><p>Bei der Charaktererschaffung erhält die Figur einen zusätzlichen Stressplatz.</p><h3>Anpassungsfähigkeit</h3><p>Nach einem misslungenen Wurf, bei dem eine Erfahrung eingesetzt wurde, kann 1 Stress markiert werden, um den Wurf zu wiederholen.</p>"
         },
         {
           "titel": "Einordnung in Sturmwende",
-          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p><p>Die <strong>Goldene Garde</strong> und die Führungsebene der Maschinisten bestehen jeweils zu <strong>95 Prozent aus Menschen</strong>.</p><p><strong>Regelquelle:</strong> Daggerheart-Grundregelwerk / SRD 1.0</p>"
+          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p><p>Die <strong>Goldene Garde</strong> und die Führungsebene der Maschinisten bestehen jeweils zu <strong>95 Prozent aus Menschen</strong>.</p>"
         }
       ],
       "verbindungen": [],
@@ -1009,16 +941,12 @@ window.STURMWENDE_WELT = {
       ],
       "abschnitte": [
         {
-          "titel": "Biologie und Erscheinung",
-          "html": "<p>Orks sind kräftige Humanoide mit kantigen Gesichtszügen, spitzen Ohren und hauerartigen Stoßzähnen, die häufig kunstvoll geschmückt werden.</p>"
-        },
-        {
           "titel": "Daggerheart-Merkmale",
           "html": "<h3>Robust</h3><p>Solange nur noch 1 Trefferpunkt verbleibt, haben Angriffe gegen die Figur Nachteil.</p><h3>Stoßzähne</h3><p>Nach einem erfolgreichen Angriff gegen ein Ziel in Nahkampfreichweite kann 1 Hoffnung ausgegeben werden, um zusätzlich W6 Schaden zu verursachen.</p>"
         },
         {
           "titel": "Einordnung in Sturmwende",
-          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p><p><strong>Regelquelle:</strong> Daggerheart-Grundregelwerk / SRD 1.0</p>"
+          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p>"
         }
       ],
       "verbindungen": [],
@@ -1052,16 +980,12 @@ window.STURMWENDE_WELT = {
       ],
       "abschnitte": [
         {
-          "titel": "Biologie und Erscheinung",
-          "html": "<p>Ribbets sind froschartige Humanoide mit hervorstehenden Augen, feuchter Haut und Schwimmhäuten. Sie bewegen sich an Land meist hüpfend und sind im Wasser vollständig zu Hause.</p>"
-        },
-        {
           "titel": "Daggerheart-Merkmale",
           "html": "<h3>Amphibisch</h3><p>Die Figur kann unter Wasser natürlich atmen und sich dort ohne Einschränkung bewegen.</p><h3>Lange Zunge</h3><p>Die Zunge kann Dinge in naher Reichweite greifen. Durch Markieren von 1 Stress kann sie als Finesse-Waffe in naher Reichweite eingesetzt werden, die mit Kompetenz W12 körperlichen Schaden verursacht.</p>"
         },
         {
           "titel": "Einordnung in Sturmwende",
-          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p><p><strong>Regelquelle:</strong> Daggerheart-Grundregelwerk / SRD 1.0</p>"
+          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p>"
         }
       ],
       "verbindungen": [],
@@ -1097,16 +1021,12 @@ window.STURMWENDE_WELT = {
       ],
       "abschnitte": [
         {
-          "titel": "Biologie und Erscheinung",
-          "html": "<p>Riesen sind hochgewachsene Humanoide mit breiten Schultern, langen Armen und ein bis drei Augen. Ihre Körpergröße verleiht ihnen außergewöhnliche Reichweite.</p>"
-        },
-        {
           "titel": "Daggerheart-Merkmale",
           "html": "<h3>Ausdauer</h3><p>Bei der Charaktererschaffung erhält die Figur einen zusätzlichen Trefferpunktplatz.</p><h3>Reichweite</h3><p>Waffen, Fähigkeiten, Zauber und andere Merkmale mit Nahkampfreichweite werden behandelt, als hätten sie sehr nahe Reichweite.</p>"
         },
         {
           "titel": "Einordnung in Sturmwende",
-          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p><p><strong>Regelquelle:</strong> Daggerheart-Grundregelwerk / SRD 1.0</p>"
+          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p>"
         }
       ],
       "verbindungen": [],
@@ -1140,16 +1060,12 @@ window.STURMWENDE_WELT = {
       ],
       "abschnitte": [
         {
-          "titel": "Biologie und Erscheinung",
-          "html": "<p>Simiah sind affenartige Humanoide mit langen Gliedmaßen und Greiffüßen. Manche besitzen zusätzlich einen Greifschwanz.</p>"
-        },
-        {
           "titel": "Daggerheart-Merkmale",
           "html": "<h3>Natürlicher Kletterer</h3><p>Die Figur hat Vorteil bei Beweglichkeitswürfen zum Balancieren und Klettern.</p><h3>Flink</h3><p>Bei der Charaktererschaffung erhält die Figur dauerhaft +1 Ausweichen.</p>"
         },
         {
           "titel": "Einordnung in Sturmwende",
-          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p><p><strong>Regelquelle:</strong> Daggerheart-Grundregelwerk / SRD 1.0</p>"
+          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p>"
         }
       ],
       "verbindungen": [],
@@ -1186,16 +1102,12 @@ window.STURMWENDE_WELT = {
       ],
       "abschnitte": [
         {
-          "titel": "Biologie und Erscheinung",
-          "html": "<p>Skykin stammen von Luftelementaren ab. Durchscheinende Haut, wolkenartiges Haar und eine ständige Brise verraten ihre Herkunft; nach ihrem letzten Atemzug lösen sie sich in der Luft auf.</p>"
-        },
-        {
           "titel": "Daggerheart-Merkmale",
           "html": "<h3>Sturmkraft</h3><p>Markiere 1 Stress, um dich oder einen Verbündeten in sehr naher Reichweite durch eine Windböe bis in sehr weite Reichweite zu tragen. Die eigene Fallgeschwindigkeit kann jederzeit kontrolliert werden.</p><h3>Auge des Sturms</h3><p>Gib 2 Hoffnung aus, damit du oder ein Verbündeter in Nahkampfreichweite +1 Ausweichen erhält. Der Bonus endet nach schwerem Schaden oder bei erneuter Verwendung.</p>"
         },
         {
           "titel": "Einordnung in Sturmwende",
-          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p><p><strong>Regelquelle:</strong> Daggerheart: Hope &amp; Fear</p>"
+          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p>"
         }
       ],
       "verbindungen": [],
@@ -1232,16 +1144,12 @@ window.STURMWENDE_WELT = {
       ],
       "abschnitte": [
         {
-          "titel": "Biologie und Erscheinung",
-          "html": "<p>Tidekin stammen von Wasserelementaren ab. Flossenartige Ohren, Schwimmhäute und wasserähnliche Farben oder Strömungen verändern sich mit ihren Gefühlen; nach dem Tod lösen sie sich in Wasser auf.</p>"
-        },
-        {
           "titel": "Daggerheart-Merkmale",
           "html": "<h3>Amphibisch</h3><p>Die Figur kann unter Wasser natürlich atmen und sich dort ohne Einschränkung bewegen.</p><h3>Lebensquelle</h3><p>Einmal pro Rast kann mit einer kleinen Menge Wasser 1 Stress markiert werden, um bei sich selbst oder einem Verbündeten in sehr naher Reichweite 1 Trefferpunkt zu entfernen.</p>"
         },
         {
           "titel": "Einordnung in Sturmwende",
-          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p><p><strong>Regelquelle:</strong> Daggerheart: Hope &amp; Fear</p>"
+          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p>"
         }
       ],
       "verbindungen": [],
@@ -1277,16 +1185,12 @@ window.STURMWENDE_WELT = {
       ],
       "abschnitte": [
         {
-          "titel": "Biologie und Erscheinung",
-          "html": "<p>Zwerge sind kompakte Humanoide mit dichtem Körperbau, kräftiger Muskulatur und besonders widerstandsfähiger Haut. Körperhaar und kunstvoll gestaltete Bärte sind bei allen Geschlechtern verbreitet.</p>"
-        },
-        {
           "titel": "Daggerheart-Merkmale",
           "html": "<h3>Dicke Haut</h3><p>Bei leichtem Schaden können 2 Stress statt 1 Trefferpunkt markiert werden.</p><h3>Erhöhte Widerstandskraft</h3><p>Gib 3 Hoffnung aus, um eingehenden körperlichen Schaden zu halbieren.</p>"
         },
         {
           "titel": "Einordnung in Sturmwende",
-          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p><p><strong>Regelquelle:</strong> Daggerheart-Grundregelwerk / SRD 1.0</p>"
+          "html": "<p>Diese Abstammung ist in Sturmwende spielbar. Abstammung und Kultur sind getrennt: Herkunft, Gemeinschaft, politische Haltung und Verhältnis zum Konflikt zwischen Magie, Natur und Technologie werden für jede Figur individuell festgelegt.</p>"
         }
       ],
       "verbindungen": [],

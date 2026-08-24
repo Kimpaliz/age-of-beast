@@ -24,7 +24,7 @@ Alle **29 Einträge** aus dem Sturmwende-Projekt:
 - **Lukas' Spielfigur**,
 - die **Uniform der Goldenen Garde**.
 
-Dazu 103 Textabschnitte, 106 Angaben in den Steckbriefen und 9 feste
+Dazu 79 Textabschnitte, 106 Angaben in den Steckbriefen und 9 feste
 Verbindungen zwischen Einträgen.
 
 ### Die wichtigste Neuerung: Verweise mit Vorschau
@@ -80,6 +80,14 @@ Ergebnis: **10 Texte** standen nur in den Hintergrundfeldern. Sie wurden als
 eigene Abschnitte ergänzt und sind mit dem Vermerk *aus der Weltenschmiede*
 gekennzeichnet. Weitere **75 Texte** waren doppelt vorhanden und wurden nur
 einmal übernommen.
+
+Zusätzlich fielen **24 Abschnitte** weg, die wortgleich den Einleitungssatz
+darüber wiederholten — das betraf jede Spezies. Der Text ist nicht verloren, er
+steht weiterhin als Einleitung ganz oben. Übrig bleiben 79 Abschnitte.
+
+Ebenso wurde bei allen 24 Spezies die Schlusszeile „Regelquelle: …" aus dem
+Fließtext genommen. Sie steht jetzt rechts im Steckbrief unter **Herkunft** —
+einmal statt zweimal.
 
 ### Ein Hinweis auf den Reifegrad
 

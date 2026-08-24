@@ -157,7 +157,10 @@
     const laeufer = document.createTreeWalker(bereich, NodeFilter.SHOW_TEXT, {
       acceptNode(knoten) {
         if (!knoten.nodeValue || !knoten.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-        if (knoten.parentElement.closest('a, code, h1')) return NodeFilter.FILTER_REJECT;
+        // In Überschriften, Verweisen und Code wird nicht verlinkt:
+        // Eine unterstrichene Überschrift stört den Lesefluss und würde
+        // den Begriff für den Fließtext darunter verbrauchen.
+        if (knoten.parentElement.closest('a, code, h1, h2, h3, h4')) return NodeFilter.FILTER_REJECT;
         return NodeFilter.FILTER_ACCEPT;
       },
     });

@@ -4,7 +4,7 @@ Ein Nachschlagewerk zur Daggerheart-Welt **Sturmwende**: Kampagnenübersicht,
 Fraktionen, Spezies, Figuren und Gegenstände. Verlinkte Begriffe zeigen beim
 Überfahren mit der Maus eine Kurzfassung, ohne dass man die Seite wechseln muss.
 
-**Stand der Weltdaten:** 22. August 2026 · **29 Einträge** · 103 Abschnitte
+**Stand der Weltdaten:** 22. August 2026 · **29 Einträge** · 79 Abschnitte
 
 ---
 
