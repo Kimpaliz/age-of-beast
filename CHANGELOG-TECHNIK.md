@@ -12,6 +12,54 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 —
 
+## [1.1.0] – 2026-08-24
+
+Umbenennung der Welt von *Sturmwende* zu **Age of Beast**. Reine Namens- und
+Bezeichnerpflege: Datenmodell, Rendering, Routing und Inhalte sind unverändert.
+
+### Geändert
+
+- `werkzeuge/welt-aufbereiten.mjs`: Der Weltname stammt nicht länger aus
+  `roh.project?.title`, sondern aus der neuen Konstante `WELT_TITEL`.
+  Begründung: Das Projekt wird in der Realtime Database unverändert unter
+  `project-sturmwende-20260730` mit dem Titel „Sturmwende" geführt. Der
+  bisherige Fallthrough hätte den Anzeigenamen bei jedem
+  `welt-holen` → `welt-aufbereiten`-Zyklus stillschweigend zurückgesetzt.
+- Globales Datenobjekt `window.STURMWENDE_WELT` → `window.AGE_OF_BEAST_WELT`.
+  Erzeuger (`welt-aufbereiten.mjs`) und Verbraucher (`wiki.js`) wurden
+  gemeinsam umgestellt. Ein Alias auf den alten Bezeichner wurde bewusst nicht
+  angelegt: `daten/welt.js` ist generiert, und es existiert kein externer
+  Konsument.
+- `localStorage`-Schlüssel `sturmwende-leiste` → `age-of-beast-leiste`,
+  `sturmwende-thema` → `age-of-beast-thema`. Ohne Migrationspfad, da sich der
+  Verlust auf zwei UI-Präferenzen beschränkt, die beim nächsten Umschalten
+  ohnehin neu geschrieben werden.
+- `index.html`: `<title>`, `meta[name="description"]`, `#welt-titel`.
+- Titel- und Kopfkommentare in `README.md`, `stil.css`, `wiki.js`,
+  `werkzeuge/vorschau-server.mjs`, `werkzeuge/welt-holen.mjs`.
+- Repository-Verweise am Dateiende auf `Kimpaliz/age-of-beast` gesetzt.
+
+### Bewusst unverändert
+
+- `PROJEKT_PFAD = 'rooms/project-sturmwende-20260730/project'` in
+  `werkzeuge/welt-holen.mjs`. Das ist der Primärschlüssel des Projekts in der
+  Realtime Database, kein Anzeigename; eine Änderung würde den Abruf brechen.
+- Die Weltenschmiede selbst. Der Zugriff erfolgte ausschließlich lesend.
+
+### Verifiziert
+
+- `node --check` auf `wiki.js`, `werkzeuge/welt-aufbereiten.mjs`,
+  `werkzeuge/welt-holen.mjs`, `werkzeuge/vorschau-server.mjs`: fehlerfrei.
+- `node werkzeuge/welt-holen.mjs`: 29 Einträge, Stand
+  `2026-08-22T07:54:45.193Z`. `werkzeuge/rohdaten-weltenschmiede.json` ist
+  gegenüber 1.0.0 bytegleich — der Abzug bestätigt, dass sich inhaltlich
+  nichts geändert hat.
+- `node werkzeuge/welt-aufbereiten.mjs`: 29 Einträge, 93 Panel-Abschnitte,
+  10 ergänzte Zusatztexte, 106 Attributzeilen, 9 feste Verbindungen,
+  45 Wörterbucheinträge. Bilanz identisch zu 1.0.0.
+- `git diff daten/welt.json` weist genau zwei geänderte Zeilen aus: `titel`
+  und der Zeitstempel `erzeugtAm`.
+
 ## [1.0.0] – 2026-08-24
 
 Erstveröffentlichung. Statischer Wiki-Client für das
@@ -146,5 +194,6 @@ Weltenschmiede-Projekt `project-sturmwende-20260730`.
 - Die Datendateien wurden vor dem Commit auf Zugangsdaten, Schlüssel und
   E-Mail-Adressen geprüft; Treffer: keine.
 
-[Unveröffentlicht]: https://github.com/Kimpaliz/iron-and-bone/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/Kimpaliz/iron-and-bone/releases/tag/v1.0.0
+[Unveröffentlicht]: https://github.com/Kimpaliz/age-of-beast/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/Kimpaliz/age-of-beast/compare/v1.0.0...v1.1.0
+[1.0.0]: https://github.com/Kimpaliz/age-of-beast/releases/tag/v1.0.0

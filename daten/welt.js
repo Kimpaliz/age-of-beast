@@ -1,9 +1,9 @@
 /* Automatisch erzeugt von werkzeuge/welt-aufbereiten.mjs. Nicht von Hand ändern. */
-window.STURMWENDE_WELT = {
-  "titel": "Sturmwende",
+window.AGE_OF_BEAST_WELT = {
+  "titel": "Age of Beast",
   "untertitel": "Daggerheart-Welt zwischen Magie, Natur und Maschinen",
   "standDerDaten": "2026-08-22T07:54:45.193Z",
-  "erzeugtAm": "2026-08-24T02:15:17.277Z",
+  "erzeugtAm": "2026-08-24T11:12:24.833Z",
   "kategorien": [
     {
       "schluessel": "wiki",

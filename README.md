@@ -1,6 +1,6 @@
-# Sturmwende – Weltwiki
+# Age of Beast – Weltwiki
 
-Ein Nachschlagewerk zur Daggerheart-Welt **Sturmwende**: Kampagnenübersicht,
+Ein Nachschlagewerk zur Daggerheart-Welt **Age of Beast**: Kampagnenübersicht,
 Fraktionen, Spezies, Figuren und Gegenstände. Verlinkte Begriffe zeigen beim
 Überfahren mit der Maus eine Kurzfassung, ohne dass man die Seite wechseln muss.
 
@@ -94,7 +94,9 @@ Sprache:
 
 ## Herkunft der Inhalte
 
-Die Weltdaten stammen aus dem Weltenschmiede-Projekt *Sturmwende*. Die
+Die Weltdaten stammen aus der **Weltenschmiede**. Dort läuft das Projekt aus
+historischen Gründen weiterhin unter seinem früheren Namen *Sturmwende*; der
+Weltname **Age of Beast** wird in diesem Wiki gesetzt. Die
 Spezies-Einträge beruhen auf dem Daggerheart-Grundregelwerk beziehungsweise
 der SRD 1.0 sowie den Erweiterungen; die jeweilige Quelle steht auf jeder
 Spezies-Seite unter **Herkunft**.

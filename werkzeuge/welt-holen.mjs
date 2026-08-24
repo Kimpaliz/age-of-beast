@@ -1,5 +1,5 @@
 /**
- * Holt den aktuellen Sturmwende-Stand aus der Weltenschmiede
+ * Holt den aktuellen Age-of-Beast-Stand aus der Weltenschmiede
  * (Firebase Realtime Database) und legt ihn als Rohdatei unter
  * `werkzeuge/rohdaten-weltenschmiede.json` ab.
  *

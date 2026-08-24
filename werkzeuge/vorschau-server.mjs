@@ -57,6 +57,6 @@ const server = createServer(async (anfrage, antwort) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`Sturmwende-Wiki läuft auf http://localhost:${PORT}`);
+  console.log(`Age-of-Beast-Wiki läuft auf http://localhost:${PORT}`);
   console.log('Beenden mit Strg + C.');
 });

@@ -1,5 +1,5 @@
 /* ===================================================================
-   Sturmwende-Wiki
+   Age-of-Beast-Wiki
    -------------------------------------------------------------------
    Diese Datei baut die gesamte Oberfläche auf. Sie braucht keinen
    Server und keine Bibliothek: Die Weltdaten liegen in daten/welt.js
@@ -22,7 +22,7 @@
      1. Daten einlesen und Nachschlagewerke aufbauen
      ================================================================ */
 
-  const WELT = window.STURMWENDE_WELT;
+  const WELT = window.AGE_OF_BEAST_WELT;
 
   if (!WELT || !Array.isArray(WELT.eintraege)) {
     document.getElementById('inhalt').innerHTML =
@@ -820,7 +820,7 @@
   /* --------------------- Seitenleiste ein und aus ----------------- */
 
   const leisteSchalter = document.getElementById('leiste-schalter');
-  const LEISTE_GESPEICHERT = 'sturmwende-leiste';
+  const LEISTE_GESPEICHERT = 'age-of-beast-leiste';
 
   function leisteSetzen(offen) {
     rahmen.classList.toggle('leiste-zu', !offen);
@@ -846,7 +846,7 @@
   /* --------------------------- Hell und dunkel -------------------- */
 
   const themaKnopf = document.getElementById('thema-knopf');
-  const THEMA_GESPEICHERT = 'sturmwende-thema';
+  const THEMA_GESPEICHERT = 'age-of-beast-thema';
 
   function themaSetzen(thema) {
     document.documentElement.dataset.thema = thema;

@@ -7,6 +7,40 @@ Das Neueste steht immer oben.
 
 ---
 
+## Fassung 1.1.0 – 24. August 2026
+
+**Die Welt heißt jetzt „Age of Beast".** Vorher hieß sie „Sturmwende". Der neue
+Name steht ab sofort überall: im Browser-Tab, in der Kopfzeile der Seite, in der
+Beschreibung und in der Anleitung.
+
+### Was sich geändert hat — und was nicht
+
+Geändert hat sich **nur der Name**. Alle 29 Einträge, sämtliche Texte, die
+Verweise, die Vorschaufenster und die Suche sind unangetastet. Zur Sicherheit
+wurden die Inhalte noch einmal frisch aus der Weltenschmiede geholt und mit dem
+bisherigen Stand verglichen: kein einziges Zeichen Unterschied.
+
+### Warum die Weltenschmiede weiter „Sturmwende" sagt
+
+In der Weltenschmiede heißt das Projekt absichtlich weiterhin so. Dort hängen
+die Daten an dieser Bezeichnung; ein Umbenennen wäre ein Eingriff in die
+laufende Datenbank und hat mit dem Wiki nichts zu tun.
+
+**Das ist der wichtige Teil:** Bisher übernahm das Wiki den Weltnamen einfach
+aus der Weltenschmiede. Hätte es das weiter getan, stünde beim nächsten
+Auffrischen der Inhalte wieder „Sturmwende" auf der Seite. Deshalb ist
+„Age of Beast" jetzt im Wiki selbst hinterlegt. Der Name bleibt also stehen,
+egal wie oft die Inhalte aufgefrischt werden.
+
+### Eine kleine Nebenwirkung
+
+Das Wiki merkt sich, ob du die Seitenleiste offen hast und ob du hell oder
+dunkel liest. Diese Notiz wurde mit umbenannt. Beim ersten Öffnen nach dieser
+Änderung steht deshalb beides wieder auf der Voreinstellung: Seitenleiste
+offen, dunkel. Einmal umstellen — danach merkt es sich das wieder wie vorher.
+
+---
+
 ## Fassung 1.0.0 – 24. August 2026
 
 **Das Wiki gibt es jetzt.** Bisher lagen die Inhalte nur in der Weltenschmiede.

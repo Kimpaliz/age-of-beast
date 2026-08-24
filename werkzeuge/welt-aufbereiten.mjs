@@ -22,6 +22,11 @@ const HIER = dirname(fileURLToPath(import.meta.url));
 const WURZEL = join(HIER, '..');
 const QUELLE = process.argv[2] || join(HIER, 'rohdaten-weltenschmiede.json');
 
+// Anzeigename der Welt. Bewusst hier festgelegt und nicht aus der
+// Weltenschmiede übernommen, weil das Projekt dort weiterhin unter dem
+// alten Namen 'Sturmwende' geführt wird.
+const WELT_TITEL = 'Age of Beast';
+
 /* ------------------------------------------------------------------ *
  * Beschriftungen
  * ------------------------------------------------------------------ */
@@ -370,7 +375,10 @@ for (const eintrag of eintraege) {
  * ------------------------------------------------------------------ */
 
 const welt = {
-  titel: roh.project?.title || 'Sturmwende',
+  // Der Weltname wird hier bewusst fest vorgegeben und NICHT aus der
+  // Weltenschmiede übernommen: dort heißt das Projekt aus historischen
+  // Gründen weiterhin 'Sturmwende'. Umbenannt am 24.08.2026.
+  titel: WELT_TITEL,
   untertitel: roh.project?.subtitle || '',
   standDerDaten: roh.updatedAt || '',
   erzeugtAm: new Date().toISOString(),
@@ -385,7 +393,7 @@ writeFileSync(join(WURZEL, 'daten', 'welt.json'), alsJson + '\n', 'utf8');
 writeFileSync(
   join(WURZEL, 'daten', 'welt.js'),
   '/* Automatisch erzeugt von werkzeuge/welt-aufbereiten.mjs. Nicht von Hand ändern. */\n' +
-    'window.STURMWENDE_WELT = ' + alsJson + ';\n',
+    'window.AGE_OF_BEAST_WELT = ' + alsJson + ';\n',
   'utf8',
 );
 
@@ -393,8 +401,8 @@ writeFileSync(
  * Bilanz
  * ------------------------------------------------------------------ */
 
-console.log('Sturmwende-Wiki – Daten aufbereitet');
-console.log('-----------------------------------');
+console.log('Age-of-Beast-Wiki – Daten aufbereitet');
+console.log('-------------------------------------');
 console.log(`Stand der Daten:        ${welt.standDerDaten}`);
 console.log(`Einträge:               ${eintraege.length}`);
 for (const k of welt.kategorien) {
