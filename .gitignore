@@ -1,0 +1,14 @@
+# Zugangsdaten gehören niemals ins Repository
+*credentials*.json
+*adc*.json
+.env
+.env.*
+
+# Betriebssystem
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Werkzeuge
+node_modules/
+*.log

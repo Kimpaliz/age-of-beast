@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sturmwende – Weltwiki</title>
+<meta name="description" content="Wiki zur Daggerheart-Welt Sturmwende: Kampagne, Fraktionen, Spezies, Figuren und Gegenstände.">
+<meta name="color-scheme" content="dark light">
+<link rel="stylesheet" href="stil.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230b0b0d'/><text x='16' y='23' font-size='18' text-anchor='middle' fill='%238b8bf0'>&#9670;</text></svg>">
+</head>
+<body>
+
+<a class="zum-inhalt" href="#inhalt">Direkt zum Inhalt</a>
+
+<header class="kopf">
+  <button class="leiste-schalter" id="leiste-schalter" aria-expanded="true" aria-controls="navigation">
+    <span class="symbol" aria-hidden="true">▤</span>
+    <span class="beschriftung">Kategorien</span>
+    <span class="pfeil" aria-hidden="true">▾</span>
+  </button>
+
+  <a class="marke" href="#/">
+    <strong id="welt-titel">Sturmwende</strong>
+    <span class="teiler" aria-hidden="true">|</span>
+    <small id="welt-untertitel"></small>
+  </a>
+
+  <div class="suche">
+    <span class="lupe" aria-hidden="true">⌕</span>
+    <label class="visuell-versteckt" for="suchfeld">Im Wiki suchen</label>
+    <input type="search" id="suchfeld" placeholder="Einträge durchsuchen …" autocomplete="off" spellcheck="false">
+    <button type="button" class="suche-leeren" id="suche-leeren" aria-label="Suche leeren" hidden>&times;</button>
+    <div class="such-treffer" id="such-treffer" role="listbox" aria-label="Suchergebnisse" hidden></div>
+  </div>
+
+  <div class="kopf-rechts">
+    <span class="leise" id="kopf-quelle">aus der Weltenschmiede</span>
+    <span class="stand-chip" id="kopf-stand"></span>
+    <button class="thema-knopf" id="thema-knopf" aria-label="Zwischen hell und dunkel wechseln" title="Hell / dunkel">
+      <span aria-hidden="true">☾</span>
+    </button>
+  </div>
+</header>
+
+<div class="rahmen" id="rahmen">
+  <nav class="navigation" id="navigation" aria-label="Alle Einträge">
+    <!-- wird von wiki.js gefüllt -->
+  </nav>
+
+  <main id="inhalt" class="inhalt" tabindex="-1">
+    <!-- wird von wiki.js gefüllt -->
+  </main>
+</div>
+
+<div class="vorschau" id="vorschau" role="dialog" aria-label="Kurzvorschau" hidden></div>
+
+<script src="daten/welt.js"></script>
+<script src="wiki.js"></script>
+</body>
+</html>

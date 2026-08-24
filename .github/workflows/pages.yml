@@ -1,0 +1,53 @@
+# Veröffentlicht das Wiki auf GitHub Pages.
+#
+# Es gibt keinen Übersetzungsschritt: Der Ordner wird so hochgeladen, wie er
+# im Repository liegt. Läuft bei jedem Push auf `main` und lässt sich auf der
+# Actions-Seite auch von Hand starten.
+#
+# Einmalige Einrichtung auf GitHub:
+#   Settings -> Pages -> Source: "GitHub Actions"
+
+name: Wiki veröffentlichen
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Läuft eine Veröffentlichung bereits, wird sie nicht abgebrochen.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  veroeffentlichen:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.bereitstellen.outputs.page_url }}
+    steps:
+      - name: Repository holen
+        uses: actions/checkout@v4
+
+      - name: Prüfen, ob die Weltdaten gültig sind
+        run: |
+          node --check wiki.js
+          node -e "JSON.parse(require('fs').readFileSync('daten/welt.json','utf8'))"
+          test -f daten/welt.js
+
+      - name: Pages vorbereiten
+        uses: actions/configure-pages@v5
+
+      - name: Dateien hochladen
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Bereitstellen
+        id: bereitstellen
+        uses: actions/deploy-pages@v4

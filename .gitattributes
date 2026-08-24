@@ -1,0 +1,4 @@
+# Einheitliche Zeilenenden im Repository, damit Änderungen vergleichbar bleiben
+* text=auto eol=lf
+*.json text eol=lf
+*.md text eol=lf
