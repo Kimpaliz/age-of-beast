@@ -143,5 +143,5 @@ Weltenschmiede-Projekt `project-sturmwende-20260730`.
 - Die Datendateien wurden vor dem Commit auf Zugangsdaten, Schlüssel und
   E-Mail-Adressen geprüft; Treffer: keine.
 
-[Unveröffentlicht]: https://github.com/Kimpaliz/sturmwende-wiki/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/Kimpaliz/sturmwende-wiki/releases/tag/v1.0.0
+[Unveröffentlicht]: https://github.com/Kimpaliz/iron-and-bone/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/Kimpaliz/iron-and-bone/releases/tag/v1.0.0
