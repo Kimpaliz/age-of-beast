@@ -7,6 +7,152 @@ Das Neueste steht immer oben.
 
 ---
 
+## Fassung 2.0.0 – 25. August 2026
+
+**Das Wiki braucht keinen fremden Dienst mehr.** Deine Welt liegt jetzt als
+Datei in deinem eigenen GitHub-Repository, und dort wird auch gespeichert.
+Firebase ist raus.
+
+### Was sich für dich ändert
+
+Beim Anmelden fügst du einmal einen **GitHub-Schlüssel** ein statt auf einen
+Google-Knopf zu drücken. Einmal pro Gerät, danach merkt es sich das Wiki.
+Bearbeiten funktioniert danach genau wie vorher — auch auf dem Handy.
+
+### Warum kein Google-Knopf mehr
+
+Bisher machte Firebase zwei Dinge: Es prüfte, wer du bist, *und* es bewachte
+die Daten. Der Google-Knopf war nie der Schutz — der Schutz waren die Regeln
+dahinter.
+
+GitHub Pages liefert nur Dateien aus. Dort läuft kein Programm, das
+nachprüfen könnte, ob wirklich du auf den Knopf gedrückt hast. Ein Google-Knopf
+wäre also reine Verzierung. Was die Tür wirklich öffnet, ist der Schlüssel.
+
+### Wie sicher ist das?
+
+Der Schlüssel wird eng zugeschnitten: **nur dieses eine Repository, nur Dateien
+ändern**. Käme er abhanden, kommt damit niemand an dein Konto, deine anderen
+Repositories oder irgendwelche Zahlungsdaten. Und weil jede Änderung ein
+Commit ist, lässt sich alles zurücknehmen. Widerrufen kannst du ihn jederzeit
+mit zwei Klicks bei GitHub.
+
+### Was du geschenkt bekommst
+
+- **Jede Änderung ist ein Commit.** Du siehst, was wann geändert wurde, und
+  kannst jederzeit zurück. Das gab es vorher nicht.
+- **Die Sicherung ist automatisch.** Deine Welt liegt jetzt auf GitHub, auf
+  deinem PC und in jedem Klon — statt nur in einer Datenbank.
+- **Kein Auffrischen von Hand mehr.** Vorher musstest du nach jeder Änderung
+  zwei Befehle laufen lassen und hochladen. Jetzt macht das Speichern alles
+  in einem Zug, und die öffentliche Seite ist nach etwa einer Minute aktuell.
+  Das Wiki sagt dir, wann es so weit ist.
+
+### Kein Zwischenzustand
+
+Ein Speichervorgang legt alle drei Datendateien zusammen in **einen** Commit.
+Es kann also nie vorkommen, dass die Welt gespeichert ist, die Anzeigefassung
+aber noch die alte. Vorher geprüft wird außerdem, ob in der Zwischenzeit
+woanders gespeichert wurde — dann wird lieber gar nicht geschrieben und du
+wirst gebeten, neu zu laden.
+
+### Die Weltenschmiede ist Geschichte
+
+Sie wird nicht mehr benutzt. Das Werkzeug, das früher von dort geholt hat,
+liegt nur noch als Rückweg bei und **weigert sich zu starten**, solange man
+nicht ausdrücklich `--wirklich` dazusagt — es würde sonst deine aktuelle Welt
+mit dem alten Stand überschreiben.
+
+### Für Besucher ändert sich nichts
+
+Die Seite lädt wie vorher, ohne Anmeldung, ohne dass irgendetwas von Google
+oder GitHub nachgeladen wird.
+
+---
+
+## Fassung 1.4.0 – 25. August 2026
+
+> Diese Fassung wurde zusammen mit 2.0.0 veröffentlicht.
+
+**Jetzt kannst du Texte im Wiki ändern.** Angemeldet erscheint oben rechts ein
+zweiter Knopf: **Bearbeiten**. Drückst du ihn, bekommt auf jeder Eintragsseite
+alles, was du ändern darfst, einen kleinen Stift.
+
+### So geht es
+
+1. Oben rechts auf **Anmelden**, dann auf **Bearbeiten**.
+2. Auf den Stift neben dem Text klicken, den du ändern willst.
+3. Ändern und auf **Speichern** klicken. Fertig.
+
+Gespeichert wird sofort in der Weltenschmiede. Das Wiki zeigt die Änderung
+augenblicklich an, ohne dass die Seite neu lädt — und ohne dass es nach oben
+springt.
+
+### Was du ändern kannst
+
+- den **Namen** eines Eintrags
+- den **Kurztext** direkt darunter
+- die **Überschrift** eines Abschnitts
+- den **Text** eines Abschnitts
+
+### Was noch nicht geht
+
+Abschnitte **anlegen, löschen oder umsortieren** geht noch nicht. Ebenso wenig
+die Steckbriefzeilen rechts, die Verknüpfungen und das Anlegen neuer Einträge.
+Das kommt in den nächsten beiden Fassungen.
+
+### Du tippst kein HTML
+
+In der Weltenschmiede stehen die Texte technisch als HTML — also mit Klammern
+wie `<p>` und `<strong>`. Das bekommst du **nicht** zu sehen. Im Bearbeitungsfeld
+steht der Text in einer einfachen Schreibweise:
+
+```
+## Eine Überschrift
+
+Ein Absatz mit einem **fetten** und einem *kursiven* Wort.
+
+- Ein Listenpunkt
+- Noch einer
+```
+
+Eine Leerzeile trennt Absätze. Beim Speichern wird daraus wieder das richtige
+HTML. Unter dem Feld steht die Kurzfassung dieser Regeln, damit du sie nicht
+auswendig lernen musst.
+
+### Warum du dich darauf verlassen kannst
+
+Es wäre ärgerlich, wenn das Hin-und-Zurück-Übersetzen heimlich etwas an deinem
+Text verändert. Deshalb wird genau das geprüft — nicht an ein paar Beispielen,
+sondern an **allen 206 änderbaren Feldern deiner 29 Einträge**: Einen Text
+öffnen und ohne zu tippen wieder speichern muss ihn Zeichen für Zeichen so
+lassen, wie er war. Tut es das irgendwo nicht, schlägt die Prüfung fehl.
+
+Zusätzlich wird nachgewiesen, dass eine **echte** Änderung auch wirklich
+ankommt. Sonst wäre eine Prüfung, die einfach nichts tut, ja immer zufrieden.
+
+### Eine Sicherheitsleine
+
+Falls du parallel noch in der Weltenschmiede arbeitest und dort Abschnitte
+verschiebst, könnte das Wiki sonst in den falschen Abschnitt schreiben. Das
+kann nicht passieren: Vor jedem Speichern prüft das Wiki, ob der Abschnitt
+noch derselbe ist. Stimmt etwas nicht, wird **nicht** gespeichert, sondern um
+ein Neuladen gebeten.
+
+### Für alle anderen ändert sich nichts
+
+Wer nicht angemeldet ist, sieht die Seite genau wie vorher — der
+Bearbeiten-Knopf ist gar nicht erst da. Nachgeprüft: Die Eintragsseiten sehen
+Zeichen für Zeichen aus wie vor dieser Änderung.
+
+### Noch offen
+
+Die öffentliche Seite zeigt weiterhin die abgelegte Kopie. Wenn du etwas
+änderst, musst du sie vorerst noch von Hand auffrischen und hochladen. Das
+Veröffentlichen aus dem Wiki heraus kommt in Fassung 1.7.0.
+
+---
+
 ## Fassung 1.3.0 – 24. August 2026
 
 **Erster Schritt zum Bearbeiten im Wiki.** Oben rechts gibt es jetzt einen

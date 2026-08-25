@@ -119,7 +119,7 @@ function schonEnthalten(text, bestand) {
 }
 
 /** Erzeugt aus HTML-Text der Weltenschmiede sauberes, sicheres Wiki-HTML. */
-function htmlSaeubern(roh) {
+export function htmlSaeubern(roh) {
   let html = String(roh ?? '').trim();
   if (!html) return '';
   // Skripte, Stile und Ereignis-Attribute entfernen
@@ -141,7 +141,7 @@ function htmlSaeubern(roh) {
 }
 
 /** Reiner Text ohne Auszeichnung wird zu Absätzen. */
-function alsAbsaetze(text) {
+export function alsAbsaetze(text) {
   const roh = String(text ?? '').trim();
   if (!roh) return '';
   if (/<\w+/.test(roh)) return htmlSaeubern(roh);
@@ -151,6 +151,34 @@ function alsAbsaetze(text) {
     .filter(Boolean)
     .map((zeile) => `<p>${zeile.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>`)
     .join('');
+}
+
+/**
+ * Merkt sich, aus welchem Panel ein Abschnitt stammt.
+ *
+ * Die Bearbeitungsansicht braucht das, um beim Speichern genau an dieselbe
+ * Stelle in der Weltenschmiede zurueckzuschreiben. Ohne diese Angabe waere
+ * ein angezeigter Abschnitt nicht mehr seiner Quelle zuzuordnen: Die
+ * Reihenfolge der Anzeige folgt `panelOrder`, die Stelle in der Datenbank
+ * aber der urspruenglichen Reihenfolge in `customPanels`.
+ *
+ * Ergibt `null`, wenn die Stelle nicht eindeutig ist. Solche Abschnitte
+ * bleiben im Wiki lesbar, lassen sich dort aber nicht bearbeiten.
+ *
+ * @param {Array} panelsRoh  `customPanels` in Datenbankreihenfolge
+ * @param {object} panel     Das Panel, um das es geht
+ * @param {Array} felder     Seine Textfelder
+ * @returns {{art: string, panel: number, panelId: string, feld?: number}|null}
+ */
+function panelHerkunft(panelsRoh, panel, felder) {
+  const stelle = panelsRoh.indexOf(panel);
+  if (stelle === -1) return null;
+  // Mehr als ein Textfeld gaebe es im Wiki nur als einen Block zu sehen.
+  // Welches Feld dann zu aendern waere, ist nicht zu entscheiden.
+  if (felder.length > 1) return null;
+  const herkunft = { art: 'panel', panel: stelle, panelId: panel.id || '' };
+  if (felder.length === 1) herkunft.feld = 0;
+  return herkunft;
 }
 
 /**
@@ -189,12 +217,13 @@ export function umwandeln(roh) {
 
       const abschnitte = [];
       for (const panel of sortiert) {
-        const teile = (panel.textFields || [])
+        const felder = Array.isArray(panel.textFields) ? panel.textFields : [];
+        const teile = felder
           .map((feld) => htmlSaeubern(feld.html) || alsAbsaetze(feld.text))
           .filter(Boolean);
         const html = teile.join('') || alsAbsaetze(panel.text);
         if (!html) continue;
-        abschnitte.push({ titel: panel.title || '', html });
+        abschnitte.push({ titel: panel.title || '', html, herkunft: panelHerkunft(panelsRoh, panel, felder) });
         bilanz.panels += 1;
       }
 
@@ -205,12 +234,17 @@ export function umwandeln(roh) {
 
       // --- Zusatztexte, die in keinem Panel vorkommen ------------------
       for (const schluessel of FELD_REIHENFOLGE) {
-        const wert = element.richText?.[schluessel] ?? element.fields?.[schluessel];
+        const ausRichText = element.richText?.[schluessel];
+        const wert = ausRichText ?? element.fields?.[schluessel];
         if (!wert || typeof wert !== 'string' || nurText(wert).length < 15) continue;
         if (schonEnthalten(wert, bestand)) { bilanz.uebersprungen += 1; continue; }
         abschnitte.push({
           titel: FELD_UEBERSCHRIFT[schluessel] || schluessel,
           html: alsAbsaetze(wert),
+          herkunft: {
+            art: ausRichText === undefined || ausRichText === null ? 'feld' : 'richText',
+            schluessel,
+          },
           ergaenzt: true,
         });
         bilanz.zusatztexte += 1;
@@ -370,6 +404,12 @@ export function umwandeln(roh) {
    * Schreiben
    * ------------------------------------------------------------------ */
 
+  // Bewusst ohne Zeitstempel der Erzeugung: Diese Funktion muss zu
+  // demselben Rohstand immer dasselbe Ergebnis liefern, Zeichen für
+  // Zeichen. Seit das Wiki selbst speichert, landen diese Dateien in
+  // jedem Commit – ein wandernder Zeitstempel wäre bei jeder Änderung
+  // eine Zeile Rauschen im Vergleich, und angezeigt wurde er nie.
+  // Wann die Daten zuletzt bearbeitet wurden, steht in `standDerDaten`.
   const welt = {
     // Der Weltname wird hier bewusst fest vorgegeben und NICHT aus der
     // Weltenschmiede übernommen: dort heißt das Projekt aus historischen
@@ -377,7 +417,6 @@ export function umwandeln(roh) {
     titel: WELT_TITEL,
     untertitel: roh.project?.subtitle || '',
     standDerDaten: roh.updatedAt || '',
-    erzeugtAm: new Date().toISOString(),
     kategorien: KATEGORIEN.filter((k) => eintraege.some((e) => e.kategorie === k.schluessel)),
     eintraege,
     woerterbuch,

@@ -29,6 +29,212 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 Ohne Versionsnummer: reine Inhaltsänderung an der Quelle, keine Änderung am
 Wiki-Code.
 
+## [2.0.0] – 2026-08-25
+
+Ablösung von Firebase. Die Quelle der Wahrheit wandert von der Realtime
+Database in das Repository (`daten/quelle.json`); Lesen und Schreiben laufen
+über die GitHub-API. Kein Server, kein Datenbankanbieter, keine
+Fremdressource zur Laufzeit.
+
+Bruch in der Hauptnummer, weil sich Speicherort und Anmeldeverfahren ändern
+und `daten/quelle.json` einen neuen Pfad hat.
+
+### Warum kein OAuth
+
+Zwei Dinge wurden am 25.08.2026 gegen die echten Endpunkte gemessen:
+
+- `OPTIONS https://api.github.com/repos/…/contents/…` antwortet mit
+  `Access-Control-Allow-Origin: *` und `Access-Control-Allow-Methods: …PUT…`
+  – ein Browser darf also schreiben.
+- `OPTIONS https://github.com/login/oauth/access_token` liefert **keine**
+  `Access-Control-*`-Kopfzeilen – ein Browser kann eine GitHub-Anmeldung
+  folglich nicht abschließen.
+
+Damit bleibt auf reinem Statik-Hosting nur ein Token im Browser. Ein
+Identitätsanbieter (Google, GitHub) wäre ohne serverseitige Prüfstelle bloße
+Verzierung: Es gäbe niemanden, der die Behauptung nachprüft.
+
+### Hinzugefügt
+
+- `werkzeuge/github-speicher.mjs`: `schluesselPruefen`, `dateiLesen`,
+  `dateienSchreiben`, `veroeffentlichungStand`, `alsBase64`/`ausBase64`.
+  Base64 in 32-KB-Stücken, weil `String.fromCharCode(...bytes)` bei 274 KB
+  den Aufrufstapel sprengt. Fehlerklasse `GitHubFehler` mit Status und
+  übersetzten Meldungen für 401/403/404/409/422 und Rate-Limit.
+- `werkzeuge/welt-dateien.mjs`: **eine** Stelle legt das Dateiformat unter
+  `daten/` fest. Node-Skript und Browser benutzen sie beide; vorher hätte
+  ein Leerzeichen Unterschied gereicht, um `pruefe-gleichstand.mjs` nach
+  einem Speichern rot zu färben.
+- `werkzeuge/pruefe-github.mjs`: Base64-Umlauf über 6 knifflige Texte und
+  über die echte 274-KB-Quelldatei; Vergleich der browserseitig erzeugten
+  Dateien gegen die Festplatte, Zeichen für Zeichen; Nachweis, dass zwei
+  Läufe dasselbe ergeben. Ohne Netz und ohne Schlüssel.
+- Schlüssel-Dialog in `bearbeiten.js` samt Anleitung zum Zuschneiden des
+  Tokens; Stil unter `.schluessel-*` in `stil.css`. Wird erst bei Klick
+  gebaut, Besucher sehen ihn nie.
+- Rückmeldung zur Veröffentlichung: nach dem Commit wird
+  `/actions/runs?head_sha=…` alle 5 s abgefragt (höchstens 20-mal), bis der
+  Pages-Lauf durch ist.
+
+### Geändert
+
+- `werkzeuge/rohdaten-weltenschmiede.json` → **`daten/quelle.json`**. Der alte
+  Name legte nahe, es handle sich um einen Wegwerf-Abzug; die Datei ist jetzt
+  der Bestand.
+- `bearbeiten.js` vollständig neu: kein Firebase-SDK, kein
+  `signInWithPopup`, kein `localStorage`-Merker für die Google-Sitzung.
+  Stattdessen Token in `localStorage`, `dateiLesen` beim Start,
+  `dateienSchreiben` beim Speichern.
+- Ein Speichervorgang geht über die **Git-Data-API**, nicht über die
+  Contents-API: Blob je Datei → Tree auf `base_tree` → Commit → `PATCH` des
+  Ref mit `force: false`. Ein Commit enthält `quelle.json`, `welt.json` und
+  `welt.js` gemeinsam. Über die Contents-API wären es drei Commits und
+  zwischendurch ein widersprüchliches Repository.
+- Nebenläufigkeit doppelt abgesichert: vor dem Schreiben wird die Blob-SHA
+  von `quelle.json` gegen den Stand beim Laden verglichen (→ 409), und der
+  `PATCH` ohne `force` scheitert, falls der Zweig inzwischen weitergewandert
+  ist.
+- `schreiben()` arbeitet auf `structuredClone(rohStand)` und übernimmt die
+  Kopie erst nach bestätigtem Commit. Vorher trug `texte-bearbeiten.js` die
+  Änderung selbst ein — bei einem Fehlschlag hätte das Wiki einen Stand
+  angezeigt, den es nirgends gibt.
+- `texte-bearbeiten.js` kennt den Speicherort nicht mehr; `werkzeug.schreiben`
+  bekommt zusätzlich eine Beschreibung für die Commit-Nachricht
+  (`„Aetheris: Name des Eintrags geändert"`).
+- `welt.erzeugtAm` **entfernt**. Das Feld wurde nirgends angezeigt und von
+  `pruefe-gleichstand.mjs` vor dem Vergleich gelöscht — seit die Dateien in
+  jedem Commit landen, wäre es nur wandernder Diff-Lärm. `umwandeln()` ist
+  damit vorhersagbar, und der Vergleich braucht keine Ausnahme mehr.
+- `werkzeuge/welt-holen.mjs` bricht ohne `--wirklich` mit Rückgabewert 1 ab
+  und erklärt, warum. Es würde `daten/quelle.json` mit dem alten
+  Firebase-Stand überschreiben.
+- `.github/workflows/pages.yml`: `node --check` jetzt über **alle**
+  Browser-Module und `werkzeuge/*.mjs`; alle vier Prüfskripte laufen vor der
+  Veröffentlichung.
+- `index.html`: Kopfangabe „aus der Weltenschmiede" → „gespeicherter Stand",
+  angemeldet „live aus GitHub".
+
+### Entfernt
+
+- Jede Abhängigkeit von Firebase zur Laufzeit: kein SDK von `gstatic.com`,
+  keine Realtime Database, keine Google-Anmeldung, keine `authorizedDomains`.
+
+### Sicherheit
+
+- Der Token liegt in `localStorage` derselben Herkunft. Auf einer Seite ohne
+  fremde Inhalte und ohne nachgeladene Skripte ist die Angriffsfläche dafür
+  gering; der Zuschnitt (ein Repository, nur `Contents`) begrenzt den Schaden
+  zusätzlich, und jede Änderung ist als Commit rücknehmbar.
+- `schluesselPruefen` lehnt einen Token ohne `permissions.push` sofort mit
+  einer verständlichen Meldung ab, statt später beim Speichern zu scheitern.
+
+### Geprüft
+
+- `node werkzeuge/pruefe-github.mjs` – 6 Texte, 274-KB-Datei, Dateivergleich
+  gegen die Festplatte, zwei Läufe gleich. 0 Fehler.
+- `pruefe-gleichstand.mjs`, `pruefe-schreibweise.mjs`, `pruefe-bearbeiten.mjs`
+  weiterhin fehlerfrei (149 Texte, 206 Felder).
+- Vollständiger Speichervorgang in Chrome gegen eine GitHub-Attrappe
+  durchgespielt — **keine einzige Anfrage an GitHub**. Ergebnis: Anmeldung
+  mit gemerktem Schlüssel, Kopf „live aus GitHub", 6 Stifte, genau 3 Blobs,
+  ein Commit mit allen drei Dateien in Modus `100644`, ein Elternteil,
+  `force: false`, gültiges JSON, Umlaute unverletzt („Größe, weiß"),
+  erzeugtes `<h3>…</h3>`, `welt.json` ohne `erzeugtAm`. Ein zweites Speichern
+  im selben Lauf belegt, dass die SHA danach korrekt nachgezogen wird.
+- Schutzmechanismen einzeln geprüft: falscher Schlüssel → 401 mit
+  verständlichem Text; veraltete SHA → 409, es wird **nicht** geschrieben;
+  aktuelle SHA → Commit geht durch.
+
+## [1.4.0] – 2026-08-25
+
+> Zusammen mit 2.0.0 veröffentlicht. Diese Fassung hat kein eigenes
+> Etikett: Sie war nie ein eigenständiger Stand im Repository.
+
+Schreibpfad. Name, Kurztext, Abschnittsüberschrift und Abschnittstext lassen
+sich angemeldet im Wiki ändern und werden punktgenau in die Weltenschmiede
+zurückgeschrieben. Struktur (Panels anlegen, löschen, umsortieren),
+Steckbriefzeilen, Verknüpfungen sowie das Anlegen und Löschen von Einträgen
+bleiben Fassung 1.5.0 und 1.6.0 vorbehalten.
+
+### Hinzugefügt
+
+- `werkzeuge/text-schreibweise.mjs`: Verlustfreie Übersetzung zwischen dem
+  HTML der Weltenschmiede und einer Markdown-artigen Schreibweise
+  (`#`/`##`/`###` → `h2`/`h3`/`h4`, `**`, `*`, `__`, Backticks, `-`, `1.`,
+  `>`, Leerzeile → `<p>`, Zeilenumbruch → `<br>`). Reine Logik ohne
+  Node-Bausteine, dadurch in Browser und Node identisch. Zwischenmarken
+  werden zur Laufzeit aus `String.fromCharCode(1)` gebaut, damit im Quelltext
+  keine unsichtbaren Zeichen stehen. Zeichen mit Sonderbedeutung werden mit
+  Rückstrich geschützt, Zeilenanfänge zusätzlich.
+- `werkzeuge/bearbeiten-stellen.mjs`: Abbildung von angezeigtem Feld auf
+  Datenbankpfad (`stelleFinden`), Umrechnung in beide Richtungen
+  (`zumBearbeiten`, `zumSpeichern`) und Nachziehen im gehaltenen Rohstand
+  (`inTiefeSetzen`). Ebenfalls DOM-frei, damit in Node prüfbar.
+- `texte-bearbeiten.js` (ES-Modul, nur Bedienung): Umschalter im Kopf,
+  Stiftknöpfe an jedem `[data-feld]`, aufklappendes Eingabefeld mit
+  Speichern/Abbrechen, `Esc` bricht ab, `Strg`+`Eingabe` speichert.
+- `werkzeuge/pruefe-schreibweise.mjs`: 149 echte Texte und 17 Sonderfälle
+  durch `HTML → Schreibweise → HTML`. Verglichen wird nicht das rohe HTML,
+  sondern das Ergebnis von `alsAbsaetze()` – maßgeblich ist, was der Leser
+  sieht.
+- `werkzeuge/pruefe-bearbeiten.mjs`: End-zu-End über alle **206**
+  bearbeitbaren Felder. Öffnen und unverändertes Speichern muss den Eintrag
+  zeichengleich lassen; zusätzlich wird an 12 Feldern nachgewiesen, dass eine
+  echte Änderung ankommt (sonst wäre ein Test, der nichts tut, immer grün).
+- `abschnitt.herkunft` in `welt-umwandeln.mjs`: `{art: 'panel', panel,
+  panelId, feld?}` bzw. `{art: 'richText'|'feld', schluessel}`. Notwendig,
+  weil die Anzeigereihenfolge `panelOrder` folgt, die Datenbankstelle aber der
+  ursprünglichen Reihenfolge in `customPanels`. Panels mit mehr als einem
+  Textfeld ergeben bewusst `null` und bleiben schreibgeschützt.
+- `window.ageOfBeast.beiNeuZeichnen(rueckruf)`; `weltSetzen()` nimmt jetzt
+  `stelleHalten` und stellt die Scrollposition wieder her.
+- `htmlSaeubern` und `alsAbsaetze` aus `welt-umwandeln.mjs` exportiert.
+
+### Geändert
+
+- `wiki.js`, `eintragZeichnen()`: `data-eintrag`/`data-kategorie` am
+  `<article>`, `data-feld` an Überschrift, Anriss, Abschnittsüberschrift und
+  Abschnittstext; der Abschnittstext liegt jetzt in
+  `<div class="abschnitt-text">`. `data-feld="titel"` nur bei
+  `herkunft.art === 'panel'` – die Überschrift eines ergänzten Abschnitts ist
+  eine feste Beschriftung, keine Eingabe.
+- `bearbeiten.js` hält den Rohstand (`rohStand`), reicht `update` als
+  `schreiben` durch und zeichnet nach dem Speichern aus dem nachgezogenen
+  Rohstand neu, ohne erneut zu lesen.
+- Ein Schreibvorgang bündelt alle Pfade in einem `update()`: bei einem Panel
+  `textFields/<n>/html`, `textFields/<n>/text` und `customPanels/<n>/text`,
+  dazu `updatedAt` am Element und an der Wurzel des Projektknotens. Die
+  Weltenschmiede führt drei Fassungen desselben Textes; nur eine zu ändern
+  hinterließe drei Stände.
+
+### Sicherheit
+
+- Vor jedem Öffnen und vor jedem Schreiben wird `herkunft.panelId` gegen
+  `customPanels[n].id` geprüft. Hat die Weltenschmiede zwischenzeitlich
+  umsortiert, zeigt die gemerkte Nummer auf ein fremdes Panel; dann wird nicht
+  geschrieben, sondern zum Neuladen aufgefordert.
+- Kein neues Recht und keine Regeländerung. Verbindlich bleiben die Regeln der
+  Realtime Database: `.read`/`.write` nur bei `auth != null`,
+  `email_verified`, `sign_in_provider == 'google.com'` und genau einer Adresse.
+
+### Geprüft
+
+- `node werkzeuge/pruefe-schreibweise.mjs` – 149 Texte, 17 Sonderfälle, 0 Fehler.
+- `node werkzeuge/pruefe-bearbeiten.mjs` – 206 Felder, 0 Fehler, 12 Änderungsproben.
+- `node werkzeuge/pruefe-gleichstand.mjs` – `daten/welt.json` passt zu den Rohdaten.
+- `node --check` auf allen geänderten JavaScript-Dateien.
+- Leseansicht gegen `HEAD` verglichen: zwei Eintragsseiten in Chrome
+  (`--headless=new --dump-dom`) gerendert; nach Entfernen der neuen
+  `data-`Angaben und des Wrapper-`div` **zeichengleich**. Anonym bleibt der
+  Bearbeiten-Knopf verborgen, es entsteht kein Stift, keine Konsolenmeldung.
+- Bedienung mit einem Prüfstand durchgespielt, der Firebase durch eine
+  Attrappe ersetzt: 6 Stifte am erwarteten Ort, Schreibweise statt HTML im
+  Feld, korrekte Pfade beim Speichern, erzeugtes HTML
+  `<h3>…</h3><p>Ein <strong>neuer</strong> Absatz…</p>`, Namensänderung auch in
+  der Navigation, Abbrechen ohne Schreibvorgang, Stifte nach Seitenwechsel neu
+  gesetzt. Der Prüfstand wurde danach entfernt und ist nicht Teil des
+  Repositorys.
+
 ## [1.3.0] – 2026-08-24
 
 Grundlage für den Bearbeitungsmodus: Google-Anmeldung, Live-Bezug aus der
@@ -332,7 +538,9 @@ Weltenschmiede-Projekt `project-sturmwende-20260730`.
 - Die Datendateien wurden vor dem Commit auf Zugangsdaten, Schlüssel und
   E-Mail-Adressen geprüft; Treffer: keine.
 
-[Unveröffentlicht]: https://github.com/Kimpaliz/age-of-beast/compare/v1.3.0...HEAD
+[Unveröffentlicht]: https://github.com/Kimpaliz/age-of-beast/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/Kimpaliz/age-of-beast/compare/v1.3.0...v2.0.0
+[1.4.0]: https://github.com/Kimpaliz/age-of-beast/compare/v1.3.0...v2.0.0
 [1.3.0]: https://github.com/Kimpaliz/age-of-beast/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/Kimpaliz/age-of-beast/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/Kimpaliz/age-of-beast/compare/v1.0.0...v1.1.0

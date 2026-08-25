@@ -1,7 +1,20 @@
 /**
- * Holt den aktuellen Age-of-Beast-Stand aus der Weltenschmiede
- * (Firebase Realtime Database) und legt ihn als Rohdatei unter
- * `werkzeuge/rohdaten-weltenschmiede.json` ab.
+ * ACHTUNG – NICHT MEHR IM BETRIEB (seit Fassung 2.0.0, 25.08.2026)
+ * ================================================================
+ *
+ * Seit dem Umstieg auf GitHub ist `daten/quelle.json` im Repository die
+ * Wahrheit. Sie wird im Wiki bearbeitet und dort gespeichert. Die
+ * Weltenschmiede wird nicht mehr benutzt.
+ *
+ * Dieses Skript holt den Stand aus der **alten** Quelle, der Weltenschmiede
+ * (Firebase Realtime Database). Es bleibt nur als Rückweg erhalten, falls
+ * dort noch einmal etwas nachzuholen wäre.
+ *
+ * WER ES AUSFÜHRT, ÜBERSCHREIBT `daten/quelle.json` mit dem alten Stand
+ * und verliert alles, was seither im Wiki geändert wurde. Vorher also die
+ * Datei sichern oder in Git nachsehen.
+ *
+ * ----------------------------------------------------------------
  *
  * Dieses Skript LIEST nur. Es schreibt niemals in die Datenbank.
  *
@@ -22,10 +35,28 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const HIER = dirname(fileURLToPath(import.meta.url));
-const ZIEL = join(HIER, 'rohdaten-weltenschmiede.json');
+const ZIEL = join(HIER, '..', 'daten', 'quelle.json');
 
 const DATENBANK = 'https://kampagnenrahmen-jt-default-rtdb.europe-west1.firebasedatabase.app';
 const PROJEKT_PFAD = 'rooms/project-sturmwende-20260730/project';
+
+/* --- Sicherung gegen versehentliches Ausfuehren -------------------- */
+
+// Seit Fassung 2.0.0 ist `daten/quelle.json` die Wahrheit. Dieses Skript
+// wuerde sie mit dem alten Stand aus der Weltenschmiede ueberschreiben.
+// Ein versehentliches Ausfuehren kostet dann alle Aenderungen seither.
+if (!process.argv.includes('--wirklich')) {
+  console.error('Dieses Skript ist seit Fassung 2.0.0 nicht mehr im Betrieb.');
+  console.error('');
+  console.error('Die Wahrheit ist `daten/quelle.json` im Repository. Sie wird im');
+  console.error('Wiki bearbeitet. Dieses Skript wuerde sie mit dem alten Stand aus');
+  console.error('der Weltenschmiede ueberschreiben und alles verlieren, was seither');
+  console.error('geaendert wurde.');
+  console.error('');
+  console.error('Wenn das wirklich gewollt ist:');
+  console.error('  node werkzeuge/welt-holen.mjs --wirklich');
+  process.exit(1);
+}
 
 /* --- Zugangstoken besorgen ---------------------------------------- */
 

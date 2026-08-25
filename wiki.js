@@ -455,16 +455,25 @@
 
     /* --- linke Spalte: Fließtext --- */
 
+    // Die `data-`Angaben sind die Anker für die Bearbeitungsansicht. Ohne
+    // Anmeldung stören sie niemanden; angemeldet hängt bearbeiten.js dort
+    // seine Stiftknöpfe ein. Ein Abschnitt bekommt nur dann einen Anker,
+    // wenn seine Herkunft bekannt ist – nur dann lässt er sich auch
+    // zurückschreiben.
     const textTeile = [];
-    if (eintrag.kurz) textTeile.push('<p class="anriss">' + sicher(eintrag.kurz) + '</p>');
-    for (const abschnitt of eintrag.abschnitte) {
+    if (eintrag.kurz) textTeile.push('<p class="anriss" data-feld="kurz">' + sicher(eintrag.kurz) + '</p>');
+    eintrag.abschnitte.forEach((abschnitt, stelle) => {
+      const anker = abschnitt.herkunft ? ' data-abschnitt="' + stelle + '"' : '';
+      // Die Überschrift eines ergänzten Abschnitts ist keine Eingabe von
+      // Jannik, sondern eine feste Beschriftung. Sie bleibt unantastbar.
+      const titelAnker = abschnitt.herkunft?.art === 'panel' ? ' data-feld="titel"' : '';
       textTeile.push(
-        '<section class="abschnitt' + (abschnitt.ergaenzt ? ' ergaenzt' : '') + '">' +
-          (abschnitt.titel ? '<h2>' + sicher(abschnitt.titel) + '</h2>' : '') +
-          abschnitt.html +
+        '<section class="abschnitt' + (abschnitt.ergaenzt ? ' ergaenzt' : '') + '"' + anker + '>' +
+          (abschnitt.titel ? '<h2' + titelAnker + '>' + sicher(abschnitt.titel) + '</h2>' : '') +
+          '<div class="abschnitt-text"' + (anker ? ' data-feld="text"' : '') + '>' + abschnitt.html + '</div>' +
           '</section>',
       );
-    }
+    });
 
     /* --- rechte Spalte: Attribute, Verbindungen, Erwähnungen --- */
 
@@ -550,9 +559,10 @@
       '<span class="pfad">' + sicher(WELT.titel) + ' / ' +
       '<a href="#/kategorie/' + encodeURIComponent(eintrag.kategorie) + '">' +
       sicher(kategorieName(eintrag.kategorie)) + '</a> / ' + sicher(eintrag.name) + '</span></p>' +
-      '<article class="artikel">' +
+      '<article class="artikel" data-eintrag="' + sicher(eintrag.id) + '" data-kategorie="' +
+      sicher(eintrag.kategorie) + '">' +
       '<span class="mikro">' + etikett(eintrag) + '</span>' +
-      '<h1>' + sicher(eintrag.name) + '</h1>' +
+      '<h1 data-feld="name">' + sicher(eintrag.name) + '</h1>' +
       (eintrag.aliase.length
         ? '<p class="mikro" style="margin:-1.1rem 0 1.5rem">Auch: ' + sicher(eintrag.aliase.join(' · ')) + '</p>'
         : '') +
@@ -830,6 +840,15 @@
 
   const schmal = () => window.matchMedia('(max-width: 60rem)').matches;
 
+  /**
+   * Rückrufe, die nach jedem Zeichnen einer Seite laufen.
+   *
+   * Die Bearbeitungsansicht hängt sich hier ein: Sie muss ihre Stiftknöpfe
+   * nach jedem Seitenwechsel neu setzen, weil der Inhalt dabei komplett
+   * neu geschrieben wird.
+   */
+  const nachDemZeichnen = [];
+
   function seiteZeichnen() {
     const teile = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
 
@@ -842,6 +861,10 @@
 
     if (schmal()) leisteSetzen(false);
     window.scrollTo({ top: 0, behavior: 'auto' });
+
+    for (const rueckruf of nachDemZeichnen) {
+      try { rueckruf(); } catch (fehler) { console.error('Rückruf nach dem Zeichnen:', fehler); }
+    }
   }
 
   window.addEventListener('hashchange', seiteZeichnen);
@@ -914,16 +937,30 @@
 
   window.ageOfBeast = {
     /** Tauscht die Weltdaten aus und zeichnet alles neu. */
-    weltSetzen(neueWelt) {
+    weltSetzen(neueWelt, stelleHalten) {
       if (!neueWelt || !Array.isArray(neueWelt.eintraege)) return false;
+      // Nach dem Speichern eines Textes soll die Seite nicht nach oben
+      // springen: Jannik will sehen, was er gerade geändert hat.
+      const hoehe = window.scrollY;
       WELT = neueWelt;
       nachschlagewerkeAufbauen();
       kopfzeileSetzen();
       navigationZeichnen();
       seiteZeichnen();
+      if (stelleHalten) window.scrollTo({ top: hoehe, behavior: 'auto' });
       return true;
     },
     /** Der gerade angezeigte Weltstand. */
     weltHolen: () => WELT,
+    /**
+     * Meldet einen Rückruf an, der nach jedem Zeichnen einer Seite läuft.
+     * Er wird sofort einmal ausgeführt, damit die bereits gezeichnete
+     * Seite nicht übersprungen wird.
+     */
+    beiNeuZeichnen(rueckruf) {
+      if (typeof rueckruf !== 'function') return;
+      nachDemZeichnen.push(rueckruf);
+      try { rueckruf(); } catch (fehler) { console.error('Rückruf nach dem Zeichnen:', fehler); }
+    },
   };
 })();

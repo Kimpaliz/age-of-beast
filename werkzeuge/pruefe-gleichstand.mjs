@@ -19,14 +19,12 @@ import { umwandeln } from './welt-umwandeln.mjs';
 const HIER = dirname(fileURLToPath(import.meta.url));
 const WURZEL = join(HIER, '..');
 
-const roh = JSON.parse(readFileSync(join(HIER, 'rohdaten-weltenschmiede.json'), 'utf8'));
+const roh = JSON.parse(readFileSync(join(HIER, '..', 'daten', 'quelle.json'), 'utf8'));
 const abgelegt = JSON.parse(readFileSync(join(WURZEL, 'daten', 'welt.json'), 'utf8'));
 const { welt } = umwandeln(roh);
 
-// Der Zeitstempel der Erzeugung aendert sich bei jedem Lauf und zaehlt nicht.
-delete welt.erzeugtAm;
-delete abgelegt.erzeugtAm;
-
+// Verglichen wird ohne Ausnahme: `umwandeln()` erzeugt zu demselben
+// Rohstand immer dasselbe Ergebnis, Zeichen fuer Zeichen.
 const a = JSON.stringify(abgelegt);
 const b = JSON.stringify(welt);
 

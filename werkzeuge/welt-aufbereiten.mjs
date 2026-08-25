@@ -17,30 +17,29 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { umwandeln } from './welt-umwandeln.mjs';
+import { weltDateien } from './welt-dateien.mjs';
 
 const HIER = dirname(fileURLToPath(import.meta.url));
 const WURZEL = join(HIER, '..');
-const QUELLE = process.argv[2] || join(HIER, 'rohdaten-weltenschmiede.json');
+const QUELLE = process.argv[2] || join(HIER, '..', 'daten', 'quelle.json');
 
 const roh = JSON.parse(readFileSync(QUELLE, 'utf8'));
-const { welt, bilanz, gepflegteBegriffe, ausgeschlossen } = umwandeln(roh);
+const { welt, bilanz, gepflegteBegriffe, ausgeschlossen, dateien } = weltDateien(roh);
 const eintraege = welt.eintraege;
 const woerterbuch = welt.woerterbuch;
 
 /* ------------------------------------------------------------------ *
  * Schreiben
+ *
+ * Das Format der Dateien legt `welt-dateien.mjs` fest – dieselbe Stelle,
+ * die auch das Wiki im Browser benutzt. So koennen beide nicht auseinander
+ * laufen.
  * ------------------------------------------------------------------ */
 
 mkdirSync(join(WURZEL, 'daten'), { recursive: true });
-const alsJson = JSON.stringify(welt, null, 2);
-writeFileSync(join(WURZEL, 'daten', 'welt.json'), alsJson + '\n', 'utf8');
-writeFileSync(
-  join(WURZEL, 'daten', 'welt.js'),
-  '/* Automatisch erzeugt von werkzeuge/welt-aufbereiten.mjs. Nicht von Hand ändern. */\n' +
-    'window.AGE_OF_BEAST_WELT = ' + alsJson + ';\n',
-  'utf8',
-);
+for (const [pfad, inhalt] of Object.entries(dateien)) {
+  writeFileSync(join(WURZEL, pfad), inhalt, 'utf8');
+}
 
 
 /* ------------------------------------------------------------------ *
@@ -73,4 +72,4 @@ if (ausgeschlossen.length) {
   );
 }
 console.log('');
-console.log('Geschrieben: daten/welt.json und daten/welt.js');
+console.log("Geschrieben: " + Object.keys(dateien).join(", "));
