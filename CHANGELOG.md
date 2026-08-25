@@ -7,6 +7,52 @@ Das Neueste steht immer oben.
 
 ---
 
+## Fassung 2.0.1 – 25. August 2026
+
+**Zwei Farben aus dem neuen Entwurf übernommen — und ein Fehler behoben, der
+schon länger drin war.**
+
+### Was du siehst
+
+**Türkis für die Einordnung.** Die Zeile über dem Titel („Fraktion · Gilde")
+und die Pfadzeile darüber („Age of Beast / Fraktionen / Maschinisten") sind
+jetzt türkis statt blassgrau. Das trennt die Frage *„wo bin ich?"* sichtbar
+vom eigentlichen Text.
+
+**Verweise ruhen dunkler.** Bisher leuchteten alle Verweise im selben hellen
+Ton, egal ob du mit der Maus darauf warst oder nicht. Jetzt sind sie im
+Ruhezustand etwas satter und hellen erst beim Überfahren auf — so wie im
+Entwurf. Der Text wirkt dadurch ruhiger.
+
+### Der behobene Fehler
+
+Beim Umschalten zwischen hell und dunkel behielten Verweise die Farbe der
+**vorherigen** Ansicht. In der hellen Ansicht stand dann ein heller Verweis
+auf hellem Grund — kaum lesbar. Erst ein Neuladen brachte es in Ordnung.
+
+Das lag an der weichen Farbüberblendung: Der Browser übernimmt eine geänderte
+Farbe nicht, solange für sie eine Überblendung eingerichtet ist. Beim
+Umschalten werden die Überblendungen jetzt kurz stillgelegt und sofort danach
+wieder freigegeben. Das Aufhellen beim Überfahren bleibt also erhalten.
+
+**Der Fehler war nicht neu** — er steckte schon in der ersten Fassung des
+Wikis. Er fiel nur nicht auf, weil die beiden Farben sich vorher kaum
+unterschieden.
+
+### Nachgemessen
+
+Alle Farben wurden auf Lesbarkeit geprüft, in beiden Ansichten. Der niedrigste
+Wert liegt bei 5,7 zu 1 — nötig wären 4,5 zu 1. Umschalten wurde dreimal
+hintereinander geprüft; jedes Mal stimmten alle Farben.
+
+### Was **nicht** geändert wurde
+
+Grundfarbe, Schriftart, Titelgrößen und der Lichtverlauf waren mit dem neuen
+Entwurf bereits identisch — daran war nichts zu tun. Kacheln, Aufbau und alle
+Inhalte bleiben unverändert.
+
+---
+
 ## Fassung 2.0.0 – 25. August 2026
 
 **Das Wiki braucht keinen fremden Dienst mehr.** Deine Welt liegt jetzt als

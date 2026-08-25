@@ -29,6 +29,81 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 Ohne Versionsnummer: reine Inhaltsänderung an der Quelle, keine Änderung am
 Wiki-Code.
 
+## [2.0.1] – 2026-08-25
+
+Abgleich mit dem überarbeiteten Entwurf „Aschekodex Wiki" (Design-System
+*nocturne*) und Behebung eines vorbestehenden Fehlers beim Themenwechsel.
+
+### Abgleich mit dem Entwurf
+
+Der Entwurf wurde lokal gerendert und gegen den Ist-Zustand **gemessen**, nicht
+nach Augenmaß übernommen. Identisch waren bereits: `--color-bg` `#161815`,
+`--color-surface` `#1e211d`, `--color-text` `#e9e9ed`, `--color-accent`
+`#9184d9`, Trennlinien bei 16 %, Inter durchgehend, der Lichtverlauf
+`radial-gradient(1200px 700px at 8% -18%, #22251f, #161815 60%)`, Kachelgrund
+`srgb(0.118 0.129 0.114 / 0.82)`, h1 ≈ 43 px/500, h2 ≈ 19 px/500.
+
+Nicht übernommen: `--wk-warm` `#b79a6a` ist im Entwurf zwar deklariert, aber
+an **keiner** Stelle verwendet. Ebenso wenig der zunächst vermutete
+Kachelradius von 8 px — der Messwert stammte von einem anderen Element; der
+Entwurf hat keine Kachelfläche, die der Startseite entspricht.
+
+### Geändert
+
+- Neue Variablen `--verweis` / `--verweis-aktiv`. Dunkel `#af9ee4` → `#d2cefd`,
+  hell `#5d5294` → `#423a6a`. Bisher lag der Ruhezustand auf `--akzent-hell`,
+  also auf dem Ton, den der Entwurf für `:hover` vorsieht.
+- Neue Variable `--tuerkis`: dunkel `#71c3b1` (aus dem Entwurf,
+  `oklch(0.76 0.085 178)`), hell `#2c6c5e` (abgedunkelt, da der Entwurf keine
+  helle Ansicht kennt). Angewandt auf `.mikro` und `.brotkrumen .pfad`.
+
+### Behoben
+
+- **Farbnachzug beim Themenwechsel.** Elemente mit `transition: color`
+  behielten nach dem Umschalten die Farbe des vorherigen Themas; betroffen
+  waren sieben Regeln, darunter `a.verweis`. In der hellen Ansicht ergab das
+  `#af9ee4` auf `#f6f6f3` — **2,2:1**.
+
+  Ursache: Ändert sich nur eine Custom Property, übernimmt der Browser den
+  neuen Wert nicht in eine Eigenschaft mit eingerichtetem Übergang. Isoliert
+  nachgewiesen — bei `transition: none` schlug ein testweise gesetztes
+  `--verweis: #ff0000` sofort durch, mit aktivem Übergang blieb die Farbe
+  eingefroren, selbst wenn die Variable direkt am Element gesetzt wurde.
+
+  Behebung in `themaSetzen()`: Klasse `thema-wechsel` setzen (CSS legt darunter
+  alle Übergänge per `transition: none !important` stumm), Thema wechseln,
+  **Neuberechnung mit `void wurzel.offsetWidth` erzwingen**, dann freigeben.
+  Der erzwungene Umbruch ist der entscheidende Teil: Ohne ihn gewann die
+  Freigabe das Rennen gegen die Berechnung und der Fehler blieb bestehen.
+  Freigegeben wird über `requestAnimationFrame` **und** `setTimeout(…, 120)` —
+  in einem unsichtbaren Tab feuert `requestAnimationFrame` nicht, wodurch die
+  Klasse sonst hängen bliebe und sämtliche Übergänge tot wären. Beides wurde
+  vor der Veröffentlichung reproduziert.
+
+  Der Fehler bestand seit `1.0.0` (`a.verweis { color: var(--akzent-hell);
+  transition: … color 0.14s }`) und fiel nur nicht auf, weil sich die Töne
+  beider Themen kaum unterschieden.
+
+### Verifiziert
+
+- Kontrast nach WCAG, gemessen im Browser gegen `--grund`:
+
+  | Element | dunkel | hell |
+  | --- | --- | --- |
+  | `a.verweis` | 7,51:1 | 6,26:1 |
+  | `.mikro` | 8,63:1 | 5,68:1 |
+  | `.brotkrumen .pfad` | 8,63:1 | 5,68:1 |
+  | `.nav-gruppe li a` | 12,43:1 | 12,88:1 |
+  | Fließtext | 14,75:1 | 16,34:1 |
+
+  Niedrigster Wert 5,68:1, also über AA (4,5:1); im dunklen Thema alles über
+  AAA (7:1).
+- Drei aufeinanderfolgende Themenwechsel: alle fünf geprüften Elemente stimmen
+  bei jedem Durchgang, Klasse danach entfernt, Übergänge wieder aktiv.
+- `node --check` über alle 15 JavaScript-Dateien: fehlerfrei.
+- `pruefe-gleichstand`, `pruefe-schreibweise`, `pruefe-bearbeiten`,
+  `pruefe-github`: bestanden. Weltdaten unberührt.
+
 ## [2.0.0] – 2026-08-25
 
 Ablösung von Firebase. Die Quelle der Wahrheit wandert von der Realtime
@@ -538,7 +613,8 @@ Weltenschmiede-Projekt `project-sturmwende-20260730`.
 - Die Datendateien wurden vor dem Commit auf Zugangsdaten, Schlüssel und
   E-Mail-Adressen geprüft; Treffer: keine.
 
-[Unveröffentlicht]: https://github.com/Kimpaliz/age-of-beast/compare/v2.0.0...HEAD
+[Unveröffentlicht]: https://github.com/Kimpaliz/age-of-beast/compare/v2.0.1...HEAD
+[2.0.1]: https://github.com/Kimpaliz/age-of-beast/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/Kimpaliz/age-of-beast/compare/v1.3.0...v2.0.0
 [1.4.0]: https://github.com/Kimpaliz/age-of-beast/compare/v1.3.0...v2.0.0
 [1.3.0]: https://github.com/Kimpaliz/age-of-beast/compare/v1.2.0...v1.3.0

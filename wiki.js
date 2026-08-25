@@ -900,10 +900,40 @@
   const themaKnopf = document.getElementById('thema-knopf');
   const THEMA_GESPEICHERT = 'age-of-beast-thema';
 
+  /**
+   * Wechselt zwischen hell und dunkel.
+   *
+   * Waehrend des Wechsels werden alle Uebergaenge kurz stillgelegt. Grund:
+   * Aendert sich nur eine Variable wie --verweis, loest das im Browser
+   * keinen neuen Farbuebergang aus. Elemente mit `transition: color`
+   * behielten dadurch die Farbe des vorherigen Themas - im schlimmsten Fall
+   * ein dunkler Verweis auf dunklem Grund. Nach einem Bildaufbau werden die
+   * Uebergaenge wieder freigegeben, damit das Ueberfahren weich bleibt.
+   */
   function themaSetzen(thema) {
-    document.documentElement.dataset.thema = thema;
+    const wurzel = document.documentElement;
+    wurzel.classList.add('thema-wechsel');
+    wurzel.dataset.thema = thema;
     themaKnopf.firstElementChild.textContent = thema === 'hell' ? '☀' : '☾';
     try { localStorage.setItem(THEMA_GESPEICHERT, thema); } catch (e) { /* egal */ }
+
+    // Neuberechnung jetzt erzwingen, solange die Uebergaenge stillgelegt sind.
+    // Ohne das kann die Freigabe schneller sein als die Berechnung: Der Browser
+    // uebernimmt eine geaenderte Variable dann nicht mehr in eine Eigenschaft mit
+    // laufendem Uebergang - ein Verweis behielte die Farbe des anderen Themas.
+    void wurzel.offsetWidth;
+
+    // Freigeben, sobald die neuen Werte uebernommen sind. requestAnimationFrame
+    // feuert in einem unsichtbaren Tab nicht - ohne die Zeitgeber-Rueckfallebene
+    // bliebe die Klasse dort haengen und saemtliche Uebergaenge waeren tot.
+    let freigegeben = false;
+    const freigeben = () => {
+      if (freigegeben) return;
+      freigegeben = true;
+      wurzel.classList.remove('thema-wechsel');
+    };
+    requestAnimationFrame(() => requestAnimationFrame(freigeben));
+    setTimeout(freigeben, 120);
   }
 
   let startThema = 'dunkel';

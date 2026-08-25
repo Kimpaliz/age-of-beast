@@ -29,6 +29,15 @@
   --akzent-schleier: rgba(145, 132, 217, 0.16);
   --akzent-rand:     rgba(145, 132, 217, 0.42);
 
+  /* Verweise ruhen im satteren Ton und hellen beim Überfahren auf.
+     So steht der Entwurf: Ruhe #af9ee4, Berührung #d2cefd. */
+  --verweis:       #af9ee4;
+  --verweis-aktiv: #d2cefd;
+
+  /* Türkis kennzeichnet Herkunft und Einordnung: Brotkrumen und die
+     Kategoriezeile über dem Titel. Zweitfarbe aus dem Entwurf. */
+  --tuerkis: #71c3b1;
+
   --schein: rgba(145, 132, 217, 0.34);
   --schatten:       0 0 0 1px rgba(89, 93, 108, 0.9), 0 16px 40px rgba(0, 0, 0, 0.65);
   --schatten-klein: 0 0 0 1px rgba(89, 93, 108, 0.7), 0 6px 18px rgba(0, 0, 0, 0.55);
@@ -59,6 +68,12 @@ html[data-thema="hell"] {
   --akzent-hell:     #423a6a;
   --akzent-schleier: rgba(93, 82, 148, 0.10);
   --akzent-rand:     rgba(93, 82, 148, 0.38);
+
+  /* Der Entwurf ist nur dunkel. Für die helle Ansicht sind beide Töne
+     abgedunkelt, damit der Kontrast auf hellem Grund trägt. */
+  --verweis:       #5d5294;
+  --verweis-aktiv: #423a6a;
+  --tuerkis:       #2c6c5e;
 
   --schein: rgba(93, 82, 148, 0.16);
   --schatten:       0 0 0 1px rgba(23, 25, 22, 0.12), 0 16px 40px rgba(40, 38, 60, 0.16);
@@ -94,7 +109,7 @@ body {
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--schrift-leise);
+  color: var(--tuerkis);
 }
 
 /* ------------------------------------------------------------------ *
@@ -431,9 +446,9 @@ body {
   color: var(--akzent); text-decoration: none; font-weight: 500;
 }
 .brotkrumen .zurueck:hover { text-decoration: underline; }
-.brotkrumen .pfad { color: var(--schrift-leise); }
-.brotkrumen .pfad a { color: var(--schrift-leise); text-decoration: none; }
-.brotkrumen .pfad a:hover { color: var(--schrift-matt); text-decoration: underline; }
+.brotkrumen .pfad { color: var(--tuerkis); }
+.brotkrumen .pfad a { color: var(--tuerkis); text-decoration: none; }
+.brotkrumen .pfad a:hover { color: var(--tuerkis); text-decoration: underline; }
 
 .artikel > .mikro { display: block; margin-bottom: 0.45rem; }
 .artikel > h1 {
@@ -542,7 +557,7 @@ body {
    ------------------------------------------------------------------ */
 
 a.verweis {
-  color: var(--akzent-hell);
+  color: var(--verweis);
   text-decoration: none;
   border-bottom: 1px solid var(--akzent-rand);
   padding: 0.05em 0.1em;
@@ -554,7 +569,7 @@ a.verweis {
 a.verweis:hover, a.verweis:focus-visible, a.verweis.aktiv {
   background: var(--akzent-schleier);
   border-bottom-color: var(--akzent);
-  color: var(--akzent-hell);
+  color: var(--verweis-aktiv);
 }
 
 .vorschau {
@@ -1030,4 +1045,19 @@ html[data-bearbeiten="an"] .artikel [data-feld]:hover {
 /* Der Fehlertext im Kopf darf länger sein als die knappe Statusanzeige. */
 @media (min-width: 68rem) {
   .anmelde-status[data-zustand="fehler"] { max-width: 30rem; }
+}
+
+/* ------------------------------------------------------------------ *
+   Themenwechsel ohne Farbnachzug
+
+   Aendert sich beim Umschalten nur eine Variable, loest das keinen neuen
+   Farbuebergang aus: Elemente mit `transition: color` behielten sonst die
+   Farbe des vorherigen Themas. wiki.js setzt deshalb fuer einen Bildaufbau
+   diese Klasse.
+   ------------------------------------------------------------------ */
+
+html.thema-wechsel *,
+html.thema-wechsel *::before,
+html.thema-wechsel *::after {
+  transition: none !important;
 }
