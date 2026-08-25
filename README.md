@@ -34,7 +34,7 @@ Danach `http://localhost:4173` im Browser öffnen. Beenden mit `Strg + C`.
 | **Filter** | Auf der Startseite lässt sich nach Kategorie eingrenzen. |
 | **Hell und dunkel** | Umschaltbar oben rechts. Dunkel ist die Voreinstellung. |
 | **Handy und Tablet** | Vollständig nutzbar; die Seitenleiste klappt ein. |
-| **Bearbeiten** | Nur angemeldet: Name, Kurztext, Abschnittsüberschriften und Abschnittstexte lassen sich direkt im Wiki ändern. Siehe unten. |
+| **Bearbeiten** | Nur angemeldet: Texte ändern, Abschnitte anlegen, löschen und umsortieren, Steckbriefzeilen pflegen. Siehe unten. |
 
 Alle Inhalte sind Text. Es gibt keine Bilder, keine Werbung, keine
 Nachverfolgung und keine Verbindung nach außen.
@@ -136,8 +136,17 @@ jederzeit in den GitHub-Einstellungen.
 4. Ändern, **Speichern**.
 
 Änderbar sind der Name eines Eintrags, sein Kurztext, die Überschrift eines
-Abschnitts und der Text eines Abschnitts. Abschnitte anlegen, löschen oder
-umsortieren geht noch nicht.
+Abschnitts und der Text eines Abschnitts.
+
+**Seit Fassung 2.1.0 auch der Aufbau.** Im Bearbeitungsmodus stehen oben
+rechts an jedem Abschnitt drei Knöpfe: ↑ und ↓ verschieben ihn, ✕ löscht ihn
+nach Rückfrage. Unter dem letzten Abschnitt legt **+ Abschnitt** einen neuen
+an. Im Steckbrief rechts hat jede Zeile einen Stift und ein ✕, darunter legt
+**+ Zeile** eine neue an.
+
+Ein neu angelegter Abschnitt bekommt eine Überschrift und den Satz „Hier steht
+noch nichts." Das ist Absicht: Das Wiki zeigt keine Abschnitte ohne Text, ein
+wirklich leerer wäre also unsichtbar.
 
 Ein Speichervorgang legt `quelle.json`, `welt.json` und `welt.js` zusammen in
 **einen** Commit. Das Repository ist damit nach jeder Änderung in sich

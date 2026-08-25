@@ -29,6 +29,97 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 Ohne Versionsnummer: reine Inhaltsänderung an der Quelle, keine Änderung am
 Wiki-Code.
 
+## [2.1.0] – 2026-08-25
+
+Strukturbearbeitung: Abschnitte anlegen, löschen und umsortieren,
+Steckbriefzeilen ändern, anlegen und entfernen.
+
+### Entwurfsentscheidung
+
+Janniks Entwurf zeigt eine Bearbeitungsmaske, die die Leseansicht ersetzt.
+Umgesetzt wurden stattdessen Bedienleisten **an** den vorhandenen Elementen.
+Grund: Die Maske hätte den an 206 Feldern geprüften Stift-Pfad ersetzt und
+damit getestete Arbeit weggeworfen, ohne eine Fähigkeit hinzuzufügen, die die
+Leisten nicht auch bieten. Übernommen sind die Fähigkeiten des Entwurfs, nicht
+sein Bedienmodell.
+
+### Hinzugefügt
+
+- `werkzeuge/struktur-bearbeiten.mjs`: reine Logik, kein DOM. Exportiert
+  `abschnittAnlegen`, `abschnittLoeschen`, `abschnittVerschieben`,
+  `abschnittsReihenfolge`, `steckbriefZeilen`, `zeileSetzen`, `zeileAnlegen`,
+  `zeileLoeschen`, `alsSchluessel`. Jede Funktion liefert eine Zuordnung von
+  Pfad auf Wert — dasselbe Format, das `bearbeiten-stellen.mjs` schon
+  verwendet, und damit ohne Änderung an `schreiben()` verwendbar.
+- `struktur-bedienung.js`: die Bedienung. Registriert sich über
+  `window.ageOfBeast.beiNeuZeichnen` und lauscht auf das neue Ereignis
+  `bearbeiten-umgeschaltet`, das `texte-bearbeiten.js` beim Umschalten
+  auslöst. Beide Dateien kennen einander nicht.
+- `werkzeuge/pruefe-struktur.mjs`: 886 Einzelprüfungen über alle 29 Einträge.
+- `.mikro`-Kategoriezeile und Steckbrief bekommen Bedienleisten; Gestaltung in
+  `stil.css` (`.struktur-leiste`, `.struktur-knopf`, `.struktur-anhang`,
+  `.struktur-neu`, `.zeile-formular`).
+
+### Geändert
+
+- `werkzeuge/welt-umwandeln.mjs`: Attribute tragen jetzt `schluessel`. Ohne
+  ihn wüsste die Bedienung nicht, welches Feld in `fields` zu einer Zeile
+  gehört — dieselbe Rolle, die `abschnitt.herkunft` für Abschnitte spielt.
+- `wiki.js`: Abschnitte aus einem Panel tragen `data-panel` mit der
+  Panel-Kennung, Steckbriefzeilen `data-zeile` mit dem Schlüssel. Ergänzte
+  Abschnitte bekommen bewusst **kein** `data-panel`: Sie stammen aus einem
+  Feld, haben keinen Platz in `panelOrder` und lassen sich nicht umsortieren.
+- `.github/workflows/pages.yml`: `pruefe-struktur.mjs` und die Syntaxprüfung
+  für `struktur-bedienung.js` ergänzt.
+
+### Drei Eigenheiten, die den Ausschlag gaben
+
+- **Ein neuer Abschnitt bekommt einen Starttext.** `welt-umwandeln.mjs`
+  überspringt jedes Panel ohne Text (`if (!html) continue`). Ein leer
+  angelegter Abschnitt wäre unsichtbar geblieben und hätte damit auch keinen
+  Stift bekommen — die Bedienung wäre in eine Sackgasse gelaufen. Konstante
+  `STARTTEXT`.
+- **`panelOrder` enthält auch fremde Kennungen.** Neben den eigenen Panels
+  stehen dort `core-connections` und `references`, die es in `customPanels`
+  gar nicht gibt. `abschnittVerschieben` tauscht deshalb nur die Plätze der
+  eigenen Abschnitte und lässt alles andere stehen; die Prüfung vergleicht
+  das ausdrücklich.
+- **Der neue Abschnitt steht nicht am Ende der Anzeige.** Nach den Panels
+  hängt `welt-umwandeln.mjs` noch Zusatztexte an, die in keinem Panel
+  vorkommen. Die Prüfung erwartet ihn deshalb hinter dem letzten Abschnitt
+  **aus einem Panel**, nicht an letzter Stelle.
+
+### Behoben (vor der Veröffentlichung im Prüfstand gefunden)
+
+- `zeileLoeschen` setzte `fields[schluessel]` auf den Leerstring, statt den
+  Schlüssel zu entfernen. In der Anzeige war das unsichtbar — leere Werte
+  werden ohnehin übersprungen —, aber jeder Zyklus aus Anlegen und Entfernen
+  hätte einen leeren Schlüssel mehr hinterlassen. `fields` wird jetzt als
+  Ganzes ohne den Schlüssel geschrieben, wie `attributeRows` daneben.
+- Die Prüfung selbst war zu schwach: Sie verglich nur die gerenderte Anzeige
+  und hätte den Rest nie bemerkt. `rohAbdruck()` vergleicht jetzt zusätzlich
+  den Rohknoten; damit stieg die Zahl der Einzelprüfungen von 828 auf 886.
+
+### Verifiziert
+
+- `node werkzeuge/pruefe-struktur.mjs`: 886 Prüfungen, 29 Einträge,
+  126 Steckbriefzeilen, 0 Fehler. Geprüft wird je Eintrag: Anlegen erzeugt
+  genau einen Abschnitt an der richtigen Stelle, verändert keinen anderen
+  Eintrag und keinen vorhandenen Abschnitt; Anlegen und Löschen ergibt den
+  Ausgangszustand in Anzeige **und** Rohdaten; Verschieben tauscht genau zwei
+  Plätze, verliert nichts und lässt feste Panels unberührt; an den Rändern
+  verweigert es sich; unverändertes Speichern meldet keine Änderung.
+- `pruefe-gleichstand`, `pruefe-schreibweise`, `pruefe-bearbeiten`,
+  `pruefe-github`: unverändert bestanden.
+- `node --check` über alle 16 JavaScript-Dateien.
+- Prüfstand im Browser gegen eine Attrappe statt GitHub: verschieben, hin und
+  zurück, anlegen, löschen, Zeile anlegen, ändern, entfernen. Danach ist der
+  Stand gegenüber `daten/quelle.json` **bytegleich** (213.211 Zeichen).
+- Ohne Anmeldung: kein Bearbeiten-Knopf, 0 Stifte, 0 Leisten, 0 Anhänge,
+  6 Abschnitte, keine fremden Skripte, keine Konsolenmeldung.
+- Weltdaten: einzige Änderung ist das neue Feld `attribute[].schluessel`.
+  Texte und Attributwerte unverändert.
+
 ## [2.0.1] – 2026-08-25
 
 Abgleich mit dem überarbeiteten Entwurf „Aschekodex Wiki" (Design-System
@@ -613,7 +704,8 @@ Weltenschmiede-Projekt `project-sturmwende-20260730`.
 - Die Datendateien wurden vor dem Commit auf Zugangsdaten, Schlüssel und
   E-Mail-Adressen geprüft; Treffer: keine.
 
-[Unveröffentlicht]: https://github.com/Kimpaliz/age-of-beast/compare/v2.0.1...HEAD
+[Unveröffentlicht]: https://github.com/Kimpaliz/age-of-beast/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/Kimpaliz/age-of-beast/compare/v2.0.1...v2.1.0
 [2.0.1]: https://github.com/Kimpaliz/age-of-beast/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/Kimpaliz/age-of-beast/compare/v1.3.0...v2.0.0
 [1.4.0]: https://github.com/Kimpaliz/age-of-beast/compare/v1.3.0...v2.0.0

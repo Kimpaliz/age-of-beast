@@ -193,6 +193,10 @@ export function bearbeitenEinrichten(werkzeug) {
     knopf.textContent = an ? 'Fertig' : 'Bearbeiten';
     if (!an) feldSchliessen();
     stifteSetzen();
+    // `struktur-bedienung.js` hängt an derselben Umschaltung, führt aber
+    // eigene Bedienelemente. Statt beide Dateien aneinanderzubinden, sagt
+    // diese hier nur Bescheid, dass sich der Zustand geändert hat.
+    document.dispatchEvent(new CustomEvent('bearbeiten-umgeschaltet', { detail: { an } }));
   };
 
   knopf.hidden = false;

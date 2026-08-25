@@ -1061,3 +1061,119 @@ html.thema-wechsel *::before,
 html.thema-wechsel *::after {
   transition: none !important;
 }
+
+/* ------------------------------------------------------------------ *
+   Aufbau bearbeiten – Leisten, Anhänge, Zeilenformular
+
+   Die Bedienelemente halten sich absichtlich zurück: Sie erscheinen nur
+   im Bearbeitungsmodus und treten erst beim Überfahren hervor. Beim
+   Lesen soll nichts davon stören.
+   ------------------------------------------------------------------ */
+
+.struktur-leiste {
+  display: flex;
+  gap: 0.15rem;
+  opacity: 0.4;
+  transition: opacity 0.15s;
+}
+
+/* Am Abschnitt sitzt die Leiste rechts oben, ohne Platz wegzunehmen. */
+section.abschnitt > .struktur-leiste {
+  position: absolute;
+  top: 0.1rem;
+  right: 0;
+}
+section.abschnitt { position: relative; }
+
+section.abschnitt:hover > .struktur-leiste,
+section.abschnitt:focus-within > .struktur-leiste,
+.struktur-leiste:focus-within { opacity: 1; }
+
+/* In einer Steckbriefzeile steht sie in derselben Zeile wie der Wert. */
+.struktur-leiste.zeile {
+  display: inline-flex;
+  margin-left: 0.35rem;
+  vertical-align: middle;
+}
+.eigenschaften dd:hover .struktur-leiste.zeile { opacity: 1; }
+
+.struktur-knopf {
+  padding: 0 0.3rem;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius-klein);
+  color: var(--schrift-leise);
+  font: inherit;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.struktur-knopf:hover:not(:disabled),
+.struktur-knopf:focus-visible {
+  color: var(--akzent-hell);
+  border-color: var(--akzent-rand);
+  background: var(--akzent-schleier);
+}
+.struktur-knopf:disabled { opacity: 0.25; cursor: default; }
+
+/* Löschen bekommt erst beim Überfahren einen Warnton – dauerhaft rot
+   wäre im Text zu laut. */
+.struktur-knopf.gefahr:hover:not(:disabled),
+.struktur-knopf.gefahr:focus-visible {
+  color: #e9a9a9;
+  border-color: #d98a8a;
+  background: rgba(217, 138, 138, 0.12);
+}
+
+.struktur-anhang { margin-top: 0.9rem; }
+
+.struktur-neu {
+  padding: 0.3rem 0.7rem;
+  background: none;
+  border: 1px dashed var(--rand-hell);
+  border-radius: var(--radius-klein);
+  color: var(--schrift-leise);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.struktur-neu:hover, .struktur-neu:focus-visible {
+  color: var(--akzent-hell);
+  border-color: var(--akzent-rand);
+  border-style: solid;
+  background: var(--akzent-schleier);
+}
+
+/* --- Formular für eine Steckbriefzeile --------------------------- */
+
+.zeile-formular {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+  padding: 0.6rem;
+  background: var(--flaeche-hoch);
+  border: 1px solid var(--akzent-rand);
+  border-radius: var(--radius-klein);
+}
+
+.zeile-feld {
+  width: 100%;
+  padding: 0.35rem 0.5rem;
+  background: var(--grund);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+  color: var(--schrift);
+  font: inherit;
+  font-size: 0.82rem;
+}
+.zeile-feld:focus {
+  outline: none;
+  border-color: var(--akzent);
+  box-shadow: 0 0 0 2px var(--akzent-schleier);
+}
+
+.zeile-knoepfe { display: flex; gap: 0.4rem; }

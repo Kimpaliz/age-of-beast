@@ -48,6 +48,7 @@ window.AGE_OF_BEAST_WELT = {
       "quelle": "",
       "attribute": [
         {
+          "schluessel": "type",
           "beschriftung": "Begriffsart",
           "wert": "Kampagnen-Frame"
         }
@@ -165,6 +166,7 @@ window.AGE_OF_BEAST_WELT = {
       "quelle": "",
       "attribute": [
         {
+          "schluessel": "territory",
           "beschriftung": "Einflussgebiet",
           "wert": "Orte, die sich vertraglich oder mündlich dazu bereit erklärt haben, die Goldene Garde zu akzeptieren"
         }
@@ -277,10 +279,12 @@ window.AGE_OF_BEAST_WELT = {
       "quelle": "",
       "attribute": [
         {
+          "schluessel": "type",
           "beschriftung": "Fraktionstyp",
           "wert": "Gilde"
         },
         {
+          "schluessel": "influence",
           "beschriftung": "Einfluss",
           "wert": "Hoher politischer Einfluss"
         }
@@ -375,18 +379,22 @@ window.AGE_OF_BEAST_WELT = {
       "quelle": "Daggerheart: Hope & Fear",
       "attribute": [
         {
+          "schluessel": "classification",
           "beschriftung": "Klassifikation",
           "wert": "Erweiterungs-Abstammung"
         },
         {
+          "schluessel": "sapience",
           "beschriftung": "Denkvermögen",
           "wert": "vernunftbegabt"
         },
         {
+          "schluessel": "lifespan",
           "beschriftung": "Lebenserwartung",
           "wert": "Etwa 350 Jahre"
         },
         {
+          "schluessel": "habitat",
           "beschriftung": "Lebensraum",
           "wert": "In der gesamten Welt; nicht auf eine einzelne Kultur festgelegt"
         }
@@ -426,18 +434,22 @@ window.AGE_OF_BEAST_WELT = {
       "quelle": "Daggerheart-Grundregelwerk / SRD 1.0",
       "attribute": [
         {
+          "schluessel": "classification",
           "beschriftung": "Klassifikation",
           "wert": "Kern-Abstammung"
         },
         {
+          "schluessel": "sapience",
           "beschriftung": "Denkvermögen",
           "wert": "vernunftbegabt"
         },
         {
+          "schluessel": "lifespan",
           "beschriftung": "Lebenserwartung",
           "wert": "Potenziell unbegrenzt, solange Ersatzteile verfügbar sind"
         },
         {
+          "schluessel": "habitat",
           "beschriftung": "Lebensraum",
           "wert": "In der gesamten Welt; nicht auf eine einzelne Kultur festgelegt"
         }
@@ -477,18 +489,22 @@ window.AGE_OF_BEAST_WELT = {
       "quelle": "Daggerheart-Grundregelwerk / SRD 1.0",
       "attribute": [
         {
+          "schluessel": "classification",
           "beschriftung": "Klassifikation",
           "wert": "Kern-Abstammung"
         },
         {
+          "schluessel": "sapience",
           "beschriftung": "Denkvermögen",
           "wert": "vernunftbegabt"
         },
         {
+          "schluessel": "lifespan",
           "beschriftung": "Lebenserwartung",
           "wert": "Etwa 350 Jahre"
         },
         {
+          "schluessel": "habitat",
           "beschriftung": "Lebensraum",
           "wert": "In der gesamten Welt; nicht auf eine einzelne Kultur festgelegt"
         }
@@ -531,18 +547,22 @@ window.AGE_OF_BEAST_WELT = {
       "quelle": "Daggerheart: Hope & Fear",
       "attribute": [
         {
+          "schluessel": "classification",
           "beschriftung": "Klassifikation",
           "wert": "Erweiterungs-Abstammung"
         },
         {
+          "schluessel": "sapience",
           "beschriftung": "Denkvermögen",
           "wert": "vernunftbegabt"
         },
         {
+          "schluessel": "lifespan",
           "beschriftung": "Lebenserwartung",
           "wert": "Etwa 300 Jahre"
         },
         {
+          "schluessel": "habitat",
           "beschriftung": "Lebensraum",
           "wert": "In der gesamten Welt; nicht auf eine einzelne Kultur festgelegt"
         }
@@ -582,18 +602,22 @@ window.AGE_OF_BEAST_WELT = {
       "quelle": "Daggerheart-Grundregelwerk / SRD 1.0",
       "attribute": [
         {
+          "schluessel": "classification",
           "beschriftung": "Klassifikation",
           "wert": "Kern-Abstammung"
         },
         {
+          "schluessel": "sapience",
           "beschriftung": "Denkvermögen",
           "wert": "vernunftbegabt"
         },
         {
+          "schluessel": "lifespan",
           "beschriftung": "Lebenserwartung",
           "wert": "Etwa 350 Jahre"
         },
         {
+          "schluessel": "habitat",
           "beschriftung": "Lebensraum",
           "wert": "In der gesamten Welt; nicht auf eine einzelne Kultur festgelegt"
         }
@@ -636,18 +660,22 @@ window.AGE_OF_BEAST_WELT = {
       "quelle": "Daggerheart: Hope & Fear",
       "attribute": [
         {
+          "schluessel": "classification",
           "beschriftung": "Klassifikation",
           "wert": "Erweiterungs-Abstammung"
         },
         {
+          "schluessel": "sapience",
           "beschriftung": "Denkvermögen",
           "wert": "vernunftbegabt"
         },
         {
+          "schluessel": "lifespan",
           "beschriftung": "Lebenserwartung",
           "wert": "Etwa 250 Jahre"
         },
         {
+          "schluessel": "habitat",
           "beschriftung": "Lebensraum",
           "wert": "In der gesamten Welt; nicht auf eine einzelne Kultur festgelegt"
         }
@@ -687,18 +715,22 @@ window.AGE_OF_BEAST_WELT = {
       "quelle": "Daggerheart-Grundregelwerk / SRD 1.0",
       "attribute": [
         {
+          "schluessel": "classification",
           "beschriftung": "Klassifikation",
           "wert": "Kern-Abstammung"
         },
         {
+          "schluessel": "sapience",
           "beschriftung": "Denkvermögen",
           "wert": "vernunftbegabt"
         },
         {
+          "schluessel": "lifespan",
           "beschriftung": "Lebenserwartung",
           "wert": "Etwa 225 Jahre"
         },
         {
+          "schluessel": "habitat",
           "beschriftung": "Lebensraum",
           "wert": "In der gesamten Welt; nicht auf eine einzelne Kultur festgelegt"
         }
@@ -740,18 +772,22 @@ window.AGE_OF_BEAST_WELT = {
       "quelle": "Daggerheart-Grundregelwerk / SRD 1.0",
       "attribute": [
         {
+          "schluessel": "classification",
           "beschriftung": "Klassifikation",
           "wert": "Kern-Abstammung"
         },
         {
+          "schluessel": "sapience",
           "beschriftung": "Denkvermögen",
           "wert": "vernunftbegabt"
         },
         {
+          "schluessel": "lifespan",
           "beschriftung": "Lebenserwartung",
           "wert": "Nicht festgelegt"
         },
         {
+          "schluessel": "habitat",
           "beschriftung": "Lebensraum",
           "wert": "In der gesamten Welt; nicht auf eine einzelne Kultur festgelegt"
         }
@@ -791,18 +827,22 @@ window.AGE_OF_BEAST_WELT = {
       "quelle": "Daggerheart-Grundregelwerk / SRD 1.0",
       "attribute": [
         {
+          "schluessel": "classification",
           "beschriftung": "Klassifikation",
           "wert": "Kern-Abstammung"
         },
         {
+          "schluessel": "sapience",
           "beschriftung": "Denkvermögen",
           "wert": "vernunftbegabt"
         },
         {
+          "schluessel": "lifespan",
           "beschriftung": "Lebenserwartung",
           "wert": "Nicht festgelegt"
         },
         {
+          "schluessel": "habitat",
           "beschriftung": "Lebensraum",
           "wert": "In der gesamten Welt; nicht auf eine einzelne Kultur festgelegt"
         }
@@ -842,18 +882,22 @@ window.AGE_OF_BEAST_WELT = {
       "quelle": "Daggerheart-Grundregelwerk / SRD 1.0",
       "attribute": [
         {
+          "schluessel": "classification",
           "beschriftung": "Klassifikation",
           "wert": "Kern-Abstammung"
         },
         {
+          "schluessel": "sapience",
           "beschriftung": "Denkvermögen",
           "wert": "vernunftbegabt"
         },
         {
+          "schluessel": "lifespan",
           "beschriftung": "Lebenserwartung",
           "wert": "Meist etwa 300 Jahre"
         },
         {
+          "schluessel": "habitat",
           "beschriftung": "Lebensraum",
           "wert": "In der gesamten Welt; nicht auf eine einzelne Kultur festgelegt"
         }
@@ -893,18 +937,22 @@ window.AGE_OF_BEAST_WELT = {
       "quelle": "Daggerheart-Grundregelwerk / SRD 1.0",
       "attribute": [
         {
+          "schluessel": "classification",
           "beschriftung": "Klassifikation",
           "wert": "Kern-Abstammung"
         },
         {
+          "schluessel": "sapience",
           "beschriftung": "Denkvermögen",
           "wert": "vernunftbegabt"
         },
         {
+          "schluessel": "lifespan",
           "beschriftung": "Lebenserwartung",
           "wert": "Nicht festgelegt"
         },
         {
+          "schluessel": "habitat",
           "beschriftung": "Lebensraum",
           "wert": "In der gesamten Welt; nicht auf eine einzelne Kultur festgelegt"
         }
@@ -946,18 +994,22 @@ window.AGE_OF_BEAST_WELT = {
       "quelle": "Daggerheart: Hope & Fear",
       "attribute": [
         {
+          "schluessel": "classification",
           "beschriftung": "Klassifikation",
           "wert": "Erweiterungs-Abstammung"
         },
         {
+          "schluessel": "sapience",
           "beschriftung": "Denkvermögen",
           "wert": "vernunftbegabt"
         },
         {
+          "schluessel": "lifespan",
           "beschriftung": "Lebenserwartung",
           "wert": "Etwa 200 Jahre"
         },
         {
+          "schluessel": "habitat",
           "beschriftung": "Lebensraum",
           "wert": "In der gesamten Welt; nicht auf eine einzelne Kultur festgelegt"
         }
@@ -997,18 +1049,22 @@ window.AGE_OF_BEAST_WELT = {
       "quelle": "Daggerheart-Grundregelwerk / SRD 1.0",
       "attribute": [
         {
+          "schluessel": "classification",
           "beschriftung": "Klassifikation",
           "wert": "Kern-Abstammung"
         },
         {
+          "schluessel": "sapience",
           "beschriftung": "Denkvermögen",
           "wert": "vernunftbegabt"
         },
         {
+          "schluessel": "lifespan",
           "beschriftung": "Lebenserwartung",
           "wert": "Nicht festgelegt"
         },
         {
+          "schluessel": "habitat",
           "beschriftung": "Lebensraum",
           "wert": "In der gesamten Welt; nicht auf eine einzelne Kultur festgelegt"
         }
@@ -1050,18 +1106,22 @@ window.AGE_OF_BEAST_WELT = {
       "quelle": "Daggerheart-Grundregelwerk / SRD 1.0",
       "attribute": [
         {
+          "schluessel": "classification",
           "beschriftung": "Klassifikation",
           "wert": "Kern-Abstammung"
         },
         {
+          "schluessel": "sapience",
           "beschriftung": "Denkvermögen",
           "wert": "vernunftbegabt"
         },
         {
+          "schluessel": "lifespan",
           "beschriftung": "Lebenserwartung",
           "wert": "Nicht festgelegt"
         },
         {
+          "schluessel": "habitat",
           "beschriftung": "Lebensraum",
           "wert": "In der gesamten Welt; nicht auf eine einzelne Kultur festgelegt"
         }
@@ -1101,18 +1161,22 @@ window.AGE_OF_BEAST_WELT = {
       "quelle": "Daggerheart-Grundregelwerk / SRD 1.0",
       "attribute": [
         {
+          "schluessel": "classification",
           "beschriftung": "Klassifikation",
           "wert": "Kern-Abstammung"
         },
         {
+          "schluessel": "sapience",
           "beschriftung": "Denkvermögen",
           "wert": "vernunftbegabt"
         },
         {
+          "schluessel": "lifespan",
           "beschriftung": "Lebenserwartung",
           "wert": "Bis etwa 350 Jahre"
         },
         {
+          "schluessel": "habitat",
           "beschriftung": "Lebensraum",
           "wert": "In der gesamten Welt; nicht auf eine einzelne Kultur festgelegt"
         }
@@ -1152,18 +1216,22 @@ window.AGE_OF_BEAST_WELT = {
       "quelle": "Daggerheart-Grundregelwerk / SRD 1.0",
       "attribute": [
         {
+          "schluessel": "classification",
           "beschriftung": "Klassifikation",
           "wert": "Kern-Abstammung"
         },
         {
+          "schluessel": "sapience",
           "beschriftung": "Denkvermögen",
           "wert": "vernunftbegabt"
         },
         {
+          "schluessel": "lifespan",
           "beschriftung": "Lebenserwartung",
           "wert": "Nicht festgelegt"
         },
         {
+          "schluessel": "habitat",
           "beschriftung": "Lebensraum",
           "wert": "In der gesamten Welt; nicht auf eine einzelne Kultur festgelegt"
         }
@@ -1205,18 +1273,22 @@ window.AGE_OF_BEAST_WELT = {
       "quelle": "Daggerheart-Grundregelwerk / SRD 1.0",
       "attribute": [
         {
+          "schluessel": "classification",
           "beschriftung": "Klassifikation",
           "wert": "Kern-Abstammung"
         },
         {
+          "schluessel": "sapience",
           "beschriftung": "Denkvermögen",
           "wert": "vernunftbegabt"
         },
         {
+          "schluessel": "lifespan",
           "beschriftung": "Lebenserwartung",
           "wert": "Meist etwa 100 Jahre"
         },
         {
+          "schluessel": "habitat",
           "beschriftung": "Lebensraum",
           "wert": "In der gesamten Welt; nicht auf eine einzelne Kultur festgelegt"
         }
@@ -1258,18 +1330,22 @@ window.AGE_OF_BEAST_WELT = {
       "quelle": "Daggerheart-Grundregelwerk / SRD 1.0",
       "attribute": [
         {
+          "schluessel": "classification",
           "beschriftung": "Klassifikation",
           "wert": "Kern-Abstammung"
         },
         {
+          "schluessel": "sapience",
           "beschriftung": "Denkvermögen",
           "wert": "vernunftbegabt"
         },
         {
+          "schluessel": "lifespan",
           "beschriftung": "Lebenserwartung",
           "wert": "Etwa 125 Jahre"
         },
         {
+          "schluessel": "habitat",
           "beschriftung": "Lebensraum",
           "wert": "In der gesamten Welt; nicht auf eine einzelne Kultur festgelegt"
         }
@@ -1309,18 +1385,22 @@ window.AGE_OF_BEAST_WELT = {
       "quelle": "Daggerheart-Grundregelwerk / SRD 1.0",
       "attribute": [
         {
+          "schluessel": "classification",
           "beschriftung": "Klassifikation",
           "wert": "Kern-Abstammung"
         },
         {
+          "schluessel": "sapience",
           "beschriftung": "Denkvermögen",
           "wert": "vernunftbegabt"
         },
         {
+          "schluessel": "lifespan",
           "beschriftung": "Lebenserwartung",
           "wert": "Nicht festgelegt"
         },
         {
+          "schluessel": "habitat",
           "beschriftung": "Lebensraum",
           "wert": "In der gesamten Welt; nicht auf eine einzelne Kultur festgelegt"
         }
@@ -1362,18 +1442,22 @@ window.AGE_OF_BEAST_WELT = {
       "quelle": "Daggerheart-Grundregelwerk / SRD 1.0",
       "attribute": [
         {
+          "schluessel": "classification",
           "beschriftung": "Klassifikation",
           "wert": "Kern-Abstammung"
         },
         {
+          "schluessel": "sapience",
           "beschriftung": "Denkvermögen",
           "wert": "vernunftbegabt"
         },
         {
+          "schluessel": "lifespan",
           "beschriftung": "Lebenserwartung",
           "wert": "Etwa 75 Jahre"
         },
         {
+          "schluessel": "habitat",
           "beschriftung": "Lebensraum",
           "wert": "In der gesamten Welt; nicht auf eine einzelne Kultur festgelegt"
         }
@@ -1413,18 +1497,22 @@ window.AGE_OF_BEAST_WELT = {
       "quelle": "Daggerheart-Grundregelwerk / SRD 1.0",
       "attribute": [
         {
+          "schluessel": "classification",
           "beschriftung": "Klassifikation",
           "wert": "Kern-Abstammung"
         },
         {
+          "schluessel": "sapience",
           "beschriftung": "Denkvermögen",
           "wert": "vernunftbegabt"
         },
         {
+          "schluessel": "lifespan",
           "beschriftung": "Lebenserwartung",
           "wert": "Meist etwa 100 Jahre"
         },
         {
+          "schluessel": "habitat",
           "beschriftung": "Lebensraum",
           "wert": "In der gesamten Welt; nicht auf eine einzelne Kultur festgelegt"
         }
@@ -1467,18 +1555,22 @@ window.AGE_OF_BEAST_WELT = {
       "quelle": "Daggerheart: Hope & Fear",
       "attribute": [
         {
+          "schluessel": "classification",
           "beschriftung": "Klassifikation",
           "wert": "Erweiterungs-Abstammung"
         },
         {
+          "schluessel": "sapience",
           "beschriftung": "Denkvermögen",
           "wert": "vernunftbegabt"
         },
         {
+          "schluessel": "lifespan",
           "beschriftung": "Lebenserwartung",
           "wert": "Etwa 300 Jahre"
         },
         {
+          "schluessel": "habitat",
           "beschriftung": "Lebensraum",
           "wert": "In der gesamten Welt; nicht auf eine einzelne Kultur festgelegt"
         }
@@ -1521,18 +1613,22 @@ window.AGE_OF_BEAST_WELT = {
       "quelle": "Daggerheart: Hope & Fear",
       "attribute": [
         {
+          "schluessel": "classification",
           "beschriftung": "Klassifikation",
           "wert": "Erweiterungs-Abstammung"
         },
         {
+          "schluessel": "sapience",
           "beschriftung": "Denkvermögen",
           "wert": "vernunftbegabt"
         },
         {
+          "schluessel": "lifespan",
           "beschriftung": "Lebenserwartung",
           "wert": "Etwa 300 Jahre"
         },
         {
+          "schluessel": "habitat",
           "beschriftung": "Lebensraum",
           "wert": "In der gesamten Welt; nicht auf eine einzelne Kultur festgelegt"
         }
@@ -1574,18 +1670,22 @@ window.AGE_OF_BEAST_WELT = {
       "quelle": "Daggerheart-Grundregelwerk / SRD 1.0",
       "attribute": [
         {
+          "schluessel": "classification",
           "beschriftung": "Klassifikation",
           "wert": "Kern-Abstammung"
         },
         {
+          "schluessel": "sapience",
           "beschriftung": "Denkvermögen",
           "wert": "vernunftbegabt"
         },
         {
+          "schluessel": "lifespan",
           "beschriftung": "Lebenserwartung",
           "wert": "Etwa 250 Jahre"
         },
         {
+          "schluessel": "habitat",
           "beschriftung": "Lebensraum",
           "wert": "In der gesamten Welt; nicht auf eine einzelne Kultur festgelegt"
         }
@@ -1625,14 +1725,17 @@ window.AGE_OF_BEAST_WELT = {
       "quelle": "",
       "attribute": [
         {
+          "schluessel": "characterType",
           "beschriftung": "Rolle",
           "wert": "sc"
         },
         {
+          "schluessel": "gender",
           "beschriftung": "Geschlecht",
           "wert": "unbekannt"
         },
         {
+          "schluessel": "status",
           "beschriftung": "Status",
           "wert": "aktiv"
         }
@@ -1686,14 +1789,17 @@ window.AGE_OF_BEAST_WELT = {
       "quelle": "",
       "attribute": [
         {
+          "schluessel": "type",
           "beschriftung": "Gegenstandsart",
           "wert": "Uniform und Rüstung"
         },
         {
+          "schluessel": "rarity",
           "beschriftung": "Seltenheit",
           "wert": "Dienstkleidung der Goldenen Garde"
         },
         {
+          "schluessel": "factionId",
           "beschriftung": "Zugehörige Fraktion",
           "wert": "Die Goldene Garde",
           "ziel": "faction-sturmwende-gelbroecke-provisorisch"

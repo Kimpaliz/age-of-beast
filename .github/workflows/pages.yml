@@ -44,7 +44,7 @@ jobs:
           node --check wiki.js
           # Die beiden Browser-Module sind ES-Module mit .js-Endung. Node
           # erkennt das nur an der Endung, deshalb der Umweg über eine Kopie.
-          for datei in bearbeiten.js texte-bearbeiten.js; do
+          for datei in bearbeiten.js texte-bearbeiten.js struktur-bedienung.js; do
             cp "$datei" "$RUNNER_TEMP/${datei%.js}.mjs"
             node --check "$RUNNER_TEMP/${datei%.js}.mjs"
           done
@@ -67,6 +67,8 @@ jobs:
           # unter dem Bearbeitungsmodus.
           node werkzeuge/pruefe-schreibweise.mjs
           node werkzeuge/pruefe-bearbeiten.mjs
+          # Anlegen, Loeschen und Umsortieren an allen 29 Eintraegen.
+          node werkzeuge/pruefe-struktur.mjs
           # Und der Browser muss beim Speichern dieselben Dateien erzeugen
           # wie das Skript auf der Festplatte.
           node werkzeuge/pruefe-github.mjs

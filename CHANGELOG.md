@@ -7,6 +7,61 @@ Das Neueste steht immer oben.
 
 ---
 
+## Fassung 2.1.0 – 25. August 2026
+
+**Jetzt lässt sich auch der Aufbau eines Eintrags ändern, nicht nur der Text.**
+
+Bisher konntest du vorhandene Texte überschreiben. Was fehlte: neue Abschnitte
+anlegen, überflüssige loswerden, die Reihenfolge ändern und den Steckbrief
+rechts pflegen. Genau das kam dazu.
+
+### Was du jetzt tun kannst
+
+Klick auf **Bearbeiten**, dann erscheinen an jedem Abschnitt drei kleine
+Knöpfe oben rechts:
+
+| Knopf | Wirkung |
+| --- | --- |
+| ↑ | Abschnitt eine Stelle nach oben |
+| ↓ | Abschnitt eine Stelle nach unten |
+| ✕ | Abschnitt löschen (mit Rückfrage) |
+
+Unter dem letzten Abschnitt steht **+ Abschnitt**. Der neue erscheint sofort
+mit der Überschrift „Neuer Abschnitt" und dem Satz „Hier steht noch nichts."
+Beides überschreibst du mit den Stiften wie gewohnt.
+
+**Im Steckbrief rechts** hat jede Zeile jetzt einen Stift und ein ✕. Der Stift
+öffnet ein kleines Feld für Beschriftung und Wert. Darunter legt **+ Zeile**
+eine neue an.
+
+### Warum ein neuer Abschnitt nicht leer ist
+
+Das Wiki überspringt Abschnitte ohne Text — sonst stünden überall leere
+Überschriften herum. Ein wirklich leerer neuer Abschnitt wäre also unsichtbar
+gewesen, und du hättest ins Nichts geklickt. Deshalb bekommt er einen kurzen
+Platzhaltersatz, den du gleich ersetzt.
+
+### Für Besucher ändert sich nichts
+
+Ohne Anmeldung ist von alldem nichts zu sehen: keine Knöpfe, keine Stifte,
+keine Leisten. Die Seite sieht genauso aus wie vorher.
+
+### Ein Fehler, der beim Testen auffiel
+
+Beim ersten Bauen ließ das Entfernen einer Steckbriefzeile einen unsichtbaren
+Rest in den Daten zurück. Man hätte nichts davon gesehen — aber bei jedem
+Anlegen und Entfernen wäre ein Rest mehr dazugekommen. Behoben: Entfernen
+räumt jetzt wirklich auf. Nachgewiesen an allen 29 Einträgen.
+
+### Nachgeprüft
+
+886 Einzelprüfungen an allen 29 Einträgen. Die wichtigste: Jede Änderung
+lässt sich zurücknehmen, und danach sind die Daten **Zeichen für Zeichen**
+wieder wie vorher. Dazu wurde die ganze Bedienung im Browser durchgespielt —
+verschieben, anlegen, löschen, ändern — ohne dass dabei etwas nach GitHub ging.
+
+---
+
 ## Fassung 2.0.1 – 25. August 2026
 
 **Zwei Farben aus dem neuen Entwurf übernommen — und ein Fehler behoben, der

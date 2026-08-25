@@ -291,7 +291,10 @@ export function umwandeln(roh) {
         // Die Attributspalte ist schmal. Längere Angaben stehen ohnehin im
         // Fließtext und würden hier nur eine hohe, unlesbare Säule ergeben.
         if (text.length > 110) continue;
-        const eintrag = { beschriftung: zeile.label || schluessel, wert: text };
+        // `schluessel` wird nur zum Zurueckschreiben gebraucht: Er verbindet
+        // die Beschriftung in `attributeRows` mit dem Wert in `fields`.
+        // Ohne ihn wuesste die Bearbeitung nicht, welches Feld gemeint ist.
+        const eintrag = { schluessel, beschriftung: zeile.label || schluessel, wert: text };
         if (VERWEIS_FELDER.has(schluessel) && alleIds.has(wert)) {
           eintrag.ziel = wert;
           eintrag.wert = alleIds.get(wert).name;

@@ -467,8 +467,15 @@
       // Die Überschrift eines ergänzten Abschnitts ist keine Eingabe von
       // Jannik, sondern eine feste Beschriftung. Sie bleibt unantastbar.
       const titelAnker = abschnitt.herkunft?.art === 'panel' ? ' data-feld="titel"' : '';
+      // Nur Abschnitte aus einem Panel lassen sich umsortieren oder löschen.
+      // Ergänzte Abschnitte stammen aus einem Feld und haben keinen Platz in
+      // der Reihenfolge; ihre Kennung fehlt deshalb bewusst.
+      const panelAnker =
+        abschnitt.herkunft?.art === 'panel' && abschnitt.herkunft.panelId
+          ? ' data-panel="' + sicher(abschnitt.herkunft.panelId) + '"'
+          : '';
       textTeile.push(
-        '<section class="abschnitt' + (abschnitt.ergaenzt ? ' ergaenzt' : '') + '"' + anker + '>' +
+        '<section class="abschnitt' + (abschnitt.ergaenzt ? ' ergaenzt' : '') + '"' + anker + panelAnker + '>' +
           (abschnitt.titel ? '<h2' + titelAnker + '>' + sicher(abschnitt.titel) + '</h2>' : '') +
           '<div class="abschnitt-text"' + (anker ? ' data-feld="text"' : '') + '>' + abschnitt.html + '</div>' +
           '</section>',
@@ -481,14 +488,17 @@
 
     if (eintrag.attribute.length) {
       seiteTeile.push(
-        '<section><h2 class="mikro">Attribute</h2><dl class="eigenschaften">' +
+        '<section class="steckbrief"><h2 class="mikro">Attribute</h2><dl class="eigenschaften">' +
           eintrag.attribute
             .map((a) => {
               const wert = a.ziel
                 ? '<a class="verweis" href="#/eintrag/' + encodeURIComponent(a.ziel) + '" data-ziel="' +
                   sicher(a.ziel) + '">' + sicher(a.wert) + '</a>'
                 : sicher(a.wert);
-              return '<dt>' + sicher(a.beschriftung) + '</dt><dd>' + wert + '</dd>';
+              // `data-zeile` traegt den Schluessel, unter dem der Wert in der
+              // Weltenschmiede steht. Die Bearbeitung haengt daran.
+              const zeilenAnker = a.schluessel ? ' data-zeile="' + sicher(a.schluessel) + '"' : '';
+              return '<dt' + zeilenAnker + '>' + sicher(a.beschriftung) + '</dt><dd' + zeilenAnker + '>' + wert + '</dd>';
             })
             .join('') +
           '</dl></section>',

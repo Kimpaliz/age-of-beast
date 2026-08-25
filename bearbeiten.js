@@ -28,6 +28,7 @@
 import { weltDateien, QUELLE } from './werkzeuge/welt-dateien.mjs';
 import { inTiefeSetzen } from './werkzeuge/bearbeiten-stellen.mjs';
 import { bearbeitenEinrichten } from './texte-bearbeiten.js';
+import { strukturEinrichten } from './struktur-bedienung.js';
 import {
   REPO,
   schluesselPruefen,
@@ -239,11 +240,16 @@ function bearbeitenAnbieten() {
   if (bearbeitenBereit) return;
   bearbeitenBereit = true;
 
-  bearbeitenEinrichten({
+  const werkzeug = {
     rohStand: () => rohStand,
     schreiben,
     neuZeichnen: () => weltNeuZeichnen(true),
-  });
+  };
+
+  // Zwei Bedienungen am selben Eintrag: Stifte fuer die Texte, Leisten fuer
+  // den Aufbau. Sie kennen einander nicht und teilen sich nur den Schalter.
+  bearbeitenEinrichten(werkzeug);
+  strukturEinrichten(werkzeug);
 }
 
 /**
