@@ -5041,6 +5041,608 @@
         },
         "updatedAt": "2026-08-07T22:09:05.871Z"
       }
+    },
+    "werkstatt": {
+      "werkstatt-kampagne-prototyp": {
+        "attributeRows": [
+          {
+            "id": "attribute-werkstatt-kampagne-prototyp-art",
+            "key": "werkstattArt",
+            "label": "Art"
+          },
+          {
+            "id": "attribute-werkstatt-kampagne-prototyp-werkstattSchritt",
+            "key": "werkstattSchritt",
+            "label": "Bearbeitungsschritt"
+          },
+          {
+            "id": "attribute-werkstatt-kampagne-prototyp-werkstattStatus",
+            "key": "werkstattStatus",
+            "label": "Status"
+          }
+        ],
+        "createdAt": "2026-08-25T22:53:51.316Z",
+        "customPanels": [
+          {
+            "id": "panel-werkstatt-kampagne-prototyp-kern",
+            "image": "",
+            "imageSettings": {
+              "color": "gold",
+              "fit": "contain",
+              "frame": "simple",
+              "positionX": 50,
+              "positionY": 50,
+              "zoom": 100
+            },
+            "kind": "text",
+            "text": "Wiederkehrende Tätigkeit: Kampf, Erkunden und Abenteuer\n\nWas auf dem Spiel steht: Aufstieg der Maschinen zur ausrottung von Magie. Menschen sind gut mit Maschinen und zerstören unwissentlich magie und natur. Magie und Natur werden aussterben, wenn niemand etwas tut.",
+            "textFields": [
+              {
+                "html": "<p>Wiederkehrende Tätigkeit: Kampf, Erkunden und Abenteuer</p><p>Was auf dem Spiel steht: Aufstieg der Maschinen zur ausrottung von Magie. Menschen sind gut mit Maschinen und zerstören unwissentlich magie und natur. Magie und Natur werden aussterben, wenn niemand etwas tut.</p>",
+                "id": "text-panel-werkstatt-kampagne-prototyp-kern",
+                "label": "Text",
+                "text": "Wiederkehrende Tätigkeit: Kampf, Erkunden und Abenteuer\n\nWas auf dem Spiel steht: Aufstieg der Maschinen zur ausrottung von Magie. Menschen sind gut mit Maschinen und zerstören unwissentlich magie und natur. Magie und Natur werden aussterben, wenn niemand etwas tut."
+              }
+            ],
+            "textLayout": "single",
+            "title": "Kern der Kampagne"
+          },
+          {
+            "id": "panel-werkstatt-kampagne-prototyp-stimmung",
+            "image": "",
+            "imageSettings": {
+              "color": "gold",
+              "fit": "contain",
+              "frame": "simple",
+              "positionX": 50,
+              "positionY": 50,
+              "zoom": 100
+            },
+            "kind": "text",
+            "text": "Ton: Düster, Abenteuerlich, fantastisch,\n\nThemen: Wenn es ums überleben geht ist da jedes mittle recht Das kleinere übel wählen.\n\nVorbilder: The witcher, name des windes, soulframe",
+            "textFields": [
+              {
+                "html": "<p>Ton: Düster, Abenteuerlich, fantastisch,</p><p>Themen: Wenn es ums überleben geht ist da jedes mittle recht Das kleinere übel wählen.</p><p>Vorbilder: The witcher, name des windes, soulframe</p>",
+                "id": "text-panel-werkstatt-kampagne-prototyp-stimmung",
+                "label": "Text",
+                "text": "Ton: Düster, Abenteuerlich, fantastisch,\n\nThemen: Wenn es ums überleben geht ist da jedes mittle recht Das kleinere übel wählen.\n\nVorbilder: The witcher, name des windes, soulframe"
+              }
+            ],
+            "textLayout": "single",
+            "title": "Ton und Stimmung"
+          },
+          {
+            "id": "panel-werkstatt-kampagne-prototyp-ueberblick",
+            "image": "",
+            "imageSettings": {
+              "color": "gold",
+              "fit": "contain",
+              "frame": "simple",
+              "positionX": 50,
+              "positionY": 50,
+              "zoom": 100
+            },
+            "kind": "text",
+            "text": "Vorher: Härter ohne Maschinen aber fantastischer und schöner.\n\nDer Wandel: Zusammenschluss aller Technik begabter völker oder gruppen.\n\nHeute: Langsam wird allen bewusst aber einigen noch nicht das die welt sich zur Technologie wandelt.\n\nDie Kräfte: Magie / Natur gegen technologie und Fortschritt\n\nWarum die Figuren zählen: Verhandlungen, Sabotage, Allianzen formen in nicht Technologie völkern, rebbelion",
+            "textFields": [
+              {
+                "html": "<p>Vorher: Härter ohne Maschinen aber fantastischer und schöner.</p><p>Der Wandel: Zusammenschluss aller Technik begabter völker oder gruppen.</p><p>Heute: Langsam wird allen bewusst aber einigen noch nicht das die welt sich zur Technologie wandelt.</p><p>Die Kräfte: Magie / Natur gegen technologie und Fortschritt</p><p>Warum die Figuren zählen: Verhandlungen, Sabotage, Allianzen formen in nicht Technologie völkern, rebbelion</p>",
+                "id": "text-panel-werkstatt-kampagne-prototyp-ueberblick",
+                "label": "Text",
+                "text": "Vorher: Härter ohne Maschinen aber fantastischer und schöner.\n\nDer Wandel: Zusammenschluss aller Technik begabter völker oder gruppen.\n\nHeute: Langsam wird allen bewusst aber einigen noch nicht das die welt sich zur Technologie wandelt.\n\nDie Kräfte: Magie / Natur gegen technologie und Fortschritt\n\nWarum die Figuren zählen: Verhandlungen, Sabotage, Allianzen formen in nicht Technologie völkern, rebbelion"
+              }
+            ],
+            "textLayout": "single",
+            "title": "Wie es zur heutigen Lage kam"
+          },
+          {
+            "id": "panel-werkstatt-kampagne-prototyp-motor",
+            "image": "",
+            "imageSettings": {
+              "color": "gold",
+              "fit": "contain",
+              "frame": "simple",
+              "positionX": 50,
+              "positionY": 50,
+              "zoom": 100
+            },
+            "kind": "text",
+            "text": "Wiederkehrende Lage: Widersprüchliche Aufträge verschiedener Auftraggeber. Menschen in not, Gefahrensituationen\n\nSteigender Druck: Die Gruppierungen gehen sich gegenseitig an die Gurgel\n\nBedeutsame Entscheidungen: Welchen Gruppierungen man hilft oder auch nicht.\n\nFolgen: Machtverhältniss",
+            "textFields": [
+              {
+                "html": "<p>Wiederkehrende Lage: Widersprüchliche Aufträge verschiedener Auftraggeber. Menschen in not, Gefahrensituationen</p><p>Steigender Druck: Die Gruppierungen gehen sich gegenseitig an die Gurgel</p><p>Bedeutsame Entscheidungen: Welchen Gruppierungen man hilft oder auch nicht.</p><p>Folgen: Machtverhältniss</p>",
+                "id": "text-panel-werkstatt-kampagne-prototyp-motor",
+                "label": "Text",
+                "text": "Wiederkehrende Lage: Widersprüchliche Aufträge verschiedener Auftraggeber. Menschen in not, Gefahrensituationen\n\nSteigender Druck: Die Gruppierungen gehen sich gegenseitig an die Gurgel\n\nBedeutsame Entscheidungen: Welchen Gruppierungen man hilft oder auch nicht.\n\nFolgen: Machtverhältniss"
+              }
+            ],
+            "textLayout": "single",
+            "title": "Motor der Geschichten"
+          },
+          {
+            "id": "panel-werkstatt-kampagne-prototyp-besonderheiten",
+            "image": "",
+            "imageSettings": {
+              "color": "gold",
+              "fit": "contain",
+              "frame": "simple",
+              "positionX": 50,
+              "positionY": 50,
+              "zoom": 100
+            },
+            "kind": "text",
+            "text": "Sturm\n\nIm Alltag: Stetige wanderung oder Vorbereitung auf den sturm. Clanks können im sturm überleben.\n\nJahreswechsel\n\nBeschreibung: Der sturm ist vorbei, alles blüht erneut.\n\nIm Alltag: Neuankömmlinge oder das verlassen der bunker steht bevor\n\nReisende\n\nBeschreibung: Es ist vollkommen normal, dass man auf Reisende trifft während des abenteuers\n\nIm Alltag: Man lernt eine ganze Menge neue Leute kennen. Ganze Völker, die immer auf Reisen sind",
+            "textFields": [
+              {
+                "html": "<p>Sturm</p><p>Im Alltag: Stetige wanderung oder Vorbereitung auf den sturm. Clanks können im sturm überleben.</p><p>Jahreswechsel</p><p>Beschreibung: Der sturm ist vorbei, alles blüht erneut.</p><p>Im Alltag: Neuankömmlinge oder das verlassen der bunker steht bevor</p><p>Reisende</p><p>Beschreibung: Es ist vollkommen normal, dass man auf Reisende trifft während des abenteuers</p><p>Im Alltag: Man lernt eine ganze Menge neue Leute kennen. Ganze Völker, die immer auf Reisen sind</p>",
+                "id": "text-panel-werkstatt-kampagne-prototyp-besonderheiten",
+                "label": "Text",
+                "text": "Sturm\n\nIm Alltag: Stetige wanderung oder Vorbereitung auf den sturm. Clanks können im sturm überleben.\n\nJahreswechsel\n\nBeschreibung: Der sturm ist vorbei, alles blüht erneut.\n\nIm Alltag: Neuankömmlinge oder das verlassen der bunker steht bevor\n\nReisende\n\nBeschreibung: Es ist vollkommen normal, dass man auf Reisende trifft während des abenteuers\n\nIm Alltag: Man lernt eine ganze Menge neue Leute kennen. Ganze Völker, die immer auf Reisen sind"
+              }
+            ],
+            "textLayout": "single",
+            "title": "Besonderheiten der Welt"
+          },
+          {
+            "id": "panel-werkstatt-kampagne-prototyp-fraktionen",
+            "image": "",
+            "imageSettings": {
+              "color": "gold",
+              "fit": "contain",
+              "frame": "simple",
+              "positionX": 50,
+              "positionY": 50,
+              "zoom": 100
+            },
+            "kind": "text",
+            "text": "Maschinisten\n\nZiel: Eine neue Welt\n\nMachtmittel: Technologie und Roboter\n\nVerhältnis: Nicht feindlich, aber sie versucht andere Fraktionen von ihrem Tun zu überzeugen. Im versprechen eines einfacheren Lebens.\n\nWanderer\n\nZiel: Immer weiter mit dem Sturm wandern und die Tradition aufrechterhalten\n\nMachtmittel: Viele\n\nVerhältnis: Offen und freundlich, aber sehr traditionstreu\n\nArcanisten\n\nZiel: Versuchen die Magie der Welt zu beschützen, es sind wenige\n\nMachtmittel: Magical\n\nVerhältnis: Friedlich zu den wandernden zu den maschinisten eher feindlich, weil sie schon auch die Natur die Magie vor der Technologie bewahren wollen",
+            "textFields": [
+              {
+                "html": "<p>Maschinisten</p><p>Ziel: Eine neue Welt</p><p>Machtmittel: Technologie und Roboter</p><p>Verhältnis: Nicht feindlich, aber sie versucht andere Fraktionen von ihrem Tun zu überzeugen. Im versprechen eines einfacheren Lebens.</p><p>Wanderer</p><p>Ziel: Immer weiter mit dem Sturm wandern und die Tradition aufrechterhalten</p><p>Machtmittel: Viele</p><p>Verhältnis: Offen und freundlich, aber sehr traditionstreu</p><p>Arcanisten</p><p>Ziel: Versuchen die Magie der Welt zu beschützen, es sind wenige</p><p>Machtmittel: Magical</p><p>Verhältnis: Friedlich zu den wandernden zu den maschinisten eher feindlich, weil sie schon auch die Natur die Magie vor der Technologie bewahren wollen</p>",
+                "id": "text-panel-werkstatt-kampagne-prototyp-fraktionen",
+                "label": "Text",
+                "text": "Maschinisten\n\nZiel: Eine neue Welt\n\nMachtmittel: Technologie und Roboter\n\nVerhältnis: Nicht feindlich, aber sie versucht andere Fraktionen von ihrem Tun zu überzeugen. Im versprechen eines einfacheren Lebens.\n\nWanderer\n\nZiel: Immer weiter mit dem Sturm wandern und die Tradition aufrechterhalten\n\nMachtmittel: Viele\n\nVerhältnis: Offen und freundlich, aber sehr traditionstreu\n\nArcanisten\n\nZiel: Versuchen die Magie der Welt zu beschützen, es sind wenige\n\nMachtmittel: Magical\n\nVerhältnis: Friedlich zu den wandernden zu den maschinisten eher feindlich, weil sie schon auch die Natur die Magie vor der Technologie bewahren wollen"
+              }
+            ],
+            "textLayout": "single",
+            "title": "Fraktionen im Rahmen"
+          },
+          {
+            "id": "panel-werkstatt-kampagne-prototyp-figuren",
+            "image": "",
+            "imageSettings": {
+              "color": "gold",
+              "fit": "contain",
+              "frame": "simple",
+              "positionX": 50,
+              "positionY": 50,
+              "zoom": 100
+            },
+            "kind": "text",
+            "text": "Gemeinsamer Anlass: Lukas auf partnersuche für aetefakt suche.\n\nZu den Gemeinschaften: Wanderborne, seaborne, underborne besonders stark vertreten",
+            "textFields": [
+              {
+                "html": "<p>Gemeinsamer Anlass: Lukas auf partnersuche für aetefakt suche.</p><p>Zu den Gemeinschaften: Wanderborne, seaborne, underborne besonders stark vertreten</p>",
+                "id": "text-panel-werkstatt-kampagne-prototyp-figuren",
+                "label": "Text",
+                "text": "Gemeinsamer Anlass: Lukas auf partnersuche für aetefakt suche.\n\nZu den Gemeinschaften: Wanderborne, seaborne, underborne besonders stark vertreten"
+              }
+            ],
+            "textLayout": "single",
+            "title": "Anknüpfung der Figuren"
+          },
+          {
+            "id": "panel-werkstatt-kampagne-prototyp-eroeffnung",
+            "image": "",
+            "imageSettings": {
+              "color": "gold",
+              "fit": "contain",
+              "frame": "simple",
+              "positionX": 50,
+              "positionY": 50,
+              "zoom": 100
+            },
+            "kind": "text",
+            "text": "[object Object]",
+            "textFields": [
+              {
+                "html": "<p>[object Object]</p>",
+                "id": "text-panel-werkstatt-kampagne-prototyp-eroeffnung",
+                "label": "Text",
+                "text": "[object Object]"
+              }
+            ],
+            "textLayout": "single",
+            "title": "Eröffnung"
+          }
+        ],
+        "description": "Die boys",
+        "descriptionPanelIds": [
+          "panel-werkstatt-kampagne-prototyp-kern",
+          "panel-werkstatt-kampagne-prototyp-stimmung",
+          "panel-werkstatt-kampagne-prototyp-ueberblick",
+          "panel-werkstatt-kampagne-prototyp-motor",
+          "panel-werkstatt-kampagne-prototyp-besonderheiten",
+          "panel-werkstatt-kampagne-prototyp-fraktionen",
+          "panel-werkstatt-kampagne-prototyp-figuren",
+          "panel-werkstatt-kampagne-prototyp-eroeffnung"
+        ],
+        "fields": {
+          "werkstattArt": "Kampagnenrahmen",
+          "werkstattSchritt": "9",
+          "werkstattStatus": "draft"
+        },
+        "id": "werkstatt-kampagne-prototyp",
+        "image": "",
+        "imageSettings": {
+          "color": "gold",
+          "fit": "contain",
+          "frame": "simple",
+          "positionX": 50,
+          "positionY": 50,
+          "zoom": 100
+        },
+        "module": "werkstatt",
+        "name": "Prototyp",
+        "panelHeights": {},
+        "panelOrder": [
+          "core-connections",
+          "references",
+          "panel-werkstatt-kampagne-prototyp-kern",
+          "panel-werkstatt-kampagne-prototyp-stimmung",
+          "panel-werkstatt-kampagne-prototyp-ueberblick",
+          "panel-werkstatt-kampagne-prototyp-motor",
+          "panel-werkstatt-kampagne-prototyp-besonderheiten",
+          "panel-werkstatt-kampagne-prototyp-fraktionen",
+          "panel-werkstatt-kampagne-prototyp-figuren",
+          "panel-werkstatt-kampagne-prototyp-eroeffnung"
+        ],
+        "panelWidths": {},
+        "richText": {},
+        "updatedAt": "2026-08-25T22:53:51.316Z"
+      },
+      "werkstatt-figur-brix-borin": {
+        "attributeRows": [
+          {
+            "id": "attribute-werkstatt-figur-brix-borin-art",
+            "key": "werkstattArt",
+            "label": "Art"
+          },
+          {
+            "id": "attribute-werkstatt-figur-brix-borin-werkstattKlasse",
+            "key": "werkstattKlasse",
+            "label": "Klasse"
+          },
+          {
+            "id": "attribute-werkstatt-figur-brix-borin-werkstattUnterklasse",
+            "key": "werkstattUnterklasse",
+            "label": "Unterklasse"
+          },
+          {
+            "id": "attribute-werkstatt-figur-brix-borin-werkstattAbstammung",
+            "key": "werkstattAbstammung",
+            "label": "Abstammung"
+          },
+          {
+            "id": "attribute-werkstatt-figur-brix-borin-werkstattGemeinschaft",
+            "key": "werkstattGemeinschaft",
+            "label": "Gemeinschaft"
+          },
+          {
+            "id": "attribute-werkstatt-figur-brix-borin-werkstattStufe",
+            "key": "werkstattStufe",
+            "label": "Stufe"
+          },
+          {
+            "id": "attribute-werkstatt-figur-brix-borin-werkstattFuerwort",
+            "key": "werkstattFuerwort",
+            "label": "Fürwort"
+          },
+          {
+            "id": "attribute-werkstatt-figur-brix-borin-werkstattWerte",
+            "key": "werkstattWerte",
+            "label": "Eigenschaften"
+          },
+          {
+            "id": "attribute-werkstatt-figur-brix-borin-werkstattAusweichen",
+            "key": "werkstattAusweichen",
+            "label": "Ausweichen"
+          }
+        ],
+        "createdAt": "2026-08-25T22:53:51.317Z",
+        "customPanels": [
+          {
+            "id": "panel-werkstatt-figur-brix-borin-erscheinung",
+            "image": "",
+            "imageSettings": {
+              "color": "gold",
+              "fit": "contain",
+              "frame": "simple",
+              "positionX": 50,
+              "positionY": 50,
+              "zoom": 100
+            },
+            "kind": "text",
+            "text": "Diebischer Ribbet, trägt immer einen Piraten hut",
+            "textFields": [
+              {
+                "html": "<p>Diebischer Ribbet, trägt immer einen Piraten hut</p>",
+                "id": "text-panel-werkstatt-figur-brix-borin-erscheinung",
+                "label": "Text",
+                "text": "Diebischer Ribbet, trägt immer einen Piraten hut"
+              }
+            ],
+            "textLayout": "single",
+            "title": "Erscheinung"
+          },
+          {
+            "id": "panel-werkstatt-figur-brix-borin-hintergrund",
+            "image": "",
+            "imageSettings": {
+              "color": "gold",
+              "fit": "contain",
+              "frame": "simple",
+              "positionX": 50,
+              "positionY": 50,
+              "zoom": 100
+            },
+            "kind": "text",
+            "text": "Von meiner Familie\n\nDie Dorfbewohner des Heimatdorfs\n\nDiebstahl, aber so dass das Dorf überrumpelt worden ist.",
+            "textFields": [
+              {
+                "html": "<p>Von meiner Familie</p><p>Die Dorfbewohner des Heimatdorfs</p><p>Diebstahl, aber so dass das Dorf überrumpelt worden ist.</p>",
+                "id": "text-panel-werkstatt-figur-brix-borin-hintergrund",
+                "label": "Text",
+                "text": "Von meiner Familie\n\nDie Dorfbewohner des Heimatdorfs\n\nDiebstahl, aber so dass das Dorf überrumpelt worden ist."
+              }
+            ],
+            "textLayout": "single",
+            "title": "Hintergrund"
+          },
+          {
+            "id": "panel-werkstatt-figur-brix-borin-ausruestung",
+            "image": "",
+            "imageSettings": {
+              "color": "gold",
+              "fit": "contain",
+              "frame": "simple",
+              "positionX": 50,
+              "positionY": 50,
+              "zoom": 100
+            },
+            "kind": "text",
+            "text": "Hauptwaffe: dagger\n\nZweitwaffe: shortsword\n\nRüstung: gambeson\n\nKlassengegenstand: Fälscherwerkzeug",
+            "textFields": [
+              {
+                "html": "<p>Hauptwaffe: dagger</p><p>Zweitwaffe: shortsword</p><p>Rüstung: gambeson</p><p>Klassengegenstand: Fälscherwerkzeug</p>",
+                "id": "text-panel-werkstatt-figur-brix-borin-ausruestung",
+                "label": "Text",
+                "text": "Hauptwaffe: dagger\n\nZweitwaffe: shortsword\n\nRüstung: gambeson\n\nKlassengegenstand: Fälscherwerkzeug"
+              }
+            ],
+            "textLayout": "single",
+            "title": "Ausrüstung"
+          },
+          {
+            "id": "panel-werkstatt-figur-brix-borin-domaenen",
+            "image": "",
+            "imageSettings": {
+              "color": "gold",
+              "fit": "contain",
+              "frame": "simple",
+              "positionX": 50,
+              "positionY": 50,
+              "zoom": 100
+            },
+            "kind": "text",
+            "text": "pick-and-pull, deft-deceiver",
+            "textFields": [
+              {
+                "html": "<p>pick-and-pull, deft-deceiver</p>",
+                "id": "text-panel-werkstatt-figur-brix-borin-domaenen",
+                "label": "Text",
+                "text": "pick-and-pull, deft-deceiver"
+              }
+            ],
+            "textLayout": "single",
+            "title": "Domänenkarten"
+          },
+          {
+            "id": "panel-werkstatt-figur-brix-borin-verbindungen",
+            "image": "",
+            "imageSettings": {
+              "color": "gold",
+              "fit": "contain",
+              "frame": "simple",
+              "positionX": 50,
+              "positionY": 50,
+              "zoom": 100
+            },
+            "kind": "text",
+            "text": "Ausdenken 3\n\nIch hab einen Beutel bei mir und der beinhaltet:\nMein Gedühns\n() - Darf aber keiner wissen\n\nWir schließen eine Wette ab, wenn Lukas verliert trägt er meine Hut einen ganzen Tag lang.\nWenn ich verliere muss ich ihn mit Chef ansprechenund sein persönlicher Assistent sein.",
+            "textFields": [
+              {
+                "html": "<p>Ausdenken 3</p><p>Ich hab einen Beutel bei mir und der beinhaltet:<br>Mein Gedühns<br>() - Darf aber keiner wissen</p><p>Wir schließen eine Wette ab, wenn Lukas verliert trägt er meine Hut einen ganzen Tag lang.<br>Wenn ich verliere muss ich ihn mit Chef ansprechenund sein persönlicher Assistent sein.</p>",
+                "id": "text-panel-werkstatt-figur-brix-borin-verbindungen",
+                "label": "Text",
+                "text": "Ausdenken 3\n\nIch hab einen Beutel bei mir und der beinhaltet:\nMein Gedühns\n() - Darf aber keiner wissen\n\nWir schließen eine Wette ab, wenn Lukas verliert trägt er meine Hut einen ganzen Tag lang.\nWenn ich verliere muss ich ihn mit Chef ansprechenund sein persönlicher Assistent sein."
+              }
+            ],
+            "textLayout": "single",
+            "title": "Verbindungen zur Gruppe"
+          }
+        ],
+        "description": "rogue · ribbet · underborne",
+        "descriptionPanelIds": [
+          "panel-werkstatt-figur-brix-borin-erscheinung",
+          "panel-werkstatt-figur-brix-borin-hintergrund",
+          "panel-werkstatt-figur-brix-borin-ausruestung",
+          "panel-werkstatt-figur-brix-borin-domaenen",
+          "panel-werkstatt-figur-brix-borin-verbindungen"
+        ],
+        "fields": {
+          "werkstattArt": "Spielfigur",
+          "werkstattKlasse": "rogue",
+          "werkstattUnterklasse": "nightwalker",
+          "werkstattAbstammung": "ribbet",
+          "werkstattGemeinschaft": "underborne",
+          "werkstattStufe": "1",
+          "werkstattFuerwort": "Er",
+          "werkstattWerte": "Beweglichkeit +1, Stärke -1, Fingerfertigkeit +2, Instinkt +1, Ausstrahlung 0, Wissen 0",
+          "werkstattAusweichen": "13"
+        },
+        "id": "werkstatt-figur-brix-borin",
+        "image": "",
+        "imageSettings": {
+          "color": "gold",
+          "fit": "contain",
+          "frame": "simple",
+          "positionX": 50,
+          "positionY": 50,
+          "zoom": 100
+        },
+        "module": "werkstatt",
+        "name": "Brix Borin",
+        "panelHeights": {},
+        "panelOrder": [
+          "core-connections",
+          "references",
+          "panel-werkstatt-figur-brix-borin-erscheinung",
+          "panel-werkstatt-figur-brix-borin-hintergrund",
+          "panel-werkstatt-figur-brix-borin-ausruestung",
+          "panel-werkstatt-figur-brix-borin-domaenen",
+          "panel-werkstatt-figur-brix-borin-verbindungen"
+        ],
+        "panelWidths": {},
+        "richText": {},
+        "updatedAt": "2026-08-25T22:53:51.317Z"
+      },
+      "werkstatt-karte-clank": {
+        "attributeRows": [
+          {
+            "id": "attribute-werkstatt-karte-clank-art",
+            "key": "werkstattArt",
+            "label": "Art"
+          },
+          {
+            "id": "attribute-werkstatt-karte-clank-werkstattKartentyp",
+            "key": "werkstattKartentyp",
+            "label": "Kartentyp"
+          },
+          {
+            "id": "attribute-werkstatt-karte-clank-werkstattKategorie",
+            "key": "werkstattKategorie",
+            "label": "Kategorie"
+          },
+          {
+            "id": "attribute-werkstatt-karte-clank-werkstattStufe",
+            "key": "werkstattStufe",
+            "label": "Stufe"
+          },
+          {
+            "id": "attribute-werkstatt-karte-clank-werkstattRueckruf",
+            "key": "werkstattRueckruf",
+            "label": "Rückrufkosten"
+          },
+          {
+            "id": "attribute-werkstatt-karte-clank-werkstattNummer",
+            "key": "werkstattNummer",
+            "label": "Kartennummer"
+          },
+          {
+            "id": "attribute-werkstatt-karte-clank-werkstattKuenstler",
+            "key": "werkstattKuenstler",
+            "label": "Illustration"
+          }
+        ],
+        "createdAt": "2026-08-25T22:53:51.318Z",
+        "customPanels": [
+          {
+            "id": "panel-werkstatt-karte-clank-regeltext",
+            "image": "",
+            "imageSettings": {
+              "color": "gold",
+              "fit": "contain",
+              "frame": "simple",
+              "positionX": 50,
+              "positionY": 50,
+              "zoom": 100
+            },
+            "kind": "text",
+            "text": "**Gezieltes Design:** Entscheiden Sie, wer Sie geschaffen hat und zu welchem Zweck. Wählen Sie bei der Charaktererstellung eine Ihrer Erfahrungen aus, die am besten zu diesem Zweck passt, und erhalten Sie einen dauerhaften Bonus von +1 dafür.\n\n**Effizient:** Wenn Sie eine kurze Rast machen, können Sie eine lange Rast anstelle einer kurzen Pause wählen.",
+            "textFields": [
+              {
+                "html": "<p>**Gezieltes Design:** Entscheiden Sie, wer Sie geschaffen hat und zu welchem Zweck. Wählen Sie bei der Charaktererstellung eine Ihrer Erfahrungen aus, die am besten zu diesem Zweck passt, und erhalten Sie einen dauerhaften Bonus von +1 dafür.</p><p>**Effizient:** Wenn Sie eine kurze Rast machen, können Sie eine lange Rast anstelle einer kurzen Pause wählen.</p>",
+                "id": "text-panel-werkstatt-karte-clank-regeltext",
+                "label": "Text",
+                "text": "**Gezieltes Design:** Entscheiden Sie, wer Sie geschaffen hat und zu welchem Zweck. Wählen Sie bei der Charaktererstellung eine Ihrer Erfahrungen aus, die am besten zu diesem Zweck passt, und erhalten Sie einen dauerhaften Bonus von +1 dafür.\n\n**Effizient:** Wenn Sie eine kurze Rast machen, können Sie eine lange Rast anstelle einer kurzen Pause wählen."
+              }
+            ],
+            "textLayout": "single",
+            "title": "Regeltext"
+          },
+          {
+            "id": "panel-werkstatt-karte-clank-bild",
+            "image": "",
+            "imageSettings": {
+              "color": "gold",
+              "fit": "contain",
+              "frame": "simple",
+              "positionX": 50,
+              "positionY": 50,
+              "zoom": 100
+            },
+            "kind": "text",
+            "text": "Die Illustration dieser Karte stammt von Mat Wilma und ist offizielles Material von Darrington Press. Sie wird hier bewusst nicht mitveröffentlicht; im Kartenwerkzeug der Werkstatt liegt sie unverändert vor.",
+            "textFields": [
+              {
+                "html": "<p>Die Illustration dieser Karte stammt von Mat Wilma und ist offizielles Material von Darrington Press. Sie wird hier bewusst nicht mitveröffentlicht; im Kartenwerkzeug der Werkstatt liegt sie unverändert vor.</p>",
+                "id": "text-panel-werkstatt-karte-clank-bild",
+                "label": "Text",
+                "text": "Die Illustration dieser Karte stammt von Mat Wilma und ist offizielles Material von Darrington Press. Sie wird hier bewusst nicht mitveröffentlicht; im Kartenwerkzeug der Werkstatt liegt sie unverändert vor."
+              }
+            ],
+            "textLayout": "single",
+            "title": "Zur Illustration"
+          }
+        ],
+        "description": "Clanks sind empfindungsfähige mechanische Wesen, die aus verschiedenen Materialien hergestellt werden, darunter Metall, Holz und Stein.",
+        "descriptionPanelIds": [
+          "panel-werkstatt-karte-clank-regeltext",
+          "panel-werkstatt-karte-clank-bild"
+        ],
+        "fields": {
+          "werkstattArt": "Karte",
+          "werkstattKartentyp": "ANCESTRY",
+          "werkstattKategorie": "ancestry",
+          "werkstattStufe": "1",
+          "werkstattRueckruf": "0",
+          "werkstattNummer": "DH Core 056/270",
+          "werkstattKuenstler": "Mat Wilma"
+        },
+        "id": "werkstatt-karte-clank",
+        "image": "",
+        "imageSettings": {
+          "color": "gold",
+          "fit": "contain",
+          "frame": "simple",
+          "positionX": 50,
+          "positionY": 50,
+          "zoom": 100
+        },
+        "module": "werkstatt",
+        "name": "Clank",
+        "panelHeights": {},
+        "panelOrder": [
+          "core-connections",
+          "references",
+          "panel-werkstatt-karte-clank-regeltext",
+          "panel-werkstatt-karte-clank-bild"
+        ],
+        "panelWidths": {},
+        "richText": {},
+        "updatedAt": "2026-08-25T22:53:51.318Z"
+      }
     }
   },
   "project": {
@@ -5103,6 +5705,6 @@
       }
     }
   },
-  "updatedAt": "2026-08-22T07:54:45.193Z",
+  "updatedAt": "2026-08-25T22:53:51.319Z",
   "version": 42
 }

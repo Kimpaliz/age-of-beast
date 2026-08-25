@@ -1177,3 +1177,43 @@ section.abschnitt:focus-within > .struktur-leiste,
 }
 
 .zeile-knoepfe { display: flex; gap: 0.4rem; }
+
+/* ------------------------------------------------------------------ *
+   Modul „Werkstatt" – eigener Farbton
+
+   Die Einträge aus der Daggerheart-Werkstatt sind kein Weltwissen,
+   sondern Spielmaterial: Kampagnenrahmen, Figurenbögen, Karten. Sie
+   bekommen deshalb einen eigenen Ton — das warme Gold aus Janniks
+   Entwurf, dort als `--wk-warm` angelegt.
+
+   Umgesetzt wird das, indem die Akzentvariablen innerhalb der
+   Werkstatt-Bereiche überschrieben werden. Alles Weitere — Verweise,
+   Kacheln, Stifte, Bedienleisten — nimmt den neuen Ton dadurch von
+   selbst an, ohne eine einzige zusätzliche Regel.
+   ------------------------------------------------------------------ */
+
+.kachel[data-kategorie="werkstatt"],
+.artikel[data-kategorie="werkstatt"],
+.nav-gruppe[data-kategorie="werkstatt"] {
+  --akzent:          #b79a6a;
+  --akzent-hell:     #e2cda2;
+  --akzent-schleier: rgba(183, 154, 106, 0.16);
+  --akzent-rand:     rgba(183, 154, 106, 0.46);
+  --schein:          rgba(183, 154, 106, 0.34);
+  --verweis:         #d8bd8c;
+  --verweis-aktiv:   #f0e0bd;
+  --tuerkis:         #c8a97a;
+}
+
+html[data-thema="hell"] .kachel[data-kategorie="werkstatt"],
+html[data-thema="hell"] .artikel[data-kategorie="werkstatt"],
+html[data-thema="hell"] .nav-gruppe[data-kategorie="werkstatt"] {
+  --akzent:          #7a5f2e;
+  --akzent-hell:     #5a4520;
+  --akzent-schleier: rgba(122, 95, 46, 0.10);
+  --akzent-rand:     rgba(122, 95, 46, 0.40);
+  --schein:          rgba(122, 95, 46, 0.16);
+  --verweis:         #7a5f2e;
+  --verweis-aktiv:   #5a4520;
+  --tuerkis:         #6b5326;
+}

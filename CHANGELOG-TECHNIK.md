@@ -29,6 +29,71 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 Ohne Versionsnummer: reine Inhaltsänderung an der Quelle, keine Änderung am
 Wiki-Code.
 
+## [2.2.0] – 2026-08-26
+
+Neues Modul `werkstatt`: die Inhalte der Daggerheart-Werkstatt aus
+`daggerheartCreator/v1` als Wiki-Einträge, mit eigenem Akzentton.
+
+### Hinzugefügt
+
+- `werkzeuge/werkstatt-uebernehmen.mjs`: wandelt einen Firebase-Abzug in
+  Wiki-Elemente und hängt sie als `elements.werkstatt` in
+  `daten/quelle.json`. Drei Wandler — Kampagnenrahmen, Spielfigur, Karte —
+  bauen jeweils Panels und Steckbriefzeilen im Format, das
+  `welt-umwandeln.mjs` erwartet.
+- Kategorie `werkstatt` in `KATEGORIEN`, Unterart aus `fields.werkstattArt`
+  über `UNTERART_FELD`. Dadurch trägt jeder Eintrag die Etikettzeile
+  „Werkstatt-Eintrag · Kampagnenrahmen" o. ä.
+- Eigener Farbton in `stil.css`: Die Akzentvariablen werden innerhalb von
+  `[data-kategorie="werkstatt"]` überschrieben. Kacheln, Verweise, Stifte
+  und Bedienleisten nehmen den Ton dadurch ohne eine einzige zusätzliche
+  Regel an. Für hell und dunkel getrennt gesetzt.
+  Der Ton `#b79a6a` stammt aus Janniks Entwurf, wo er als `--wk-warm`
+  deklariert, aber nirgends verwendet war.
+
+### Geändert
+
+- `wiki.js`: `.nav-gruppe` trägt jetzt `data-kategorie`, damit die
+  Seitenleiste denselben Modulton bekommt wie Kacheln und Eintragsseiten.
+
+### Bewusst nicht übernommen
+
+- **Personenbezogene Daten.** Der Abzug enthielt drei E-Mail-Adressen
+  (`createdBy`, `ownerEmail`) und einen Klarnamen von Mitspielern. Das
+  Repository ist öffentlich; ein Commit wäre über die Versionsgeschichte
+  nicht mehr rückholbar. Die Wandler übernehmen ausschließlich Inhaltsfelder
+  aus `payload`, nie die Hüllenfelder. Zusätzlich bricht das Skript vor dem
+  Schreiben ab, wenn im Ergebnis eine Adresse oder ein `data:image/` steht.
+- **Die Kartengrafik.** 283 KB WebP, 1600×850, offizielle Illustration von
+  Darrington Press (Mat Wilma, „DH Core 056/270"). Weiterverbreitung über ein
+  öffentliches Repository ist etwas anderes als private Nutzung. Statt des
+  Bildes steht ein Abschnitt „Zur Illustration" mit der Zuschreibung.
+- **`appMembers`, `appInvites`, `liveSessions`, `liveSessionDirectory`.** An
+  Firebase Auth gebunden und ohne sie bedeutungslos. Echtzeit-Zusammenarbeit
+  lässt sich über GitHub grundsätzlich nicht abbilden.
+
+### Abgrenzung
+
+Übernommen sind die Inhalte, nicht die Anwendung. Der Kartenbaukasten
+(234 Vorlagen, 129 Gegnervorlagen, Bildzuschnitt, PNG- und PDF-Export) ist
+eine eigene React-Anwendung mit 766 Dateien und bleibt auf Firebase. Das
+Firebase-Projekt `kampagnenrahmen-jt` darf deshalb weiterhin nicht
+abgeschaltet werden.
+
+### Verifiziert
+
+- `node werkzeuge/werkstatt-uebernehmen.mjs`: 3 Einträge, 15 Abschnitte.
+  Eingebaute Sperre gegen Adressen und eingebettete Bilder greift.
+- `welt-aufbereiten`: 32 Einträge (vorher 29), 108 Panel-Abschnitte
+  (vorher 93), 125 Attributzeilen (vorher 106).
+- `pruefe-gleichstand`, `pruefe-schreibweise`, `pruefe-bearbeiten`,
+  `pruefe-struktur`, `pruefe-github`: alle bestanden. Die Strukturprüfung
+  läuft damit auch über die drei neuen Einträge.
+- Im Browser: Modul erscheint in der Seitenleiste, alle drei Einträge
+  rendern mit Abschnitten und Steckbrief. Kontrast im Modulton — Etikett
+  8,01:1, Verweis 9,85:1. Keine Adresse im gerenderten DOM, keine
+  Konsolenmeldung.
+
 ## [2.1.0] – 2026-08-25
 
 Strukturbearbeitung: Abschnitte anlegen, löschen und umsortieren,
@@ -704,7 +769,8 @@ Weltenschmiede-Projekt `project-sturmwende-20260730`.
 - Die Datendateien wurden vor dem Commit auf Zugangsdaten, Schlüssel und
   E-Mail-Adressen geprüft; Treffer: keine.
 
-[Unveröffentlicht]: https://github.com/Kimpaliz/age-of-beast/compare/v2.1.0...HEAD
+[Unveröffentlicht]: https://github.com/Kimpaliz/age-of-beast/compare/v2.2.0...HEAD
+[2.2.0]: https://github.com/Kimpaliz/age-of-beast/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/Kimpaliz/age-of-beast/compare/v2.0.1...v2.1.0
 [2.0.1]: https://github.com/Kimpaliz/age-of-beast/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/Kimpaliz/age-of-beast/compare/v1.3.0...v2.0.0

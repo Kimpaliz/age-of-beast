@@ -35,6 +35,9 @@ const KATEGORIEN = [
   { schluessel: 'places', name: 'Orte', einzahl: 'Ort', zeichen: '⌂' },
   { schluessel: 'events', name: 'Ereignisse', einzahl: 'Ereignis', zeichen: '✦' },
   { schluessel: 'lore', name: 'Wissen', einzahl: 'Wissenseintrag', zeichen: '✎' },
+  // Aus der Daggerheart-Werkstatt uebernommen: Kampagnenrahmen, Spielfiguren
+  // und Karten. Eigene Farbe, siehe stil.css.
+  { schluessel: 'werkstatt', name: 'Werkstatt', einzahl: 'Werkstatt-Eintrag', zeichen: '⚒' },
 ];
 
 // Deutsche Überschriften für Textfelder, die in keinem Panel stehen
@@ -80,6 +83,7 @@ const UNTERART_FELD = {
   factions: ['type'],
   items: ['rarity', 'type'],
   characters: ['characterType', 'occupation'],
+  werkstatt: ['werkstattArt'],
   // `wiki` bewusst ohne Unterart: Der Kampagneneintrag heißt ohnehin so.
 };
 

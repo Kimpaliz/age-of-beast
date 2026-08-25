@@ -310,7 +310,9 @@
         const liste = nachKategorie.get(kategorie.schluessel) || [];
         if (!liste.length) return '';
         return (
-          '<section class="nav-gruppe">' +
+          // Die Kategorie steht am Element, damit Module wie „Werkstatt"
+          // ihren eigenen Farbton setzen können (siehe stil.css).
+          '<section class="nav-gruppe" data-kategorie="' + sicher(kategorie.schluessel) + '">' +
           '<h2 class="mikro">' +
           '<a href="#/kategorie/' + encodeURIComponent(kategorie.schluessel) + '">' +
           sicher(kategorie.name) + '</a>' +

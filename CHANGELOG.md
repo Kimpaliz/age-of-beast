@@ -7,6 +7,57 @@ Das Neueste steht immer oben.
 
 ---
 
+## Fassung 2.2.0 – 26. August 2026
+
+**Die Daggerheart-Werkstatt ist als eigenes Modul ins Wiki eingezogen.**
+
+Ihre Inhalte lagen bisher in der Firebase-Datenbank. Jetzt liegen sie im
+Repository — genau wie alles andere im Wiki, ohne Datenbankanbieter.
+
+### Was übernommen wurde
+
+| Eintrag | Art |
+| --- | --- |
+| **Prototyp** | Kampagnenrahmen, 8 Abschnitte |
+| **Brix Borin** | Spielfigur mit Werten, Ausrüstung und Hintergrund |
+| **Clank** | Karte mit Regeltext und Angaben |
+
+Sie stehen in der Seitenleiste unter **Werkstatt** und haben einen eigenen
+Farbton: warmes Gold statt Violett. Der Ton stammt aus deinem eigenen
+Design-Entwurf — dort war er angelegt, wurde aber nie benutzt.
+
+Ansonsten verhalten sie sich wie jeder andere Eintrag: Suche, Verweise,
+Vorschaufenster und das Bearbeiten funktionieren genauso.
+
+### Drei Dinge sind bewusst **nicht** mitgekommen
+
+**1. Die E-Mail-Adressen deiner Mitspieler.** In den Werkstatt-Daten standen
+drei Adressen, zwei davon von anderen Personen, dazu ein echter Name. Das
+Repository ist öffentlich — dort stünden sie dauerhaft im Netz, auch in der
+Versionsgeschichte, auch nach dem Löschen. Sie wurden entfernt. Ein
+eingebauter Prüfschritt bricht ab, falls je wieder eine durchrutscht.
+
+**2. Die Kartengrafik.** Das Bild der Clank-Karte ist offizielle Illustration
+von Darrington Press (Mat Wilma). Sie privat zu nutzen ist eine Sache, sie in
+einem öffentlichen Repository zu verbreiten eine andere. Text und Angaben der
+Karte sind da, das Bild nicht — es liegt unverändert in der Werkstatt.
+
+**3. Live-Sitzungen und Einladungslinks.** Die hängen an der
+Firebase-Anmeldung und funktionieren ohne sie nicht. GitHub kann kein
+gleichzeitiges Bearbeiten zu zweit.
+
+### Wichtig: Die Werkstatt selbst läuft weiter
+
+Übernommen wurden die **Inhalte**, nicht das Programm. Der Kartenbaukasten mit
+seinen 234 Vorlagen, dem Bildzuschnitt und dem PDF-Export ist eine eigene
+Anwendung und bleibt, wo er ist. Das Wiki zeigt jetzt, was drinsteht — es
+ersetzt das Werkzeug nicht.
+
+Und: **Das Firebase-Projekt darf weiterhin nicht abgeschaltet werden.** Die
+Werkstatt hängt daran.
+
+---
+
 ## Fassung 2.1.0 – 25. August 2026
 
 **Jetzt lässt sich auch der Aufbau eines Eintrags ändern, nicht nur der Text.**
