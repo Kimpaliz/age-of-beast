@@ -7,6 +7,43 @@ Das Neueste steht immer oben.
 
 ---
 
+## Fassung 2.3.0 – 26. August 2026
+
+**Die Daggerheart-Werkstatt ist jetzt ein Modul des Wikis** — und die
+Oberfläche folgt deinem Entwurf genauer.
+
+### Die Werkstatt im Wiki
+
+In der Seitenleiste steht unten ein neuer Bereich **Werkzeuge** mit dem
+Eintrag **Daggerheart-Werkstatt**. Ein Klick öffnet sie direkt im Wiki.
+
+Sie ist dabei **nicht nachgebaut, sondern eingebettet**. Das ist Absicht:
+Die Werkstatt sind rund 19.000 Zeilen Programm — Kartenbaukasten mit
+PDF-Ausgabe, Figurenassistent, Regelwiki, Live-Sitzungen. Sie nachzubauen
+wäre ein eigenes Vorhaben von Wochen, und dabei ginge einiges verloren.
+Eingebettet behält sie alles, was sie kann, und ist trotzdem aus derselben
+Navigation erreichbar.
+
+Daneben steht **In eigenem Tab öffnen**. Das ist kein Beiwerk: Die
+Google-Anmeldung öffnet ein eigenes Fenster, und manche Browser sperren
+so etwas aus eingebetteten Seiten. Klappt die Anmeldung im Rahmen nicht,
+geht sie dort.
+
+### Näher am Entwurf
+
+Der auffälligste Unterschied war: Dein Entwurf kommt **ohne Trennlinien
+und ohne eigene Flächen** aus. Kopfzeile und Seitenleiste schwebten dort
+über einem durchgehenden Grund, im Wiki waren sie mit Linien abgeteilt.
+Das ist jetzt angeglichen — samt der genauen Abstände aus dem Entwurf.
+
+### Warum du die Werkstatt-Einträge nicht gesehen hast
+
+Dein Browser hatte die alte Fassung gespeichert. GitHub erlaubt das für
+zehn Minuten. Ab sofort bekommt jede Veröffentlichung ein Kennzeichen an
+die Dateinamen — damit kann der Browser gar nicht mehr die alte Fassung
+nehmen. Das Problem tritt also nicht wieder auf.
+
+---
 ## Fassung 2.2.0 – 26. August 2026
 
 **Die Daggerheart-Werkstatt ist als eigenes Modul ins Wiki eingezogen.**

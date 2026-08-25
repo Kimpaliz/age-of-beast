@@ -29,6 +29,78 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 Ohne Versionsnummer: reine Inhaltsänderung an der Quelle, keine Änderung am
 Wiki-Code.
 
+## [2.3.0] – 2026-08-26
+
+Modul „Daggerheart-Werkstatt" als eingebettete Anwendung, Layout näher am
+Entwurf, Versionierung gegen den Browser-Zwischenspeicher.
+
+### Hinzugefügt
+
+- Route `#/werkstatt` in `wiki.js` mit `werkstattZeichnen()`: bettet
+  `daggerheart-werkstatt-jt.web.app` als `iframe` ein, dazu eine Leiste mit
+  Zielverweis und ein Hinweis darunter. Vorher gemessen, dass die Seite
+  sich überhaupt einbetten lässt — sie setzt kein `X-Frame-Options`.
+- Navigationsbereich `.nav-werkzeuge` unterhalb der Kategorien. Werkzeuge
+  sind keine Kategorie mit Einträgen, sondern eigene Anwendungen; sie
+  stehen deshalb abgesetzt.
+- Gestaltung `.modul-rahmen`, `.modul-fenster`, `.modul-knopf` und
+  `.modul-hinweis` im Werkstatt-Goldton, damit erkennbar bleibt, dass
+  eingebettetes Modul und übernommene Einträge zusammengehören.
+- `frame-src` in der Content-Security-Policy des Heim-Servers. Ohne diesen
+  Eintrag hätte der lokale Server das Modul blockiert.
+
+### Warum eingebettet und nicht portiert
+
+Gemessener Umfang der Werkstatt: **18.873 Zeilen** TypeScript/React,
+dazu 226 KB Kartendaten, 267 KB Gegnerdaten und 300 Bilddateien. Allein
+der Figurenassistent hat 2.238 Zeilen, der Karten-Inspektor 1.417. Sie
+setzt React 19, jsPDF, html-to-image und react-easy-crop ein; das Wiki
+ist rund 1.200 Zeilen reines JavaScript ohne Abhängigkeiten und ohne
+Übersetzungsschritt. Eine Portierung wäre ein eigenes Vorhaben und
+verlöre die Live-Sitzungen ohnehin, weil GitHub Pages keinen Rückkanal
+hat.
+
+### Geändert — Abgleich mit dem Entwurf
+
+Gemessen am gerenderten Entwurf, nicht geschätzt:
+
+| Stelle | Entwurf | vorher | jetzt |
+| --- | --- | --- | --- |
+| Kopf, Trennlinie | keine | 1 px | keine |
+| Kopf, Fläche | transparent | 92 % Grund | 72 % Grund |
+| Seitenleiste, Trennlinie | keine | 1 px | keine |
+| Seitenleiste, Fläche | transparent | voller Grund | transparent |
+| Seitenleiste, Innenabstand | 11.2 / 11.2 / 72 / 16.8 | 18.4 / 9.6 / 48 | wie Entwurf |
+| Inhalt, Innenabstand | 16.8 / 22.4 / 110 | 30.4 / 35.2 / 80 | wie Entwurf |
+
+Der Weichzeichner der Kopfzeile bleibt: Ohne eigene Fläche liefe sonst
+Text sichtbar darunter durch. Das Aufleuchten der Seitenleiste beim
+Überfahren des Umschalters lief über den nun entfernten Rand und
+geschieht jetzt über einen Verlauf.
+
+### Behoben
+
+- GitHub Pages liefert `Cache-Control: max-age=600`. Nach einer
+  Veröffentlichung sah Jannik deshalb bis zu zehn Minuten den alten
+  Stand — konkret fehlte ihm das ganze Modul „Werkstatt", und er meldete
+  es als Fehler. Der Veröffentlichungslauf hängt jetzt die ersten acht
+  Stellen des Commit-Kennzeichens an `stil.css`, `daten/welt.js`,
+  `wiki.js` und `bearbeiten.js` an. Jede Fassung bekommt damit eine
+  eigene Adresse, die der Browser gar nicht aus dem Zwischenspeicher
+  nehmen kann.
+
+### Verifiziert
+
+- Einbettbarkeit vorab gemessen: Das `iframe` lädt; der Inhalt ist
+  erwartungsgemäß nicht auslesbar (fremde Herkunft). Genau deshalb wurde
+  überhaupt erst geprüft, statt es anzunehmen.
+- Layoutwerte nach der Änderung nachgemessen: Seitenleiste
+  `11.2px 11.2px 72px 16.8px`, Inhalt `16.8px 22.4px 110.4px`, keine
+  Trennlinien mehr — deckungsgleich mit dem Entwurf.
+- Alle fünf Prüfskripte bestanden, `node --check` über alle Dateien.
+- Werkstatt-Seite: Rahmen, Fenster, Knopf und Hinweis vorhanden, das
+  Fenster lädt die Werkstatt.
+
 ## [2.2.0] – 2026-08-26
 
 Neues Modul `werkstatt`: die Inhalte der Daggerheart-Werkstatt aus
@@ -769,7 +841,8 @@ Weltenschmiede-Projekt `project-sturmwende-20260730`.
 - Die Datendateien wurden vor dem Commit auf Zugangsdaten, Schlüssel und
   E-Mail-Adressen geprüft; Treffer: keine.
 
-[Unveröffentlicht]: https://github.com/Kimpaliz/age-of-beast/compare/v2.2.0...HEAD
+[Unveröffentlicht]: https://github.com/Kimpaliz/age-of-beast/compare/v2.3.0...HEAD
+[2.3.0]: https://github.com/Kimpaliz/age-of-beast/compare/v2.2.0...v2.3.0
 [2.2.0]: https://github.com/Kimpaliz/age-of-beast/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/Kimpaliz/age-of-beast/compare/v2.0.1...v2.1.0
 [2.0.1]: https://github.com/Kimpaliz/age-of-beast/compare/v2.0.0...v2.0.1

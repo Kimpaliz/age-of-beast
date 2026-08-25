@@ -328,7 +328,13 @@
           '</ul></section>'
         );
       })
-      .join('');
+      .join('') +
+      // Werkzeuge stehen unter den Inhalten: Sie sind keine Kategorie
+      // mit Eintraegen, sondern eigene Anwendungen.
+      '<section class="nav-gruppe nav-werkzeuge" data-kategorie="werkstatt">' +
+      '<h2 class="mikro">Werkzeuge</h2><ul>' +
+      '<li><a href="#/werkstatt" data-nav="werkstatt">Daggerheart-Werkstatt</a></li>' +
+      '</ul></section>';
   }
 
   function navigationMarkieren(id) {
@@ -861,6 +867,46 @@
    */
   const nachDemZeichnen = [];
 
+  /* ----------------------------------------------------------------
+     Modul: Daggerheart-Werkstatt
+
+     Die Werkstatt ist eine eigenstaendige Anwendung mit rund 19.000
+     Zeilen: Kartenbaukasten mit PDF-Ausgabe, Figurenassistent,
+     Kampagnenrahmen, Regelwiki und Live-Sitzungen. Sie hier
+     nachzubauen waere ein eigenes Vorhaben von Wochen.
+
+     Stattdessen wird sie eingebettet: Aus Janniks Sicht ist sie damit
+     ein Modul des Wikis wie jedes andere, erreichbar aus derselben
+     Navigation - und sie behaelt alles, was sie kann.
+
+     Der Knopf daneben oeffnet sie in einem eigenen Tab. Das ist kein
+     Beiwerk: Die Google-Anmeldung oeffnet ein Fenster, und Browser
+     sperren solche Fenster aus eingebetteten Seiten fremder Herkunft
+     haeufig. Klappt die Anmeldung im Rahmen nicht, geht sie dort.
+     ---------------------------------------------------------------- */
+
+  const WERKSTATT_ADRESSE = 'https://daggerheart-werkstatt-jt.web.app/';
+
+  function werkstattZeichnen() {
+    inhalt.innerHTML =
+      '<p class="brotkrumen"><a class="zurueck" href="#/">&lsaquo; Arbeitsfläche</a>' +
+      '<span class="pfad">' + sicher(WELT.titel) + ' / Werkstatt</span></p>' +
+      '<div class="modul-rahmen" data-kategorie="werkstatt">' +
+        '<div class="modul-leiste">' +
+          '<span class="mikro">Daggerheart-Werkstatt</span>' +
+          '<a class="modul-knopf" href="' + WERKSTATT_ADRESSE + '" target="_blank" rel="noopener">' +
+            'In eigenem Tab öffnen ↗</a>' +
+        '</div>' +
+        '<iframe class="modul-fenster" src="' + WERKSTATT_ADRESSE + '" ' +
+          'title="Daggerheart-Werkstatt" loading="lazy" ' +
+          'allow="clipboard-write"></iframe>' +
+        '<p class="modul-hinweis mikro">Klappt die Anmeldung hier im Rahmen nicht, ' +
+          'öffne die Werkstatt in einem eigenen Tab. Manche Browser sperren ' +
+          'Anmeldefenster aus eingebetteten Seiten.</p>' +
+      '</div>';
+
+    document.title = 'Werkstatt – ' + WELT.titel;
+  }
   function seiteZeichnen() {
     const teile = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
 
@@ -869,6 +915,7 @@
     if (!teile.length) startseiteZeichnen();
     else if (teile[0] === 'eintrag' && teile[1]) eintragZeichnen(decodeURIComponent(teile[1]));
     else if (teile[0] === 'kategorie' && teile[1]) kategorieZeichnen(decodeURIComponent(teile[1]));
+    else if (teile[0] === 'werkstatt') werkstattZeichnen();
     else nichtGefunden();
 
     if (schmal()) leisteSetzen(false);

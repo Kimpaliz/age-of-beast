@@ -73,6 +73,22 @@ jobs:
           # wie das Skript auf der Festplatte.
           node werkzeuge/pruefe-github.mjs
 
+      - name: Dateien gegen den Zwischenspeicher versionieren
+        run: |
+          # GitHub Pages laesst Browser Dateien 10 Minuten behalten
+          # (Cache-Control: max-age=600). Nach einer Veroeffentlichung sah
+          # Jannik deshalb noch den alten Stand - einmal sogar ein ganzes
+          # neues Modul nicht. Ein Kennzeichen aus dem Commit an den
+          # Adressen macht jede Fassung zu einer eigenen Datei, die der
+          # Browser gar nicht erst aus dem Zwischenspeicher nehmen kann.
+          KENN="${GITHUB_SHA:0:8}"
+          sed -i "s|href=\"stil.css\"|href=\"stil.css?v=$KENN\"|g" index.html
+          sed -i "s|src=\"daten/welt.js\"|src=\"daten/welt.js?v=$KENN\"|g" index.html
+          sed -i "s|src=\"wiki.js\"|src=\"wiki.js?v=$KENN\"|g" index.html
+          sed -i "s|src=\"bearbeiten.js\"|src=\"bearbeiten.js?v=$KENN\"|g" index.html
+          echo "Kennzeichen: $KENN"
+          grep -E "stil.css|welt.js|wiki.js|bearbeiten.js" index.html
+
       - name: Pages vorbereiten
         uses: actions/configure-pages@v5
 

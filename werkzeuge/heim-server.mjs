@@ -145,7 +145,7 @@ const server = createServer(async (anfrage, antwort) => {
       // Die Seite laedt nichts von aussen. Das hier sagt es dem Browser
       // auch, damit ein eingeschleustes Skript gar nicht erst laufen kann.
       'Content-Security-Policy':
-        "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://api.github.com",
+        "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://api.github.com; frame-src https://daggerheart-werkstatt-jt.web.app",
       'X-Content-Type-Options': 'nosniff',
     });
     if (anfrage.method === 'HEAD') antwort.end();

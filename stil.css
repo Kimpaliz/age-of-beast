@@ -150,9 +150,12 @@ body {
   align-items: center;
   gap: 1rem;
   padding-right: 1rem;
-  background: color-mix(in srgb, var(--grund) 92%, transparent);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--rand);
+  /* Der Entwurf fuehrt Kopf und Seitenleiste ohne eigene Flaeche und ohne
+     Trennlinien: Die ganze Seite ist ein durchgehender Grund, durch den der
+     Lichtverlauf laeuft. Der Weichzeichner bleibt, damit der Text beim
+     Darunterscrollen lesbar bleibt. */
+  background: color-mix(in srgb, var(--grund) 72%, transparent);
+  backdrop-filter: blur(14px);
 }
 
 /* Knopf über der Seitenleiste, gehört optisch zu ihr */
@@ -284,17 +287,18 @@ body {
   position: sticky; top: var(--kopf-hoehe);
   height: calc(100vh - var(--kopf-hoehe));
   overflow-y: auto; overflow-x: hidden;
-  padding: 1.15rem 0.6rem 3rem;
-  background: var(--grund);
-  border-right: 1px solid var(--rand);
+  padding: 0.7rem 0.7rem 4.5rem 1.05rem;
   transition: opacity 0.18s ease;
 }
 .rahmen.leiste-zu .navigation {
   opacity: 0; pointer-events: none;
-  padding-left: 0; padding-right: 0; border-right-color: transparent;
+  padding-left: 0; padding-right: 0;
 }
-/* Beim Überfahren des Umschalters kurz aufleuchten */
-.rahmen.leiste-hervorheben .navigation { border-right-color: var(--akzent-rand); }
+/* Beim Überfahren des Umschalters kurz aufleuchten. Ohne Trennlinie
+   geschieht das jetzt ueber einen zarten Schleier statt ueber den Rand. */
+.rahmen.leiste-hervorheben .navigation {
+  background: linear-gradient(90deg, var(--akzent-schleier), transparent 70%);
+}
 
 .nav-gruppe { margin-bottom: 1.15rem; }
 .nav-gruppe > h2 {
@@ -330,7 +334,8 @@ body {
 .nav-gruppe li a[aria-current="page"]::before { background: var(--akzent); }
 
 .inhalt {
-  padding: 1.9rem 2.2rem 5rem;
+  /* Entwurf: 16.8px 22.4px 110px */
+  padding: 1.05rem 1.4rem 6.9rem;
   min-width: 0;
   outline: none;
 }
@@ -1216,4 +1221,72 @@ html[data-thema="hell"] .nav-gruppe[data-kategorie="werkstatt"] {
   --verweis:         #7a5f2e;
   --verweis-aktiv:   #5a4520;
   --tuerkis:         #6b5326;
+}
+
+/* ------------------------------------------------------------------ *
+   Eingebettete Module
+
+   Die Daggerheart-Werkstatt ist eine eigenstaendige Anwendung und wird
+   eingebettet statt nachgebaut. Der Rahmen bekommt denselben Goldton
+   wie die uebrigen Werkstatt-Inhalte, damit erkennbar bleibt, dass es
+   zusammengehoert.
+   ------------------------------------------------------------------ */
+
+.modul-rahmen {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+}
+
+.modul-leiste {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.modul-knopf {
+  flex: none;
+  padding: 0.32rem 0.75rem;
+  background: var(--akzent-schleier);
+  border: 1px solid var(--akzent-rand);
+  border-radius: var(--radius-klein);
+  color: var(--akzent-hell);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s;
+}
+.modul-knopf:hover, .modul-knopf:focus-visible {
+  background: color-mix(in srgb, var(--akzent) 26%, transparent);
+  border-color: var(--akzent);
+}
+
+/* Das Fenster nimmt die volle verbleibende Hoehe ein. Der Abzug deckt
+   Kopfzeile, Brotkrume, Leiste und Hinweis darunter ab. */
+.modul-fenster {
+  width: 100%;
+  height: calc(100vh - var(--kopf-hoehe) - 11rem);
+  min-height: 30rem;
+  border: 1px solid var(--akzent-rand);
+  border-radius: var(--radius);
+  background: var(--flaeche);
+}
+
+.modul-hinweis {
+  color: var(--schrift-leise);
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* Werkzeuge stehen etwas abgesetzt unter den Inhalten. */
+.nav-werkzeuge {
+  margin-top: 1.6rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--rand);
 }
