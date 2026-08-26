@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 170" width="320" height="170" role="img" aria-label="Zugabe">
+<defs>
+<linearGradient id="w12b7ih1g" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#a35479" stop-opacity="0.95"/>
+<stop offset="1" stop-color="#161815" stop-opacity="0.95"/>
+</linearGradient>
+<radialGradient id="w12b7ih1s" cx="0.5" cy="0.42" r="0.6">
+<stop offset="0" stop-color="#ffffff" stop-opacity="0.16"/>
+<stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<rect width="320" height="170" fill="#161815"/>
+<rect width="320" height="170" fill="url(#w12b7ih1g)"/>
+<circle cx="255" cy="165.3" r="0.7" fill="#ffffff" opacity="0.2"/><circle cx="272.6" cy="79.7" r="1.3" fill="#ffffff" opacity="0.2"/><circle cx="223" cy="54.5" r="1.7" fill="#ffffff" opacity="0.2"/><circle cx="250.4" cy="127.4" r="1.3" fill="#ffffff" opacity="0.1"/><circle cx="212.1" cy="113.2" r="1.2" fill="#ffffff" opacity="0.1"/><circle cx="233.9" cy="114.3" r="0.9" fill="#ffffff" opacity="0.2"/><circle cx="81.7" cy="147.6" r="0.7" fill="#ffffff" opacity="0.2"/><circle cx="176.3" cy="6.4" r="1.3" fill="#ffffff" opacity="0.2"/><circle cx="193.2" cy="11.2" r="0.9" fill="#ffffff" opacity="0.2"/><circle cx="113" cy="34.7" r="1.2" fill="#ffffff" opacity="0.1"/><circle cx="245.7" cy="23.4" r="1.8" fill="#ffffff" opacity="0.1"/><circle cx="47.1" cy="18.5" r="1.7" fill="#ffffff" opacity="0.2"/><circle cx="140.7" cy="25.2" r="2" fill="#ffffff" opacity="0.1"/><circle cx="221.3" cy="167.1" r="1.7" fill="#ffffff" opacity="0.1"/><circle cx="315.5" cy="156.6" r="1" fill="#ffffff" opacity="0.2"/>
+<path d="M-45.5 170 L88.9 0 L134.4 0 L0 170 Z" fill="#ffffff" opacity="0.05"/>
+<rect width="320" height="170" fill="url(#w12b7ih1s)"/>
+<path d="M120 73 C 140 45 140 101 160 73 C 180 45 180 101 200 73" fill="none" stroke="rgba(255,255,255,0.82)" stroke-width="2"/><path d="M128 93 C 144 69 144 117 160 93 C 176 69 176 117 192 93" fill="none" stroke="rgba(255,255,255,0.82)" stroke-width="1.3" opacity="0.6"/>
+<text x="160" y="148" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" letter-spacing="3.4" fill="#ffffff" fill-opacity="0.72">GRACE</text>
+<rect x="1" y="1" width="318" height="168" fill="none" stroke="#ffffff" stroke-opacity="0.14" rx="6"/>
+</svg>

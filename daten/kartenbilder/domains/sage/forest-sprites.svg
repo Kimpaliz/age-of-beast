@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 170" width="320" height="170" role="img" aria-label="Waldgeister">
+<defs>
+<linearGradient id="wvmlt84g" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#4c7650" stop-opacity="0.95"/>
+<stop offset="1" stop-color="#161815" stop-opacity="0.95"/>
+</linearGradient>
+<radialGradient id="wvmlt84s" cx="0.5" cy="0.42" r="0.6">
+<stop offset="0" stop-color="#ffffff" stop-opacity="0.16"/>
+<stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<rect width="320" height="170" fill="#161815"/>
+<rect width="320" height="170" fill="url(#wvmlt84g)"/>
+<circle cx="185.9" cy="51" r="1.9" fill="#ffffff" opacity="0.1"/><circle cx="233" cy="117.8" r="1.5" fill="#ffffff" opacity="0.1"/><circle cx="203.1" cy="165.9" r="1.2" fill="#ffffff" opacity="0.2"/><circle cx="39.7" cy="167.5" r="0.8" fill="#ffffff" opacity="0.2"/><circle cx="195.3" cy="19.9" r="1.4" fill="#ffffff" opacity="0.2"/><circle cx="135.6" cy="79.6" r="1.7" fill="#ffffff" opacity="0.1"/><circle cx="221.8" cy="115.3" r="1.7" fill="#ffffff" opacity="0.1"/><circle cx="250.6" cy="62.4" r="1.2" fill="#ffffff" opacity="0.2"/><circle cx="220" cy="166.5" r="0.6" fill="#ffffff" opacity="0.1"/><circle cx="196.3" cy="25.5" r="2" fill="#ffffff" opacity="0.1"/><circle cx="253.3" cy="19.3" r="0.7" fill="#ffffff" opacity="0.2"/><circle cx="4" cy="136" r="1.2" fill="#ffffff" opacity="0.1"/><circle cx="114.4" cy="61.2" r="1.1" fill="#ffffff" opacity="0.1"/><circle cx="132.1" cy="63.6" r="1.5" fill="#ffffff" opacity="0.2"/>
+<path d="M-41.5 170 L92.9 0 L134.4 0 L0 170 Z" fill="#ffffff" opacity="0.05"/>
+<rect width="320" height="170" fill="url(#wvmlt84s)"/>
+<path d="M160 113 C 120 81 136 33 160 33 C 184 33 200 81 160 113 Z" fill="none" stroke="rgba(255,255,255,0.82)" stroke-width="2"/><line x1="160" y1="33" x2="160" y2="113" stroke="rgba(255,255,255,0.82)" stroke-width="1.4"/>
+<text x="160" y="148" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" letter-spacing="3.4" fill="#ffffff" fill-opacity="0.72">SAGE</text>
+<rect x="1" y="1" width="318" height="168" fill="none" stroke="#ffffff" stroke-opacity="0.14" rx="6"/>
+</svg>

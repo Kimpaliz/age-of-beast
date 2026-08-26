@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 170" width="320" height="170" role="img" aria-label="Hypnotischer Schimmer">
+<defs>
+<linearGradient id="waple3xg" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#a35479" stop-opacity="0.95"/>
+<stop offset="1" stop-color="#161815" stop-opacity="0.95"/>
+</linearGradient>
+<radialGradient id="waple3xs" cx="0.5" cy="0.42" r="0.6">
+<stop offset="0" stop-color="#ffffff" stop-opacity="0.16"/>
+<stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<rect width="320" height="170" fill="#161815"/>
+<rect width="320" height="170" fill="url(#waple3xg)"/>
+<circle cx="158.6" cy="4.7" r="0.8" fill="#ffffff" opacity="0.1"/><circle cx="107.9" cy="157.6" r="1.7" fill="#ffffff" opacity="0.2"/><circle cx="41" cy="147" r="1.8" fill="#ffffff" opacity="0.1"/><circle cx="159.8" cy="24.9" r="0.9" fill="#ffffff" opacity="0.1"/><circle cx="37.9" cy="45.5" r="1.4" fill="#ffffff" opacity="0.1"/><circle cx="28.4" cy="138.5" r="1.2" fill="#ffffff" opacity="0.1"/><circle cx="131.4" cy="142" r="0.7" fill="#ffffff" opacity="0.1"/><circle cx="97" cy="111.5" r="1.8" fill="#ffffff" opacity="0.1"/><circle cx="4.6" cy="159.9" r="1.2" fill="#ffffff" opacity="0.1"/><circle cx="54.1" cy="105.9" r="1.3" fill="#ffffff" opacity="0.1"/><circle cx="37.1" cy="106.3" r="1.9" fill="#ffffff" opacity="0.1"/><circle cx="107.4" cy="156.6" r="0.7" fill="#ffffff" opacity="0.2"/><circle cx="227.8" cy="44" r="1.9" fill="#ffffff" opacity="0.2"/><circle cx="134.2" cy="111.6" r="0.8" fill="#ffffff" opacity="0.1"/><circle cx="300.4" cy="1.6" r="1.8" fill="#ffffff" opacity="0.1"/><circle cx="159.6" cy="52.3" r="1.5" fill="#ffffff" opacity="0.1"/><circle cx="61.6" cy="74.2" r="1.9" fill="#ffffff" opacity="0.1"/><circle cx="5.4" cy="24.3" r="0.7" fill="#ffffff" opacity="0.2"/><circle cx="109.6" cy="2.2" r="1.7" fill="#ffffff" opacity="0.1"/><circle cx="140.4" cy="114.1" r="1.7" fill="#ffffff" opacity="0.2"/><circle cx="200.6" cy="4.2" r="1.2" fill="#ffffff" opacity="0.1"/>
+<path d="M-37.2 170 L97.2 0 L134.4 0 L0 170 Z" fill="#ffffff" opacity="0.05"/>
+<rect width="320" height="170" fill="url(#waple3xs)"/>
+<path d="M120 73 C 140 45 140 101 160 73 C 180 45 180 101 200 73" fill="none" stroke="rgba(255,255,255,0.82)" stroke-width="2"/><path d="M128 93 C 144 69 144 117 160 93 C 176 69 176 117 192 93" fill="none" stroke="rgba(255,255,255,0.82)" stroke-width="1.3" opacity="0.6"/>
+<text x="160" y="148" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" letter-spacing="3.4" fill="#ffffff" fill-opacity="0.72">GRACE</text>
+<rect x="1" y="1" width="318" height="168" fill="none" stroke="#ffffff" stroke-opacity="0.14" rx="6"/>
+</svg>

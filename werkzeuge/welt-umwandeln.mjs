@@ -115,6 +115,22 @@ const nurText = (html) =>
 
 const vergleichsform = (text) => nurText(text).toLowerCase().replace(/[^\p{L}\p{N} ]/gu, '');
 
+/**
+ * Prüft einen Bildpfad, bevor er ins Wiki gelangt.
+ *
+ * Erlaubt ist ausschließlich ein Pfad unterhalb von `daten/`. Alles andere
+ * wird verworfen: Eine fremde Adresse würde die Seite von außen abhängig
+ * machen, ein eingebettetes `data:`-Bild die Quelldatei um Hunderte
+ * Kilobyte aufblähen — genau der Fehler, den die Werkstatt gemacht hat.
+ */
+function bildPfad(roh) {
+  const pfad = String(roh ?? '').trim();
+  if (!pfad) return '';
+  if (!pfad.startsWith('daten/')) return '';
+  if (pfad.includes('..')) return '';
+  return pfad;
+}
+
 /** Ist `text` inhaltlich schon in `bestand` enthalten? Satzweise geprüft. */
 function schonEnthalten(text, bestand) {
   const saetze = vergleichsform(text)
@@ -475,6 +491,11 @@ export function umwandeln(roh) {
         attribute,
         abschnitte,
         verbindungen,
+        // Ein Bild ist der Ausnahmefall: In den Weltdaten gibt es keines,
+        // die Kartenwappen dagegen schon. Uebernommen wird nur ein Pfad
+        // innerhalb des Repositorys - nie eine fremde Adresse und nie ein
+        // eingebettetes `data:`-Bild, das die Quelldatei aufblaehen wuerde.
+        bild: bildPfad(element.image),
         geaendert: element.updatedAt || '',
       });
     }

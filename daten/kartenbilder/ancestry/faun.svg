@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 170" width="320" height="170" role="img" aria-label="Faun">
+<defs>
+<linearGradient id="wzb15zfg" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#477980" stop-opacity="0.95"/>
+<stop offset="1" stop-color="#161815" stop-opacity="0.95"/>
+</linearGradient>
+<radialGradient id="wzb15zfs" cx="0.5" cy="0.42" r="0.6">
+<stop offset="0" stop-color="#ffffff" stop-opacity="0.16"/>
+<stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<rect width="320" height="170" fill="#161815"/>
+<rect width="320" height="170" fill="url(#wzb15zfg)"/>
+<circle cx="79.4" cy="76.6" r="2.1" fill="#ffffff" opacity="0.1"/><circle cx="7.8" cy="104.4" r="2.1" fill="#ffffff" opacity="0.1"/><circle cx="2.5" cy="63.2" r="1.8" fill="#ffffff" opacity="0.2"/><circle cx="140.3" cy="101.7" r="1.1" fill="#ffffff" opacity="0.1"/><circle cx="97.3" cy="113.9" r="1.4" fill="#ffffff" opacity="0.1"/><circle cx="22.7" cy="24.5" r="1.5" fill="#ffffff" opacity="0.1"/><circle cx="252.6" cy="55.9" r="2" fill="#ffffff" opacity="0.2"/><circle cx="219.5" cy="26.7" r="0.9" fill="#ffffff" opacity="0.2"/><circle cx="89.1" cy="151.3" r="0.7" fill="#ffffff" opacity="0.2"/><circle cx="189" cy="105.8" r="1.1" fill="#ffffff" opacity="0.2"/><circle cx="53" cy="74.4" r="1.6" fill="#ffffff" opacity="0.1"/><circle cx="192.5" cy="33.3" r="1.5" fill="#ffffff" opacity="0.2"/><circle cx="255.9" cy="23.3" r="0.7" fill="#ffffff" opacity="0.1"/><circle cx="24.6" cy="49.8" r="1.9" fill="#ffffff" opacity="0.1"/>
+<path d="M-41.6 170 L92.8 0 L134.4 0 L0 170 Z" fill="#ffffff" opacity="0.05"/>
+<rect width="320" height="170" fill="url(#wzb15zfs)"/>
+<path d="M160 73 L160 73 L160.4 73.1 L160.9 73.2 L161.2 73.5 L161.5 73.9 L161.7 74.4 L161.8 75 L161.7 75.6 L161.6 76.2 L161.2 76.8 L160.8 77.4 L160.2 77.9 L159.4 78.3 L158.6 78.6 L157.7 78.8 L156.7 78.8 L155.6 78.6 L154.6 78.2 L153.5 77.7 L152.5 77 L151.6 76 L150.9 74.9 L150.2 73.7 L149.8 72.3 L149.6 70.8 L149.6 69.2 L149.8 67.6 L150.3 65.9 L151 64.4 L152.1 62.8 L153.3 61.5 L154.8 60.2 L156.6 59.2 L158.5 58.4 L160.5 57.9 L162.7 57.7 L164.9 57.8 L167.2 58.2 L169.4 59 L171.6 60.1 L173.6 61.6 L175.5 63.3 L177.1 65.4 L178.4 67.7 L179.4 70.3 L180 73 L180.2 75.8 L180.1 78.8 L179.5 81.7 L178.5 84.5 L177 87.3 L175.2 89.8 L172.9 92.2 L170.3 94.2 L167.4 95.8 L164.2 97.1 L160.9 97.9 L157.4 98.2 L153.8 98 L150.2 97.3 L146.7 96.1 L143.3 94.4 L140.2 92.1 L137.3 89.5 L134.9 86.4 L132.9 82.9 L131.3 79.1 L130.3 75.1 L129.9 70.9 L130 66.6 L130.8 62.4 L132.1 58.2 L134.1 54.2 L136.7 50.5 L139.8 47.1 L143.3 44.1 L147.3 41.7 L151.7 39.8 L156.4 38.5 L161.2 37.9 L166.2 38 L171.1 38.8 L176 40.2 L180.6 42.4 L185 45.3 L188.9 48.7 L192.4 52.7 L195.3 57.3 L197.6 62.2 L199.2 67.5 L200 73" fill="none" stroke="rgba(255,255,255,0.82)" stroke-width="1.8"/>
+<text x="160" y="148" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" letter-spacing="3.4" fill="#ffffff" fill-opacity="0.72">ANCESTRY</text>
+<rect x="1" y="1" width="318" height="168" fill="none" stroke="#ffffff" stroke-opacity="0.14" rx="6"/>
+</svg>

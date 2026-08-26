@@ -1549,3 +1549,22 @@ html[data-thema="hell"] .werkstatt-knopf {
 }
 
 .werkstatt-ueberschrift { margin: 2.4rem 0 1rem; font-size: 1.1rem; }
+
+/* ------------------------------------------------------------------ *
+   Bild eines Eintrags
+
+   Bisher hatte das Wiki keine Bilder. Die Kartenwappen sind die erste
+   Ausnahme: Sie stehen als Kopfschmuck über dem Text, nicht darin.
+   ------------------------------------------------------------------ */
+
+.eintrag-bild {
+  margin: 0.9rem 0 1.4rem;
+  max-width: 22rem;
+}
+.eintrag-bild img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+}

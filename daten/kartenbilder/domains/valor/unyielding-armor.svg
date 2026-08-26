@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 170" width="320" height="170" role="img" aria-label="Unnachgiebige Rüstung">
+<defs>
+<linearGradient id="w18ksqwhg" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#9a5d3f" stop-opacity="0.95"/>
+<stop offset="1" stop-color="#161815" stop-opacity="0.95"/>
+</linearGradient>
+<radialGradient id="w18ksqwhs" cx="0.5" cy="0.42" r="0.6">
+<stop offset="0" stop-color="#ffffff" stop-opacity="0.16"/>
+<stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<rect width="320" height="170" fill="#161815"/>
+<rect width="320" height="170" fill="url(#w18ksqwhg)"/>
+<circle cx="289" cy="10.2" r="1.4" fill="#ffffff" opacity="0.2"/><circle cx="161.8" cy="84.8" r="0.7" fill="#ffffff" opacity="0.2"/><circle cx="249.1" cy="90.3" r="1.5" fill="#ffffff" opacity="0.1"/><circle cx="233.6" cy="128.3" r="1.9" fill="#ffffff" opacity="0.2"/><circle cx="159.1" cy="119.5" r="1.8" fill="#ffffff" opacity="0.1"/><circle cx="253.9" cy="136.7" r="1.8" fill="#ffffff" opacity="0.2"/><circle cx="66.7" cy="100.7" r="1.1" fill="#ffffff" opacity="0.2"/><circle cx="53.4" cy="115.2" r="2" fill="#ffffff" opacity="0.1"/><circle cx="171.6" cy="37.3" r="0.7" fill="#ffffff" opacity="0.1"/><circle cx="116.9" cy="36.3" r="0.8" fill="#ffffff" opacity="0.1"/><circle cx="188" cy="80.3" r="1.8" fill="#ffffff" opacity="0.2"/><circle cx="105.1" cy="2.9" r="0.7" fill="#ffffff" opacity="0.2"/><circle cx="191.8" cy="96.9" r="1.9" fill="#ffffff" opacity="0.1"/><circle cx="35.1" cy="46" r="0.7" fill="#ffffff" opacity="0.1"/><circle cx="221.6" cy="64.9" r="1.9" fill="#ffffff" opacity="0.2"/><circle cx="158.9" cy="87.3" r="1.8" fill="#ffffff" opacity="0.2"/><circle cx="309.3" cy="71" r="1.7" fill="#ffffff" opacity="0.2"/><circle cx="175.3" cy="22.4" r="1.9" fill="#ffffff" opacity="0.2"/><circle cx="52.7" cy="13.2" r="1.9" fill="#ffffff" opacity="0.2"/><circle cx="310.3" cy="53.3" r="0.6" fill="#ffffff" opacity="0.1"/><circle cx="0" cy="36.4" r="1.7" fill="#ffffff" opacity="0.1"/><circle cx="142.3" cy="141.7" r="1.7" fill="#ffffff" opacity="0.1"/>
+<path d="M-40.8 170 L93.6 0 L134.4 0 L0 170 Z" fill="#ffffff" opacity="0.05"/>
+<rect width="320" height="170" fill="url(#w18ksqwhs)"/>
+<path d="M160 33 L191.2 51 L191.2 81 C 191.2 101.8 160 113 160 113 C 160 113 128.8 101.8 128.8 81 L128.8 51 Z" fill="none" stroke="rgba(255,255,255,0.82)" stroke-width="2"/>
+<text x="160" y="148" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" letter-spacing="3.4" fill="#ffffff" fill-opacity="0.72">VALOR</text>
+<rect x="1" y="1" width="318" height="168" fill="none" stroke="#ffffff" stroke-opacity="0.14" rx="6"/>
+</svg>

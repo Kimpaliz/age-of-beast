@@ -581,6 +581,14 @@
           encodeURIComponent(eintrag.id) + '">Im Assistenten bearbeiten →</a>'
         : '') +
       '<h1 data-feld="name">' + sicher(eintrag.name) + '</h1>' +
+      // Ein Bild steht ueber dem Text, nicht darin: Es ist Kopfschmuck der
+      // Karte, kein Absatz. Bewusst ohne `loading=lazy` - das Bild steht
+      // direkt unter der Ueberschrift, also ohnehin im Blick. Verzoegertes
+      // Laden braechte hier nichts und liesse die Seite nur springen.
+      (eintrag.bild
+        ? '<figure class="eintrag-bild"><img src="' + sicher(eintrag.bild) + '" alt="Wappen: ' +
+          sicher(eintrag.name) + '" decoding="async"></figure>'
+        : '') +
       (eintrag.aliase.length
         ? '<p class="mikro" style="margin:-1.1rem 0 1.5rem">Auch: ' + sicher(eintrag.aliase.join(' · ')) + '</p>'
         : '') +

@@ -5290,11 +5290,6 @@
             "id": "attribute-werkstatt-karte-clank-werkstattNummer",
             "key": "werkstattNummer",
             "label": "Kartennummer"
-          },
-          {
-            "id": "attribute-werkstatt-karte-clank-werkstattKuenstler",
-            "key": "werkstattKuenstler",
-            "label": "Illustration"
           }
         ],
         "createdAt": "2026-08-25T22:53:51.318Z",
@@ -5322,36 +5317,11 @@
             ],
             "textLayout": "single",
             "title": "Regeltext"
-          },
-          {
-            "id": "panel-werkstatt-karte-clank-bild",
-            "image": "",
-            "imageSettings": {
-              "color": "gold",
-              "fit": "contain",
-              "frame": "simple",
-              "positionX": 50,
-              "positionY": 50,
-              "zoom": 100
-            },
-            "kind": "text",
-            "text": "Die Illustration dieser Karte stammt von Mat Wilma und ist offizielles Material von Darrington Press. Sie wird hier bewusst nicht mitveröffentlicht; im Kartenwerkzeug der Werkstatt liegt sie unverändert vor.",
-            "textFields": [
-              {
-                "html": "<p>Die Illustration dieser Karte stammt von Mat Wilma und ist offizielles Material von Darrington Press. Sie wird hier bewusst nicht mitveröffentlicht; im Kartenwerkzeug der Werkstatt liegt sie unverändert vor.</p>",
-                "id": "text-panel-werkstatt-karte-clank-bild",
-                "label": "Text",
-                "text": "Die Illustration dieser Karte stammt von Mat Wilma und ist offizielles Material von Darrington Press. Sie wird hier bewusst nicht mitveröffentlicht; im Kartenwerkzeug der Werkstatt liegt sie unverändert vor."
-              }
-            ],
-            "textLayout": "single",
-            "title": "Zur Illustration"
           }
         ],
         "description": "Clanks sind empfindungsfähige mechanische Wesen, die aus verschiedenen Materialien hergestellt werden, darunter Metall, Holz und Stein.",
         "descriptionPanelIds": [
-          "panel-werkstatt-karte-clank-regeltext",
-          "panel-werkstatt-karte-clank-bild"
+          "panel-werkstatt-karte-clank-regeltext"
         ],
         "fields": {
           "werkstattArt": "Karte",
@@ -5359,11 +5329,10 @@
           "werkstattKategorie": "ancestry",
           "werkstattStufe": "1",
           "werkstattRueckruf": "0",
-          "werkstattNummer": "DH Core 056/270",
-          "werkstattKuenstler": "Mat Wilma"
+          "werkstattNummer": "DH Core 056/270"
         },
         "id": "werkstatt-karte-clank",
-        "image": "",
+        "image": "daten/kartenbilder/ancestry/clank.svg",
         "imageSettings": {
           "color": "gold",
           "fit": "contain",
@@ -5378,8 +5347,7 @@
         "panelOrder": [
           "core-connections",
           "references",
-          "panel-werkstatt-karte-clank-regeltext",
-          "panel-werkstatt-karte-clank-bild"
+          "panel-werkstatt-karte-clank-regeltext"
         ],
         "panelWidths": {},
         "richText": {},

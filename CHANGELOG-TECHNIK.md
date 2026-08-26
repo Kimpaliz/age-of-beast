@@ -29,6 +29,88 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 Ohne Versionsnummer: reine Inhaltsänderung an der Quelle, keine Änderung am
 Wiki-Code.
 
+## [2.7.0] – 2026-08-26
+
+234 erzeugte Kartenwappen als SVG, dazu die erste Bildunterstützung im
+Wiki überhaupt.
+
+### Hinzugefügt
+
+- `werkzeuge/kartenbilder-erzeugen.mjs`: erzeugt je Karte ein SVG-Wappen
+  aus Domänenfarbe, Domänenmotiv und einem aus dem Kartennamen
+  berechneten Sternmuster. Neun Domänen plus Ancestry, Community und
+  Subclass, jeweils mit eigenem Motiv (Rune, Klinge, Knochen, Buch, Welle,
+  Mond, Blatt, Sonne, Schild, Spirale, Ring, Stern).
+  `--proben` erzeugt nur je ein Beispiel zum Ansehen.
+- `daten/kartenbilder/` mit 234 Dateien, in derselben Ordnung wie die
+  Bilder der Werkstatt (ancestry, community, subclass, domains/<domäne>).
+- `bild` am Eintrag in `welt-umwandeln.mjs`, gefiltert durch `bildPfad()`.
+- Anzeige in `wiki.js` als `figure.eintrag-bild` über dem Fließtext,
+  Gestaltung in `stil.css`.
+
+### Warum erzeugt statt übernommen
+
+Die Originalbilder sind offizielle Illustrationen von Darrington Press.
+Weiterverbreitung über ein öffentliches Repository ist etwas anderes als
+private Nutzung. Bis Fassung 2.2.0 stand deshalb nur ein Hinweistext an
+ihrer Stelle; jetzt gibt es Ersatz statt einer Lücke.
+
+Die Domänenfarben aus `DOMAIN_COLORS` der Werkstatt werden übernommen.
+Farbwerte sind keine schützenswerte Gestaltung, sondern die Ordnung des
+Spiels — eine Arcana-Karte muss violett bleiben, sonst stimmt die Zuordnung
+am Tisch nicht mehr.
+
+### Warum SVG
+
+| | WebP-Original | SVG-Wappen |
+| --- | --- | --- |
+| je Bild | 28,7 KB | 2,65 KB |
+| 234 zusammen | 8,4 MB | 621 KB |
+| Auflösung | fest 1600×850 | beliebig |
+
+Dazu: Die Domänenfarbe steht als Wert in der Datei und lässt sich ändern,
+ohne neu zu zeichnen.
+
+### Bestimmtheit
+
+Die Erzeugung ist bewusst reproduzierbar: `saatAus()` bildet den
+Kartennamen auf eine Zahl ab, `wuerfler()` macht daraus eine feste Folge
+(Xorshift). Derselbe Name ergibt immer dasselbe Bild.
+
+Ohne das hätte jeder Lauf alle 234 Dateien geändert und jeden Diff
+unbrauchbar gemacht. Nachgewiesen: Zwei Läufe hintereinander, Prüfsummen
+aller 234 Dateien verglichen — kein Unterschied.
+
+### Sicherheitsleine für Bildpfade
+
+`bildPfad()` in `welt-umwandeln.mjs` lässt nur Pfade unterhalb von `daten/`
+durch, ohne `..`. Eine fremde Adresse würde die Seite von außen abhängig
+machen; ein eingebettetes `data:`-Bild würde `quelle.json` um Hunderte
+Kilobyte aufblähen — genau der Fehler, den die Werkstatt beim Clank-Bild
+gemacht hat (386 KB Base64 in einem Datensatz von 388 KB).
+
+### Behoben
+
+- Die Steckbriefzeile „Illustration" nannte den Künstler der offiziellen
+  Karte. Beim eigenen Wappen ist das eine falsche Zuschreibung; die Zeile
+  ist entfernt, im Übernehmer wie in den Daten.
+- `loading="lazy"` am Eintragsbild entfernt. Es steht direkt unter der
+  Überschrift, also ohnehin im Blick — verzögertes Laden bringt dort nichts
+  und lässt die Seite beim Nachladen springen. Aufgefallen ist es, weil das
+  Bild in der Prüfansicht gar nicht lud: Ohne Darstellung tritt ein
+  lazy-Bild nie in den sichtbaren Bereich.
+
+### Verifiziert
+
+- 234 Dateien erzeugt, 621,1 KB zusammen, im Schnitt 2,65 KB.
+- Zweiter Lauf: alle 234 Prüfsummen identisch.
+- Alle 234 als wohlgeformtes SVG geprüft (Wurzelelement, ausgeglichene Tags).
+- Ausgeliefert mit `image/svg+xml`, im Wiki geladen, 320×170.
+- Keine Zeichenfolge `Mat Wilma` und kein `data:image` in den Daten.
+- Wiki gesamt 2,6 MB gegenüber 1 GB Grenze bei GitHub Pages.
+- Alle fünf Prüfskripte bestanden.
+
+
 ## [2.6.0] – 2026-08-26
 
 Die Werkstatt bekommt einen eigenen Platz in der Kopfzeile und eine eigene
@@ -1058,7 +1140,8 @@ Weltenschmiede-Projekt `project-sturmwende-20260730`.
 - Die Datendateien wurden vor dem Commit auf Zugangsdaten, Schlüssel und
   E-Mail-Adressen geprüft; Treffer: keine.
 
-[Unveröffentlicht]: https://github.com/Kimpaliz/age-of-beast/compare/v2.6.0...HEAD
+[Unveröffentlicht]: https://github.com/Kimpaliz/age-of-beast/compare/v2.7.0...HEAD
+[2.7.0]: https://github.com/Kimpaliz/age-of-beast/compare/v2.6.0...v2.7.0
 [2.6.0]: https://github.com/Kimpaliz/age-of-beast/compare/v2.5.0...v2.6.0
 [2.5.0]: https://github.com/Kimpaliz/age-of-beast/compare/v2.4.0...v2.5.0
 [2.4.0]: https://github.com/Kimpaliz/age-of-beast/compare/v2.3.0...v2.4.0

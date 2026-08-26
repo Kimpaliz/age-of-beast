@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 170" width="320" height="170" role="img" aria-label="Ätzendes Projektil">
+<defs>
+<linearGradient id="w1k1i20qg" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#4c7650" stop-opacity="0.95"/>
+<stop offset="1" stop-color="#161815" stop-opacity="0.95"/>
+</linearGradient>
+<radialGradient id="w1k1i20qs" cx="0.5" cy="0.42" r="0.6">
+<stop offset="0" stop-color="#ffffff" stop-opacity="0.16"/>
+<stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<rect width="320" height="170" fill="#161815"/>
+<rect width="320" height="170" fill="url(#w1k1i20qg)"/>
+<circle cx="279" cy="62.3" r="0.7" fill="#ffffff" opacity="0.1"/><circle cx="229.7" cy="50.5" r="1.2" fill="#ffffff" opacity="0.1"/><circle cx="159.3" cy="36.7" r="1.1" fill="#ffffff" opacity="0.2"/><circle cx="244.9" cy="124.3" r="1.5" fill="#ffffff" opacity="0.1"/><circle cx="46.7" cy="125.7" r="1" fill="#ffffff" opacity="0.1"/><circle cx="111.9" cy="154.2" r="1.6" fill="#ffffff" opacity="0.2"/><circle cx="21.5" cy="77.1" r="0.8" fill="#ffffff" opacity="0.1"/><circle cx="213.2" cy="167.4" r="0.9" fill="#ffffff" opacity="0.2"/><circle cx="180.2" cy="152.5" r="0.6" fill="#ffffff" opacity="0.2"/><circle cx="33.6" cy="135.7" r="1.6" fill="#ffffff" opacity="0.1"/><circle cx="137" cy="124.8" r="1.2" fill="#ffffff" opacity="0.1"/><circle cx="37" cy="29.5" r="1.1" fill="#ffffff" opacity="0.1"/><circle cx="37" cy="92.2" r="1.4" fill="#ffffff" opacity="0.1"/><circle cx="246" cy="3.3" r="2" fill="#ffffff" opacity="0.1"/><circle cx="72.8" cy="136.7" r="1.2" fill="#ffffff" opacity="0.1"/><circle cx="20" cy="38.6" r="1.5" fill="#ffffff" opacity="0.2"/><circle cx="96.5" cy="164.7" r="1.6" fill="#ffffff" opacity="0.1"/><circle cx="289.3" cy="106.7" r="0.7" fill="#ffffff" opacity="0.1"/><circle cx="58.6" cy="102.7" r="1.2" fill="#ffffff" opacity="0.2"/>
+<path d="M-27.2 170 L107.2 0 L134.4 0 L0 170 Z" fill="#ffffff" opacity="0.05"/>
+<rect width="320" height="170" fill="url(#w1k1i20qs)"/>
+<path d="M160 113 C 120 81 136 33 160 33 C 184 33 200 81 160 113 Z" fill="none" stroke="rgba(255,255,255,0.82)" stroke-width="2"/><line x1="160" y1="33" x2="160" y2="113" stroke="rgba(255,255,255,0.82)" stroke-width="1.4"/>
+<text x="160" y="148" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" letter-spacing="3.4" fill="#ffffff" fill-opacity="0.72">SAGE</text>
+<rect x="1" y="1" width="318" height="168" fill="none" stroke="#ffffff" stroke-opacity="0.14" rx="6"/>
+</svg>

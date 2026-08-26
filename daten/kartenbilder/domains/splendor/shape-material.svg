@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 170" width="320" height="170" role="img" aria-label="Formmaterial">
+<defs>
+<linearGradient id="w18f0njyg" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#b38f2c" stop-opacity="0.95"/>
+<stop offset="1" stop-color="#161815" stop-opacity="0.95"/>
+</linearGradient>
+<radialGradient id="w18f0njys" cx="0.5" cy="0.42" r="0.6">
+<stop offset="0" stop-color="#ffffff" stop-opacity="0.16"/>
+<stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<rect width="320" height="170" fill="#161815"/>
+<rect width="320" height="170" fill="url(#w18f0njyg)"/>
+<circle cx="209.2" cy="134.8" r="1.2" fill="#ffffff" opacity="0.1"/><circle cx="43" cy="65.3" r="1.6" fill="#ffffff" opacity="0.2"/><circle cx="57" cy="152.8" r="1.7" fill="#ffffff" opacity="0.1"/><circle cx="229.1" cy="12.6" r="1.1" fill="#ffffff" opacity="0.1"/><circle cx="52.2" cy="19.8" r="0.7" fill="#ffffff" opacity="0.2"/><circle cx="11.9" cy="104.6" r="1.8" fill="#ffffff" opacity="0.2"/><circle cx="56.1" cy="69.5" r="1.7" fill="#ffffff" opacity="0.1"/><circle cx="40.8" cy="98.9" r="1.3" fill="#ffffff" opacity="0.1"/><circle cx="172.9" cy="40.5" r="0.8" fill="#ffffff" opacity="0.2"/><circle cx="67.1" cy="41.2" r="1" fill="#ffffff" opacity="0.2"/><circle cx="14.9" cy="132.3" r="1.7" fill="#ffffff" opacity="0.2"/><circle cx="194.2" cy="107.5" r="1.7" fill="#ffffff" opacity="0.1"/><circle cx="205.1" cy="125.4" r="2" fill="#ffffff" opacity="0.1"/><circle cx="185.1" cy="31" r="1.5" fill="#ffffff" opacity="0.1"/><circle cx="104.3" cy="27.6" r="1" fill="#ffffff" opacity="0.2"/><circle cx="54" cy="132.8" r="1.4" fill="#ffffff" opacity="0.1"/><circle cx="13.6" cy="139.2" r="2.1" fill="#ffffff" opacity="0.1"/><circle cx="212.3" cy="132.3" r="0.8" fill="#ffffff" opacity="0.1"/><circle cx="211" cy="73.9" r="1.1" fill="#ffffff" opacity="0.1"/><circle cx="72.4" cy="29.9" r="1.7" fill="#ffffff" opacity="0.1"/><circle cx="255" cy="77.9" r="0.7" fill="#ffffff" opacity="0.2"/><circle cx="44.7" cy="112.6" r="1" fill="#ffffff" opacity="0.1"/>
+<path d="M-39.6 170 L94.8 0 L134.4 0 L0 170 Z" fill="#ffffff" opacity="0.05"/>
+<rect width="320" height="170" fill="url(#w18f0njys)"/>
+<circle cx="160" cy="73" r="18" fill="none" stroke="rgba(255,255,255,0.82)" stroke-width="2"/><line x1="186" y1="73" x2="200" y2="73" stroke="rgba(255,255,255,0.82)" stroke-width="2"/><line x1="178.4" y1="91.4" x2="188.3" y2="101.3" stroke="rgba(255,255,255,0.82)" stroke-width="2"/><line x1="160" y1="99" x2="160" y2="113" stroke="rgba(255,255,255,0.82)" stroke-width="2"/><line x1="141.6" y1="91.4" x2="131.7" y2="101.3" stroke="rgba(255,255,255,0.82)" stroke-width="2"/><line x1="134" y1="73" x2="120" y2="73" stroke="rgba(255,255,255,0.82)" stroke-width="2"/><line x1="141.6" y1="54.6" x2="131.7" y2="44.7" stroke="rgba(255,255,255,0.82)" stroke-width="2"/><line x1="160" y1="47" x2="160" y2="33" stroke="rgba(255,255,255,0.82)" stroke-width="2"/><line x1="178.4" y1="54.6" x2="188.3" y2="44.7" stroke="rgba(255,255,255,0.82)" stroke-width="2"/>
+<text x="160" y="148" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" letter-spacing="3.4" fill="#ffffff" fill-opacity="0.72">SPLENDOR</text>
+<rect x="1" y="1" width="318" height="168" fill="none" stroke="#ffffff" stroke-opacity="0.14" rx="6"/>
+</svg>

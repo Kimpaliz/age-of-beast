@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 170" width="320" height="170" role="img" aria-label="Fane der Wildnis">
+<defs>
+<linearGradient id="w1bisg3sg" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#4c7650" stop-opacity="0.95"/>
+<stop offset="1" stop-color="#161815" stop-opacity="0.95"/>
+</linearGradient>
+<radialGradient id="w1bisg3ss" cx="0.5" cy="0.42" r="0.6">
+<stop offset="0" stop-color="#ffffff" stop-opacity="0.16"/>
+<stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<rect width="320" height="170" fill="#161815"/>
+<rect width="320" height="170" fill="url(#w1bisg3sg)"/>
+<circle cx="298.1" cy="61.3" r="0.6" fill="#ffffff" opacity="0.2"/><circle cx="174.2" cy="112.8" r="0.8" fill="#ffffff" opacity="0.1"/><circle cx="160.3" cy="22.2" r="1.3" fill="#ffffff" opacity="0.1"/><circle cx="22.5" cy="22.9" r="1.8" fill="#ffffff" opacity="0.2"/><circle cx="209.3" cy="100.1" r="1.2" fill="#ffffff" opacity="0.1"/><circle cx="139.3" cy="146.9" r="1.5" fill="#ffffff" opacity="0.1"/><circle cx="308.1" cy="96.7" r="1.8" fill="#ffffff" opacity="0.1"/><circle cx="34.2" cy="57.9" r="1" fill="#ffffff" opacity="0.1"/><circle cx="29.4" cy="72.4" r="1.6" fill="#ffffff" opacity="0.2"/><circle cx="134.9" cy="7.2" r="2" fill="#ffffff" opacity="0.2"/><circle cx="310" cy="94.6" r="2.1" fill="#ffffff" opacity="0.2"/><circle cx="43.8" cy="48.2" r="1.4" fill="#ffffff" opacity="0.1"/><circle cx="127.1" cy="53.2" r="1.4" fill="#ffffff" opacity="0.2"/><circle cx="103.4" cy="101.1" r="1.7" fill="#ffffff" opacity="0.1"/><circle cx="83.4" cy="72" r="1.2" fill="#ffffff" opacity="0.1"/><circle cx="52.2" cy="121.9" r="1.2" fill="#ffffff" opacity="0.2"/><circle cx="209.6" cy="11.6" r="1.5" fill="#ffffff" opacity="0.1"/><circle cx="177.7" cy="5.9" r="1.6" fill="#ffffff" opacity="0.1"/><circle cx="206.6" cy="54.4" r="1.7" fill="#ffffff" opacity="0.1"/><circle cx="32.3" cy="88.2" r="1.3" fill="#ffffff" opacity="0.2"/>
+<path d="M-49.2 170 L85.2 0 L134.4 0 L0 170 Z" fill="#ffffff" opacity="0.05"/>
+<rect width="320" height="170" fill="url(#w1bisg3ss)"/>
+<path d="M160 113 C 120 81 136 33 160 33 C 184 33 200 81 160 113 Z" fill="none" stroke="rgba(255,255,255,0.82)" stroke-width="2"/><line x1="160" y1="33" x2="160" y2="113" stroke="rgba(255,255,255,0.82)" stroke-width="1.4"/>
+<text x="160" y="148" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" letter-spacing="3.4" fill="#ffffff" fill-opacity="0.72">SAGE</text>
+<rect x="1" y="1" width="318" height="168" fill="none" stroke="#ffffff" stroke-opacity="0.14" rx="6"/>
+</svg>

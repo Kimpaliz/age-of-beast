@@ -166,6 +166,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-08-07T22:09:05.871Z"
     },
     {
@@ -279,6 +280,7 @@ window.AGE_OF_BEAST_WELT = {
           "ziel": "item-sturmwende-uniform-goldene-garde"
         }
       ],
+      "bild": "",
       "geaendert": "2026-08-22T07:37:45.995Z"
     },
     {
@@ -379,6 +381,7 @@ window.AGE_OF_BEAST_WELT = {
           "ziel": "species-dh-clank"
         }
       ],
+      "bild": "",
       "geaendert": "2026-08-07T21:36:13.331Z"
     },
     {
@@ -434,6 +437,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-07-30T18:24:33.455Z"
     },
     {
@@ -489,6 +493,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-08-07T22:09:05.871Z"
     },
     {
@@ -544,6 +549,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-07-30T18:24:33.455Z"
     },
     {
@@ -602,6 +608,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-07-30T18:24:33.455Z"
     },
     {
@@ -657,6 +664,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-07-30T18:24:33.455Z"
     },
     {
@@ -715,6 +723,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-07-30T18:24:33.455Z"
     },
     {
@@ -770,6 +779,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-07-30T18:24:33.455Z"
     },
     {
@@ -827,6 +837,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-07-30T18:24:33.455Z"
     },
     {
@@ -882,6 +893,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-07-30T18:24:33.455Z"
     },
     {
@@ -937,6 +949,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-07-30T18:24:33.455Z"
     },
     {
@@ -992,6 +1005,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-07-30T18:24:33.455Z"
     },
     {
@@ -1049,6 +1063,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-07-30T18:24:33.455Z"
     },
     {
@@ -1104,6 +1119,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-07-30T18:24:33.455Z"
     },
     {
@@ -1161,6 +1177,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-07-30T18:24:33.455Z"
     },
     {
@@ -1216,6 +1233,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-07-30T18:24:33.455Z"
     },
     {
@@ -1271,6 +1289,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-07-30T18:24:33.455Z"
     },
     {
@@ -1328,6 +1347,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-08-07T22:09:05.871Z"
     },
     {
@@ -1385,6 +1405,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-07-30T18:24:33.455Z"
     },
     {
@@ -1440,6 +1461,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-07-30T18:24:33.455Z"
     },
     {
@@ -1497,6 +1519,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-07-30T18:24:33.455Z"
     },
     {
@@ -1552,6 +1575,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-07-30T18:24:33.455Z"
     },
     {
@@ -1610,6 +1634,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-07-30T18:24:33.455Z"
     },
     {
@@ -1668,6 +1693,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-07-30T18:24:33.455Z"
     },
     {
@@ -1725,6 +1751,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-07-30T18:24:33.455Z"
     },
     {
@@ -1789,6 +1816,7 @@ window.AGE_OF_BEAST_WELT = {
           "ziel": "wiki-sturmwende-kampagnenframe"
         }
       ],
+      "bild": "",
       "geaendert": "2026-07-30T23:51:27.695Z"
     },
     {
@@ -1869,6 +1897,7 @@ window.AGE_OF_BEAST_WELT = {
           "ziel": "faction-sturmwende-maschinisten"
         }
       ],
+      "bild": "",
       "geaendert": "2026-08-01T12:36:23.031Z"
     },
     {
@@ -1979,6 +2008,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-08-25T22:53:51.317Z"
     },
     {
@@ -2019,11 +2049,6 @@ window.AGE_OF_BEAST_WELT = {
           "schluessel": "werkstattNummer",
           "beschriftung": "Kartennummer",
           "wert": "DH Core 056/270"
-        },
-        {
-          "schluessel": "werkstattKuenstler",
-          "beschriftung": "Illustration",
-          "wert": "Mat Wilma"
         }
       ],
       "abschnitte": [
@@ -2036,19 +2061,10 @@ window.AGE_OF_BEAST_WELT = {
             "panelId": "panel-werkstatt-karte-clank-regeltext",
             "feld": 0
           }
-        },
-        {
-          "titel": "Zur Illustration",
-          "html": "<p>Die Illustration dieser Karte stammt von Mat Wilma und ist offizielles Material von Darrington Press. Sie wird hier bewusst nicht mitveröffentlicht; im Kartenwerkzeug der Werkstatt liegt sie unverändert vor.</p>",
-          "herkunft": {
-            "art": "panel",
-            "panel": 1,
-            "panelId": "panel-werkstatt-karte-clank-bild",
-            "feld": 0
-          }
         }
       ],
       "verbindungen": [],
+      "bild": "daten/kartenbilder/ancestry/clank.svg",
       "geaendert": "2026-08-25T22:53:51.318Z"
     },
     {
@@ -2154,6 +2170,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-07-26T22:08:55.339Z"
     },
     {
@@ -2249,6 +2266,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-08-25T23:58:46.484Z"
     },
     {
@@ -2324,6 +2342,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-08-25T23:58:46.484Z"
     },
     {
@@ -2409,6 +2428,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-08-25T23:58:46.484Z"
     },
     {
@@ -2514,6 +2534,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-08-25T23:58:46.484Z"
     },
     {
@@ -2589,6 +2610,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-08-25T23:58:46.484Z"
     },
     {
@@ -2694,6 +2716,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-08-25T23:58:46.484Z"
     },
     {
@@ -2779,6 +2802,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-08-25T23:58:46.484Z"
     },
     {
@@ -2894,6 +2918,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-08-25T23:58:46.484Z"
     },
     {
@@ -2979,6 +3004,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-08-25T23:58:46.484Z"
     },
     {
@@ -3084,6 +3110,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-08-25T23:58:46.484Z"
     },
     {
@@ -3209,6 +3236,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-08-25T23:58:46.484Z"
     },
     {
@@ -3334,6 +3362,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-08-25T23:58:46.484Z"
     },
     {
@@ -3489,6 +3518,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-08-25T23:58:46.484Z"
     },
     {
@@ -3584,6 +3614,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-08-25T23:58:46.484Z"
     },
     {
@@ -3729,6 +3760,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-08-25T23:58:46.485Z"
     },
     {
@@ -3834,6 +3866,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-08-25T23:58:46.485Z"
     },
     {
@@ -3949,6 +3982,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-08-25T23:58:46.485Z"
     },
     {
@@ -4034,6 +4068,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-08-25T23:58:46.485Z"
     },
     {
@@ -4149,6 +4184,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-08-25T23:58:46.485Z"
     },
     {
@@ -4274,6 +4310,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-08-25T23:58:46.485Z"
     },
     {
@@ -4399,6 +4436,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-08-25T23:58:46.485Z"
     },
     {
@@ -4529,6 +4567,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-08-25T23:58:46.485Z"
     },
     {
@@ -4624,6 +4663,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-08-25T23:58:46.485Z"
     },
     {
@@ -4749,6 +4789,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-08-25T23:58:46.485Z"
     },
     {
@@ -4884,6 +4925,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-08-25T23:58:46.485Z"
     },
     {
@@ -5339,6 +5381,7 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "verbindungen": [],
+      "bild": "",
       "geaendert": "2026-08-25T23:58:46.485Z"
     }
   ],

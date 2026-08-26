@@ -7,6 +7,60 @@ Das Neueste steht immer oben.
 
 ---
 
+## Fassung 2.7.0 – 26. August 2026
+
+**Das Wiki hat jetzt Bilder** — 234 eigene Kartenwappen, erzeugt statt
+übernommen.
+
+### Warum eigene statt der Originale
+
+Die Bilder der Werkstatt sind offizielle Illustrationen von Darrington
+Press. Sie privat zu nutzen ist eine Sache — sie in einem öffentlichen
+Repository zu verbreiten eine andere.
+
+Statt sie einfach wegzulassen, gibt es jetzt Ersatz: **Wappen**. Jede Karte
+bekommt eines, aus ihren eigenen Angaben berechnet.
+
+### Was ein Wappen ist
+
+Keine gemalte Illustration — das kann ich nicht. Sondern Farbe, Form und
+Muster:
+
+- Die **Farbe** kommt von der Domäne. Arcana bleibt violett, Blade rot.
+- Das **Motiv** gehört zur Domäne: Rune, Klinge, Mond, Blatt, Sonne, Schild.
+- Das **Sternmuster** wird aus dem Kartennamen berechnet. Keine zwei Karten
+  sehen gleich aus, aber alle einer Domäne sehen verwandt aus.
+- Der **Domänenname** steht englisch im Bild, so wie im Regelwerk.
+
+### Nebenbei sind sie besser als die Originale
+
+| | Original | Wappen |
+| --- | --- | --- |
+| je Bild | 28,7 KB | **2,65 KB** |
+| alle 234 | 8,4 MB | **621 KB** |
+| Schärfe | fest | auf jedem Bildschirm scharf |
+| Rechte | Darrington Press | dieses Projekt |
+
+Das ganze Wiki wiegt jetzt 2,6 MB. Die Grenze bei GitHub liegt bei 1 GB.
+
+### Verlässlich
+
+Derselbe Kartenname ergibt **immer** dasselbe Bild. Nachgeprüft: Ein
+zweiter Lauf erzeugte 234 bytegleiche Dateien. Es entsteht also kein
+Durcheinander, wenn die Bilder neu gebaut werden.
+
+### Zwei Kleinigkeiten dabei
+
+Die Steckbriefzeile **Illustration: Mat Wilma** ist verschwunden. Sie nannte
+den Künstler der offiziellen Karte — bei unserem eigenen Wappen wäre das
+schlicht falsch.
+
+Und das Bild lädt jetzt sofort statt verzögert. Es steht direkt unter der
+Überschrift; verzögertes Laden hätte dort nichts gebracht und die Seite nur
+springen lassen.
+
+---
+
 ## Fassung 2.6.0 – 26. August 2026
 
 **Die Werkstatt hat jetzt einen eigenen Knopf und eine eigene Seite** — und

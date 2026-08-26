@@ -13,11 +13,10 @@
  *      ist öffentlich; solche Angaben stünden dort dauerhaft im Netz, auch
  *      in der Versionsgeschichte. Sie werden entfernt, nicht übertragen.
  *
- *   2. Die Kartengrafik. Sie ist offizielle Illustration von Darrington
- *      Press (hier: Mat Wilma, „DH Core 056/270"). Sie in einem
- *      öffentlichen Repository zu verbreiten wäre etwas anderes als sie
- *      privat zu verwenden. Übernommen werden Text und Angaben der Karte,
- *      nicht das Bild.
+ *   2. Die offizielle Kartengrafik. Sie gehoert Darrington Press. An ihre
+ *      Stelle tritt ein erzeugtes Wappen aus `kartenbilder-erzeugen.mjs` —
+ *      eigene Gestaltung aus Farbe, Form und Muster der Karte. Uebernommen
+ *      werden Text und Angaben, das Bild wird ersetzt statt weggelassen.
  *
  * Nicht übertragbar sind ausserdem Live-Sitzungen, Einladungslinks und
  * Zugangsrechte: Sie sind an die Firebase-Anmeldung gebunden und haben
@@ -98,7 +97,7 @@ function absaetze(paare) {
 }
 
 /** Setzt ein fertiges Element aus Panels und Steckbriefzeilen zusammen. */
-function element({ id, name, beschreibung, panels, zeilen, unterart }) {
+function element({ id, name, beschreibung, panels, zeilen, unterart, bild }) {
   const echte = panels.filter(Boolean);
   const attributeRows = [];
   const fields = {};
@@ -122,7 +121,7 @@ function element({ id, name, beschreibung, panels, zeilen, unterart }) {
     descriptionPanelIds: echte.map((p) => p.id),
     fields,
     id,
-    image: '',
+    image: bild || '',
     imageSettings: { ...BILD_VORGABE },
     module: 'werkstatt',
     name,
@@ -303,6 +302,24 @@ function ausFigur(roh) {
  * Karte
  * ------------------------------------------------------------------ */
 
+/**
+ * Der Pfad zum erzeugten Wappen der Karte.
+ *
+ * Die Wappen liegen unter derselben Ordnung wie die Bilder der
+ * Werkstatt, nur als SVG. Aus dem Bildpfad der Werkstatt laesst sich
+ * der unsere deshalb direkt ableiten.
+ *
+ * Die offizielle Illustration wird bewusst nicht uebernommen: Sie
+ * gehoert Darrington Press. Das Wappen gehoert diesem Projekt.
+ */
+function wappenPfad(karte) {
+  const roh = String(karte.image || '');
+  const i = roh.indexOf('card-header-images/');
+  if (i < 0) return '';
+  const rest = roh.slice(i + 'card-header-images/'.length).replace(/.[a-z0-9]+$/i, '');
+  return rest ? 'daten/kartenbilder/' + rest + '.svg' : '';
+}
+
 function ausKarte(roh) {
   const p = JSON.parse(roh.payload || '{}');
   const id = 'werkstatt-karte-' + (p.name || 'karte').toLowerCase().replace(/[^a-z0-9]+/g, '-');
@@ -313,8 +330,13 @@ function ausKarte(roh) {
     .split('**_').join('**')
     .split('_**').join('**');
 
+  // Das Wappen aus `kartenbilder-erzeugen.mjs` statt der offiziellen
+  // Illustration. Der Pfad folgt derselben Ordnung wie dort.
+  const bild = wappenPfad(p);
+
   return element({
     id,
+    bild,
     name: p.name || roh.title || 'Karte',
     beschreibung: p.description,
     unterart: 'Karte',
@@ -324,20 +346,12 @@ function ausKarte(roh) {
       ['werkstattStufe', 'Stufe', p.level !== undefined ? String(p.level) : ''],
       ['werkstattRueckruf', 'Rückrufkosten', p.recallCost !== undefined ? String(p.recallCost) : ''],
       ['werkstattNummer', 'Kartennummer', p.cardId],
-      ['werkstattKuenstler', 'Illustration', p.artist],
+      // Die Zeile „Illustration" entfaellt bewusst: Sie nannte den
+      // Kuenstler der offiziellen Karte. Das Wappen im Wiki ist eigenes
+      // Werk, eine fremde Zuschreibung waere schlicht falsch.
     ],
     panels: [
       panel('panel-' + id + '-regeltext', 'Regeltext', regeltext),
-      panel(
-        'panel-' + id + '-bild',
-        'Zur Illustration',
-        p.artist
-          ? 'Die Illustration dieser Karte stammt von ' +
-              p.artist +
-              ' und ist offizielles Material von Darrington Press. Sie wird hier bewusst nicht mitveröffentlicht; ' +
-              'im Kartenwerkzeug der Werkstatt liegt sie unverändert vor.'
-          : '',
-      ),
     ],
   });
 }
