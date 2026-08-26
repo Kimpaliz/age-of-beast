@@ -328,13 +328,7 @@
           '</ul></section>'
         );
       })
-      .join('') +
-      // Werkzeuge stehen unter den Inhalten: Sie sind keine Kategorie
-      // mit Eintraegen, sondern eigene Anwendungen.
-      '<section class="nav-gruppe nav-werkzeuge" data-kategorie="werkstatt">' +
-      '<h2 class="mikro">Werkzeuge</h2><ul>' +
-      '<li><a href="#/werkstatt" data-nav="werkstatt">Daggerheart-Werkstatt</a></li>' +
-      '</ul></section>';
+      .join('');
   }
 
   function navigationMarkieren(id) {
@@ -876,39 +870,98 @@
   /* ----------------------------------------------------------------
      Modul: Daggerheart-Werkstatt
 
-     Die Werkstatt ist eine eigenstaendige Anwendung mit rund 19.000
-     Zeilen: Kartenbaukasten mit PDF-Ausgabe, Figurenassistent,
-     Kampagnenrahmen, Regelwiki und Live-Sitzungen. Sie hier
-     nachzubauen waere ein eigenes Vorhaben von Wochen.
+     Eine eigene Seite, erreichbar über den Knopf in der Kopfzeile.
+     Hier geht es ausschließlich um die Werkstatt.
 
-     Stattdessen wird sie eingebettet: Aus Janniks Sicht ist sie damit
-     ein Modul des Wikis wie jedes andere, erreichbar aus derselben
-     Navigation - und sie behaelt alles, was sie kann.
-
-     Der Knopf daneben oeffnet sie in einem eigenen Tab. Das ist kein
-     Beiwerk: Die Google-Anmeldung oeffnet ein Fenster, und Browser
-     sperren solche Fenster aus eingebetteten Seiten fremder Herkunft
-     haeufig. Klappt die Anmeldung im Rahmen nicht, geht sie dort.
+     Bis Fassung 2.5.0 war an dieser Stelle die alte Werkstatt in einem
+     Rahmen eingebettet. Das ist entfallen: Sie verlangt eine
+     Google-Anmeldung, und genau davon soll die Werkstatt gelöst werden.
+     Gezeigt werden deshalb nur die Bereiche, die bereits im Wiki liegen
+     – und offen benannt, was noch fehlt.
      ---------------------------------------------------------------- */
 
-  const WERKSTATT_ADRESSE = 'https://daggerheart-werkstatt-jt.web.app/';
+  /** Die Bereiche der Werkstatt, in der Reihenfolge der Übernahme. */
+  function werkstattBereiche() {
+    const zaehle = (art) =>
+      WELT.eintraege.filter(
+        (e) =>
+          e.kategorie === 'werkstatt' &&
+          (e.attribute || []).some((a) => a.schluessel === 'werkstattArt' && a.wert === art),
+      ).length;
+
+    const rahmen = WELT.eintraege.filter((e) => e.id.startsWith('rahmen-'));
+    const regeln = WELT.eintraege.filter((e) => e.kategorie === 'regeln').length;
+
+    return [
+      {
+        name: 'Kampagnenrahmen',
+        text: 'Neun Schritte von der Grundidee bis zur ersten Szene, mit den Fragen und Hilfetexten der Werkstatt.',
+        anzahl: rahmen.length,
+        einheit: 'Rahmen',
+        ziel: rahmen.length ? '#/rahmen/' + encodeURIComponent(rahmen[0].id) : null,
+        knopf: 'Assistent öffnen',
+        zustand: 'fertig',
+      },
+      {
+        name: 'Regelwiki',
+        text: 'Die Regeln von Daggerheart auf Deutsch, mit Glossar. Aus dem Welttext heraus verlinkt.',
+        anzahl: regeln,
+        einheit: regeln === 1 ? 'Eintrag' : 'Einträge',
+        ziel: '#/kategorie/regeln',
+        knopf: 'Regeln durchsehen',
+        zustand: 'fertig',
+      },
+      {
+        name: 'Spielfiguren',
+        text: 'Figurenbögen mit Werten, Ausrüstung und Hintergrund. Der Assistent zum Anlegen fehlt noch.',
+        anzahl: zaehle('Spielfigur'),
+        einheit: zaehle('Spielfigur') === 1 ? 'Figur' : 'Figuren',
+        ziel: null,
+        knopf: null,
+        zustand: 'teilweise',
+      },
+      {
+        name: 'Karten',
+        text: 'Karten mit Regeltext und Angaben. Der Kartenbaukasten mit Vorlagen und PDF-Ausgabe fehlt noch.',
+        anzahl: zaehle('Karte'),
+        einheit: zaehle('Karte') === 1 ? 'Karte' : 'Karten',
+        ziel: null,
+        knopf: null,
+        zustand: 'teilweise',
+      },
+    ];
+  }
 
   function werkstattZeichnen() {
+    const bereiche = werkstattBereiche();
+    const eigene = WELT.eintraege.filter((e) => e.kategorie === 'werkstatt');
+
     inhalt.innerHTML =
-      '<p class="brotkrumen"><a class="zurueck" href="#/">&lsaquo; Arbeitsfläche</a>' +
-      '<span class="pfad">' + sicher(WELT.titel) + ' / Werkstatt</span></p>' +
-      '<div class="modul-rahmen" data-kategorie="werkstatt">' +
-        '<div class="modul-leiste">' +
-          '<span class="mikro">Daggerheart-Werkstatt</span>' +
-          '<a class="modul-knopf" href="' + WERKSTATT_ADRESSE + '" target="_blank" rel="noopener">' +
-            'In eigenem Tab öffnen ↗</a>' +
+      '<div class="werkstatt-seite" data-kategorie="werkstatt">' +
+        '<span class="mikro">Modul</span>' +
+        '<h1>Daggerheart-Werkstatt</h1>' +
+        '<p class="anriss">Kampagnenrahmen, Regeln, Figuren und Karten &mdash; alles an ' +
+          'einem Ort und vollständig im Repository. Keine Anmeldung bei Google, ' +
+          'kein Datenbankanbieter.</p>' +
+        '<div class="werkstatt-felder">' +
+          bereiche
+            .map(
+              (b) =>
+                '<section class="werkstatt-feld" data-zustand="' + b.zustand + '">' +
+                  '<h2>' + sicher(b.name) + '</h2>' +
+                  '<p class="zahl">' + b.anzahl + ' <span>' + sicher(b.einheit) + '</span></p>' +
+                  '<p class="text">' + sicher(b.text) + '</p>' +
+                  (b.ziel
+                    ? '<a class="modul-knopf" href="' + b.ziel + '">' + sicher(b.knopf) + '</a>'
+                    : '<span class="werkstatt-marke">wird noch übernommen</span>') +
+                '</section>',
+            )
+            .join('') +
         '</div>' +
-        '<iframe class="modul-fenster" src="' + WERKSTATT_ADRESSE + '" ' +
-          'title="Daggerheart-Werkstatt" loading="lazy" ' +
-          'allow="clipboard-write"></iframe>' +
-        '<p class="modul-hinweis mikro">Klappt die Anmeldung hier im Rahmen nicht, ' +
-          'öffne die Werkstatt in einem eigenen Tab. Manche Browser sperren ' +
-          'Anmeldefenster aus eingebetteten Seiten.</p>' +
+        (eigene.length
+          ? '<h2 class="werkstatt-ueberschrift">Inhalte der Werkstatt</h2>' +
+            '<div class="kacheln">' + eigene.map(kachel).join('') + '</div>'
+          : '') +
       '</div>';
 
     document.title = 'Werkstatt – ' + WELT.titel;

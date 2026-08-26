@@ -7,6 +7,62 @@ Das Neueste steht immer oben.
 
 ---
 
+## Fassung 2.6.0 – 26. August 2026
+
+**Die Werkstatt hat jetzt einen eigenen Knopf und eine eigene Seite** — und
+die Google-Anmeldung ist daraus verschwunden.
+
+### Der Knopf oben
+
+In der Kopfzeile, rechts neben der Suche, steht jetzt **⚒ Werkstatt**. Ein
+Klick führt auf eine Seite, auf der es ausschließlich um die Werkstatt geht —
+nicht mehr in der Seitenleiste zwischen den Weltinhalten versteckt.
+
+Auf schmalen Fenstern bleibt nur das Zeichen ⚒ stehen, damit oben nichts
+überläuft.
+
+### Die Seite
+
+Vier Felder, jedes zeigt, wie weit die Übernahme ist:
+
+| Bereich | Stand |
+| --- | --- |
+| **Kampagnenrahmen** | fertig — Assistent öffnen |
+| **Regelwiki** | fertig — 26 Einträge |
+| **Spielfiguren** | teilweise — Bögen da, Assistent fehlt |
+| **Karten** | teilweise — Karten da, Baukasten fehlt |
+
+Die noch nicht fertigen Felder sind gestrichelt umrandet und tragen den
+Vermerk **wird noch übernommen**. So siehst du auf einen Blick, was schon
+geht und was noch kommt — statt dass es einfach fehlt.
+
+Darunter stehen die Werkstatt-Einträge als Kacheln.
+
+### Google ist raus
+
+Bis eben war auf dieser Seite die alte Werkstatt in einem Rahmen
+eingebettet. Die verlangt eine Google-Anmeldung — genau das, wovon sie
+gelöst werden soll. Der Rahmen ist entfernt.
+
+**Was das heißt:** Alles, was du auf der Werkstatt-Seite siehst, läuft
+vollständig über GitHub. Kein Google, kein Datenbankanbieter.
+
+**Und was noch nicht:** Der Figurenassistent und der Kartenbaukasten sind
+noch nicht übernommen. Die alte Werkstatt gibt es weiterhin unter ihrer
+eigenen Adresse, solange du sie brauchst — sie ist nur nicht mehr Teil des
+Wikis.
+
+### Nebenbei aufgeräumt
+
+Die Zeile **Werkzeuge** unten in der Seitenleiste ist entfallen. Mit dem
+Knopf oben gäbe es sonst zwei Wege zum selben Ziel, und das verwirrt mehr,
+als es hilft.
+
+Außerdem hieß es vorher „1 Figuren" und „1 Karten". Jetzt heißt es
+„1 Figur" und „1 Karte".
+
+---
+
 ## Fassung 2.5.0 – 26. August 2026
 
 **Der Kampagnenrahmen-Assistent ist im Wiki** — mit allen neun Schritten und

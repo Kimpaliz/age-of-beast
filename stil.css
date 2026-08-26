@@ -146,7 +146,8 @@ body {
   height: var(--kopf-hoehe);
   display: grid;
   /* Die Suche behält immer mindestens 200 Pixel; der Untertitel weicht. */
-  grid-template-columns: var(--nav-breite) minmax(0, auto) minmax(12.5rem, 1fr) auto;
+  /* Spalten: Kategorien | Marke | Suche | Werkstatt | rechte Knoepfe */
+  grid-template-columns: var(--nav-breite) minmax(0, auto) minmax(12.5rem, 1fr) auto auto;
   align-items: center;
   gap: 1rem;
   padding-right: 1rem;
@@ -1439,3 +1440,112 @@ html[data-thema="hell"] .nav-gruppe[data-kategorie="regeln"] {
 
 /* Der Verweis in den Assistenten steht rechts neben der Kategoriezeile. */
 .assistent-verweis { margin-left: 0.7rem; vertical-align: middle; }
+
+/* ------------------------------------------------------------------ *
+   Werkstatt: Knopf in der Kopfzeile und eigene Seite
+
+   Die Werkstatt ist kein Kapitel der Welt, sondern ein Werkzeug. Sie
+   bekommt deshalb einen eigenen Platz im Kopf statt einer Zeile in der
+   Seitenleiste — und durchgehend ihren Goldton.
+   ------------------------------------------------------------------ */
+
+.werkstatt-knopf {
+  --akzent:          #b79a6a;
+  --akzent-hell:     #e2cda2;
+  --akzent-schleier: rgba(183, 154, 106, 0.16);
+  --akzent-rand:     rgba(183, 154, 106, 0.46);
+
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.34rem 0.75rem;
+  border: 1px solid var(--akzent-rand);
+  border-radius: var(--radius-klein);
+  background: var(--akzent-schleier);
+  color: var(--akzent-hell);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s;
+}
+.werkstatt-knopf:hover, .werkstatt-knopf:focus-visible {
+  background: color-mix(in srgb, #b79a6a 26%, transparent);
+  border-color: #b79a6a;
+}
+.werkstatt-knopf .symbol { font-size: 0.95rem; line-height: 1; }
+
+html[data-thema="hell"] .werkstatt-knopf {
+  --akzent-hell:     #5a4520;
+  --akzent-schleier: rgba(122, 95, 46, 0.10);
+  --akzent-rand:     rgba(122, 95, 46, 0.40);
+}
+
+/* Auf schmalen Fenstern bleibt nur das Zeichen. */
+@media (max-width: 68rem) {
+  .werkstatt-knopf .beschriftung { display: none; }
+  .werkstatt-knopf { padding: 0.34rem 0.5rem; }
+}
+
+/* --- Die Seite ---------------------------------------------------- */
+
+.werkstatt-seite { max-width: 58rem; }
+.werkstatt-seite > h1 { margin: 0.2rem 0 0.6rem; }
+.werkstatt-seite > .anriss { margin-bottom: 2rem; max-width: 44rem; }
+
+.werkstatt-felder {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 0.9rem;
+}
+
+.werkstatt-feld {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 1.1rem;
+  background: color-mix(in srgb, var(--flaeche) 82%, transparent);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius);
+}
+.werkstatt-feld > h2 { margin: 0; font-size: 1.05rem; }
+.werkstatt-feld .zahl {
+  margin: 0;
+  font-size: 1.9rem;
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--akzent-hell);
+}
+.werkstatt-feld .zahl span {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--schrift-leise);
+}
+.werkstatt-feld .text {
+  margin: 0;
+  flex: 1;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--schrift-matt);
+}
+.werkstatt-feld .modul-knopf { align-self: flex-start; }
+
+/* Noch nicht übernommene Bereiche treten zurück, statt zu verschwinden:
+   So ist sichtbar, was noch kommt. */
+.werkstatt-feld[data-zustand="teilweise"] { border-style: dashed; }
+.werkstatt-feld[data-zustand="teilweise"] .zahl { color: var(--schrift-matt); }
+
+.werkstatt-marke {
+  align-self: flex-start;
+  padding: 0.2rem 0.55rem;
+  border: 1px dashed var(--rand-hell);
+  border-radius: var(--radius-klein);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--schrift-leise);
+}
+
+.werkstatt-ueberschrift { margin: 2.4rem 0 1rem; font-size: 1.1rem; }

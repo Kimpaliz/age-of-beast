@@ -142,10 +142,11 @@ const server = createServer(async (anfrage, antwort) => {
       'Content-Type': TYPEN[extname(datei).toLowerCase()] || 'application/octet-stream',
       'Content-Length': inhalt.length,
       'Cache-Control': 'no-cache',
-      // Die Seite laedt nichts von aussen. Das hier sagt es dem Browser
+      // Die Seite laedt nichts von aussen - seit Fassung 2.6.0 auch keinen
+      // eingebetteten Rahmen mehr. Das hier sagt es dem Browser
       // auch, damit ein eingeschleustes Skript gar nicht erst laufen kann.
       'Content-Security-Policy':
-        "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://api.github.com; frame-src https://daggerheart-werkstatt-jt.web.app",
+        "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://api.github.com",
       'X-Content-Type-Options': 'nosniff',
     });
     if (anfrage.method === 'HEAD') antwort.end();

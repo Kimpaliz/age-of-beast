@@ -29,6 +29,73 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 Ohne Versionsnummer: reine Inhaltsänderung an der Quelle, keine Änderung am
 Wiki-Code.
 
+## [2.6.0] – 2026-08-26
+
+Die Werkstatt bekommt einen eigenen Platz in der Kopfzeile und eine eigene
+Seite. Die eingebettete Firebase-Werkstatt ist entfernt.
+
+### Entfernt — und warum
+
+Fassung 2.3.0 hatte `daggerheart-werkstatt-jt.web.app` als `iframe`
+eingebettet. Das war ein tragfähiger Zwischenschritt, steht aber dem Ziel
+im Weg: Die eingebettete Anwendung verlangt eine Google-Anmeldung, und
+genau davon soll die Werkstatt gelöst werden. Solange der Rahmen dastand,
+wäre „läuft vollständig über GitHub" nicht wahr gewesen.
+
+Die Seite zeigt jetzt ausschließlich, was tatsächlich im Repository liegt.
+Was fehlt, wird benannt statt verschwiegen (`data-zustand="teilweise"`,
+gestrichelte Umrandung, Vermerk „wird noch übernommen").
+
+Im Betriebscode gibt es keinen Verweis mehr auf
+`daggerheart-werkstatt-jt.web.app` — geprüft über `wiki.js`, `index.html`,
+`stil.css` und `heim-server.mjs`. Die `frame-src`-Ausnahme in der
+Content-Security-Policy des Heim-Servers wurde wieder entfernt.
+
+### Hinzugefügt
+
+- `#werkstatt-knopf` in der Kopfzeile, zwischen Suche und rechter
+  Knopfgruppe. Das Raster von `.kopf` bekam dafür eine fünfte Spalte.
+  Unter 68 rem entfällt die Beschriftung, das Zeichen bleibt.
+- `werkstattBereiche()` und die neue `werkstattZeichnen()` in `wiki.js`:
+  vier Felder mit Anzahl, Beschreibung, Ziel und Zustand. Die Zahlen
+  werden aus `WELT` gerechnet, nicht fest eingetragen — sie stimmen also
+  auch nach der nächsten Übernahme.
+- Gestaltung in `stil.css`: `.werkstatt-knopf`, `.werkstatt-seite`,
+  `.werkstatt-felder`, `.werkstatt-feld`, `.werkstatt-marke`. Der Goldton
+  ist am Knopf fest gesetzt, weil er außerhalb der Kategoriebereiche steht.
+
+### Entfernt
+
+- Der Navigationsbereich `.nav-werkzeuge` aus der Seitenleiste. Mit dem
+  Knopf in der Kopfzeile gäbe es zwei Wege zum selben Ziel.
+
+### Behoben
+
+- Ein- und Mehrzahl: „1 Figuren" und „1 Karten" hießen so, weil die
+  Einheit fest eingetragen war. Sie richtet sich jetzt nach der Anzahl.
+
+### Verifiziert
+
+- Knopf sitzt in `.kopf`, führt auf `#/werkstatt`.
+- Seite: vier Felder mit „1 Rahmen", „26 Einträge", „1 Figur", „1 Karte";
+  zwei davon als „teilweise" gekennzeichnet; drei Inhaltskacheln darunter.
+- Wege geprüft: „Assistent öffnen" führt nach `#/rahmen/rahmen-prototyp`,
+  „Regeln durchsehen" nach `#/kategorie/regeln` mit 26 Kacheln.
+- Kein `iframe` mehr im Dokument.
+- Seitenleiste ohne den doppelten Eintrag.
+- Alle fünf Prüfskripte bestanden, `node --check` über alle Dateien.
+
+### Stand der Übernahme
+
+| Bereich | Stand |
+| --- | --- |
+| Regelwiki | übernommen (2.4.0) |
+| Kampagnenrahmen | übernommen (2.5.0) |
+| Figurenassistent | offen — 2.238 Zeilen |
+| Kartenwerkstatt | offen — 234 Vorlagen, PNG/PDF, 300 Bilder |
+| Live-Sitzungen | nicht möglich ohne Rückkanal |
+
+
 ## [2.5.0] – 2026-08-26
 
 Kampagnenrahmen-Assistent: neun Schritte, 33 Felder, zwei Listen. Zweiter
@@ -991,7 +1058,8 @@ Weltenschmiede-Projekt `project-sturmwende-20260730`.
 - Die Datendateien wurden vor dem Commit auf Zugangsdaten, Schlüssel und
   E-Mail-Adressen geprüft; Treffer: keine.
 
-[Unveröffentlicht]: https://github.com/Kimpaliz/age-of-beast/compare/v2.5.0...HEAD
+[Unveröffentlicht]: https://github.com/Kimpaliz/age-of-beast/compare/v2.6.0...HEAD
+[2.6.0]: https://github.com/Kimpaliz/age-of-beast/compare/v2.5.0...v2.6.0
 [2.5.0]: https://github.com/Kimpaliz/age-of-beast/compare/v2.4.0...v2.5.0
 [2.4.0]: https://github.com/Kimpaliz/age-of-beast/compare/v2.3.0...v2.4.0
 [2.3.0]: https://github.com/Kimpaliz/age-of-beast/compare/v2.2.0...v2.3.0
