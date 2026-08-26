@@ -29,6 +29,7 @@ import { weltDateien, QUELLE } from './werkzeuge/welt-dateien.mjs';
 import { inTiefeSetzen } from './werkzeuge/bearbeiten-stellen.mjs';
 import { bearbeitenEinrichten } from './texte-bearbeiten.js';
 import { strukturEinrichten } from './struktur-bedienung.js';
+import { rahmenAssistentEinrichten } from './rahmen-assistent.js';
 import {
   REPO,
   schluesselPruefen,
@@ -250,6 +251,7 @@ function bearbeitenAnbieten() {
   // den Aufbau. Sie kennen einander nicht und teilen sich nur den Schalter.
   bearbeitenEinrichten(werkzeug);
   strukturEinrichten(werkzeug);
+  rahmenAssistentEinrichten(werkzeug);
 }
 
 /**

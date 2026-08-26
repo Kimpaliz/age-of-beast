@@ -580,6 +580,12 @@
       '<article class="artikel" data-eintrag="' + sicher(eintrag.id) + '" data-kategorie="' +
       sicher(eintrag.kategorie) + '">' +
       '<span class="mikro">' + etikett(eintrag) + '</span>' +
+      // Gibt es zu diesem Eintrag einen Kampagnenrahmen, fuehrt ein Knopf
+      // in den Assistenten. Er erscheint nur dort, wo er etwas bewirkt.
+      (rahmenVorhanden(eintrag.id)
+        ? '<a class="modul-knopf assistent-verweis" href="#/rahmen/' +
+          encodeURIComponent(eintrag.id) + '">Im Assistenten bearbeiten →</a>'
+        : '') +
       '<h1 data-feld="name">' + sicher(eintrag.name) + '</h1>' +
       (eintrag.aliase.length
         ? '<p class="mikro" style="margin:-1.1rem 0 1.5rem">Auch: ' + sicher(eintrag.aliase.join(' · ')) + '</p>'
@@ -907,6 +913,33 @@
 
     document.title = 'Werkstatt – ' + WELT.titel;
   }
+  /**
+   * Der Kampagnenrahmen-Assistent.
+   *
+   * Er steht nur angemeldet zur Verfuegung, weil er schreibt. Ohne
+   * Anmeldung ist `rahmenZeichnen` nicht gesetzt und es erscheint ein
+   * Hinweis statt eines halb bedienbaren Formulars.
+   */
+  /**
+   * Gibt es zu diesem Eintrag einen Kampagnenrahmen?
+   *
+   * Die Kennung eines erzeugten Rahmen-Eintrags beginnt mit `rahmen-`.
+   * Mehr braucht es nicht: Der Assistent prueft selbst, ob es die Quelle
+   * wirklich gibt, und meldet sich sonst mit einem Hinweis.
+   */
+  const rahmenVorhanden = (id) => String(id || '').startsWith('rahmen-');
+  function rahmenSeiteZeichnen(id) {
+    if (typeof window.ageOfBeast.rahmenZeichnen === 'function') {
+      window.ageOfBeast.rahmenZeichnen(inhalt, id);
+      return;
+    }
+    inhalt.innerHTML =
+      '<p class="brotkrumen"><a class="zurueck" href="#/">&lsaquo; Arbeitsfläche</a></p>' +
+      '<div class="hinweis"><strong>Zum Bearbeiten anmelden.</strong><br>' +
+      'Der Kampagnenrahmen-Assistent ändert Inhalte und braucht deshalb ' +
+      'einen Schlüssel. Oben rechts auf <em>Anmelden</em>.</div>';
+    document.title = 'Kampagnenrahmen – ' + WELT.titel;
+  }
   function seiteZeichnen() {
     const teile = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
 
@@ -916,6 +949,7 @@
     else if (teile[0] === 'eintrag' && teile[1]) eintragZeichnen(decodeURIComponent(teile[1]));
     else if (teile[0] === 'kategorie' && teile[1]) kategorieZeichnen(decodeURIComponent(teile[1]));
     else if (teile[0] === 'werkstatt') werkstattZeichnen();
+    else if (teile[0] === 'rahmen' && teile[1]) rahmenSeiteZeichnen(decodeURIComponent(teile[1]));
     else nichtGefunden();
 
     if (schmal()) leisteSetzen(false);

@@ -44,7 +44,7 @@ jobs:
           node --check wiki.js
           # Die beiden Browser-Module sind ES-Module mit .js-Endung. Node
           # erkennt das nur an der Endung, deshalb der Umweg über eine Kopie.
-          for datei in bearbeiten.js texte-bearbeiten.js struktur-bedienung.js; do
+          for datei in bearbeiten.js texte-bearbeiten.js struktur-bedienung.js rahmen-assistent.js; do
             cp "$datei" "$RUNNER_TEMP/${datei%.js}.mjs"
             node --check "$RUNNER_TEMP/${datei%.js}.mjs"
           done
@@ -55,6 +55,8 @@ jobs:
           node -e "JSON.parse(require('fs').readFileSync('daten/quelle.json','utf8'))"
           node -e "JSON.parse(require('fs').readFileSync('daten/welt.json','utf8'))"
           test -f daten/welt.js
+          # Der Assistent braucht die Feldbeschreibung.
+          node -e "JSON.parse(require('fs').readFileSync('daten/rahmen-felder.json','utf8'))"
           # Die angezeigte Kopie muss zur Quelle passen. Speichert das Wiki
           # selbst, legt es beide zusammen in einen Commit – schlägt das hier
           # fehl, sind sie auseinandergelaufen.

@@ -2,7 +2,7 @@
 window.AGE_OF_BEAST_WELT = {
   "titel": "Age of Beast",
   "untertitel": "Daggerheart-Welt zwischen Magie, Natur und Maschinen",
-  "standDerDaten": "2026-08-25T23:58:46.489Z",
+  "standDerDaten": "2026-08-26T00:07:38.674Z",
   "kategorien": [
     {
       "schluessel": "wiki",
@@ -1872,116 +1872,6 @@ window.AGE_OF_BEAST_WELT = {
       "geaendert": "2026-08-01T12:36:23.031Z"
     },
     {
-      "id": "werkstatt-kampagne-prototyp",
-      "name": "Prototyp",
-      "kategorie": "werkstatt",
-      "unterart": "Kampagnenrahmen",
-      "kurz": "Die boys",
-      "aliase": [],
-      "quelle": "",
-      "attribute": [
-        {
-          "schluessel": "werkstattArt",
-          "beschriftung": "Art",
-          "wert": "Kampagnenrahmen"
-        },
-        {
-          "schluessel": "werkstattSchritt",
-          "beschriftung": "Bearbeitungsschritt",
-          "wert": "9"
-        },
-        {
-          "schluessel": "werkstattStatus",
-          "beschriftung": "Status",
-          "wert": "draft"
-        }
-      ],
-      "abschnitte": [
-        {
-          "titel": "Kern der Kampagne",
-          "html": "<p>Wiederkehrende Tätigkeit: Kampf, Erkunden und Abenteuer</p><p>Was auf dem Spiel steht: Aufstieg der Maschinen zur ausrottung von Magie. Menschen sind gut mit Maschinen und zerstören unwissentlich magie und natur. Magie und Natur werden aussterben, wenn niemand etwas tut.</p>",
-          "herkunft": {
-            "art": "panel",
-            "panel": 0,
-            "panelId": "panel-werkstatt-kampagne-prototyp-kern",
-            "feld": 0
-          }
-        },
-        {
-          "titel": "Ton und Stimmung",
-          "html": "<p>Ton: Düster, Abenteuerlich, fantastisch,</p><p>Themen: Wenn es ums überleben geht ist da jedes mittle recht Das kleinere übel wählen.</p><p>Vorbilder: The witcher, name des windes, soulframe</p>",
-          "herkunft": {
-            "art": "panel",
-            "panel": 1,
-            "panelId": "panel-werkstatt-kampagne-prototyp-stimmung",
-            "feld": 0
-          }
-        },
-        {
-          "titel": "Wie es zur heutigen Lage kam",
-          "html": "<p>Vorher: Härter ohne Maschinen aber fantastischer und schöner.</p><p>Der Wandel: Zusammenschluss aller Technik begabter völker oder gruppen.</p><p>Heute: Langsam wird allen bewusst aber einigen noch nicht das die welt sich zur Technologie wandelt.</p><p>Die Kräfte: Magie / Natur gegen technologie und Fortschritt</p><p>Warum die Figuren zählen: Verhandlungen, Sabotage, Allianzen formen in nicht Technologie völkern, rebbelion</p>",
-          "herkunft": {
-            "art": "panel",
-            "panel": 2,
-            "panelId": "panel-werkstatt-kampagne-prototyp-ueberblick",
-            "feld": 0
-          }
-        },
-        {
-          "titel": "Motor der Geschichten",
-          "html": "<p>Wiederkehrende Lage: Widersprüchliche Aufträge verschiedener Auftraggeber. Menschen in not, Gefahrensituationen</p><p>Steigender Druck: Die Gruppierungen gehen sich gegenseitig an die Gurgel</p><p>Bedeutsame Entscheidungen: Welchen Gruppierungen man hilft oder auch nicht.</p><p>Folgen: Machtverhältniss</p>",
-          "herkunft": {
-            "art": "panel",
-            "panel": 3,
-            "panelId": "panel-werkstatt-kampagne-prototyp-motor",
-            "feld": 0
-          }
-        },
-        {
-          "titel": "Besonderheiten der Welt",
-          "html": "<p>Sturm</p><p>Im Alltag: Stetige wanderung oder Vorbereitung auf den sturm. Clanks können im sturm überleben.</p><p>Jahreswechsel</p><p>Beschreibung: Der sturm ist vorbei, alles blüht erneut.</p><p>Im Alltag: Neuankömmlinge oder das verlassen der bunker steht bevor</p><p>Reisende</p><p>Beschreibung: Es ist vollkommen normal, dass man auf Reisende trifft während des abenteuers</p><p>Im Alltag: Man lernt eine ganze Menge neue Leute kennen. Ganze Völker, die immer auf Reisen sind</p>",
-          "herkunft": {
-            "art": "panel",
-            "panel": 4,
-            "panelId": "panel-werkstatt-kampagne-prototyp-besonderheiten",
-            "feld": 0
-          }
-        },
-        {
-          "titel": "Fraktionen im Rahmen",
-          "html": "<p>Maschinisten</p><p>Ziel: Eine neue Welt</p><p>Machtmittel: Technologie und Roboter</p><p>Verhältnis: Nicht feindlich, aber sie versucht andere Fraktionen von ihrem Tun zu überzeugen. Im versprechen eines einfacheren Lebens.</p><p>Wanderer</p><p>Ziel: Immer weiter mit dem Sturm wandern und die Tradition aufrechterhalten</p><p>Machtmittel: Viele</p><p>Verhältnis: Offen und freundlich, aber sehr traditionstreu</p><p>Arcanisten</p><p>Ziel: Versuchen die Magie der Welt zu beschützen, es sind wenige</p><p>Machtmittel: Magical</p><p>Verhältnis: Friedlich zu den wandernden zu den maschinisten eher feindlich, weil sie schon auch die Natur die Magie vor der Technologie bewahren wollen</p>",
-          "herkunft": {
-            "art": "panel",
-            "panel": 5,
-            "panelId": "panel-werkstatt-kampagne-prototyp-fraktionen",
-            "feld": 0
-          }
-        },
-        {
-          "titel": "Anknüpfung der Figuren",
-          "html": "<p>Gemeinsamer Anlass: Lukas auf partnersuche für aetefakt suche.</p><p>Zu den Gemeinschaften: Wanderborne, seaborne, underborne besonders stark vertreten</p>",
-          "herkunft": {
-            "art": "panel",
-            "panel": 6,
-            "panelId": "panel-werkstatt-kampagne-prototyp-figuren",
-            "feld": 0
-          }
-        },
-        {
-          "titel": "Eröffnung",
-          "html": "<p>[object Object]</p>",
-          "herkunft": {
-            "art": "panel",
-            "panel": 7,
-            "panelId": "panel-werkstatt-kampagne-prototyp-eroeffnung",
-            "feld": 0
-          }
-        }
-      ],
-      "verbindungen": [],
-      "geaendert": "2026-08-25T22:53:51.316Z"
-    },
-    {
       "id": "werkstatt-figur-brix-borin",
       "name": "Brix Borin",
       "kategorie": "werkstatt",
@@ -2160,6 +2050,111 @@ window.AGE_OF_BEAST_WELT = {
       ],
       "verbindungen": [],
       "geaendert": "2026-08-25T22:53:51.318Z"
+    },
+    {
+      "id": "rahmen-prototyp",
+      "name": "Prototyp",
+      "kategorie": "werkstatt",
+      "unterart": "Kampagnenrahmen",
+      "kurz": "Die boys",
+      "aliase": [],
+      "quelle": "",
+      "attribute": [
+        {
+          "schluessel": "werkstattArt",
+          "beschriftung": "Art",
+          "wert": "Kampagnenrahmen"
+        },
+        {
+          "schluessel": "werkstattSchritt",
+          "beschriftung": "Bearbeitungsschritt",
+          "wert": "9 von 9"
+        }
+      ],
+      "abschnitte": [
+        {
+          "titel": "Kern der Kampagne",
+          "html": "<p>Wiederkehrende Tätigkeit: Kampf, Erkunden und Abenteuer</p><p>Was auf dem Spiel steht: Aufstieg der Maschinen zur ausrottung von Magie. Menschen sind gut mit Maschinen und zerstören unwissentlich magie und natur. Magie und Natur werden aussterben, wenn niemand etwas tut.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 0,
+            "panelId": "panel-rahmen-prototyp-kern",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Ton und Stimmung",
+          "html": "<p>Ton: Düster, Abenteuerlich, fantastisch,</p><p>Themen: Wenn es ums überleben geht ist da jedes mittle recht Das kleinere übel wählen.</p><p>Vorbilder: The witcher, name des windes, soulframe</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 1,
+            "panelId": "panel-rahmen-prototyp-stimmung",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Wie es zur heutigen Lage kam",
+          "html": "<p>Vorher: Härter ohne Maschinen aber fantastischer und schöner.</p><p>Der Wandel: Zusammenschluss aller Technik begabter völker oder gruppen.</p><p>Heute: Langsam wird allen bewusst aber einigen noch nicht das die welt sich zur Technologie wandelt.</p><p>Die Kräfte: Magie / Natur gegen technologie und Fortschritt</p><p>Warum die Figuren zählen: Verhandlungen, Sabotage, Allianzen formen in nicht Technologie völkern, rebbelion</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 2,
+            "panelId": "panel-rahmen-prototyp-ueberblick",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Motor der Geschichten",
+          "html": "<p>Wiederkehrende Lage: Widersprüchliche Aufträge verschiedener Auftraggeber. Menschen in not, Gefahrensituationen</p><p>Steigender Druck: Die Gruppierungen gehen sich gegenseitig an die Gurgel</p><p>Bedeutsame Entscheidungen: Welchen Gruppierungen man hilft oder auch nicht.</p><p>Folgen: Machtverhältniss</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 3,
+            "panelId": "panel-rahmen-prototyp-motor",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Besonderheiten der Welt",
+          "html": "<p>Sturm</p><p>Im Alltag: Stetige wanderung oder Vorbereitung auf den sturm. Clanks können im sturm überleben.</p><p>Jahreswechsel</p><p>Beschreibung: Der sturm ist vorbei, alles blüht erneut.</p><p>Im Alltag: Neuankömmlinge oder das verlassen der bunker steht bevor</p><p>Reisende</p><p>Beschreibung: Es ist vollkommen normal, dass man auf Reisende trifft während des abenteuers</p><p>Im Alltag: Man lernt eine ganze Menge neue Leute kennen. Ganze Völker, die immer auf Reisen sind</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 4,
+            "panelId": "panel-rahmen-prototyp-besonderheiten",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Fraktionen im Rahmen",
+          "html": "<p>Maschinisten</p><p>Ziel: Eine neue Welt</p><p>Machtmittel: Technologie und Roboter</p><p>Verhältnis: Nicht feindlich, aber sie versucht andere Fraktionen von ihrem Tun zu überzeugen. Im versprechen eines einfacheren Lebens.</p><p>Wanderer</p><p>Ziel: Immer weiter mit dem Sturm wandern und die Tradition aufrechterhalten</p><p>Machtmittel: Viele</p><p>Verhältnis: Offen und freundlich, aber sehr traditionstreu</p><p>Arcanisten</p><p>Ziel: Versuchen die Magie der Welt zu beschützen, es sind wenige</p><p>Machtmittel: Magical</p><p>Verhältnis: Friedlich zu den wandernden zu den maschinisten eher feindlich, weil sie schon auch die Natur die Magie vor der Technologie bewahren wollen</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 5,
+            "panelId": "panel-rahmen-prototyp-fraktionen",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Anknüpfung der Figuren",
+          "html": "<p>Gemeinsamer Anlass: Lukas auf partnersuche für aetefakt suche.</p><p>Zu den Gemeinschaften: Wanderborne, seaborne, underborne besonders stark vertreten</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 6,
+            "panelId": "panel-rahmen-prototyp-figuren",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Eröffnung",
+          "html": "<p>[object Object]</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 7,
+            "panelId": "panel-rahmen-prototyp-eroeffnung",
+            "feld": 0
+          }
+        }
+      ],
+      "verbindungen": [],
+      "geaendert": "2026-07-26T22:08:55.339Z"
     },
     {
       "id": "regel-spielfluss-spotlight",

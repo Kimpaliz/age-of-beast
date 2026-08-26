@@ -7,6 +7,66 @@ Das Neueste steht immer oben.
 
 ---
 
+## Fassung 2.5.0 – 26. August 2026
+
+**Der Kampagnenrahmen-Assistent ist im Wiki** — mit allen neun Schritten und
+denselben Fragen wie in der Werkstatt.
+
+Zweiter Schritt der Übernahme. Nach dem Regelwiki kommt damit das erste
+richtige *Werkzeug* ins Wiki, nicht nur Text zum Lesen.
+
+### Was du jetzt tun kannst
+
+Öffne den Eintrag **Prototyp**. Oben steht ein neuer Knopf
+**Im Assistenten bearbeiten**. Ein Klick, und du bist im Assistenten:
+
+| Schritt | Inhalt |
+| --- | --- |
+| 1 Grundidee | Name, Unterzeile, Grundidee, was die Gruppe tut |
+| 2 Stimmung | Ton, Themen, Vorbilder |
+| 3 Überblick | Vorher, Wandel, Heute, Kräfte |
+| 4 Motor | Was treibt die Geschichten an |
+| 5 Besonderheiten | drei Dinge, die diese Welt ausmachen |
+| 6 Fraktionen | wer will was und kann was |
+| 7 Anknüpfung | warum die Figuren dabei sind |
+| 8 Start | die erste Szene |
+| 9 Abschluss | Notizen |
+
+**33 Felder und zwei Listen** — mit den Fragen aus der Werkstatt, nicht mit
+dürren Beschriftungen. Statt „Aktivität" steht dort „Was tut die Gruppe
+regelmäßig?", darunter der Hilfetext und ein Beispiel.
+
+### Gespeichert wird schrittweise
+
+Unten steht **Diesen Schritt speichern**. Ein Klick schreibt alle geänderten
+Felder dieses Schritts auf einmal. So entsteht pro Arbeitsschritt eine
+nachvollziehbare Änderung — nicht eine pro Tastendruck.
+
+Danach siehst du **Gespeichert — 2 Felder geändert**, und du bleibst in dem
+Schritt, in dem du warst.
+
+### Das Wichtigste unter der Haube
+
+Der Rahmen liegt jetzt **als richtige Struktur** im Repository, nicht mehr
+als fertiger Text. Der Wiki-Eintrag wird daraus bei jedem Mal neu erzeugt.
+
+Der Unterschied ist groß: Änderst du im Assistenten den Ton der Kampagne,
+steht er **sofort auch im Eintrag**. Es gibt eine Wahrheit, nicht zwei, die
+auseinanderlaufen können.
+
+### Ein Fehler, der beim Testen auffiel
+
+Nach dem Speichern zeichnet das Wiki die Seite neu — und die Bestätigung
+verschwand dabei sofort wieder. Man klickte und sah nichts. Behoben: Die
+Meldung überlebt jetzt den Neuaufbau.
+
+### Wie es weitergeht
+
+Als Nächstes der **Figurenassistent** — der größte Einzelbrocken. Danach die
+**Kartenwerkstatt**.
+
+---
+
 ## Fassung 2.4.0 – 26. August 2026
 
 **Das Regelwiki der Werkstatt ist jetzt im Wiki** — als eigenes Modul, ohne

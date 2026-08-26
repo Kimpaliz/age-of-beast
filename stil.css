@@ -1324,3 +1324,118 @@ html[data-thema="hell"] .nav-gruppe[data-kategorie="regeln"] {
   --verweis-aktiv:   #1f4257;
   --tuerkis:         #2a5268;
 }
+
+/* ------------------------------------------------------------------ *
+   Kampagnenrahmen-Assistent
+
+   Neun Schritte, dieselben Fragen wie in der Werkstatt. Die Gestaltung
+   hält sich an das übrige Wiki; nur die Schrittleiste ist neu.
+   ------------------------------------------------------------------ */
+
+.assistent { max-width: 46rem; }
+.assistent > h1 { margin: 0.2rem 0 1.2rem; }
+
+.schritt-leiste {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  list-style: none;
+  margin: 0 0 1.6rem;
+  padding: 0;
+}
+
+.schritt-knopf {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.34rem 0.7rem;
+  background: none;
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+  color: var(--schrift-matt);
+  font: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.schritt-knopf .nummer {
+  display: inline-flex;
+  align-items: center; justify-content: center;
+  width: 1.2rem; height: 1.2rem;
+  border-radius: 50%;
+  background: var(--akzent-schleier);
+  font-size: 0.7rem; font-weight: 600;
+}
+.schritt-knopf:hover, .schritt-knopf:focus-visible {
+  border-color: var(--akzent-rand);
+  color: var(--akzent-hell);
+}
+.schritt-knopf[aria-current="step"] {
+  background: var(--akzent-schleier);
+  border-color: var(--akzent);
+  color: var(--akzent-hell);
+  font-weight: 600;
+}
+
+.assistent-formular { display: flex; flex-direction: column; gap: 1.4rem; }
+
+.assistent-feld { display: flex; flex-direction: column; gap: 0.3rem; }
+
+.assistent-beschriftung {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--schrift);
+}
+.assistent-beschriftung .pflicht { color: var(--akzent-hell); }
+
+.assistent-hilfe {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--schrift-leise);
+}
+
+.assistent-eingabe {
+  width: 100%;
+  padding: 0.5rem 0.65rem;
+  background: var(--grund);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+  color: var(--schrift);
+  font: inherit;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  resize: vertical;
+}
+.assistent-eingabe:focus {
+  outline: none;
+  border-color: var(--akzent);
+  box-shadow: 0 0 0 2px var(--akzent-schleier);
+}
+.assistent-eingabe::placeholder { color: var(--schrift-leise); opacity: 0.7; }
+
+.assistent-liste { display: flex; flex-direction: column; gap: 0.9rem; }
+.assistent-liste > h3 { margin: 0.6rem 0 0; font-size: 1.05rem; }
+
+.assistent-listeneintrag {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 0.9rem;
+  background: color-mix(in srgb, var(--flaeche) 60%, transparent);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+}
+
+.assistent-knopfleiste {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 0.6rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--rand);
+}
+.assistent-meldung { font-size: 0.8rem; }
+
+/* Der Verweis in den Assistenten steht rechts neben der Kategoriezeile. */
+.assistent-verweis { margin-left: 0.7rem; vertical-align: middle; }

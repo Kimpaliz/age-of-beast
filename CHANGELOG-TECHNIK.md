@@ -29,6 +29,81 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 Ohne Versionsnummer: reine Inhaltsänderung an der Quelle, keine Änderung am
 Wiki-Code.
 
+## [2.5.0] – 2026-08-26
+
+Kampagnenrahmen-Assistent: neun Schritte, 33 Felder, zwei Listen. Zweiter
+Schritt der Werkstatt-Übernahme — das erste übernommene Werkzeug mit
+Bedienung, nicht nur Text.
+
+### Die entscheidende Änderung: Rohform statt fertiger Text
+
+Fassung 2.2.0 hatte den Rahmen **einmalig** in Wiki-Abschnitte umgewandelt.
+Zum Lesen genügte das, zum Bearbeiten nicht: Die Feldstruktur war dabei
+verloren, übrig blieb Fließtext.
+
+Jetzt liegt der Rahmen als Rohform unter `rahmen` in `daten/quelle.json` —
+so, wie die Werkstatt ihn führt. Der Wiki-Eintrag wird daraus bei **jedem**
+Aufbereiten neu erzeugt (`mitRahmen()` / `rahmenAlsElement()` in
+`welt-umwandeln.mjs`). Eine Quelle, zwei Ansichten: Der Assistent ändert die
+Rohform, die Anzeige folgt automatisch. Die alten, fest abgelegten
+`werkstatt-kampagne-*`-Einträge werden beim Übernehmen entfernt, sonst gäbe
+es den Eintrag doppelt.
+
+### Hinzugefügt
+
+- `werkzeuge/rahmen-uebernehmen.mjs`: holt die Kampagnen aus einem
+  Firebase-Abzug in die Rohform. Übernimmt ausschließlich `payload`; die
+  Hüllenfelder tragen E-Mail-Adressen und Firebase-Kennungen. Bricht ab,
+  wenn im Ergebnis eine Adresse steht.
+- `werkzeuge/rahmen-felder-lesen.mjs`: liest die Feldbeschreibungen aus
+  `FrameStepFields.tsx` der Werkstatt nach `daten/rahmen-felder.json` —
+  Beschriftung, Hilfetext, Pflichtkennzeichen, Datenpfad, Beispiel, Feldart
+  und Höchstlänge. Die Quelle ist JSX; statt sie zu übersetzen, werden die
+  `FieldGroup`-Blöcke ausgelesen. Der Aufbau ist durchgehend gleich, deshalb
+  trägt das. Ergebnis: 9 Schritte, 33 Felder.
+  Die beiden Listen aus Schritt 5 und 6 stehen im JSX in einer Schleife und
+  lassen sich nicht als Einzelblöcke lesen; sie sind im Skript beschrieben.
+- `rahmen-assistent.js`: die Bedienung. Route `#/rahmen/<id>` in `wiki.js`,
+  Anmeldung über `window.ageOfBeast.rahmenZeichnen`. Ohne Anmeldung
+  erscheint ein Hinweis statt eines halb bedienbaren Formulars.
+- Knopf „Im Assistenten bearbeiten" am Eintragskopf, nur bei Einträgen mit
+  Präfix `rahmen-`.
+- Gestaltung in `stil.css`: Schrittleiste, Felder, Listen, Knopfleiste.
+
+### Speichern
+
+Je Schritt ein Commit über alle geänderten Felder dieses Schritts, mit
+sprechender Nachricht („Prototyp: Stimmung (1 Feld)"). Pfade der Form
+`rahmen/<id>/inhalt/<pfad>`; geschrieben wird über dasselbe `schreiben()`
+wie bei Texten und Struktur, also mit denselben Sicherungen (Kopie,
+Blob-SHA-Vergleich, ein Commit für alle drei Dateien).
+
+### Behoben (beim Prüfen gefunden)
+
+- Nach dem Speichern rief der Assistent `neuZeichnen()`, was die ganze Seite
+  ersetzt — samt des Feldes, in das gerade „Gespeichert" geschrieben worden
+  war. Sichtbar blieb nichts. Die Meldung wird jetzt in `naechsteMeldung`
+  zwischengelegt und beim Aufbau des neuen Schritts angezeigt.
+- `finalNotes` war keinem Schritt zugeordnet, weil die Zuordnung über den
+  ersten Pfadteil läuft und dieses Feld direkt an der Wurzel hängt.
+  Schritt 9 ergänzt.
+
+### Verifiziert
+
+- Feldübernahme: 9 Schritte, 33 Felder, 2 Listen, kein Feld ohne Schritt.
+- Erzeugter Eintrag gegen den vorherigen verglichen: gleicher Name, gleiche
+  8 Abschnitte, gleicher Steckbrief — die Umstellung auf die Rohform hat die
+  Anzeige nicht verändert.
+- Im Prüfstand gegen eine Attrappe statt GitHub: Schrittwechsel 1 → 2 → 6 →
+  9, Liste „Fraktionen" mit 3 Einträgen und 12 Feldern, Wert „Maschinisten"
+  geladen. Änderung in Schritt 2 gespeichert; Commit-Nachricht
+  „Prototyp: Stimmung (1 Feld)"; Wert in der Rohform angekommen; Meldung
+  nach dem Neuaufbau sichtbar; Schritt 2 blieb offen.
+- **Durchstich geprüft:** Die im Assistenten geänderte Stimmung erscheint
+  ohne weiteres Zutun im Abschnitt „Ton und Stimmung" des Eintrags.
+- Alle fünf Prüfskripte bestanden, `node --check` über 24 Dateien.
+
+
 ## [2.4.0] – 2026-08-26
 
 Erster Schritt der vollständigen Übernahme der Daggerheart-Werkstatt: das
@@ -916,7 +991,8 @@ Weltenschmiede-Projekt `project-sturmwende-20260730`.
 - Die Datendateien wurden vor dem Commit auf Zugangsdaten, Schlüssel und
   E-Mail-Adressen geprüft; Treffer: keine.
 
-[Unveröffentlicht]: https://github.com/Kimpaliz/age-of-beast/compare/v2.4.0...HEAD
+[Unveröffentlicht]: https://github.com/Kimpaliz/age-of-beast/compare/v2.5.0...HEAD
+[2.5.0]: https://github.com/Kimpaliz/age-of-beast/compare/v2.4.0...v2.5.0
 [2.4.0]: https://github.com/Kimpaliz/age-of-beast/compare/v2.3.0...v2.4.0
 [2.3.0]: https://github.com/Kimpaliz/age-of-beast/compare/v2.2.0...v2.3.0
 [2.2.0]: https://github.com/Kimpaliz/age-of-beast/compare/v2.1.0...v2.2.0

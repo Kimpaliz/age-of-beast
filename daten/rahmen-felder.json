@@ -1,0 +1,437 @@
+{
+  "schritte": [
+    {
+      "nummer": 1,
+      "name": "Grundidee",
+      "kurz": "Grundidee"
+    },
+    {
+      "nummer": 2,
+      "name": "Stimmung",
+      "kurz": "Stimmung"
+    },
+    {
+      "nummer": 3,
+      "name": "Welt im Überblick",
+      "kurz": "Überblick"
+    },
+    {
+      "nummer": 4,
+      "name": "Kampagnenmotor",
+      "kurz": "Motor"
+    },
+    {
+      "nummer": 5,
+      "name": "Besonderheiten",
+      "kurz": "Besonderheiten"
+    },
+    {
+      "nummer": 6,
+      "name": "Fraktionen",
+      "kurz": "Fraktionen"
+    },
+    {
+      "nummer": 7,
+      "name": "Charakter-Anknüpfung",
+      "kurz": "Anknüpfung"
+    },
+    {
+      "nummer": 8,
+      "name": "Kampagnenstart",
+      "kurz": "Start"
+    },
+    {
+      "nummer": 9,
+      "name": "Zusammenfassung",
+      "kurz": "Abschluss"
+    }
+  ],
+  "felder": [
+    {
+      "pfad": "title",
+      "beschriftung": "Name der Kampagne",
+      "hilfe": "Ein kurzer, merkbarer Titel. Er darf später jederzeit geändert werden.",
+      "beispiel": "Zum Beispiel: Die zerrissene Krone",
+      "art": "zeile",
+      "pflicht": true,
+      "hoechstlaenge": 100,
+      "schritt": 1
+    },
+    {
+      "pfad": "tagline",
+      "beschriftung": "Unterzeile",
+      "hilfe": "Ein Satzfragment, das den zentralen Konflikt andeutet.",
+      "beispiel": "Ein Reich zerbricht, während alte Mächte erwachen.",
+      "art": "zeile",
+      "pflicht": false,
+      "hoechstlaenge": 160,
+      "schritt": 1
+    },
+    {
+      "pfad": "core/concept",
+      "beschriftung": "Was ist die besondere Grundidee?",
+      "hilfe": "Beschreibe in zwei bis vier Sätzen, was diese Welt oder Ausgangslage von einer beliebigen Fantasy-Kampagne unterscheidet.",
+      "beispiel": "Ein zerfallendes Reich wird von lebenden Erinnerungen heimgesucht. Jede Fraktion will bestimmen, welche Vergangenheit als Wahrheit bestehen bleibt.",
+      "art": "absatz",
+      "pflicht": true,
+      "hoechstlaenge": 800,
+      "schritt": 1
+    },
+    {
+      "pfad": "core/recurringActivity",
+      "beschriftung": "Was tut die Gruppe regelmäßig?",
+      "hilfe": "Das ist die wiederkehrende Tätigkeit der Kampagne: erkunden, schützen, jagen, verhandeln, retten, bergen oder etwas Eigenes.",
+      "beispiel": "Die Gruppe reist zu umkämpften Erinnerungsorten, entscheidet über deren Schicksal und schützt Menschen vor den Folgen.",
+      "art": "absatz",
+      "pflicht": true,
+      "hoechstlaenge": 600,
+      "schritt": 1
+    },
+    {
+      "pfad": "core/centralStakes",
+      "beschriftung": "Was steht auf dem Spiel?",
+      "hilfe": "Nenne konkret, was verloren geht, wenn niemand eingreift. Das kann persönlich, politisch oder weltverändernd sein.",
+      "beispiel": "Ohne Eingreifen verschwinden ganze Orte aus der Erinnerung, und eine einzige Macht schreibt die Geschichte des Reiches neu.",
+      "art": "absatz",
+      "pflicht": true,
+      "hoechstlaenge": 600,
+      "schritt": 1
+    },
+    {
+      "pfad": "pitch",
+      "beschriftung": "Pitch für die späteren Spieler",
+      "hilfe": "Zwei bis drei Sätze, die du vor der Charaktererstellung vorlesen kannst: Welt, Aufgabe und Einsatz.",
+      "beispiel": "Ihr spielt eine Gruppe, die durch ein zerfallendes Reich zieht und umkämpfte Erinnerungsorte sichert. Eure Entscheidungen bestimmen, welche Vergangenheit überlebt und wem die Zukunft gehört.",
+      "art": "absatz",
+      "pflicht": true,
+      "hoechstlaenge": 700,
+      "schritt": 1
+    },
+    {
+      "pfad": "mood/tone",
+      "beschriftung": "Ton und Gefühl",
+      "hilfe": "Wähle drei bis fünf Adjektive. Gute Mischungen haben Kontrast, zum Beispiel: düster, hoffnungsvoll, abenteuerlich.",
+      "beispiel": "Düster, hoffnungsvoll, politisch, geheimnisvoll",
+      "art": "zeile",
+      "pflicht": true,
+      "hoechstlaenge": 220,
+      "schritt": 2
+    },
+    {
+      "pfad": "mood/themes",
+      "beschriftung": "Themen",
+      "hilfe": "Nenne zwei bis vier Fragen oder Spannungen, die immer wieder auftauchen können. Beispiel: Wahrheit gegen Frieden.",
+      "beispiel": "Wer darf Geschichte bestimmen? Was ist Frieden wert? Wann wird Loyalität zur Schuld?",
+      "art": "absatz",
+      "pflicht": true,
+      "hoechstlaenge": 500,
+      "schritt": 2
+    },
+    {
+      "pfad": "mood/touchstones",
+      "beschriftung": "Touchstones",
+      "hilfe": "Zwei bis vier Filme, Serien, Bücher oder Spiele, die Stimmung oder Bildsprache gut treffen. Niemand muss alle kennen.",
+      "beispiel": "Prinzessin Mononoke für den Konflikt, The Witcher für Reisen und Grauzonen, Andor für politische Spannung.",
+      "art": "absatz",
+      "pflicht": false,
+      "hoechstlaenge": 400,
+      "schritt": 2
+    },
+    {
+      "pfad": "overview/before",
+      "beschriftung": "Wie war die Welt vorher?",
+      "hilfe": "Beschreibe kurz, wie das Leben aussah, bevor sich etwas verändert hat.",
+      "beispiel": "Ruhige Städte, sichere Handelsrouten und ein stabiles Bündnis der Königreiche.",
+      "art": "absatz",
+      "pflicht": true,
+      "hoechstlaenge": 600,
+      "schritt": 3
+    },
+    {
+      "pfad": "overview/change",
+      "beschriftung": "Was hat alles verändert?",
+      "hilfe": "Nenne das Ereignis oder die Entwicklung, die das bisherige Gleichgewicht zerbrochen hat.",
+      "beispiel": "Der Himmel riss auf, und fremde Mächte strömten in die Welt.",
+      "art": "absatz",
+      "pflicht": true,
+      "hoechstlaenge": 600,
+      "schritt": 3
+    },
+    {
+      "pfad": "overview/today",
+      "beschriftung": "Wie ist die Lage heute?",
+      "hilfe": "Beschreibe die aktuelle Situation aus Sicht gewöhnlicher Menschen.",
+      "beispiel": "Zerstrittene Reiche, unsichere Wege und viele Menschen, die einfach überleben wollen.",
+      "art": "absatz",
+      "pflicht": true,
+      "hoechstlaenge": 600,
+      "schritt": 3
+    },
+    {
+      "pfad": "overview/forces",
+      "beschriftung": "Welche Kräfte bestimmen den Konflikt?",
+      "hilfe": "Wer oder was steht sich gegenüber? Was wollen diese Seiten grundsätzlich erreichen?",
+      "beispiel": "Die Kronenliga will Ordnung um jeden Preis. Freie Zellen kämpfen für Selbstbestimmung. Alte Mächte verfolgen eigene Pläne.",
+      "art": "absatz",
+      "pflicht": true,
+      "hoechstlaenge": 600,
+      "schritt": 3
+    },
+    {
+      "pfad": "overview/charactersMatter",
+      "beschriftung": "Warum werden die späteren Charaktere wichtig?",
+      "hilfe": "Welche Rolle kann eine kleine, handlungsfähige Gruppe spielen, die keine Armee oder Regierung übernehmen kann?",
+      "beispiel": "Sie erreichen umkämpfte Orte zuerst, gewinnen Vertrauen und treffen Entscheidungen, die große Mächte nicht treffen können.",
+      "art": "absatz",
+      "pflicht": true,
+      "hoechstlaenge": 600,
+      "schritt": 3
+    },
+    {
+      "pfad": "engine/recurringSituation",
+      "beschriftung": "Welche Situation bringt immer neue Abenteuer hervor?",
+      "hilfe": "Beispiel: Neue Orte geraten unter Druck, Karawanen verschwinden oder Fraktionen bieten widersprüchliche Aufträge an.",
+      "beispiel": "",
+      "art": "absatz",
+      "pflicht": true,
+      "hoechstlaenge": 700,
+      "schritt": 4
+    },
+    {
+      "pfad": "engine/risingPressure",
+      "beschriftung": "Was wird schlimmer, wenn die Gruppe nichts tut?",
+      "hilfe": "Formuliere einen Druck, der sichtbar wächst und nicht auf die Charaktere wartet.",
+      "beispiel": "",
+      "art": "absatz",
+      "pflicht": true,
+      "hoechstlaenge": 700,
+      "schritt": 4
+    },
+    {
+      "pfad": "engine/meaningfulChoices",
+      "beschriftung": "Welche echten Entscheidungen muss die Gruppe treffen?",
+      "hilfe": "Gute Entscheidungen haben mindestens zwei verständliche Möglichkeiten mit unterschiedlichen Folgen.",
+      "beispiel": "",
+      "art": "absatz",
+      "pflicht": true,
+      "hoechstlaenge": 700,
+      "schritt": 4
+    },
+    {
+      "pfad": "engine/consequences",
+      "beschriftung": "Wie verändert die Welt sich durch diese Entscheidungen?",
+      "hilfe": "Nenne Folgen, die später wieder sichtbar werden: neue Verbündete, verlorenes Vertrauen, sichere Wege oder gestärkte Gegner.",
+      "beispiel": "",
+      "art": "absatz",
+      "pflicht": true,
+      "hoechstlaenge": 700,
+      "schritt": 4
+    },
+    {
+      "pfad": "characterHooks/sharedReason",
+      "beschriftung": "Was verbindet alle späteren Charaktere?",
+      "hilfe": "Ein gemeinsamer Grund, zusammenzubleiben: Auftrag, Verantwortung, Schuld, Schutzversprechen oder gemeinsamer Verlust.",
+      "beispiel": "",
+      "art": "absatz",
+      "pflicht": true,
+      "hoechstlaenge": 700,
+      "schritt": 7
+    },
+    {
+      "pfad": "characterHooks/ancestryNotes",
+      "beschriftung": "Wie passen Abstammungen in diese Welt?",
+      "hilfe": "Nur Besonderheiten notieren. Wenn alle offiziellen Abstammungen unverändert passen, reicht genau dieser Satz.",
+      "beispiel": "Alle offiziellen Abstammungen sind möglich. Clanks gelten in einigen Städten als Zeugen der alten Zeit.",
+      "art": "absatz",
+      "pflicht": false,
+      "hoechstlaenge": 700,
+      "schritt": 7
+    },
+    {
+      "pfad": "characterHooks/communityNotes",
+      "beschriftung": "Wie passen Gemeinschaften in diese Welt?",
+      "hilfe": "Beschreibe, welche Gemeinschaften besonders sichtbar sind oder im Setting etwas anderes bedeuten.",
+      "beispiel": "",
+      "art": "absatz",
+      "pflicht": false,
+      "hoechstlaenge": 700,
+      "schritt": 7
+    },
+    {
+      "pfad": "characterHooks/classNotes",
+      "beschriftung": "Wie passen Klassen in diese Welt?",
+      "hilfe": "Nenne nur Abweichungen oder besonders wichtige Institutionen, Traditionen und Rollen.",
+      "beispiel": "",
+      "art": "absatz",
+      "pflicht": false,
+      "hoechstlaenge": 700,
+      "schritt": 7
+    },
+    {
+      "pfad": "characterHooks/creationQuestions",
+      "beschriftung": "Drei Fragen für die spätere Charaktererstellung",
+      "hilfe": "Die Antworten sollen Figuren direkt mit Orten, Fraktionen oder dem Konflikt verbinden. Eine Frage pro Zeile.",
+      "beispiel": "",
+      "art": "absatz",
+      "pflicht": true,
+      "hoechstlaenge": 900,
+      "schritt": 7
+    },
+    {
+      "pfad": "opening/location",
+      "beschriftung": "Wo beginnt die erste Szene?",
+      "hilfe": "Ein konkreter, beschreibbarer Ort statt eines ganzen Landes.",
+      "beispiel": "",
+      "art": "absatz",
+      "pflicht": true,
+      "hoechstlaenge": 500,
+      "schritt": 8
+    },
+    {
+      "pfad": "opening/situation",
+      "beschriftung": "Was geschieht genau jetzt?",
+      "hilfe": "Beginne mitten in einer Veränderung, Ankunft, Feier, Verhandlung, Entdeckung oder Gefahr.",
+      "beispiel": "",
+      "art": "absatz",
+      "pflicht": true,
+      "hoechstlaenge": 700,
+      "schritt": 8
+    },
+    {
+      "pfad": "opening/importantNpc",
+      "beschriftung": "Welche Person setzt etwas in Bewegung?",
+      "hilfe": "Name, Rolle und ein deutliches Ziel reichen für den Start.",
+      "beispiel": "",
+      "art": "absatz",
+      "pflicht": true,
+      "hoechstlaenge": 500,
+      "schritt": 8
+    },
+    {
+      "pfad": "opening/immediateProblem",
+      "beschriftung": "Welches unmittelbare Problem muss gelöst werden?",
+      "hilfe": "Etwas, das in der ersten Spielsitzung sichtbar und handhabbar ist.",
+      "beispiel": "",
+      "art": "absatz",
+      "pflicht": true,
+      "hoechstlaenge": 700,
+      "schritt": 8
+    },
+    {
+      "pfad": "opening/firstGoal",
+      "beschriftung": "Was ist das erste klare Ziel?",
+      "hilfe": "Formuliere einen erreichbaren nächsten Schritt, ohne die Lösung vorzugeben.",
+      "beispiel": "",
+      "art": "absatz",
+      "pflicht": true,
+      "hoechstlaenge": 500,
+      "schritt": 8
+    },
+    {
+      "pfad": "optionalMechanic/name",
+      "beschriftung": "Name der Zusatzregel",
+      "hilfe": "",
+      "beispiel": "",
+      "art": "zeile",
+      "pflicht": false,
+      "hoechstlaenge": 120,
+      "schritt": 8
+    },
+    {
+      "pfad": "optionalMechanic/trigger",
+      "beschriftung": "Wann wird sie ausgelöst?",
+      "hilfe": "Ein klar erkennbarer Moment im Spiel.",
+      "beispiel": "",
+      "art": "absatz",
+      "pflicht": false,
+      "hoechstlaenge": 500,
+      "schritt": 8
+    },
+    {
+      "pfad": "optionalMechanic/effect",
+      "beschriftung": "Was passiert dann?",
+      "hilfe": "Ein kurzer Ablauf ohne Sonderfälle.",
+      "beispiel": "",
+      "art": "absatz",
+      "pflicht": false,
+      "hoechstlaenge": 600,
+      "schritt": 8
+    },
+    {
+      "pfad": "optionalMechanic/tracking",
+      "beschriftung": "Wie wird die Regel festgehalten?",
+      "hilfe": "Zum Beispiel eine einzelne Leiste mit sechs Feldern.",
+      "beispiel": "",
+      "art": "zeile",
+      "pflicht": false,
+      "hoechstlaenge": 250,
+      "schritt": 8
+    },
+    {
+      "pfad": "finalNotes",
+      "beschriftung": "Offene Notizen für später",
+      "hilfe": "Nur Dinge, die nach dem Frame noch geklärt werden können. Diese Notizen werden nicht als Pflichtteil behandelt.",
+      "beispiel": "",
+      "art": "absatz",
+      "pflicht": false,
+      "hoechstlaenge": 1000,
+      "schritt": 9
+    }
+  ],
+  "listen": [
+    {
+      "pfad": "distinctions",
+      "schritt": 5,
+      "name": "Besonderheiten der Welt",
+      "hilfe": "Drei Dinge, die diese Welt von anderen unterscheiden. Sie sollen im Alltag spürbar sein, nicht nur im Hintergrund stehen.",
+      "anzahl": 3,
+      "felder": [
+        {
+          "schluessel": "name",
+          "beschriftung": "Name",
+          "art": "zeile"
+        },
+        {
+          "schluessel": "description",
+          "beschriftung": "Was ist das?",
+          "art": "absatz"
+        },
+        {
+          "schluessel": "everydayImpact",
+          "beschriftung": "Wie merkt man das im Alltag?",
+          "art": "absatz"
+        }
+      ]
+    },
+    {
+      "pfad": "factions",
+      "schritt": 6,
+      "name": "Fraktionen",
+      "hilfe": "Gruppen, die etwas wollen und etwas können. Wichtig ist nicht, wie viele es sind, sondern dass sie einander im Weg stehen.",
+      "anzahl": 3,
+      "felder": [
+        {
+          "schluessel": "name",
+          "beschriftung": "Name",
+          "art": "zeile"
+        },
+        {
+          "schluessel": "goal",
+          "beschriftung": "Was will sie?",
+          "art": "zeile"
+        },
+        {
+          "schluessel": "leverage",
+          "beschriftung": "Was kann sie?",
+          "art": "zeile"
+        },
+        {
+          "schluessel": "relationship",
+          "beschriftung": "Verhältnis zur Gruppe",
+          "art": "absatz"
+        }
+      ]
+    }
+  ],
+  "gelesenAm": "2026-08-26T00:06:37.699Z"
+}
