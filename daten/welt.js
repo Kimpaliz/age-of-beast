@@ -2,7 +2,7 @@
 window.AGE_OF_BEAST_WELT = {
   "titel": "Age of Beast",
   "untertitel": "Daggerheart-Welt zwischen Magie, Natur und Maschinen",
-  "standDerDaten": "2026-08-25T22:53:51.319Z",
+  "standDerDaten": "2026-08-25T23:58:46.489Z",
   "kategorien": [
     {
       "schluessel": "wiki",
@@ -39,6 +39,12 @@ window.AGE_OF_BEAST_WELT = {
       "name": "Werkstatt",
       "einzahl": "Werkstatt-Eintrag",
       "zeichen": "⚒"
+    },
+    {
+      "schluessel": "regeln",
+      "name": "Regeln",
+      "einzahl": "Regelartikel",
+      "zeichen": "§"
     }
   ],
   "eintraege": [
@@ -2154,6 +2160,3191 @@ window.AGE_OF_BEAST_WELT = {
       ],
       "verbindungen": [],
       "geaendert": "2026-08-25T22:53:51.318Z"
+    },
+    {
+      "id": "regel-spielfluss-spotlight",
+      "name": "Spielfluss und Spotlight",
+      "kategorie": "regeln",
+      "unterart": "Grundlagen",
+      "kurz": "Daggerheart ist ein fortlaufendes Gespräch. Es gibt keine feste Initiative und keine vorgegebene Zahl von Aktionen; das Spotlight zeigt, welche Figur oder Situation gerade im Mittelpunkt steht.",
+      "aliase": [],
+      "quelle": "",
+      "attribute": [
+        {
+          "schluessel": "regelBereich",
+          "beschriftung": "Bereich",
+          "wert": "Grundlagen"
+        },
+        {
+          "schluessel": "regelStichworte",
+          "beschriftung": "Stichworte",
+          "wert": "initiative, runde, zug, spotlight, spielfluss"
+        }
+      ],
+      "abschnitte": [
+        {
+          "titel": "Szene setzen",
+          "html": "<p>Die Spielleitung beschreibt Ort, Lage, erkennbare Gefahren und wichtige Personen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 0,
+            "panelId": "panel-regel-spielfluss-spotlight-1",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Fragen und Antworten",
+          "html": "<p>Die Spielenden fragen nach Einzelheiten, die ihre Figuren wahrnehmen oder leicht herausfinden können. Die Spielleitung kann Gegenfragen stellen, damit die Gruppe die Fiktion gemeinsam ausgestaltet.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 1,
+            "panelId": "panel-regel-spielfluss-spotlight-2",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Handeln",
+          "html": "<p>Spielende beschreiben, was ihre Figuren tun. Ist ein Erfolg trivial oder wäre ein Scheitern langweilig, gelingt die Handlung ohne Wurf.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 2,
+            "panelId": "panel-regel-spielfluss-spotlight-3",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Würfeln",
+          "html": "<p>Ist die Handlung schwierig oder riskant und ihr Ausgang ungewiss, verlangt die Spielleitung einen Aktionswurf.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 3,
+            "panelId": "panel-regel-spielfluss-spotlight-4",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Spotlight weitergeben",
+          "html": "<p>Das Spotlight folgt der Fiktion, einer längere Zeit unbeachteten Figur oder einem ausgelösten Spielzug. Bei einem Fehlschlag geht es regelbedingt an die Spielleitung.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 4,
+            "panelId": "panel-regel-spielfluss-spotlight-5",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Szene fortschreiben",
+          "html": "<p>Die Gruppe arbeitet das Ergebnis in die Erzählung ein. Danach beschreibt die Spielleitung die veränderte Lage und der Ablauf beginnt erneut.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 5,
+            "panelId": "panel-regel-spielfluss-spotlight-6",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Hinweis",
+          "html": "<p>Nach jedem Wurf verändert sich die Szene. Ein Fehlschlag bedeutet nicht, dass nichts passiert. Der in der SRD beschriebene Spotlight-Tracker mit Markern ist eine optionale Spielhilfe und keine feste Aktionsökonomie.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 6,
+            "panelId": "panel-regel-spielfluss-spotlight-hinweis",
+            "feld": 0
+          }
+        }
+      ],
+      "verbindungen": [],
+      "geaendert": "2026-08-25T23:58:46.484Z"
+    },
+    {
+      "id": "regel-aktionswurf",
+      "name": "Aktionswurf",
+      "kategorie": "regeln",
+      "unterart": "Grundlagen",
+      "kurz": "Für einen Aktionswurf werden die beiden unterschiedlich erkennbaren W12 der Dualitätswürfel geworfen: der Hope-Würfel und der Fear-Würfel.",
+      "aliase": [],
+      "quelle": "",
+      "attribute": [
+        {
+          "schluessel": "regelBereich",
+          "beschriftung": "Bereich",
+          "wert": "Grundlagen"
+        },
+        {
+          "schluessel": "regelStichworte",
+          "beschriftung": "Stichworte",
+          "wert": "aktion, wurf, dualität, w12, schwierigkeit"
+        }
+      ],
+      "abschnitte": [
+        {
+          "titel": "1. Eigenschaft",
+          "html": "<p>Bestimmt die passende Eigenschaft: Beweglichkeit, Stärke, Finesse, Instinkt, Präsenz oder Wissen. Nennt ein Effekt eine Eigenschaft, ist diese verbindlich; sonst bestimmt die Spielleitung sie oder lässt die würfelnde Person wählen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 0,
+            "panelId": "panel-regel-aktionswurf-1",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "2. Schwierigkeit",
+          "html": "<p>Die Schwierigkeit steht im Effekt oder wird von der Spielleitung anhand der Situation festgelegt. Sie darf den Zahlenwert geheim halten, muss aber unvermeidbare und mögliche Folgen vor dem Wurf verständlich machen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 1,
+            "panelId": "panel-regel-aktionswurf-2",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "3. Zusatzwürfel und Modifikatoren",
+          "html": "<p>Erfahrungen, Vorteil, Rallye-Würfel und andere Modifikatoren müssen normalerweise vor dem Wurf angekündigt und in den Würfelpool aufgenommen werden. Nur ausdrücklich anders formulierte Effekte dürfen später eingesetzt werden.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 2,
+            "panelId": "panel-regel-aktionswurf-3",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "4. Würfeln und ansagen",
+          "html": "<p>Addiere beide W12, die Eigenschaft und alle angekündigten Modifikatoren. Sage den Gesamtwert zusammen mit Hoffnung oder Furcht an; zeigen beide Dualwürfel dieselbe Zahl, ist es ein kritischer Erfolg.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 3,
+            "panelId": "panel-regel-aktionswurf-4",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "5. Ergebnis auflösen",
+          "html": "<p>Ein Gesamtwert in Höhe der Schwierigkeit oder darüber ist ein Erfolg. Die würfelnde Person, die Spielleitung und die übrige Gruppe arbeiten das vollständige Ergebnis anschließend gemeinsam in die Szene ein.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 4,
+            "panelId": "panel-regel-aktionswurf-5",
+            "feld": 0
+          }
+        }
+      ],
+      "verbindungen": [],
+      "geaendert": "2026-08-25T23:58:46.484Z"
+    },
+    {
+      "id": "regel-wurf-ergebnisse",
+      "name": "Die fünf Wurfergebnisse",
+      "kategorie": "regeln",
+      "unterart": "Grundlagen",
+      "kurz": "Erfolg oder Fehlschlag und der höhere Dualitätswürfel bestimmen gemeinsam, wie die Geschichte weitergeht.",
+      "aliase": [],
+      "quelle": "",
+      "attribute": [
+        {
+          "schluessel": "regelBereich",
+          "beschriftung": "Bereich",
+          "wert": "Grundlagen"
+        },
+        {
+          "schluessel": "regelStichworte",
+          "beschriftung": "Stichworte",
+          "wert": "kritisch, erfolg, fehlschlag, hoffnung, furcht"
+        }
+      ],
+      "abschnitte": [
+        {
+          "titel": "Erfolg mit Hoffnung",
+          "html": "<p>Die Handlung gelingt und die würfelnde Figur erhält 1 Hoffnung.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 0,
+            "panelId": "panel-regel-wurf-ergebnisse-1",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Erfolg mit Furcht",
+          "html": "<p>Die Handlung gelingt, aber es entsteht ein Preis, eine kleinere Folge oder eine Komplikation; die Spielleitung erhält 1 Furcht.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 1,
+            "panelId": "panel-regel-wurf-ergebnisse-2",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Fehlschlag mit Hoffnung",
+          "html": "<p>Die Handlung scheitert mit einer kleineren Folge; die Figur erhält 1 Hoffnung und die Spielleitung übernimmt das Spotlight.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 2,
+            "panelId": "panel-regel-wurf-ergebnisse-3",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Fehlschlag mit Furcht",
+          "html": "<p>Die Handlung scheitert mit einer schweren Folge; die Spielleitung erhält 1 Furcht und übernimmt das Spotlight.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 3,
+            "panelId": "panel-regel-wurf-ergebnisse-4",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Kritischer Erfolg",
+          "html": "<p>Zeigen beide Dualwürfel dieselbe Zahl, gelingt die Handlung automatisch mit einem zusätzlichen Vorteil in der Fiktion. Die Figur erhält 1 Hoffnung und entfernt 1 Stress. Das Ergebnis zählt als Wurf mit Hoffnung.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 4,
+            "panelId": "panel-regel-wurf-ergebnisse-5",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Hinweis",
+          "html": "<p>Ein kritischer Angriff verursacht zusätzlich zum normalen Schadenswurf den maximal möglichen Wert aller Schadenswürfel.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 5,
+            "panelId": "panel-regel-wurf-ergebnisse-hinweis",
+            "feld": 0
+          }
+        }
+      ],
+      "verbindungen": [],
+      "geaendert": "2026-08-25T23:58:46.484Z"
+    },
+    {
+      "id": "regel-eigenschaften-erfahrungen",
+      "name": "Eigenschaften und Erfahrungen",
+      "kategorie": "regeln",
+      "unterart": "Charaktere",
+      "kurz": "Eigenschaften bilden allgemeine Fähigkeiten ab. Erfahrungen beschreiben, worin genau eine Figur durch ihr bisheriges Leben besonders gut ist.",
+      "aliase": [],
+      "quelle": "",
+      "attribute": [
+        {
+          "schluessel": "regelBereich",
+          "beschriftung": "Bereich",
+          "wert": "Charaktere"
+        },
+        {
+          "schluessel": "regelStichworte",
+          "beschriftung": "Stichworte",
+          "wert": "traits, eigenschaft, erfahrung, bonus, hope"
+        }
+      ],
+      "abschnitte": [
+        {
+          "titel": "Beweglichkeit",
+          "html": "<p>Sprinten, springen, manövrieren und schnell reagieren.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 0,
+            "panelId": "panel-regel-eigenschaften-erfahrungen-1",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Stärke",
+          "html": "<p>Heben, zerschlagen, ringen und körperlich standhalten.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 1,
+            "panelId": "panel-regel-eigenschaften-erfahrungen-2",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Finesse",
+          "html": "<p>Kontrollieren, verbergen, basteln und präzise handeln.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 2,
+            "panelId": "panel-regel-eigenschaften-erfahrungen-3",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Instinkt",
+          "html": "<p>Wahrnehmen, spüren, navigieren und Gefahren erkennen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 3,
+            "panelId": "panel-regel-eigenschaften-erfahrungen-4",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Präsenz",
+          "html": "<p>Überzeugen, auftreten, täuschen und einschüchtern.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 4,
+            "panelId": "panel-regel-eigenschaften-erfahrungen-5",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Wissen",
+          "html": "<p>Erinnern, analysieren, verstehen und Zusammenhänge erkennen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 5,
+            "panelId": "panel-regel-eigenschaften-erfahrungen-6",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Erfahrung nutzen",
+          "html": "<p>Passt eine Erfahrung zu einem Aktions- oder Reaktionswurf, gib 1 Hoffnung aus und addiere ihren Bonus. Mehrere passende Erfahrungen dürfen durch das Ausgeben mehrerer Hoffnung gemeinsam genutzt werden.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 6,
+            "panelId": "panel-regel-eigenschaften-erfahrungen-7",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Erfahrungen formulieren",
+          "html": "<p>Erfahrungen sind frei formulierte Hintergründe, Fähigkeiten oder Wesenszüge. Sie dürfen nicht so allgemein sein, dass sie auf nahezu jeden Wurf passen, und gewähren keine eigenen Zauber oder Sonderfähigkeiten.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 7,
+            "panelId": "panel-regel-eigenschaften-erfahrungen-8",
+            "feld": 0
+          }
+        }
+      ],
+      "verbindungen": [],
+      "geaendert": "2026-08-25T23:58:46.484Z"
+    },
+    {
+      "id": "regel-sonderwuerfe",
+      "name": "Angriffs-, Zauber- und Reaktionswürfe",
+      "kategorie": "regeln",
+      "unterart": "Grundlagen",
+      "kurz": "Eigenschafts-, Zauber- und Angriffswürfe verwenden grundsätzlich das Verfahren des Aktionswurfs. Reaktionswürfe folgen demselben Würfelprinzip, haben aber eigene Folgen.",
+      "aliase": [],
+      "quelle": "",
+      "attribute": [
+        {
+          "schluessel": "regelBereich",
+          "beschriftung": "Bereich",
+          "wert": "Grundlagen"
+        },
+        {
+          "schluessel": "regelStichworte",
+          "beschriftung": "Stichworte",
+          "wert": "reaktion, zauber, spellcast, angriff, sonderwurf"
+        }
+      ],
+      "abschnitte": [
+        {
+          "titel": "Eigenschaftswurf",
+          "html": "<p>Ein Wurf mit einer ausdrücklich genannten Eigenschaft. Boni auf diese Eigenschaft gelten auch für passende Angriffs- und Zauberwürfe.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 0,
+            "panelId": "panel-regel-sonderwuerfe-1",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Zauberwurf",
+          "html": "<p>Verwendet die Zaubereigenschaft der Subklasse und wird nur verlangt, wenn ein Effekt ihn ausdrücklich nennt. Kann der Zauberwurf einem Ziel Schaden zufügen, zählt er zugleich als Angriffswurf.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 1,
+            "panelId": "panel-regel-sonderwuerfe-2",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Angriffswurf",
+          "html": "<p>Ein Aktionswurf, der Schaden verursachen soll. Gegen Gegner gilt deren Schwierigkeit, gegen Spielerfiguren deren Ausweichen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 2,
+            "panelId": "panel-regel-sonderwuerfe-3",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Reaktionswurf",
+          "html": "<p>Dient dazu, einer Gefahr zu widerstehen. Er erzeugt weder Hoffnung noch Furcht, löst keine zusätzlichen SL-Züge aus und kann nicht durch „Verbündeten helfen“ unterstützt werden.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 3,
+            "panelId": "panel-regel-sonderwuerfe-4",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Kritische Reaktion",
+          "html": "<p>Ein kritischer Reaktionswurf gewährt keine Hoffnung und entfernt keinen Stress. Stattdessen ignoriert die Figur auch die Auswirkungen, die sie bei einem normalen Erfolg noch getroffen hätten, etwa halben Schaden.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 4,
+            "panelId": "panel-regel-sonderwuerfe-5",
+            "feld": 0
+          }
+        }
+      ],
+      "verbindungen": [],
+      "geaendert": "2026-08-25T23:58:46.484Z"
+    },
+    {
+      "id": "regel-vorteil-zusammenarbeit",
+      "name": "Vorteil, Nachteil und Zusammenarbeit",
+      "kategorie": "regeln",
+      "unterart": "Grundlagen",
+      "kurz": "Vorteil und Nachteil verändern Aktions- und Reaktionswürfe durch zusätzliche W6, ohne die Schwierigkeit neu zu berechnen.",
+      "aliase": [],
+      "quelle": "",
+      "attribute": [
+        {
+          "schluessel": "regelBereich",
+          "beschriftung": "Bereich",
+          "wert": "Grundlagen"
+        },
+        {
+          "schluessel": "regelStichworte",
+          "beschriftung": "Stichworte",
+          "wert": "vorteil, nachteil, helfen, gruppe, team, tag team"
+        }
+      ],
+      "abschnitte": [
+        {
+          "titel": "Vorteil",
+          "html": "<p>Würfle zusätzlich 1W6 und addiere das Ergebnis.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 0,
+            "panelId": "panel-regel-vorteil-zusammenarbeit-1",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Nachteil",
+          "html": "<p>Würfle zusätzlich 1W6 und ziehe das Ergebnis ab. Vor- und Nachteilswürfel im eigenen Würfelpool heben sich paarweise auf, sodass nie beide Arten gleichzeitig im Pool liegen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 1,
+            "panelId": "panel-regel-vorteil-zusammenarbeit-2",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Verbündeten helfen",
+          "html": "<p>Gib 1 Hoffnung aus, beschreibe deine Hilfe und würfle einen eigenen Vorteilswürfel für den Aktionswurf der verbündeten Figur. Dieser externe Würfel wird zusätzlich zu deren Würfelpool gewertet. Bei mehreren Helfenden zählt nur das höchste Ergebnis.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 2,
+            "panelId": "panel-regel-vorteil-zusammenarbeit-3",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Gruppenaktion",
+          "html": "<p>Eine Figur führt. Alle anderen würfeln passende Reaktionen; jeder Erfolg gibt +1, jeder Fehlschlag -1 auf den führenden Wurf.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 3,
+            "panelId": "panel-regel-vorteil-zusammenarbeit-4",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Teamwurf einleiten",
+          "html": "<p>Jede Person darf einmal pro Sitzung 3 Hoffnung ausgeben, um mit einer anderen Spielerfigur einen Teamwurf einzuleiten. Eine Figur darf an mehreren Teamwürfen teilnehmen, solange jeweils eine andere Person sie einleitet.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 4,
+            "panelId": "panel-regel-vorteil-zusammenarbeit-5",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Teamwurf auflösen",
+          "html": "<p>Beide Figuren führen getrennte Aktionswürfe aus und wählen vor der Auflösung eines der beiden Ergebnisse für beide Handlungen. Bei Hoffnung erhalten alle Beteiligten je 1 Hoffnung; bei Furcht erhält die Spielleitung für jede beteiligte Figur 1 Furcht.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 5,
+            "panelId": "panel-regel-vorteil-zusammenarbeit-6",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Gemeinsamer Angriff",
+          "html": "<p>Bei einem erfolgreichen Team-Angriff würfeln beide Figuren Schaden, addieren die Ergebnisse und behandeln sie als eine Schadensquelle. Bei unterschiedlichen Schadensarten wählen sie eine davon.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 6,
+            "panelId": "panel-regel-vorteil-zusammenarbeit-7",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Hinweis",
+          "html": "<p>Ein Teamwurf zählt für Countdowns und Effekte, die Aktionswürfe zählen, als genau ein Aktionswurf.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 7,
+            "panelId": "panel-regel-vorteil-zusammenarbeit-hinweis",
+            "feld": 0
+          }
+        }
+      ],
+      "verbindungen": [],
+      "geaendert": "2026-08-25T23:58:46.484Z"
+    },
+    {
+      "id": "regel-hoffnung-furcht",
+      "name": "Hoffnung und Furcht",
+      "kategorie": "regeln",
+      "unterart": "Grundlagen",
+      "kurz": "Hoffnung und Furcht sind Metawährungen für die Kräfte, die die gemeinsame Geschichte formen. Hoffnung treibt Fähigkeiten der Spielerfiguren an; Furcht stärkt die Spielleitung sowie Gegner und Umgebungen.",
+      "aliase": [],
+      "quelle": "",
+      "attribute": [
+        {
+          "schluessel": "regelBereich",
+          "beschriftung": "Bereich",
+          "wert": "Grundlagen"
+        },
+        {
+          "schluessel": "regelStichworte",
+          "beschriftung": "Stichworte",
+          "wert": "hope, fear, hoffnung, furcht, ressource"
+        }
+      ],
+      "abschnitte": [
+        {
+          "titel": "Hoffnungsvorrat",
+          "html": "<p>Jede Spielerfigur beginnt die Charaktererschaffung mit 2 Hoffnung, kann höchstens 6 Hoffnung besitzen und behält sie zwischen Sitzungen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 0,
+            "panelId": "panel-regel-hoffnung-furcht-1",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Hoffnung gewinnen",
+          "html": "<p>Bei einem Aktionswurf mit Hoffnung erhält die würfelnde Figur 1 Hoffnung. Ein kritischer Erfolg zählt ebenfalls als Wurf mit Hoffnung.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 1,
+            "panelId": "panel-regel-hoffnung-furcht-2",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Hoffnung ausgeben",
+          "html": "<p>Gib 1 Hoffnung aus, um einem Verbündeten zu helfen oder eine passende Erfahrung zu einem Aktions- oder Reaktionswurf zu addieren. Ein Teamwurf kostet 3 Hoffnung; andere Hoffnungsmerkmale nennen ihre jeweiligen Kosten.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 2,
+            "panelId": "panel-regel-hoffnung-furcht-3",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Furchtvorrat",
+          "html": "<p>Die Spielleitung beginnt eine Kampagne mit 1 Furcht pro Spielerfigur, kann höchstens 12 Furcht besitzen und behält sie zwischen Sitzungen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 3,
+            "panelId": "panel-regel-hoffnung-furcht-4",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Furcht gewinnen",
+          "html": "<p>Die Spielleitung erhält Furcht, wenn eine Spielerfigur mit Furcht würfelt, die Gruppe eine Rast einlegt oder ein Merkmal beziehungsweise Effekt dies anweist.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 4,
+            "panelId": "panel-regel-hoffnung-furcht-5",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Furcht ausgeben",
+          "html": "<p>Gib 1 Furcht aus, um die Spielerfiguren zu unterbrechen, das Spotlight zu übernehmen und einen SL-Zug zu machen, einen zusätzlichen SL-Zug auszuführen, ein Furchtmerkmal eines Gegners oder einer Umgebung einzusetzen oder die Erfahrung eines Gegners zu einem Wurf zu addieren.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 5,
+            "panelId": "panel-regel-hoffnung-furcht-6",
+            "feld": 0
+          }
+        }
+      ],
+      "verbindungen": [],
+      "geaendert": "2026-08-25T23:58:46.484Z"
+    },
+    {
+      "id": "regel-charaktererschaffung",
+      "name": "Charaktererschaffung",
+      "kategorie": "regeln",
+      "unterart": "Charaktere",
+      "kurz": "Die Charaktererschaffung verbindet neun mechanische und erzählerische Schritte. Frühere Entscheidungen dürfen angepasst werden, während die Figur Gestalt annimmt.",
+      "aliase": [],
+      "quelle": "",
+      "attribute": [
+        {
+          "schluessel": "regelBereich",
+          "beschriftung": "Bereich",
+          "wert": "Charaktere"
+        },
+        {
+          "schluessel": "regelStichworte",
+          "beschriftung": "Stichworte",
+          "wert": "erstellung, klasse, herkunft, start, stufe 1, erfahrungen, verbindungen, ausrüstung"
+        }
+      ],
+      "abschnitte": [
+        {
+          "titel": "1. Klasse und Subklasse",
+          "html": "<p>Wähle eine Klasse, führe alle Entscheidungen ihrer Klassenmerkmale aus und wähle eine Subklasse. Nimm die Grundlagenkarte der Subklasse; die Klasse legt außerdem deine beiden zugänglichen Domänen fest.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 0,
+            "panelId": "panel-regel-charaktererschaffung-1",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "2. Herkunft",
+          "html": "<p>Wähle eine Abstammung und eine Gemeinschaft. Für eine gemischte Abstammung kombinierst du das erstgenannte Merkmal einer Abstammung mit dem zweitgenannten Merkmal einer anderen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 1,
+            "panelId": "panel-regel-charaktererschaffung-2",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "3. Eigenschaften",
+          "html": "<p>Verteile +2, +1, +1, 0, 0 und -1 auf die sechs Eigenschaften.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 2,
+            "panelId": "panel-regel-charaktererschaffung-3",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "4. Angaben und Startwerte",
+          "html": "<p>Beginne auf Stufe 1 mit klassenabhängigem Ausweichen und klassenabhängigen Trefferpunkten, 6 Stressfeldern, 2 Hoffnung und Kompetenz 1. Ergänze außerdem Name, Pronomen und Beschreibung deiner Figur.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 3,
+            "panelId": "panel-regel-charaktererschaffung-4",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "5. Startausrüstung",
+          "html": "<p>Wähle entweder eine zweihändige Primärwaffe oder eine einhändige Primär- und eine einhändige Sekundärwaffe aus Rang 1 sowie eine Rüstung aus Rang 1. Addiere Stufe 1 zu den Grundschwellen der Rüstung und trage ihren Rüstungswert samt permanenten Boni ein. Zum Inventar gehören außerdem Fackel, 15 m Seil, Grundvorräte, eine Handvoll Gold, ein kleiner Heil- oder Ausdauertrank, ein klassenspezifischer Gegenstand und gegebenenfalls ein Gegenstand zum Wirken von Zaubern. Weitere Startgegenstände benötigen die Zustimmung der Spielleitung.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 4,
+            "panelId": "panel-regel-charaktererschaffung-5",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "6. Hintergrund",
+          "html": "<p>Beantworte die Hintergrundfragen des Charakterleitfadens oder ersetze sie durch passendere Fragen. Der Hintergrund hat keine unmittelbare Regelwirkung, prägt aber Figur, Rollenspiel und Vorbereitung der Spielleitung.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 5,
+            "panelId": "panel-regel-charaktererschaffung-6",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "7. Erfahrungen",
+          "html": "<p>Formuliere zwei konkrete, nicht zu breit anwendbare Erfahrungen. Beide beginnen mit einem Modifikator von +2 und verleihen keine eigenständigen Zauber oder Sonderfähigkeiten.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 6,
+            "panelId": "panel-regel-charaktererschaffung-7",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "8. Domänenkarten",
+          "html": "<p>Wähle zwei Domänenkarten der Stufe 1 aus den Domänen deiner Klasse. Du darfst je eine Karte aus beiden Domänen oder beide Karten aus derselben Domäne wählen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 7,
+            "panelId": "panel-regel-charaktererschaffung-8",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "9. Verbindungen",
+          "html": "<p>Stellt eure Figuren einander vor und besprecht mögliche Beziehungen. Wähle mindestens eine Verbindungsfrage und richte sie an eine andere Spielerfigur. Verbindungen zu allen Figuren sind hilfreich, aber nicht vorgeschrieben und dürfen erst im Spiel entstehen. Jede Person darf einen Vorschlag ohne Begründung ablehnen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 8,
+            "panelId": "panel-regel-charaktererschaffung-9",
+            "feld": 0
+          }
+        }
+      ],
+      "verbindungen": [],
+      "geaendert": "2026-08-25T23:58:46.484Z"
+    },
+    {
+      "id": "regel-domaenen-loadout",
+      "name": "Domänenkarten, Auslage und Reserve",
+      "kategorie": "regeln",
+      "unterart": "Charaktere",
+      "kurz": "Domänenkarten gewähren Aktionen, Zauber, passive Effekte und weitere Fähigkeiten. Eine Figur darf nur Karten ihrer zugänglichen Domänen und niemals eine Karte über ihrer eigenen Stufe erwerben.",
+      "aliase": [],
+      "quelle": "",
+      "attribute": [
+        {
+          "schluessel": "regelBereich",
+          "beschriftung": "Bereich",
+          "wert": "Charaktere"
+        },
+        {
+          "schluessel": "regelStichworte",
+          "beschriftung": "Stichworte",
+          "wert": "domain, domäne, karte, auslage, reserve, loadout, vault, rückruf"
+        }
+      ],
+      "abschnitte": [
+        {
+          "titel": "Auslage",
+          "html": "<p>Die Auslage enthält die erworbenen Domänenkarten, deren Effekte während des Spiels verfügbar sind. Sie darf höchstens 5 Domänenkarten enthalten.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 0,
+            "panelId": "panel-regel-domaenen-loadout-1",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Reserve",
+          "html": "<p>Sobald du mindestens 6 Domänenkarten besitzt, bleiben höchstens 5 davon in der Auslage. Alle übrigen Karten liegen in der Reserve, sind inaktiv und beeinflussen das Spiel nicht.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 1,
+            "panelId": "panel-regel-domaenen-loadout-2",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Wechsel während einer Rast",
+          "html": "<p>Zu Beginn einer Rast, noch vor den Rastaktionen, darfst du beliebig viele Karten kostenlos zwischen Auslage und Reserve verschieben. Das Limit von 5 Karten in der Auslage bleibt bestehen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 2,
+            "panelId": "panel-regel-domaenen-loadout-3",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Wechsel außerhalb einer Rast",
+          "html": "<p>Um eine Karte aus der Reserve in die Auslage zu holen, markierst du Stress in Höhe der Rückruf-Kosten dieser Reservekarte. Ist die Auslage voll, verschiebst du zugleich eine Karte aus der Auslage in die Reserve; dieses Herausnehmen kostet keinen zusätzlichen Stress.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 3,
+            "panelId": "panel-regel-domaenen-loadout-4",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Neu erworbene Karte",
+          "html": "<p>Eine beim Stufenaufstieg neu erworbene Domänenkarte darf sofort kostenlos in die Auslage. Ist sie bereits voll, verschiebst du dafür ebenfalls eine andere Karte kostenlos in die Reserve.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 4,
+            "panelId": "panel-regel-domaenen-loadout-5",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Andere Karten",
+          "html": "<p>Subklassen-, Abstammungs- und Gemeinschaftskarten zählen weder zur Auslage noch zur Reserve und bleiben immer aktiv und verfügbar.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 5,
+            "panelId": "panel-regel-domaenen-loadout-6",
+            "feld": 0
+          }
+        }
+      ],
+      "verbindungen": [],
+      "geaendert": "2026-08-25T23:58:46.484Z"
+    },
+    {
+      "id": "regel-ausruestung-gold",
+      "name": "Ausrüstung und Gold",
+      "kategorie": "regeln",
+      "unterart": "Charaktere",
+      "kurz": "Nur aktive Waffen und aktive Rüstung können eingesetzt werden und ihre Merkmale gewähren. Eine Figur darf keine Ausrüstung über ihrem eigenen Rang ausrüsten.",
+      "aliase": [],
+      "quelle": "",
+      "attribute": [
+        {
+          "schluessel": "regelBereich",
+          "beschriftung": "Bereich",
+          "wert": "Charaktere"
+        },
+        {
+          "schluessel": "regelStichworte",
+          "beschriftung": "Stichworte",
+          "wert": "waffe, rüstung, equipment, gold, beute, loot, inventar, verbrauchsgut, münzen"
+        }
+      ],
+      "abschnitte": [
+        {
+          "titel": "Aktive Waffen",
+          "html": "<p>Du darfst höchstens eine Primär- und eine Sekundärwaffe gleichzeitig ausrüsten. Zusammen dürfen sie höchstens Belastung 2 belegen. Magische Waffen setzen eine Zauberwirken-Eigenschaft voraus.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 0,
+            "panelId": "panel-regel-ausruestung-gold-1",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Waffenwerte",
+          "html": "<p>Eigenschaft und Reichweite bestimmen den Angriffswurf und mögliche Ziele. Bei einem Treffer würfelst du die Schadenswürfel entsprechend deiner Kompetenz; ein fester Schadensbonus wird nur einmal addiert. Schadenstyp und Waffenmerkmal gelten wie auf der Waffe angegeben.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 1,
+            "panelId": "panel-regel-ausruestung-gold-2",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Waffen wechseln",
+          "html": "<p>Bis zu zwei weitere Waffen dürfen im Inventar liegen. Während einer Rast oder in einem ruhigen Moment wechselst du kostenlos zwischen Inventar und aktiven Waffen; andernfalls markierst du dafür 1 Stress. Die Waffen müssen dabei nicht dieselbe Belastung besitzen, die aktive Kombination muss aber in Belastung 2 passen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 2,
+            "panelId": "panel-regel-ausruestung-gold-3",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Waffen werfen",
+          "html": "<p>Eine ausgerüstete Waffe darf mit Finesse gegen ein Ziel in sehr naher Reichweite geworfen werden und verursacht bei einem Treffer ihren normalen Schaden. Bis du sie zurückholst und erneut ausrüstest, gilt sie nicht als ausgerüstet und gewährt keine Merkmale.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 3,
+            "panelId": "panel-regel-ausruestung-gold-4",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Rüstung",
+          "html": "<p>Nur eine Rüstung kann aktiv sein. Unter Gefahr oder Druck darfst du keine Rüstung an- oder ablegen; ansonsten ist der Wechsel kostenlos. Rüstungen können nicht im Inventar getragen werden. Bewahre beim Ablegen die bereits markierten Rüstungsplätze auf und berechne beim Wechsel die Schadensschwellen neu.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 4,
+            "panelId": "panel-regel-ausruestung-gold-5",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Gold",
+          "html": "<p>Gold wird abstrakt als Handvoll, Beutel und Truhe erfasst. 10 Handvoll werden automatisch zu 1 Beutel, 10 Beutel zu 1 Truhe. Mehr als 1 Truhe kannst du nicht besitzen; weiteres Gold muss vorher ausgegeben oder anderswo gelagert werden.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 5,
+            "panelId": "panel-regel-ausruestung-gold-6",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Optionale Münzen",
+          "html": "<p>Wenn die Gruppe Gold feiner zählen möchte, kann sie Münzen als optionale kleinste Einheit verwenden: 10 Münzen entsprechen 1 Handvoll.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 6,
+            "panelId": "panel-regel-ausruestung-gold-7",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Beute und Verbrauchsgüter",
+          "html": "<p>Wiederverwendbare Gegenstände bleiben nutzbar, bis sie verkauft, weggeworfen oder verloren werden. Ein Verbrauchsgut kann nur einmal benutzt werden; du darfst höchstens 5 Exemplare derselben Sorte tragen. Die Nutzung erfordert nur dann einen Wurf, wenn die Spielleitung oder die Fiktion ihn verlangt.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 7,
+            "panelId": "panel-regel-ausruestung-gold-8",
+            "feld": 0
+          }
+        }
+      ],
+      "verbindungen": [],
+      "geaendert": "2026-08-25T23:58:46.484Z"
+    },
+    {
+      "id": "regel-stufenaufstieg",
+      "name": "Stufenaufstieg und Multiclass",
+      "kategorie": "regeln",
+      "unterart": "Charaktere",
+      "kurz": "Die Gruppe steigt gemeinsam auf, wenn die Spielleitung einen erzählerischen Meilenstein setzt – meist ungefähr alle drei Sitzungen. Charaktere erreichen höchstens Stufe 10.",
+      "aliase": [],
+      "quelle": "",
+      "attribute": [
+        {
+          "schluessel": "regelBereich",
+          "beschriftung": "Bereich",
+          "wert": "Charaktere"
+        },
+        {
+          "schluessel": "regelStichworte",
+          "beschriftung": "Stichworte",
+          "wert": "level, stufe, rang, aufstieg, multiclass, kompetenz, subklasse"
+        }
+      ],
+      "abschnitte": [
+        {
+          "titel": "Ränge",
+          "html": "<p>Rang 1 umfasst Stufe 1, Rang 2 die Stufen 2–4, Rang 3 die Stufen 5–7 und Rang 4 die Stufen 8–10.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 0,
+            "panelId": "panel-regel-stufenaufstieg-1",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Rang-Errungenschaften",
+          "html": "<p>Auf Stufe 2, 5 und 8 erhältst du eine neue Erfahrung mit +2 und dauerhaft +1 Kompetenz. Auf Stufe 5 und 8 entfernst du außerdem alle Markierungen von deinen Eigenschaften.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 1,
+            "panelId": "panel-regel-stufenaufstieg-2",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Zwei Verbesserungen",
+          "html": "<p>Wähle bei jedem Stufenaufstieg zwei Verbesserungen aus deinem aktuellen oder einem niedrigeren Rang, die noch ein freies Kästchen haben. Eine Verbesserung mit mehreren Kästchen darfst du auch zweimal wählen; markiere für jede Wahl ein Kästchen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 2,
+            "panelId": "panel-regel-stufenaufstieg-3",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Verbesserungsarten",
+          "html": "<p>Je nach Rang kannst du zwei unmarkierte Eigenschaften dauerhaft um je +1 erhöhen, Trefferpunkte oder Stressplätze hinzufügen, zwei Erfahrungen dauerhaft um je +1 erhöhen, eine zusätzliche Domänenkarte erwerben, dein Ausweichen dauerhaft um +1 erhöhen, deine Subklasse aufwerten, deine Kompetenz erhöhen oder Multiclass wählen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 3,
+            "panelId": "panel-regel-stufenaufstieg-4",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Eigenschaften",
+          "html": "<p>Wenn du zwei Eigenschaften erhöhst, markierst du beide. Markierte Eigenschaften können erst wieder über diese Verbesserung erhöht werden, nachdem ihre Markierungen beim Erreichen des nächsten Rangs entfernt wurden.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 4,
+            "panelId": "panel-regel-stufenaufstieg-5",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Subklasse und Kompetenz",
+          "html": "<p>Eine Subklassenaufwertung führt von der Grund- zur Spezialisierungs- und danach zur Meisterschaftskarte. Sie sperrt die Multiclass-Verbesserung dieses Rangs. +1 Kompetenz verbraucht beide Verbesserungen des Stufenaufstiegs und markiert beide Kästchen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 5,
+            "panelId": "panel-regel-stufenaufstieg-6",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Schadensschwellen",
+          "html": "<p>Alle Schadensschwellen steigen bei jedem Stufenaufstieg um 1.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 6,
+            "panelId": "panel-regel-stufenaufstieg-7",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Neue Domänenkarte",
+          "html": "<p>Unabhängig von den zwei Verbesserungen erwirbst du bei jedem Stufenaufstieg eine Domänenkarte aus deinen Klassendomänen bis zu deiner neuen Stufe und legst sie in deine Auslage oder Reserve. Du darfst zusätzlich eine bereits erworbene Domänenkarte gegen eine andere Karte derselben oder einer niedrigeren Stufe austauschen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 7,
+            "panelId": "panel-regel-stufenaufstieg-8",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Multiclass",
+          "html": "<p>Ab Stufe 5 kannst du beide Verbesserungen ausgeben, um eine zweite Klasse zu wählen. Du erhältst ihr Klassenmerkmal, Zugang zu genau einer ihrer Domänen und die Grundkarte einer ihrer Subklassen. Unterscheiden sich die Zauberwurf-Eigenschaften deiner Grundkarten, entscheidest du bei jedem Zauberwurf, welche davon gilt.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 8,
+            "panelId": "panel-regel-stufenaufstieg-9",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Multiclass-Grenzen",
+          "html": "<p>Multiclass streicht die Subklassenaufwertung dieses Rangs und sämtliche übrigen Multiclass-Felder, sodass du nur eine zusätzliche Klasse wählen kannst. Bei jeder Gelegenheit zum Erwerb einer Domänenkarte darf eine Karte aus der gewählten Multiclass-Domäne höchstens die Hälfte deiner aktuellen Stufe haben, aufgerundet.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 9,
+            "panelId": "panel-regel-stufenaufstieg-10",
+            "feld": 0
+          }
+        }
+      ],
+      "verbindungen": [],
+      "geaendert": "2026-08-25T23:58:46.484Z"
+    },
+    {
+      "id": "regel-angreifen",
+      "name": "Angriffe und Ausweichen",
+      "kategorie": "regeln",
+      "unterart": "Konflikte",
+      "kurz": "Ein Angriff ist ein Aktionswurf mit dem Ziel, Schaden zu verursachen. Spielerfiguren würfeln dafür mit den Dualitätswürfeln, Gegner mit dem W20; Schaden wird erst nach einem erfolgreichen Angriff gewürfelt.",
+      "aliase": [],
+      "quelle": "",
+      "attribute": [
+        {
+          "schluessel": "regelBereich",
+          "beschriftung": "Bereich",
+          "wert": "Konflikte"
+        },
+        {
+          "schluessel": "regelStichworte",
+          "beschriftung": "Stichworte",
+          "wert": "angriff, ausweichen, evasion, waffe, ziel, kritisch, unbewaffnet, kompetenz"
+        }
+      ],
+      "abschnitte": [
+        {
+          "titel": "Angriff einer Spielerfigur",
+          "html": "<p>Die verwendete Waffe oder der Zauber bestimmt Eigenschaft und Reichweite. Sofern der Effekt nichts anderes angibt, muss das Ergebnis den Schwierigkeitswert des Ziels erreichen oder übertreffen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 0,
+            "panelId": "panel-regel-angreifen-1",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Angriff eines Gegners",
+          "html": "<p>Die Spielleitung würfelt W20 + Angriffsmodifikator gegen das Ausweichen der Spielerfigur. Erreicht oder übertrifft das Ergebnis diesen Wert, trifft der Angriff; andernfalls verfehlt er.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 1,
+            "panelId": "panel-regel-angreifen-2",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Ausweichen",
+          "html": "<p>Ausweichen ist der passive Zielwert einer Spielerfigur gegen Angriffe. Die angegriffene Figur würfelt bei einem normalen Gegnerangriff nicht selbst; Boni und Abzüge verändern stattdessen ihren Ausweichen-Wert.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 2,
+            "panelId": "panel-regel-angreifen-3",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Boni und Merkmale",
+          "html": "<p>Für Angriffswürfe gelten Boni, Modifikatoren und Effekte grundsätzlich wie für normale Aktionswürfe. Ein Merkmal für eine bestimmte Eigenschaft gilt daher auch für einen Angriff, der genau diese Eigenschaft verwendet.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 3,
+            "panelId": "panel-regel-angreifen-4",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Waffenschaden",
+          "html": "<p>Bei einem Treffer würfelst du den Schadenswürfel der Waffe so oft wie deine Kompetenz; ein fester Schadensbonus wird nur einmal addiert. Kompetenz 2 mit einer Waffe „W8+2“ verursacht beispielsweise 2W8+2 Schaden.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 4,
+            "panelId": "panel-regel-angreifen-5",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Schaden über die Zaubereigenschaft",
+          "html": "<p>Fordert ein Effekt Schaden mithilfe deiner Zaubereigenschaft, würfelst du die angegebenen Schadenswürfel so oft wie der Wert dieser Eigenschaft. Bei +0 oder einem niedrigeren Wert werden dafür keine Würfel geworfen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 5,
+            "panelId": "panel-regel-angreifen-6",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Unbewaffnet",
+          "html": "<p>Bei einem unbewaffneten Angriff entscheidet die Spielleitung, ob du Stärke oder Finesse verwendest. Ein erfolgreicher Treffer verursacht entsprechend deiner Kompetenz W4 körperlichen Schaden.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 6,
+            "panelId": "panel-regel-angreifen-7",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Kritischer Schaden",
+          "html": "<p>Zeigen die Dualitätswürfel denselben Wert, würfelst du den Schaden normal und addierst zusätzlich die Summe der Maximalwerte aller Schadenswürfel; feste Boni werden nicht verdoppelt. Bei einem Gegnerangriff trifft eine natürliche 20 automatisch und verursacht denselben kritischen Zusatzschaden.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 7,
+            "panelId": "panel-regel-angreifen-8",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Mehrere Ziele",
+          "html": "<p>Erlaubt ein Zauber oder Merkmal mehrere Ziele, würfelst du einmal Angriff und einmal Schaden und wertest beide Ergebnisse für jedes Ziel einzeln aus. Bei einem Mehrzielangriff eines Gegners wird ein Angriff gewürfelt und getrennt mit dem Ausweichen jeder betroffenen Figur verglichen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 8,
+            "panelId": "panel-regel-angreifen-9",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Konflikt zwischen Spielerfiguren",
+          "html": "<p>Bevor eine Spielerfigur eine andere angreift, klärt die Gruppe gemeinsam, ob ein Wurf nötig und für alle Beteiligten in Ordnung ist. Kommt es zum Angriffswurf, würfelt die angreifende Figur gegen das Ausweichen der verteidigenden Figur.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 9,
+            "panelId": "panel-regel-angreifen-10",
+            "feld": 0
+          }
+        }
+      ],
+      "verbindungen": [],
+      "geaendert": "2026-08-25T23:58:46.484Z"
+    },
+    {
+      "id": "regel-schaden-ruestung",
+      "name": "Schaden, Trefferpunkte und Rüstung",
+      "kategorie": "regeln",
+      "unterart": "Konflikte",
+      "kurz": "Eingehender Schaden ist der Gesamtschaden einer einzelnen Attacke oder Quelle, bevor Rüstung eingesetzt wird. Nach allen Zahlenänderungen bestimmt der Vergleich mit den Schadensschwellen, wie viele Trefferpunkte markiert werden.",
+      "aliase": [],
+      "quelle": "",
+      "attribute": [
+        {
+          "schluessel": "regelBereich",
+          "beschriftung": "Bereich",
+          "wert": "Konflikte"
+        },
+        {
+          "schluessel": "regelStichworte",
+          "beschriftung": "Stichworte",
+          "wert": "schaden, trefferpunkte, hp, schwelle, rüstung, armor, rüstungsplatz, widerstand, immunität, direkt"
+        }
+      ],
+      "abschnitte": [
+        {
+          "titel": "Leichter Schaden",
+          "html": "<p>Beträgt der endgültige Schaden mindestens 1, liegt aber unter der schweren Schadensschwelle, markiert das Ziel 1 Trefferpunkt.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 0,
+            "panelId": "panel-regel-schaden-ruestung-1",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Schwerer Schaden",
+          "html": "<p>Erreicht oder übertrifft der endgültige Schaden die schwere Schwelle, bleibt aber unter der massiven Schwelle, markiert das Ziel 2 Trefferpunkte.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 1,
+            "panelId": "panel-regel-schaden-ruestung-2",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Massiver Schaden",
+          "html": "<p>Erreicht oder übertrifft der endgültige Schaden die massive Schwelle, markiert das Ziel 3 Trefferpunkte.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 2,
+            "panelId": "panel-regel-schaden-ruestung-3",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Option: Doppelte massive Schwelle",
+          "html": "<p>Verwendet die Gruppe die optionale Regel und erreicht der Schaden mindestens das Doppelte der massiven Schwelle, markiert das Ziel 4 statt 3 Trefferpunkte.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 3,
+            "panelId": "panel-regel-schaden-ruestung-4",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Schadensschwellen berechnen",
+          "html": "<p>Mit aktiver Rüstung addierst du deine Stufe zu deren beiden Grundschwellen und berücksichtigst danach weitere Boni. Ohne Rüstung beträgt die schwere Schwelle deine Stufe und die massive Schwelle das Doppelte deiner Stufe.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 4,
+            "panelId": "panel-regel-schaden-ruestung-5",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Trefferpunkte",
+          "html": "<p>Die Klasse bestimmt die anfänglichen Trefferpunkte; Verbesserungen und Merkmale können ihre Anzahl bis höchstens 12 erhöhen. Markiert eine Figur ihren letzten Trefferpunkt, fällt sie. Eine Spielerfigur führt dann einen Todeszug aus.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 5,
+            "panelId": "panel-regel-schaden-ruestung-6",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Rüstungswert",
+          "html": "<p>Der Rüstungswert bestimmt die Zahl deiner Rüstungsplätze und kann 12 nicht überschreiten. Erhöht ein zeitweiliger Effekt den Rüstungswert, entstehen ebenso viele zusätzliche Plätze, die mit dem Ende des Effekts wieder verschwinden.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 6,
+            "panelId": "panel-regel-schaden-ruestung-7",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Rüstung einsetzen",
+          "html": "<p>Wenn du Schaden erleidest, kannst du normalerweise 1 Rüstungsplatz markieren und die Schadensstufe um eine Schwelle senken: massiv zu schwer, schwer zu leicht oder leicht zu keinem Trefferpunkt. Bei Rüstungswert 0 kannst du keinen Rüstungsplatz markieren.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 7,
+            "panelId": "panel-regel-schaden-ruestung-8",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Körperlich und magisch",
+          "html": "<p>Gewöhnliche Waffen und unbewaffnete Angriffe verursachen normalerweise körperlichen Schaden, Zauber normalerweise magischen Schaden. Ein Effekt kann ausdrücklich einen anderen Schadenstyp festlegen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 8,
+            "panelId": "panel-regel-schaden-ruestung-9",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Widerstand und Immunität",
+          "html": "<p>Widerstand halbiert passenden Schaden vor dem Schwellenvergleich und vor weiteren Reduktionen; Bruchteile werden aufgerundet und mehrere Widerstände desselben Typs stapeln sich nicht. Immunität ignoriert passenden Schaden vollständig. Verursacht ein Angriff beide Typen, wirkt Widerstand oder Immunität nur, wenn das Ziel gegen beide geschützt ist.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 9,
+            "panelId": "panel-regel-schaden-ruestung-10",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Direkter Schaden",
+          "html": "<p>Direkter Schaden kann nicht durch das Markieren eines Rüstungsplatzes gesenkt werden.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 10,
+            "panelId": "panel-regel-schaden-ruestung-11",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Gleichzeitige Schadensquellen",
+          "html": "<p>Schaden aus mehreren Quellen, der gleichzeitig entsteht, wird zuerst zu einem Gesamtwert addiert und erst danach mit den Schadensschwellen des Ziels verglichen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 11,
+            "panelId": "panel-regel-schaden-ruestung-12",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Hinweis",
+          "html": "<p>Sinkt eingehender Schaden auf 0 oder weniger, wird kein Trefferpunkt markiert.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 12,
+            "panelId": "panel-regel-schaden-ruestung-hinweis",
+            "feld": 0
+          }
+        }
+      ],
+      "verbindungen": [],
+      "geaendert": "2026-08-25T23:58:46.484Z"
+    },
+    {
+      "id": "regel-stress",
+      "name": "Stress",
+      "kategorie": "regeln",
+      "unterart": "Konflikte",
+      "kurz": "Stress beschreibt, wie viel körperliche, mentale und emotionale Belastung eine Figur aushält. Er kann durch Folgen und Komplikationen entstehen oder als Kosten für Merkmale und Fähigkeiten dienen.",
+      "aliase": [],
+      "quelle": "",
+      "attribute": [
+        {
+          "schluessel": "regelBereich",
+          "beschriftung": "Bereich",
+          "wert": "Konflikte"
+        },
+        {
+          "schluessel": "regelStichworte",
+          "beschriftung": "Stichworte",
+          "wert": "stress, stressplatz, verwundbar, kosten, belastung, trefferpunkt, erholung"
+        }
+      ],
+      "abschnitte": [
+        {
+          "titel": "Stressplätze",
+          "html": "<p>Jede Spielerfigur beginnt mit 6 Stressplätzen. Durch Verbesserungen, Fähigkeiten und andere Effekte kann die Zahl steigen, jedoch niemals über 12.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 0,
+            "panelId": "panel-regel-stress-1",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Stress markieren",
+          "html": "<p>Die Spielleitung kann als Spielleitungszug oder als Kosten, Komplikation beziehungsweise Folge eines Aktionswurfs verlangen, dass eine Spielerfigur Stress markiert. Auch viele eigene Merkmale und Fähigkeiten verlangen dies.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 1,
+            "panelId": "panel-regel-stress-2",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Letzter freier Platz",
+          "html": "<p>Wird der letzte freie Stressplatz markiert, wird die Figur Verwundbar. Alle Würfe gegen sie erhalten dadurch Vorteil, bis sie mindestens 1 Stress entfernt.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 2,
+            "panelId": "panel-regel-stress-3",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Erzwungener Stress bei voller Leiste",
+          "html": "<p>Müsste eine Figur einen oder mehrere Stress markieren, kann dies aber nicht, markiert sie stattdessen genau 1 Trefferpunkt.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 3,
+            "panelId": "panel-regel-stress-4",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Fähigkeitskosten",
+          "html": "<p>Eine Handlung, ein Merkmal oder eine Fähigkeit, deren Aktivierung das Markieren von Stress verlangt, kann bei vollständig markierter Stressleiste nicht eingesetzt werden. Diese freiwilligen Kosten werden nicht in einen Trefferpunkt umgewandelt.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 4,
+            "panelId": "panel-regel-stress-5",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Erholung",
+          "html": "<p>Spielerfiguren entfernen Stress durch passende Rastaktionen oder besondere Fähigkeiten und Effekte. Sobald mindestens 1 Stress entfernt wurde, endet auch das durch eine volle Stressleiste verursachte Verwundbar.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 5,
+            "panelId": "panel-regel-stress-6",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Hinweis",
+          "html": "<p>Erzwungener Stress bei voller Leiste verursacht 1 Trefferpunkt; freiwillige Stresskosten können dann nicht bezahlt werden.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 6,
+            "panelId": "panel-regel-stress-hinweis",
+            "feld": 0
+          }
+        }
+      ],
+      "verbindungen": [],
+      "geaendert": "2026-08-25T23:58:46.484Z"
+    },
+    {
+      "id": "regel-reichweite-bewegung",
+      "name": "Reichweite, Bewegung und Deckung",
+      "kategorie": "regeln",
+      "unterart": "Konflikte",
+      "kurz": "Daggerheart verwendet erzählerische Reichweiten, die sowohl im Kopfkino als auch auf einer Karte funktionieren. Gemessen wird von der Quelle eines Effekts bis zu dessen Ziel; die angegebene Reichweite ist die maximale Entfernung.",
+      "aliase": [],
+      "quelle": "",
+      "attribute": [
+        {
+          "schluessel": "regelBereich",
+          "beschriftung": "Bereich",
+          "wert": "Konflikte"
+        },
+        {
+          "schluessel": "regelStichworte",
+          "beschriftung": "Stichworte",
+          "wert": "reichweite, bewegung, karte, raster, melee, close, deckung, sichtlinie, gruppeneffekt"
+        }
+      ],
+      "abschnitte": [
+        {
+          "titel": "Nahkampf",
+          "html": "<p>Das Ziel ist direkt berührbar oder höchstens etwa 1 Meter entfernt. Auf dem optionalen 1-Zoll-Raster entspricht das 1 Feld.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 0,
+            "panelId": "panel-regel-reichweite-bewegung-1",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Sehr nah",
+          "html": "<p>Feine Einzelheiten sind erkennbar, ungefähr 1,5–3 Meter oder die kurze Seite einer Spielkarte. Auf dem optionalen Raster sind es bis zu 3 Felder.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 1,
+            "panelId": "panel-regel-reichweite-bewegung-2",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Nah",
+          "html": "<p>Deutliche Einzelheiten sind erkennbar, ungefähr 3–9 Meter oder eine Bleistiftlänge. Auf dem optionalen Raster sind es bis zu 6 Felder.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 2,
+            "panelId": "panel-regel-reichweite-bewegung-3",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Weit",
+          "html": "<p>Nur wenige Einzelheiten sind erkennbar, ungefähr 9–30 Meter oder die lange Seite eines A4-Blatts. Auf dem optionalen Raster sind es bis zu 12 Felder.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 3,
+            "panelId": "panel-regel-reichweite-bewegung-4",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Sehr weit",
+          "html": "<p>Einzelheiten sind kaum erkennbar, ungefähr 30–90 Meter. Auf dem optionalen Raster beginnt diese Reichweite ab 13 Feldern und reicht bis zum Rand der Szene.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 4,
+            "panelId": "panel-regel-reichweite-bewegung-5",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Außer Reichweite",
+          "html": "<p>Alles jenseits von „Sehr weit“ ist außer Reichweite und kann normalerweise nicht als Ziel gewählt werden. Bei der optionalen Rasterregel liegt es außerhalb der Kampfkarte.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 5,
+            "panelId": "panel-regel-reichweite-bewegung-6",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Option: Definierte Reichweiten",
+          "html": "<p>Für genauere Entfernungen kann die Gruppe eine Karte mit 1-Zoll-Feldern verwenden, wobei 1 Zoll ungefähr 1,5 Metern in der Spielwelt entspricht. Nutzt dann die genannten Feldgrenzen als genauere Richtwerte statt bloßer Vergleiche.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 6,
+            "panelId": "panel-regel-reichweite-bewegung-7",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Nähere Ziele",
+          "html": "<p>Waffen, Zauber, Fähigkeiten, Gegenstände und andere Effekte dürfen innerhalb ihrer angegebenen Maximalreichweite auch auf nähere Ziele angewendet werden, sofern ihr Text nichts anderes bestimmt.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 7,
+            "panelId": "panel-regel-reichweite-bewegung-8",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Bewegung unter Druck",
+          "html": "<p>Führst du unter Druck oder in Gefahr bereits einen Aktionswurf aus, darfst du dich als Teil dieser Handlung an einen Ort innerhalb „Nah“ bewegen. Bewegst du dich ohne anderen Aktionswurf oder weiter als „Nah“, musst du einen Beweglichkeitswurf bestehen, um dich sicher neu zu positionieren.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 8,
+            "panelId": "panel-regel-reichweite-bewegung-9",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Gegnerbewegung",
+          "html": "<p>Ein Gegner darf sich als Teil einer Handlung kostenlos innerhalb „Nah“ bewegen. Nutzt er eine eigene Handlung ausschließlich zur Bewegung, darf er sich innerhalb „Sehr weit“ neu positionieren.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 9,
+            "panelId": "panel-regel-reichweite-bewegung-10",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Gruppeneffekte",
+          "html": "<p>Sofern ein Effekt nichts anderes bestimmt, müssen alle Ziele eines Gruppeneffekts innerhalb „Sehr nah“ um einen gemeinsamen Ursprungspunkt liegen, der sich innerhalb der Reichweite des Effekts befindet.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 10,
+            "panelId": "panel-regel-reichweite-bewegung-11",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Sichtlinie und Deckung",
+          "html": "<p>Fernangriffe benötigen normalerweise freie Sichtlinie. Eine teilweise Sichtbehinderung gibt dem Ziel Deckung und dem Angriff Nachteil. Eine vollständige Sichtbehinderung unterbricht die Sichtlinie, sodass kein Fernangriffswurf möglich ist, sofern ein Effekt nichts anderes erlaubt.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 11,
+            "panelId": "panel-regel-reichweite-bewegung-12",
+            "feld": 0
+          }
+        }
+      ],
+      "verbindungen": [],
+      "geaendert": "2026-08-25T23:58:46.485Z"
+    },
+    {
+      "id": "regel-zustaende",
+      "name": "Zustände",
+      "kategorie": "regeln",
+      "unterart": "Konflikte",
+      "kurz": "Zustände sind Effekte, die ihrem Ziel bestimmte Vorteile oder Nachteile geben. Das Grundspiel kennt die drei Standardzustände Verborgen, Festgesetzt und Verwundbar; Merkmale können weitere besondere Zustände erzeugen.",
+      "aliase": [],
+      "quelle": "",
+      "attribute": [
+        {
+          "schluessel": "regelBereich",
+          "beschriftung": "Bereich",
+          "wert": "Konflikte"
+        },
+        {
+          "schluessel": "regelStichworte",
+          "beschriftung": "Stichworte",
+          "wert": "zustand, verborgen, hidden, festgesetzt, restrained, verwundbar, vulnerable, vorübergehend, condition"
+        }
+      ],
+      "abschnitte": [
+        {
+          "titel": "Verborgen",
+          "html": "<p>Bist du außerhalb der Sicht aller Gegner und kennt keiner von ihnen auf andere Weise deinen Standort, bist du Verborgen. Alle Würfe gegen eine verborgene Kreatur haben Nachteil.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 0,
+            "panelId": "panel-regel-zustaende-1",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Verborgen beenden",
+          "html": "<p>Verborgen endet, sobald sich ein Gegner an einen Ort bewegt, von dem aus er dich sehen würde, du dich in die Sichtlinie eines Gegners bewegst oder du einen Angriff ausführst.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 1,
+            "panelId": "panel-regel-zustaende-2",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Festgesetzt",
+          "html": "<p>Eine festgesetzte Kreatur kann sich nicht bewegen, darf aber weiterhin Handlungen von ihrer aktuellen Position ausführen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 2,
+            "panelId": "panel-regel-zustaende-3",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Verwundbar",
+          "html": "<p>Alle Würfe, die eine verwundbare Kreatur zum Ziel haben, erhalten Vorteil.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 3,
+            "panelId": "panel-regel-zustaende-4",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Zustände stapeln",
+          "html": "<p>Sofern ein Effekt nichts anderes festlegt, kann derselbe Zustand nicht mehrfach auf dasselbe Ziel angewendet werden.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 4,
+            "panelId": "panel-regel-zustaende-5",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Vorübergehend bei Spielerfiguren",
+          "html": "<p>Eine Spielerfigur kann eine Handlung gegen einen vorübergehenden Zustand oder Effekt ausführen, um ihn zu entfernen. Dafür ist normalerweise ein erfolgreicher Aktionswurf mit einer passenden Eigenschaft erforderlich.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 5,
+            "panelId": "panel-regel-zustaende-6",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Vorübergehend bei Gegnern",
+          "html": "<p>Um einen vorübergehenden Zustand oder Effekt von einem Gegner zu entfernen, setzt die Spielleitung ihn ins Spotlight und beschreibt seine Befreiung. Dafür ist kein Wurf nötig, aber sein Spotlight wird verbraucht.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 6,
+            "panelId": "panel-regel-zustaende-7",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Spezielle Zustände",
+          "html": "<p>Ein spezieller Zustand endet ausschließlich, wenn die im verursachenden Effekt genannte Voraussetzung erfüllt wird, beispielsweise eine bestimmte Handlung abgeschlossen oder ein passender Gegenstand eingesetzt wurde.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 7,
+            "panelId": "panel-regel-zustaende-8",
+            "feld": 0
+          }
+        }
+      ],
+      "verbindungen": [],
+      "geaendert": "2026-08-25T23:58:46.485Z"
+    },
+    {
+      "id": "regel-rast",
+      "name": "Kurze und lange Rast",
+      "kategorie": "regeln",
+      "unterart": "Konflikte",
+      "kurz": "Zwischen Konflikten kann die Gruppe rasten, um Ressourcen zurückzugewinnen und ihre Bindungen zu vertiefen. Jede Spielerfigur darf dabei Domänenkarten kostenlos zwischen Auslage und Reserve verschieben und bis zu zwei Rastaktionen wählen; dieselbe Aktion darf zweimal gewählt werden.",
+      "aliase": [],
+      "quelle": "",
+      "attribute": [
+        {
+          "schluessel": "regelBereich",
+          "beschriftung": "Bereich",
+          "wert": "Konflikte"
+        },
+        {
+          "schluessel": "regelStichworte",
+          "beschriftung": "Stichworte",
+          "wert": "rast, downtime, kurz, lang, heilen, reparieren, vorbereiten, projekt, countdown, furcht"
+        }
+      ],
+      "abschnitte": [
+        {
+          "titel": "Rastart wählen",
+          "html": "<p>Die gesamte Gruppe entscheidet sich für eine kurze oder eine lange Rast. Nach drei kurzen Rasten in Folge muss die nächste Rast eine lange Rast sein.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 0,
+            "panelId": "panel-regel-rast-1",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Unterbrechung",
+          "html": "<p>Wird eine kurze Rast unterbrochen, erhält die Gruppe keine ihrer Vorteile. Eine unterbrochene lange Rast gewährt nur die Vorteile einer kurzen Rast.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 1,
+            "panelId": "panel-regel-rast-2",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Kurze Rast",
+          "html": "<p>Eine kurze Rast dauert in der Spielwelt ungefähr eine Stunde. Als Rastaktion kannst du bei dir oder einem Verbündeten 1W4 + Rang Trefferpunkte entfernen, bei dir 1W4 + Rang Stress entfernen, an deiner oder einer verbündeten Rüstung 1W4 + Rang Rüstungsplätze reparieren oder dich vorbereiten.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 2,
+            "panelId": "panel-regel-rast-3",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Ende der kurzen Rast",
+          "html": "<p>Am Ende werden alle begrenzten Nutzungen pro Rast aufgefrischt. Merkmale und Effekte, die bis zur nächsten Rast gelten, enden.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 3,
+            "panelId": "panel-regel-rast-4",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Lange Rast",
+          "html": "<p>Eine lange Rast umfasst mehrere Stunden Schlaf oder Erholung. Als Rastaktion kannst du bei dir oder einem Verbündeten alle Trefferpunkte entfernen, bei dir allen Stress entfernen, an deiner oder einer verbündeten Rüstung alle Rüstungsplätze reparieren, dich vorbereiten oder an einem Projekt arbeiten.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 4,
+            "panelId": "panel-regel-rast-5",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Vorbereiten",
+          "html": "<p>Beschreibe deine Vorbereitung auf den weiteren Weg und erhalte 1 Hoffnung. Bereitest du dich gemeinsam mit mindestens einem weiteren Gruppenmitglied vor, erhalten alle beteiligten Figuren jeweils 2 Hoffnung.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 5,
+            "panelId": "panel-regel-rast-6",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "An einem Projekt arbeiten",
+          "html": "<p>Mit Zustimmung der Spielleitung kannst du während einer langen Rast ein langfristiges Projekt beginnen oder fortsetzen. Ein neues Projekt erhält einen Countdown; jede Projektaktion lässt ihn nach Wahl der Spielleitung automatisch voranschreiten oder verlangt dafür einen Aktionswurf.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 6,
+            "panelId": "panel-regel-rast-7",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Ende der langen Rast",
+          "html": "<p>Am Ende werden begrenzte Nutzungen pro Rast und pro langer Rast aufgefrischt. Merkmale und Effekte, die bis zur nächsten Rast oder bis zur nächsten langen Rast gelten, enden.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 7,
+            "panelId": "panel-regel-rast-8",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Folge für die Spielleitung",
+          "html": "<p>Nach einer kurzen Rast erhält die Spielleitung 1W4 Furcht. Nach einer langen Rast erhält sie 1W4 + Anzahl der Spielerfiguren Furcht und darf einen langfristigen Countdown ihrer Wahl voranschreiten lassen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 8,
+            "panelId": "panel-regel-rast-9",
+            "feld": 0
+          }
+        }
+      ],
+      "verbindungen": [],
+      "geaendert": "2026-08-25T23:58:46.485Z"
+    },
+    {
+      "id": "regel-tod",
+      "name": "Tod und Todeszüge",
+      "kategorie": "regeln",
+      "unterart": "Konflikte",
+      "kurz": "Markiert eine Spielerfigur ihren letzten Trefferpunkt, fällt sie und muss einen von drei Todeszügen wählen. Damit entscheidet die spielende Person selbst, ob die Figur stirbt, dem Tod entgeht oder alles riskiert.",
+      "aliase": [],
+      "quelle": "",
+      "attribute": [
+        {
+          "schluessel": "regelBereich",
+          "beschriftung": "Bereich",
+          "wert": "Konflikte"
+        },
+        {
+          "schluessel": "regelStichworte",
+          "beschriftung": "Stichworte",
+          "wert": "tod, death move, narbe, bewusstlos, letzter trefferpunkt, hope-würfel, fear-würfel"
+        }
+      ],
+      "abschnitte": [
+        {
+          "titel": "Glorreicher Abgang",
+          "html": "<p>Die Figur nimmt den Tod an und führt eine letzte Aktion aus. Mit Zustimmung der Spielleitung gelingt sie automatisch kritisch; anschließend stirbt die Figur.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 0,
+            "panelId": "panel-regel-tod-1",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Dem Tod entgehen",
+          "html": "<p>Die Figur wird vorübergehend bewusstlos und du beschreibst gemeinsam mit der Spielleitung, wie sich die Lage verschlimmert. Solange sie bewusstlos ist, kann sie sich weder bewegen noch handeln und nicht zum Ziel eines Angriffs werden. Sie erwacht, sobald ein Verbündeter mindestens einen ihrer markierten Trefferpunkte entfernt oder die Gruppe eine lange Rast beendet.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 1,
+            "panelId": "panel-regel-tod-2",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Narbe",
+          "html": "<p>Nachdem die Figur bewusstlos geworden ist, würfelst du ihren Hope-Würfel. Ist das Ergebnis höchstens so hoch wie ihre Stufe, erhält sie eine Narbe: Streiche dauerhaft ein Hoffnungsfeld und bestimme gemeinsam mit der Spielleitung die bleibende erzählerische Auswirkung sowie eine mögliche Wiederherstellung. Wird das letzte Hoffnungsfeld gestrichen, endet die Reise der Figur.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 2,
+            "panelId": "panel-regel-tod-3",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Alles riskieren",
+          "html": "<p>Würfle die Dualitätswürfel. Ist der Hope-Würfel höher, bleibt die Figur auf den Beinen und entfernt insgesamt Trefferpunkte und Stress in Höhe dieses Würfels; die Menge darf beliebig zwischen beiden verteilt werden. Ist der Fear-Würfel höher, stirbt die Figur. Bei gleichen Ergebnissen bleibt sie auf den Beinen und entfernt alle Trefferpunkte und allen Stress.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 3,
+            "panelId": "panel-regel-tod-4",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Unmittelbar tödliche Handlung",
+          "html": "<p>Würde eine Handlung nach der Logik der Spielwelt unmittelbar zum Tod führen, kann die Spielleitung festlegen, dass kein Todeszug möglich ist. Diese Folge muss vor Abschluss der Handlung deutlich gemacht werden.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 4,
+            "panelId": "panel-regel-tod-5",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Nach dem Tod",
+          "html": "<p>Stirbt eine Figur, erstellst du vor der nächsten Spielsitzung gemeinsam mit der Spielleitung eine neue Figur auf der aktuellen Stufe der übrigen Gruppe.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 5,
+            "panelId": "panel-regel-tod-6",
+            "feld": 0
+          }
+        }
+      ],
+      "verbindungen": [],
+      "geaendert": "2026-08-25T23:58:46.485Z"
+    },
+    {
+      "id": "regel-sl-wuerfe-schwierigkeit",
+      "name": "SL-Würfe und Schwierigkeiten",
+      "kategorie": "regeln",
+      "unterart": "Spielleitung",
+      "kurz": "Die Spielleitung verfügt über keine Dualitätswürfel. Wenn für einen Gegner ein Wurf nötig ist, verwendet sie einen einzelnen W20 als SL-Würfel; viele Gegnerhandlungen werden jedoch ohne eigenen Wurf abgehandelt.",
+      "aliase": [],
+      "quelle": "",
+      "attribute": [
+        {
+          "schluessel": "regelBereich",
+          "beschriftung": "Bereich",
+          "wert": "Spielleitung"
+        },
+        {
+          "schluessel": "regelStichworte",
+          "beschriftung": "Stichworte",
+          "wert": "gm, sl, w20, schwierigkeit, difficulty, angriff, reaktionswurf, erfahrung, vorteil, nachteil"
+        }
+      ],
+      "abschnitte": [
+        {
+          "titel": "Gegnerangriff",
+          "html": "<p>Würfle den W20 und addiere den Angriffsmodifikator des Gegners. Erreicht oder übertrifft die Summe das Ausweichen des Ziels, gelingt der Angriff und verursacht den im Gegnerprofil angegebenen Schaden.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 0,
+            "panelId": "panel-regel-sl-wuerfe-schwierigkeit-1",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Natürliche 20",
+          "html": "<p>Eine natürliche 20 lässt einen Gegnerangriff automatisch gelingen. Würfle den Schaden normal und addiere zusätzlich die Summe der Maximalwerte aller Schadenswürfel; der feste Schadensmodifikator wird nicht verdoppelt.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 1,
+            "panelId": "panel-regel-sl-wuerfe-schwierigkeit-2",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Angriff gegen mehrere Ziele",
+          "html": "<p>Richtet sich derselbe Gegnerangriff gegen mehrere Ziele, würfelst du nur einmal und vergleichst das Ergebnis einzeln mit dem Ausweichen jedes Ziels.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 2,
+            "panelId": "panel-regel-sl-wuerfe-schwierigkeit-3",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Andere Gegnerhandlungen",
+          "html": "<p>Abgesehen von Angriffen und besonderen Handlungen im Gegnerprofil führen Gegner normalerweise keine Aktionswürfe aus. Andere Handlungen gelingen automatisch. Soll ein Scheitern möglich sein, würfeln stattdessen alle betroffenen Spielerfiguren passende Reaktionswürfe.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 3,
+            "panelId": "panel-regel-sl-wuerfe-schwierigkeit-4",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Besondere Gegnerwürfe",
+          "html": "<p>Für eine besonders dramatische oder schwierige Handlung, welche die Spielerfiguren nicht beeinflussen können, darfst du dennoch einen Gegner-Aktionswurf ausführen: W20 gegen eine festgelegte Schwierigkeit; Gleichstand oder höher gelingt. Gegner-Reaktionswürfe funktionieren genauso. Eine natürliche 20 bei einem Reaktionswurf gelingt automatisch, gewährt aber keinen weiteren Vorteil.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 4,
+            "panelId": "panel-regel-sl-wuerfe-schwierigkeit-5",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Richtwerte",
+          "html": "<p>Hat ein Aktionswurf keine vorgegebene Schwierigkeit, bestimmst du sie aus der Gesamtheit der Umstände. Das Core Rulebook verwendet dafür 5er-Schritte: 5 sehr leicht, 10 leicht, 15 mittel, 20 schwer, 25 sehr schwer und 30 nahezu unmöglich.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 5,
+            "panelId": "panel-regel-sl-wuerfe-schwierigkeit-6",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Spielerwürfe gegen Gegner",
+          "html": "<p>Ein Angriff gegen einen Gegner nutzt ausschließlich dessen Schwierigkeit. Bei anderen Aktionswürfen gegen ihn erhöht eine passende Erfahrung aus seinem Gegnerprofil die Schwierigkeit um ihren angegebenen Wert.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 6,
+            "panelId": "panel-regel-sl-wuerfe-schwierigkeit-7",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Gegner-Erfahrung auf SL-Würfen",
+          "html": "<p>Vor einem Angriffs-, Aktions- oder Reaktionswurf eines Gegners kannst du 1 Furcht ausgeben, um eine passende Erfahrung aus seinem Profil zum Wurfergebnis zu addieren.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 7,
+            "panelId": "panel-regel-sl-wuerfe-schwierigkeit-8",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Vorteil und Nachteil",
+          "html": "<p>Um günstige oder ungünstige Umstände für eine Spielerfigur abzubilden, vergibst du besser Vorteil oder Nachteil, statt die Schwierigkeit zu verändern. Hat ein Gegner Vorteil oder Nachteil, würfelst du einen zusätzlichen W20 und behältst das höhere beziehungsweise niedrigere Ergebnis.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 8,
+            "panelId": "panel-regel-sl-wuerfe-schwierigkeit-9",
+            "feld": 0
+          }
+        }
+      ],
+      "verbindungen": [],
+      "geaendert": "2026-08-25T23:58:46.485Z"
+    },
+    {
+      "id": "regel-sl-zuege",
+      "name": "SL-Züge und Wurffolgen",
+      "kategorie": "regeln",
+      "unterart": "Spielleitung",
+      "kurz": "Ein SL-Zug verändert die Geschichte als Reaktion auf die Handlungen der Gruppe. Er ist keine feste Aktionsliste: Die Fiktion bestimmt seine Form. Ein SL-Zug beginnt, wenn das Spotlight zur Spielleitung wechselt, und endet, wenn es zu den Spielenden zurückkehrt.",
+      "aliase": [],
+      "quelle": "",
+      "attribute": [
+        {
+          "schluessel": "regelBereich",
+          "beschriftung": "Bereich",
+          "wert": "Spielleitung"
+        },
+        {
+          "schluessel": "regelStichworte",
+          "beschriftung": "Stichworte",
+          "wert": "gm move, sl zug, folge, konsequenz, hart, weich, ja und, ja aber, nein aber, nein und, spotlight"
+        }
+      ],
+      "abschnitte": [
+        {
+          "titel": "Vor dem Aktionswurf",
+          "html": "<p>Prüfe zunächst, ob ein Wurf überhaupt nötig ist. Berücksichtige Erfahrungen, Hintergrund, Druck und mögliche Ergebnisse der Figur. Lege Einsatz und unvermeidbare Folgen vor dem Wurf offen. Du kannst auch anbieten, auf den Wurf zu verzichten, wenn die spielende Person stattdessen einem interessanten Ergebnis, Preis oder einer Komplikation zustimmt.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 0,
+            "panelId": "panel-regel-sl-zuege-1",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Wann ein Zug passt",
+          "html": "<p>Ein SL-Zug bietet sich besonders an, wenn eine Spielerfigur mit Furcht würfelt, einen Aktionswurf verfehlt, etwas mit unvermeidbaren Folgen tut, der Spielleitung eine unmittelbare Gelegenheit eröffnet oder alle auf die Spielleitung schauen, um zu erfahren, was als Nächstes geschieht. Häufigkeit und Härte richten sich nach Geschichte, Handlungen und Ton der Spielsitzung.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 1,
+            "panelId": "panel-regel-sl-zuege-2",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Kritischer Erfolg",
+          "html": "<p>Die spielende Person beschreibt den Erfolg und erhält eine zusätzliche Gelegenheit oder einen Vorteil.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 2,
+            "panelId": "panel-regel-sl-zuege-3",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Erfolg mit Hoffnung – Ja, und …",
+          "html": "<p>Die Spielerfigur erreicht ihr Ziel und erhält Hoffnung. Die spielende Person beschreibt den Erfolg; anschließend zeigst du, wie die Welt darauf reagiert.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 3,
+            "panelId": "panel-regel-sl-zuege-4",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Erfolg mit Furcht – Ja, aber …",
+          "html": "<p>Die Spielerfigur erreicht ihr Ziel, aber die Spielleitung erhält Furcht. Beschreibt den Erfolg gemeinsam; führe danach mit einem SL-Zug eine kleine Folge, Komplikation oder einen Preis ein, etwa einen Gegnerangriff, markierten Stress, eine neue Bedrohung oder steigende Risiken.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 4,
+            "panelId": "panel-regel-sl-zuege-5",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Fehlschlag mit Hoffnung – Nein, aber …",
+          "html": "<p>Beschreibe, wie die Spielerfigur ihr Ziel verfehlt. Sie erhält Hoffnung; anschließend führst du mit einem SL-Zug eine kleine Folge, Komplikation oder einen Preis ein.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 5,
+            "panelId": "panel-regel-sl-zuege-6",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Fehlschlag mit Furcht – Nein, und …",
+          "html": "<p>Beschreibe, wie die Dinge schiefgehen. Die Spielleitung erhält Furcht; anschließend führst du mit einem SL-Zug eine große Folge, Komplikation oder einen hohen Preis ein, etwa unmittelbare Gefahr, den Fokus mehrerer Gegner, eine Trennung oder den dauerhaften Verlust einer wichtigen Gelegenheit.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 6,
+            "panelId": "panel-regel-sl-zuege-7",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Weich oder hart",
+          "html": "<p>Weiche Züge geben neue Informationen und eine Gelegenheit zur Reaktion. Harte Züge sind unmittelbarer und lassen keine Gelegenheit, ihre Folge noch abzufangen, zu verändern oder vorherzusehen. Nutze bei Hoffnung eher weiche und bei Furcht eher harte Züge.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 7,
+            "panelId": "panel-regel-sl-zuege-8",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Information und Druck",
+          "html": "<p>Wenn die Fiktion keinen offensichtlichen Zug vorgibt, kannst du zeigen, wie die Welt reagiert, eine Frage stellen und auf der Antwort aufbauen, die spielende Person beschreiben lassen, was geschieht, vorerst Entwarnung geben, eine Nichtspielerfigur ihrem Motiv folgen lassen, ein Ziel in Aussicht stellen, eine Bedrohung ankündigen, eine unerwünschte Wahrheit enthüllen oder ein neues Hindernis beziehungsweise einen neuen Gegner einführen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 8,
+            "panelId": "panel-regel-sl-zuege-9",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Direkte Veränderungen",
+          "html": "<p>Weitere offizielle Beispielzüge sind: eine Spielerfigur Stress markieren lassen, jemanden in unmittelbare Gefahr bringen, die Gruppe trennen, eine unsichtbare Entwicklung auslösen, Kollateralschaden zeigen, einen gegnerischen Zustand entfernen, die Umgebung verändern, einen Gegner ins Spotlight setzen, jemanden oder etwas Wichtiges in gegnerische Gewalt bringen, einen Hintergrund gegen eine Figur verwenden oder eine Gelegenheit dauerhaft nehmen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 9,
+            "panelId": "panel-regel-sl-zuege-10",
+            "feld": 0
+          }
+        }
+      ],
+      "verbindungen": [],
+      "geaendert": "2026-08-25T23:58:46.485Z"
+    },
+    {
+      "id": "regel-sl-furcht",
+      "name": "Furcht einsetzen",
+      "kategorie": "regeln",
+      "unterart": "Spielleitung",
+      "kurz": "Furcht ist die zentrale Ressource der Spielleitung, um Druck aufzubauen und die Wirkung eines SL-Zugs zu verstärken. Die ausgegebene Menge bestimmt wesentlich die dramatische Spannung einer Szene.",
+      "aliase": [],
+      "quelle": "",
+      "attribute": [
+        {
+          "schluessel": "regelBereich",
+          "beschriftung": "Bereich",
+          "wert": "Spielleitung"
+        },
+        {
+          "schluessel": "regelStichworte",
+          "beschriftung": "Stichworte",
+          "wert": "furcht, fear, ausgeben, spotlight, druck, maximum, furchtmerkmal, gegnererfahrung"
+        }
+      ],
+      "abschnitte": [
+        {
+          "titel": "Start, Maximum und Übertrag",
+          "html": "<p>Zu Beginn einer Kampagne erhält die Spielleitung 1 Furcht pro Spielerfigur. Sie kann höchstens 12 Furcht gleichzeitig besitzen; Furcht bleibt zwischen Spielsitzungen erhalten.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 0,
+            "panelId": "panel-regel-sl-furcht-1",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Furcht erhalten",
+          "html": "<p>Die Spielleitung erhält Furcht, wenn eine Spielerfigur mit Furcht würfelt, die Gruppe eine Rast beendet oder ein Merkmal beziehungsweise Effekt ausdrücklich Furcht gewährt.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 1,
+            "panelId": "panel-regel-sl-furcht-2",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Nicht horten",
+          "html": "<p>Gib Furcht aus, wenn sich eine passende Gelegenheit bietet. Die Spielerfiguren erzeugen im weiteren Spiel neue Furcht.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 2,
+            "panelId": "panel-regel-sl-furcht-3",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Spotlight stehlen",
+          "html": "<p>Gib 1 Furcht aus, um die Spielenden zu unterbrechen, das Spotlight zu übernehmen und sofort einen SL-Zug auszuführen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 3,
+            "panelId": "panel-regel-sl-furcht-4",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Zusätzlicher SL-Zug",
+          "html": "<p>Gib 1 Furcht aus, um einen zusätzlichen SL-Zug auszuführen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 4,
+            "panelId": "panel-regel-sl-furcht-5",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Furchtmerkmale",
+          "html": "<p>Gib die beim Merkmal angegebenen Furchtkosten aus, um ein Furchtmerkmal eines Gegners oder einer Umgebung einzusetzen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 5,
+            "panelId": "panel-regel-sl-furcht-6",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Gegnererfahrung",
+          "html": "<p>Gib vor einem Angriffs-, Aktions- oder Reaktionswurf eines Gegners 1 Furcht aus, um eine passende Erfahrung aus seinem Profil zum Wurfergebnis zu addieren.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 6,
+            "panelId": "panel-regel-sl-furcht-7",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Furchtbedarf einer Szene",
+          "html": "<p>Als Richtwert gelten: unbedeutende Szene 0–1 Furcht, kleine Szene 1–3, Standardszene 2–4, große Szene 4–8 und klimaktische Szene 6–12 Furcht.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 7,
+            "panelId": "panel-regel-sl-furcht-8",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Großen Vorrat abbauen",
+          "html": "<p>Besitzt du viel Furcht, kannst du sie schneller ausgeben, bevor die Spielenden reagieren, sie bei jedem Wechsel des Spotlights einsetzen oder mehrere SL-Züge nacheinander ausführen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 8,
+            "panelId": "panel-regel-sl-furcht-9",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Stärkere Wirkung",
+          "html": "<p>Eine mit Furcht verstärkte Veränderung darf deutlich gewichtiger sein, etwa unangekündigte neue Gegner, eine mächtige Verwandlung oder ein verheerender Zauber eines Gegners sowie ein starker negativer Umgebungseffekt.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 9,
+            "panelId": "panel-regel-sl-furcht-10",
+            "feld": 0
+          }
+        }
+      ],
+      "verbindungen": [],
+      "geaendert": "2026-08-25T23:58:46.485Z"
+    },
+    {
+      "id": "regel-gegner-fuehren",
+      "name": "Gegner führen",
+      "kategorie": "regeln",
+      "unterart": "Spielleitung",
+      "kurz": "Wechselt das Spiel zur Spielleitung, kann sie mit einem SL-Zug einen Gegner ins Spotlight setzen. Was der Gegner tut, ergibt sich aus seinem Profil und der Fiktion.",
+      "aliase": [],
+      "quelle": "",
+      "attribute": [
+        {
+          "schluessel": "regelBereich",
+          "beschriftung": "Bereich",
+          "wert": "Spielleitung"
+        }
+      ],
+      "abschnitte": [
+        {
+          "titel": "Bewegen und angreifen",
+          "html": "<p>Ein Gegner im Spotlight darf sich innerhalb der Reichweite „Nah“ bewegen und seinen Standardangriff ausführen. Der Standardangriff nennt Angriffsart, Reichweite und Schaden und zählt als SL-Zug.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 0,
+            "panelId": "panel-regel-gegner-fuehren-1",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Bewegen und Gegneraktion",
+          "html": "<p>Statt des Standardangriffs darf sich der Gegner innerhalb „Nah“ bewegen und ein Aktionsmerkmal aus seinem Profil einsetzen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 1,
+            "panelId": "panel-regel-gegner-fuehren-2",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Weitere Möglichkeiten",
+          "html": "<p>Der Gegner darf einen Zustand entfernen, innerhalb „Weit“ oder „Sehr weit“ über das Schlachtfeld sprinten oder etwas anderes tun, das die Fiktion verlangt und die Spielleitung für angemessen hält.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 2,
+            "panelId": "panel-regel-gegner-fuehren-3",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Zusätzliche Gegner",
+          "html": "<p>Gib zusätzliche Furcht aus, um vor dem Ende des SL-Zugs weitere Gegner ins Spotlight zu setzen. Sobald die Spielleitung fertig ist, wechselt das Spotlight zurück zu den Spielerfiguren.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 3,
+            "panelId": "panel-regel-gegner-fuehren-4",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Gegnerprofil",
+          "html": "<p>Ein Gegnerprofil enthält Name, Rang, Typ, Beschreibung, Motive und Taktiken, Schwierigkeit, Schadensschwellen, Trefferpunkte, Stress, Angriffsmodifikator, Standardangriff sowie gegebenenfalls Erfahrungen und Merkmale.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 4,
+            "panelId": "panel-regel-gegner-fuehren-5",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Brecher, Horde, Anführer und Scherge",
+          "html": "<p>Brecher sind widerstandsfähig und führen starke Angriffe aus. Horden bestehen aus identischen Kreaturen, die als Einheit handeln. Anführer befehligen oder beschwören andere Gegner. Schergen sind leicht auszuschalten, werden in großer Zahl aber gefährlich.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 5,
+            "panelId": "panel-regel-gegner-fuehren-6",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Fernkämpfer und Lauerer",
+          "html": "<p>Fernkämpfer verursachen auf Entfernung hohen Schaden, sind im Nahkampf jedoch anfällig. Lauerer bewegen sich geschickt und nutzen Gelegenheiten für Hinterhalte.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 6,
+            "panelId": "panel-regel-gegner-fuehren-7",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Sozial, Einzelgegner, Standard und Unterstützung",
+          "html": "<p>Soziale Gegner erzeugen vor allem Herausforderungen in Gesprächen. Einzelgegner fordern eine ganze Gruppe allein oder mit Unterstützung. Standardgegner repräsentieren ihre jeweilige Gruppe. Unterstützer stärken Verbündete und behindern ihre Gegner.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 7,
+            "panelId": "panel-regel-gegner-fuehren-8",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Aktions-, Reaktions- und passive Merkmale",
+          "html": "<p>Aktionsmerkmale sind besondere Angriffe oder Handlungen und benötigen das Spotlight. Reaktionsmerkmale wirken bei ihrem angegebenen Auslöser unabhängig vom Spotlight. Passive Merkmale gelten standardmäßig dauerhaft und benötigen weder Auslöser noch Ressource.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 8,
+            "panelId": "panel-regel-gegner-fuehren-9",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Stresskosten",
+          "html": "<p>Der Stress jedes Gegners wird einzeln verwaltet. Verlangt ein Merkmal Stress, muss genau der Gegner, dem dieses Merkmal gehört, den Stress markieren.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 9,
+            "panelId": "panel-regel-gegner-fuehren-10",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Furchtmerkmale und zusätzliche Kosten",
+          "html": "<p>Furchtmerkmale sind besonders wirkungsvolle Effekte mit eigenen Furchtkosten. Diese Kosten kommen zu bereits ausgegebener Furcht hinzu, beispielsweise zu den Kosten, mit denen du die Spielenden unterbrichst und den Gegner ins Spotlight setzt.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 10,
+            "panelId": "panel-regel-gegner-fuehren-11",
+            "feld": 0
+          }
+        }
+      ],
+      "verbindungen": [],
+      "geaendert": "2026-08-25T23:58:46.485Z"
+    },
+    {
+      "id": "regel-begegnungen",
+      "name": "Begegnungen mit Kampfpunkten",
+      "kategorie": "regeln",
+      "unterart": "Spielleitung",
+      "kurz": "Beim Planen eines Kampfes liefern Kampfpunkte ein Ausgangsbudget für Anzahl und Typen der beteiligten Gegner. Passe dieses Budget zunächst an die gewünschte Länge und Schwierigkeit an und stelle danach die Begegnung zusammen.",
+      "aliase": [],
+      "quelle": "",
+      "attribute": [
+        {
+          "schluessel": "regelBereich",
+          "beschriftung": "Bereich",
+          "wert": "Spielleitung"
+        },
+        {
+          "schluessel": "regelStichworte",
+          "beschriftung": "Stichworte",
+          "wert": "kampfpunkte, battle points, balance, begegnung, budget, schergen, einzelgegner, gegnerkosten"
+        }
+      ],
+      "abschnitte": [
+        {
+          "titel": "Grundbudget",
+          "html": "<p>Beginne mit 3 × Anzahl der am Kampf beteiligten Spielerfiguren + 2 Kampfpunkten.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 0,
+            "panelId": "panel-regel-begegnungen-1",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Budget verringern",
+          "html": "<p>Ziehe 1 Kampfpunkt für einen leichteren oder kürzeren Kampf ab. Ziehe 2 ab, wenn du mindestens zwei Einzelgegner einsetzt. Ziehe ebenfalls 2 ab, wenn alle Gegner +1W4 oder pauschal +2 auf ihre Schadenswürfe erhalten.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 1,
+            "panelId": "panel-regel-begegnungen-2",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Budget erhöhen",
+          "html": "<p>Füge 1 Kampfpunkt hinzu, wenn du einen Gegner aus einem niedrigeren Rang verwendest. Füge 1 hinzu, wenn die Begegnung weder Brecher noch Horde, Anführer oder Einzelgegner enthält. Füge 2 für einen schwierigeren oder längeren Kampf hinzu.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 2,
+            "panelId": "panel-regel-begegnungen-3",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Kosten von Schergen, Sozial und Unterstützung",
+          "html": "<p>Eine Gruppe Schergen mit so vielen Mitgliedern wie beteiligten Spielerfiguren kostet 1 Kampfpunkt. Jeder soziale Gegner und jeder Unterstützer kostet ebenfalls 1 Kampfpunkt.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 3,
+            "panelId": "panel-regel-begegnungen-4",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Kosten von Horde, Fernkampf, Lauerer und Standard",
+          "html": "<p>Jeder Gegner der Typen Horde, Fernkämpfer, Lauerer oder Standard kostet 2 Kampfpunkte.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 4,
+            "panelId": "panel-regel-begegnungen-5",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Kosten von Anführer, Brecher und Einzelgegner",
+          "html": "<p>Jeder Anführer kostet 3 Kampfpunkte, jeder Brecher 4 und jeder Einzelgegner 5.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 5,
+            "panelId": "panel-regel-begegnungen-6",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Besiegt",
+          "html": "<p>Markiert ein Gegner seinen letzten Trefferpunkt, ist er besiegt. Er kann kampfunfähig, gefesselt, vertrieben, getötet oder auf andere Weise ausgeschaltet sein, auf die sich der Tisch passend zur Fiktion einigt.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 6,
+            "panelId": "panel-regel-begegnungen-7",
+            "feld": 0
+          }
+        }
+      ],
+      "verbindungen": [],
+      "geaendert": "2026-08-25T23:58:46.485Z"
+    },
+    {
+      "id": "regel-countdowns",
+      "name": "Countdowns",
+      "kategorie": "regeln",
+      "unterart": "Spielleitung",
+      "kurz": "Ein Countdown bildet eine Zeitspanne oder eine Reihe von Ereignissen vor einem zukünftigen Effekt ab. Er beginnt bei einem Startwert. Jedes Vorrücken senkt den Wert; erreicht er 0, wird der festgelegte Effekt ausgelöst.",
+      "aliase": [],
+      "quelle": "",
+      "attribute": [
+        {
+          "schluessel": "regelBereich",
+          "beschriftung": "Bereich",
+          "wert": "Spielleitung"
+        },
+        {
+          "schluessel": "regelStichworte",
+          "beschriftung": "Stichworte",
+          "wert": "countdown, uhr, fortschritt, konsequenz, timer, schleife, gekoppelt, langfristig, startwert"
+        }
+      ],
+      "abschnitte": [
+        {
+          "titel": "Darstellung",
+          "html": "<p>Verwende einen herunterzählenden Würfel oder streiche nacheinander Kästchen ab, um den aktuellen Wert sichtbar zu halten.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 0,
+            "panelId": "panel-regel-countdowns-1",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Standard-Countdown",
+          "html": "<p>Ein Standard-Countdown rückt nach jedem Aktionswurf einer Spielerfigur um 1 vor. Bezeichnet ein Gegner- oder Umgebungsmerkmal lediglich einen „Countdown (n)“, ist damit ein Standard-Countdown mit dem Startwert n gemeint.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 1,
+            "panelId": "panel-regel-countdowns-2",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Dynamische Countdowns",
+          "html": "<p>Ein dynamischer Countdown rückt abhängig vom Ergebnis eines Aktionswurfs um bis zu 3 vor. Ein Fortschritts-Countdown führt zu einem positiven Effekt, ein Konsequenz-Countdown zu einem negativen Effekt.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 2,
+            "panelId": "panel-regel-countdowns-3",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Fortschritts-Countdown",
+          "html": "<p>Bei einem Fehlschlag mit Hoffnung oder Furcht rückt er nicht vor. Bei einem Erfolg mit Furcht sinkt er um 1, bei einem Erfolg mit Hoffnung um 2 und bei einem kritischen Erfolg um 3.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 3,
+            "panelId": "panel-regel-countdowns-4",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Konsequenz-Countdown",
+          "html": "<p>Bei einem Fehlschlag mit Furcht sinkt er um 3, bei einem Fehlschlag mit Hoffnung um 2 und bei einem Erfolg mit Furcht um 1. Bei einem Erfolg mit Hoffnung oder einem kritischen Erfolg rückt er nicht vor.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 4,
+            "panelId": "panel-regel-countdowns-5",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Zufälliger Startwert",
+          "html": "<p>Ein erweiterter Countdown kann seinen Startwert durch einen Würfelwurf oder einen anderen zufälligen Wert bestimmen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 5,
+            "panelId": "panel-regel-countdowns-6",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Schleifen-Countdown",
+          "html": "<p>Nach dem Auslösen seines Effekts springt ein Schleifen-Countdown auf seinen Startwert zurück und beginnt erneut.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 6,
+            "panelId": "panel-regel-countdowns-7",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Wachsende und schrumpfende Schleifen",
+          "html": "<p>Bei einer wachsenden Schleife steigt der Startwert nach jedem Durchlauf um 1. Bei einer schrumpfenden Schleife sinkt er nach jedem Durchlauf um 1.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 7,
+            "panelId": "panel-regel-countdowns-8",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Gekoppelte Countdowns",
+          "html": "<p>Ein Fortschritts- und ein Konsequenz-Countdown können gekoppelt werden. Beide werden gleichzeitig anhand desselben Ergebnisses eines Aktionswurfs und ihrer jeweiligen Ergebnisspalte ausgewertet.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 8,
+            "panelId": "panel-regel-countdowns-9",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Langfristiger Countdown",
+          "html": "<p>Ein langfristiger Countdown rückt durch Rasten statt durch Aktionswürfe vor und eignet sich für Entwicklungen, die sich über einen längeren Zeitraum entfalten.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 9,
+            "panelId": "panel-regel-countdowns-10",
+            "feld": 0
+          }
+        }
+      ],
+      "verbindungen": [],
+      "geaendert": "2026-08-25T23:58:46.485Z"
+    },
+    {
+      "id": "regel-nsc-umgebungen",
+      "name": "NSC und Umgebungen",
+      "kategorie": "regeln",
+      "unterart": "Spielleitung",
+      "kurz": "NSC benötigen nur die Werte, die im Spiel tatsächlich verwendet werden. Umgebungen bilden alles in einer Szene jenseits der Spielerfiguren und Gegner ab, darunter den Schauplatz, Nebenfiguren im Hintergrund und Naturkräfte.",
+      "aliase": [],
+      "quelle": "",
+      "attribute": [
+        {
+          "schluessel": "regelBereich",
+          "beschriftung": "Bereich",
+          "wert": "Spielleitung"
+        },
+        {
+          "schluessel": "regelStichworte",
+          "beschriftung": "Stichworte",
+          "wert": "nsc, npc, umgebung, environment, motivation, erkundung, sozial, reise, ereignis, impulse, merkmale"
+        }
+      ],
+      "abschnitte": [
+        {
+          "titel": "NSC-Grundlage",
+          "html": "<p>Die einzigen unverzichtbaren Angaben sind Name, Beschreibung und Motiv. Unterscheide NSC durch eigene Sprech- und Handlungsweisen und lass ihre individuellen Ziele und Wünsche ihre Entscheidungen antreiben.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 0,
+            "panelId": "panel-regel-nsc-umgebungen-1",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Schwierigkeit und Gegnerprofil",
+          "html": "<p>Gib einem NSC eine Schwierigkeit, wenn die Spielerfiguren wahrscheinlich Aktionswürfe gegen ihn ausführen. Soll er als Gegner funktionieren, kannst du ein passendes Gegnerprofil verändern oder auf dessen Grundlage improvisieren.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 1,
+            "panelId": "panel-regel-nsc-umgebungen-2",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Verbündete NSC",
+          "html": "<p>Ein verbündeter NSC benötigt im Kampf keinen Werteblock. Setze ihn ins Spotlight, beschreibe seine Handlung und zeige ihre Wirkung in der Fiktion. Nutzt eine Spielerfigur diese Hilfe, erhält sie Vorteil. Auch NSC ohne Trefferpunkte oder Stress können verletzt oder getötet werden, wenn es die Fiktion verlangt.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 2,
+            "panelId": "panel-regel-nsc-umgebungen-3",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Wichtige NSC",
+          "html": "<p>Soll ein wichtiger NSC mechanisch in das Spiel eingreifen, gib ihm ein oder mehrere Merkmale mit klaren Auslösern und Effekten. Ein Merkmal kann außerdem eine Wahl enthalten, die seine Parameter verändert.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 3,
+            "panelId": "panel-regel-nsc-umgebungen-4",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Umgebungsprofil",
+          "html": "<p>Ein Umgebungsprofil enthält Name, Rang, Typ, eine kurze Beschreibung, Impulse, Schwierigkeit, mögliche Gegner, Merkmale und Merkmalsfragen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 4,
+            "panelId": "panel-regel-nsc-umgebungen-5",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Vier Umgebungstypen",
+          "html": "<p>Erkundungen sind wundersame Orte mit Geheimnissen und Entdeckungen. Soziale Umgebungen stellen zwischenmenschliche Herausforderungen in den Mittelpunkt. Reisen machen die Bewegung durch einen gefährlichen Raum zur Herausforderung. Ereignisse bilden besondere Aktivitäten oder Geschehnisse statt eines physischen Ortes ab.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 5,
+            "panelId": "panel-regel-nsc-umgebungen-6",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Impulse und Schwierigkeit",
+          "html": "<p>Impulse beschreiben, wie die Umgebung die Personen in ihr antreibt oder unter Druck setzt. Die Schwierigkeit ist der Standardwert für Aktionswürfe, mit denen Figuren die Umgebung oder ihre Elemente überwinden, bekämpfen oder ihnen widerstehen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 6,
+            "panelId": "panel-regel-nsc-umgebungen-7",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Gegner, Merkmale und Fragen",
+          "html": "<p>Mögliche Gegner schlagen passende Gegner für Szenen in dieser Umgebung vor. Merkmale liefern SL-Züge für eine dynamische Landschaft oder Situation. Merkmalsfragen erzeugen Aufhänger, erzählerische Entwicklungen und Verbindungen zu anderen Elementen der Geschichte.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 7,
+            "panelId": "panel-regel-nsc-umgebungen-8",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Rangwerte 1 und 2",
+          "html": "<p>Eine Umgebung für Rang 1 und Stufe 1 verwendet Schwierigkeit 11 und Schadenswerte von 1W6+1 bis 1W8+3. Für Rang 2 und die Stufen 2–4 gelten Schwierigkeit 14 und 2W6+3 bis 2W10+2.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 8,
+            "panelId": "panel-regel-nsc-umgebungen-9",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Rangwerte 3 und 4",
+          "html": "<p>Eine Umgebung für Rang 3 und die Stufen 5–7 verwendet Schwierigkeit 17 und Schadenswerte von 3W8+3 bis 3W10+1. Für Rang 4 und die Stufen 8–10 gelten Schwierigkeit 20 und 4W8+3 bis 4W10+10.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 9,
+            "panelId": "panel-regel-nsc-umgebungen-10",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Umgebung anpassen",
+          "html": "<p>Passt kein vorhandenes Profil genau, verändere bei einem ähnlichen Profil Beschreibung, Impulse und einzelne Merkmale. Für einen anderen Rang ersetzt du seine mechanischen Werte durch die Richtwerte des gewünschten Rangs. Diese Anpassungen dürfen auch während der Spielsitzung improvisiert werden.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 10,
+            "panelId": "panel-regel-nsc-umgebungen-11",
+            "feld": 0
+          }
+        }
+      ],
+      "verbindungen": [],
+      "geaendert": "2026-08-25T23:58:46.485Z"
+    },
+    {
+      "id": "regel-glossar",
+      "name": "Glossar",
+      "kategorie": "regeln",
+      "unterart": "Nachschlagen",
+      "kurz": "Die festen deutschen Begriffe des Regelwerks, alphabetisch. Sie werden im übrigen Wiki automatisch verlinkt.",
+      "aliase": [],
+      "quelle": "",
+      "attribute": [
+        {
+          "schluessel": "regelBereich",
+          "beschriftung": "Bereich",
+          "wert": "Nachschlagen"
+        },
+        {
+          "schluessel": "regelBegriffe",
+          "beschriftung": "Begriffe",
+          "wert": "43"
+        }
+      ],
+      "abschnitte": [
+        {
+          "titel": "Aktionswurf",
+          "html": "<p>Dualitätswurf für eine schwierige oder riskante Handlung mit ungewissem Ausgang und interessanten Folgen. Das Gesamtergebnis wird mit einer Schwierigkeit verglichen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 0,
+            "panelId": "panel-regel-glossar-1",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Angriffswurf",
+          "html": "<p>Aktionswurf mit dem Ziel, Schaden zu verursachen. Spielerfiguren würfeln gegen die Schwierigkeit eines Gegners, Gegner gegen das Ausweichen einer Spielerfigur.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 1,
+            "panelId": "panel-regel-glossar-2",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Auslage (Loadout)",
+          "html": "<p>Die höchstens fünf erworbenen Domänenkarten, deren Effekte für eine Figur aktuell aktiv und verfügbar sind.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 2,
+            "panelId": "panel-regel-glossar-3",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Ausweichen",
+          "html": "<p>Passiver Zielwert einer Spielerfigur. Ein gegen sie gerichteter Angriff muss diesen Wert erreichen oder übertreffen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 3,
+            "panelId": "panel-regel-glossar-4",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Countdown",
+          "html": "<p>Herunterzählender Wert für eine bevorstehende Entwicklung. Er beginnt bei einem Startwert und löst seinen festgelegten Effekt bei 0 aus.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 4,
+            "panelId": "panel-regel-glossar-5",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Deckung",
+          "html": "<p>Teilweise Sichtbehinderung, durch die ein Angriff Nachteil erhält. Vollständige Deckung unterbricht die Sichtlinie und verhindert den Angriff.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 5,
+            "panelId": "panel-regel-glossar-6",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Direkter Schaden",
+          "html": "<p>Schaden, der nicht durch Rüstungsplätze gesenkt werden kann.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 6,
+            "panelId": "panel-regel-glossar-7",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Domänenkarte",
+          "html": "<p>Erworbene Aktions-, Zauber-, Fähigkeits- oder Grimoirekarte aus einer zugänglichen Klassendomäne. Karten über der eigenen Stufe können nicht erworben werden.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 7,
+            "panelId": "panel-regel-glossar-8",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Dualitätswürfel",
+          "html": "<p>Zwei unterschiedlich erkennbare W12 – Hope-Würfel und Fear-Würfel –, die bei Aktions- und Reaktionswürfen gemeinsam geworfen werden.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 8,
+            "panelId": "panel-regel-glossar-9",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Eigenschaft",
+          "html": "<p>Einer der sechs Grundwerte Beweglichkeit, Stärke, Finesse, Instinkt, Präsenz und Wissen, dessen Modifikator zu passenden Würfen addiert wird.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 9,
+            "panelId": "panel-regel-glossar-10",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Erfahrung",
+          "html": "<p>Frei formulierter Hintergrund, Kompetenzbereich oder Wesenszug. Für 1 Hoffnung kann sein Modifikator zu einem passenden Aktions- oder Reaktionswurf addiert werden.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 10,
+            "panelId": "panel-regel-glossar-11",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Furcht",
+          "html": "<p>Ressource der Spielleitung für das Stehlen des Spotlights, zusätzliche SL-Züge, Gegner-Erfahrungen und Furchtmerkmale. Der normale Höchstwert beträgt 12.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 11,
+            "panelId": "panel-regel-glossar-12",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Furchtmerkmal",
+          "html": "<p>Besonders wirkungsvolles Merkmal eines Gegners oder einer Umgebung mit angegebenen Furchtkosten.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 12,
+            "panelId": "panel-regel-glossar-13",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Gruppenaktionswurf",
+          "html": "<p>Gemeinsame Handlung mit einer führenden Figur. Alle übrigen Beteiligten würfeln Reaktionen; jeder Erfolg gibt +1 und jeder Fehlschlag −1 auf den führenden Aktionswurf.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 13,
+            "panelId": "panel-regel-glossar-14",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Hoffnung",
+          "html": "<p>Ressource der Spielerfiguren für Erfahrungen, Hilfe, Teamwürfe und Merkmale. Eine Figur kann normalerweise höchstens 6 Hoffnung besitzen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 14,
+            "panelId": "panel-regel-glossar-15",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Kampfpunkt",
+          "html": "<p>Budgeteinheit zur Zusammenstellung einer Begegnung. Anzahl und Typ eines Gegners bestimmen seine Kampfpunktekosten.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 15,
+            "panelId": "panel-regel-glossar-16",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Kompetenz",
+          "html": "<p>Wert, der vor allem bestimmt, wie oft der Schadenswürfel einer Waffe gewürfelt wird.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 16,
+            "panelId": "panel-regel-glossar-17",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Kritischer Erfolg",
+          "html": "<p>Entsteht bei gleichen Ergebnissen der Dualitätswürfel, gelingt automatisch, gewährt Hoffnung und entfernt Stress. Bei einem Angriff entsteht zusätzlich kritischer Schaden.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 17,
+            "panelId": "panel-regel-glossar-18",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Multiclass",
+          "html": "<p>Stufenverbesserung ab Stufe 5, durch die eine Figur eine zusätzliche Klasse, eine ihrer Domänen, deren Klassenmerkmal und eine Grundlagenkarte ihrer Subklasse erhält.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 18,
+            "panelId": "panel-regel-glossar-19",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Rang",
+          "html": "<p>Stufenbereich: Rang 1 ist Stufe 1, Rang 2 umfasst 2–4, Rang 3 umfasst 5–7 und Rang 4 umfasst 8–10.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 19,
+            "panelId": "panel-regel-glossar-20",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Rastaktion",
+          "html": "<p>Eine von bis zu zwei Handlungen einer Spielerfigur während einer Rast. Dieselbe verfügbare Rastaktion darf zweimal gewählt werden.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 20,
+            "panelId": "panel-regel-glossar-21",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Reaktionswurf",
+          "html": "<p>Wurf als Antwort auf eine Gefahr. Er erzeugt weder Hoffnung noch Furcht oder zusätzliche SL-Züge und kann nicht durch „Verbündetem helfen“ unterstützt werden.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 21,
+            "panelId": "panel-regel-glossar-22",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Reichweite",
+          "html": "<p>Relative Entfernung zwischen Figuren und Zielen: Nahkampf, Sehr nah, Nah, Weit, Sehr weit oder Außer Reichweite.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 22,
+            "panelId": "panel-regel-glossar-23",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Reserve (Vault)",
+          "html": "<p>Erworbene Domänenkarten außerhalb der Auslage. Ihre Effekte sind inaktiv, bis die Karten wieder in die Auslage verschoben werden.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 23,
+            "panelId": "panel-regel-glossar-24",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Rückruf-Kosten",
+          "html": "<p>Stresskosten, um eine Domänenkarte außerhalb einer Rast aus der Reserve in die Auslage zu verschieben.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 24,
+            "panelId": "panel-regel-glossar-25",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Rüstungsplatz",
+          "html": "<p>Markierbarer Platz einer Rüstung, mit dem eingehender Schaden normalerweise um eine Schadensstufe gesenkt wird.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 25,
+            "panelId": "panel-regel-glossar-26",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Rüstungswert",
+          "html": "<p>Bestimmt die Anzahl der verfügbaren Rüstungsplätze einer Figur und beträgt normalerweise höchstens 12.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 26,
+            "panelId": "panel-regel-glossar-27",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Schadensart",
+          "html": "<p>Körperlich oder magisch. Widerstand und Immunität gelten nur für die jeweils passende Schadensart.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 27,
+            "panelId": "panel-regel-glossar-28",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Schadensschwellen",
+          "html": "<p>Schwere und massive Grenze, anhand derer endgültiger Schaden einer Schadensstufe und damit 1, 2 oder 3 Trefferpunkten zugeordnet wird.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 28,
+            "panelId": "panel-regel-glossar-29",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Schadensstufe",
+          "html": "<p>Leichter, schwerer oder massiver Schaden. Die Stufe bestimmt, ob 1, 2 oder 3 Trefferpunkte markiert werden.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 29,
+            "panelId": "panel-regel-glossar-30",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Schwierigkeit",
+          "html": "<p>Zielwert eines Aktionswurfs. Das Wurfergebnis muss ihn erreichen oder übertreffen, damit die Handlung gelingt.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 30,
+            "panelId": "panel-regel-glossar-31",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "SL-Zug",
+          "html": "<p>Von der Spielleitung beschriebene Veränderung der Geschichte als Reaktion auf Handlungen, Wurfergebnisse oder eine offene Gelegenheit.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 31,
+            "panelId": "panel-regel-glossar-32",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Spotlight",
+          "html": "<p>Der aktuelle Fokus von Erzählung und Regeln; ersetzt eine feste Initiative.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 32,
+            "panelId": "panel-regel-glossar-33",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Stress",
+          "html": "<p>Belastungsleiste und Kosten vieler Merkmale. Wer den letzten Stress markiert, wird Verwundbar; erzwungener weiterer Stress verursacht 1 Trefferpunkt.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 33,
+            "panelId": "panel-regel-glossar-34",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Stufe",
+          "html": "<p>Entwicklungswert einer Spielerfigur von 1 bis 10. Die gesamte Gruppe steigt gemeinsam an erzählerischen Meilensteinen auf.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 34,
+            "panelId": "panel-regel-glossar-35",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Teamwurf",
+          "html": "<p>Gemeinsamer Zug zweier Spielerfiguren für 3 Hoffnung. Beide würfeln getrennt und verwenden anschließend eines der Ergebnisse für beide Handlungen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 35,
+            "panelId": "panel-regel-glossar-36",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Todeszug",
+          "html": "<p>Wahl einer gefallenen Spielerfigur zwischen „Glorreicher Abgang“, „Dem Tod entgehen“ und „Alles riskieren“.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 36,
+            "panelId": "panel-regel-glossar-37",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Trefferpunkt",
+          "html": "<p>Markierbarer Platz für körperliche Gefährdung. Markiert eine Figur ihren letzten Trefferpunkt, fällt sie.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 37,
+            "panelId": "panel-regel-glossar-38",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Verbündetem helfen",
+          "html": "<p>Unterstützung für 1 Hoffnung. Die helfende Figur würfelt einen eigenen Vorteilswürfel; bei mehreren Helfenden zählt nur das höchste Ergebnis.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 38,
+            "panelId": "panel-regel-glossar-39",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Vorteil/Nachteil",
+          "html": "<p>Zusätzlicher W6, dessen Ergebnis zum Wurf addiert oder von ihm abgezogen wird. Vorteil und Nachteil im eigenen Würfelpool heben sich paarweise auf.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 39,
+            "panelId": "panel-regel-glossar-40",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Widerstand/Immunität",
+          "html": "<p>Widerstand halbiert passenden Schaden und rundet auf; Immunität verhindert passenden Schaden vollständig.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 40,
+            "panelId": "panel-regel-glossar-41",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Zauberwurf",
+          "html": "<p>Wurf mit der Zaubereigenschaft einer Subklasse, der nur durch einen ausdrücklich genannten Effekt verlangt wird. Kann er Schaden verursachen, ist er zugleich ein Angriffswurf.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 41,
+            "panelId": "panel-regel-glossar-42",
+            "feld": 0
+          }
+        },
+        {
+          "titel": "Zustand",
+          "html": "<p>Regelwirkung, die eine Figur oder einen Gegner verändert. Vorübergehende Zustände können durch eine passende Handlung entfernt werden; besondere Zustände enden nur unter ihren angegebenen Bedingungen.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 42,
+            "panelId": "panel-regel-glossar-43",
+            "feld": 0
+          }
+        }
+      ],
+      "verbindungen": [],
+      "geaendert": "2026-08-25T23:58:46.485Z"
     }
   ],
   "woerterbuch": {
@@ -2202,6 +5393,32 @@ window.AGE_OF_BEAST_WELT = {
     "gezeitenkind": "species-dh-tidekin",
     "zwerg": "species-dh-zwerg",
     "dwarf": "species-dh-zwerg",
-    "brix borin": "werkstatt-figur-brix-borin"
+    "brix borin": "werkstatt-figur-brix-borin",
+    "spielfluss und spotlight": "regel-spielfluss-spotlight",
+    "aktionswurf": "regel-aktionswurf",
+    "die fünf wurfergebnisse": "regel-wurf-ergebnisse",
+    "eigenschaften und erfahrungen": "regel-eigenschaften-erfahrungen",
+    "angriffs-, zauber- und reaktionswürfe": "regel-sonderwuerfe",
+    "vorteil, nachteil und zusammenarbeit": "regel-vorteil-zusammenarbeit",
+    "hoffnung und furcht": "regel-hoffnung-furcht",
+    "charaktererschaffung": "regel-charaktererschaffung",
+    "domänenkarten, auslage und reserve": "regel-domaenen-loadout",
+    "ausrüstung und gold": "regel-ausruestung-gold",
+    "stufenaufstieg und multiclass": "regel-stufenaufstieg",
+    "angriffe und ausweichen": "regel-angreifen",
+    "schaden, trefferpunkte und rüstung": "regel-schaden-ruestung",
+    "stress": "regel-stress",
+    "reichweite, bewegung und deckung": "regel-reichweite-bewegung",
+    "zustände": "regel-zustaende",
+    "kurze und lange rast": "regel-rast",
+    "tod und todeszüge": "regel-tod",
+    "sl-würfe und schwierigkeiten": "regel-sl-wuerfe-schwierigkeit",
+    "sl-züge und wurffolgen": "regel-sl-zuege",
+    "furcht einsetzen": "regel-sl-furcht",
+    "gegner führen": "regel-gegner-fuehren",
+    "begegnungen mit kampfpunkten": "regel-begegnungen",
+    "countdowns": "regel-countdowns",
+    "nsc und umgebungen": "regel-nsc-umgebungen",
+    "glossar": "regel-glossar"
   }
 };

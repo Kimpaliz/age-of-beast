@@ -1290,3 +1290,37 @@ html[data-thema="hell"] .nav-gruppe[data-kategorie="werkstatt"] {
   padding-top: 1.1rem;
   border-top: 1px solid var(--rand);
 }
+
+/* ------------------------------------------------------------------ *
+   Modul „Regeln" – eigener Farbton
+
+   Regelartikel sind Nachschlagewerk, kein Weltwissen. Sie bekommen einen
+   ruhigen Blauton, der sich vom Violett der Welt und vom Gold der
+   Werkstatt unterscheidet, ohne aus der Reihe zu fallen.
+   ------------------------------------------------------------------ */
+
+.kachel[data-kategorie="regeln"],
+.artikel[data-kategorie="regeln"],
+.nav-gruppe[data-kategorie="regeln"] {
+  --akzent:          #7fa8c9;
+  --akzent-hell:     #bcd6ea;
+  --akzent-schleier: rgba(127, 168, 201, 0.16);
+  --akzent-rand:     rgba(127, 168, 201, 0.46);
+  --schein:          rgba(127, 168, 201, 0.34);
+  --verweis:         #a4c6de;
+  --verweis-aktiv:   #d6e8f5;
+  --tuerkis:         #8fb6d2;
+}
+
+html[data-thema="hell"] .kachel[data-kategorie="regeln"],
+html[data-thema="hell"] .artikel[data-kategorie="regeln"],
+html[data-thema="hell"] .nav-gruppe[data-kategorie="regeln"] {
+  --akzent:          #2f5c7a;
+  --akzent-hell:     #1f4257;
+  --akzent-schleier: rgba(47, 92, 122, 0.10);
+  --akzent-rand:     rgba(47, 92, 122, 0.40);
+  --schein:          rgba(47, 92, 122, 0.16);
+  --verweis:         #2f5c7a;
+  --verweis-aktiv:   #1f4257;
+  --tuerkis:         #2a5268;
+}

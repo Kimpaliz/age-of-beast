@@ -38,6 +38,9 @@ const KATEGORIEN = [
   // Aus der Daggerheart-Werkstatt uebernommen: Kampagnenrahmen, Spielfiguren
   // und Karten. Eigene Farbe, siehe stil.css.
   { schluessel: 'werkstatt', name: 'Werkstatt', einzahl: 'Werkstatt-Eintrag', zeichen: '⚒' },
+  // Das Regelwiki der Daggerheart-Werkstatt. Nachschlagewerk, kein
+  // Weltwissen - deshalb eigener, ruhiger Farbton.
+  { schluessel: 'regeln', name: 'Regeln', einzahl: 'Regelartikel', zeichen: '§' },
 ];
 
 // Deutsche Überschriften für Textfelder, die in keinem Panel stehen
@@ -84,6 +87,7 @@ const UNTERART_FELD = {
   items: ['rarity', 'type'],
   characters: ['characterType', 'occupation'],
   werkstatt: ['werkstattArt'],
+  regeln: ['regelBereich'],
   // `wiki` bewusst ohne Unterart: Der Kampagneneintrag heißt ohnehin so.
 };
 

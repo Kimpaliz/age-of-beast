@@ -7,6 +7,52 @@ Das Neueste steht immer oben.
 
 ---
 
+## Fassung 2.4.0 – 26. August 2026
+
+**Das Regelwiki der Werkstatt ist jetzt im Wiki** — als eigenes Modul, ohne
+Google-Anmeldung, komplett über GitHub.
+
+Das ist der erste Schritt der vollständigen Übernahme. Die Werkstatt wird
+Stück für Stück ins Wiki geholt; hier ist der Anfang.
+
+### Was dazugekommen ist
+
+| | |
+| --- | --- |
+| **25 Regelartikel** | Würfe, Hoffnung und Furcht, Kampf, Schaden, Rast, Spielleitung |
+| **43 Glossarbegriffe** | die festen deutschen Begriffe, alphabetisch |
+| **254 Abschnitte** | jeder Regelpunkt einzeln |
+
+Sie stehen in der Seitenleiste unter **Regeln**, in ruhigem Blau — damit man
+auf einen Blick sieht: das ist Nachschlagewerk, nicht Weltwissen.
+
+### Das Beste daran: Welt und Regeln hängen zusammen
+
+Steht in einer Spezies-Beschreibung das Wort **Stress**, ist es jetzt ein
+Verweis auf den Regelartikel dazu. Beim Überfahren siehst du die Kurzfassung,
+ein Klick bringt dich hin.
+
+Das passiert bei 15 Spezies automatisch. Du liest über Firbolg, stolperst über
+eine Regel — und bist zwei Sekunden später beim Nachschlagen.
+
+### Warum das ohne Firebase geht
+
+Die Regeln sind reiner Text. Sie brauchen keine Datenbank und keine
+Anmeldung — sie liegen jetzt einfach im Repository wie alles andere.
+
+### Wie es weitergeht
+
+Die Werkstatt hat noch mehr: den Kartenbaukasten, den Figurenassistenten und
+den Kampagnenrahmen. Die sind aufwendiger, weil sie nicht nur Text sind,
+sondern Bedienung. Sie kommen als Nächstes — einer nach dem anderen, jeder
+einzeln geprüft.
+
+**Live-Sitzungen bleiben draußen.** Gleichzeitiges Bearbeiten zu zweit in
+Echtzeit braucht einen Server, der ständig mithört. GitHub kann das nicht.
+Das ist keine Frage des Aufwands, sondern eine technische Grenze.
+
+---
+
 ## Fassung 2.3.0 – 26. August 2026
 
 **Die Daggerheart-Werkstatt ist jetzt ein Modul des Wikis** — und die

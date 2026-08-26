@@ -29,6 +29,81 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 Ohne Versionsnummer: reine Inhaltsänderung an der Quelle, keine Änderung am
 Wiki-Code.
 
+## [2.4.0] – 2026-08-26
+
+Erster Schritt der vollständigen Übernahme der Daggerheart-Werkstatt: das
+Regelwiki als Modul `regeln`. Ohne Firebase, ohne Anmeldung.
+
+### Warum dieser Teil zuerst
+
+Eine Bestandsaufnahme der Werkstatt ergab, dass Firebase nur **6 von rund
+100 Quelldateien** berührt (`App.tsx`, `AuthScreens.tsx`, `useAuth.ts`,
+`firebase.ts`, `liveSessions.ts`, `repository.ts`). Die Funktionen selbst
+gehen über `repository.ts` als Zwischenschicht — sie hängen also nicht
+selbst an Firebase. Das macht die Übernahme überhaupt erst machbar.
+
+Das Regelwiki ist davon der reinste Fall: `wikiContent.ts` ist eine
+Datenstruktur ohne Bedienung, ohne Zustand, ohne Abhängigkeiten.
+
+### Hinzugefügt
+
+- `werkzeuge/regeln-uebernehmen.mjs`: liest `wikiContent.ts` der Werkstatt
+  und legt die Artikel als Modul `regeln` in `daten/quelle.json`.
+  Die Quelle ist TypeScript, wird aber **nicht übersetzt**: Sie enthält
+  ausschließlich Objektliterale. Das Skript entfernt die Typangaben per
+  Textersetzung und wertet den Rest als gewöhnliches JavaScript aus. Das
+  ist robuster als ein eigener Parser und spart den Übersetzer als
+  Abhängigkeit.
+- Kategorie `regeln`, Unterart aus `fields.regelBereich` (Grundlagen,
+  Charaktere, Konflikte, Spielleitung).
+- Eigener Akzentton in `stil.css` über `[data-kategorie="regeln"]`:
+  ruhiges Blau `#7fa8c9`, für hell und dunkel getrennt gesetzt.
+
+### Aufbau der Übernahme
+
+- Jeder `WikiRulePoint` wird ein eigener Abschnitt mit der Punkt-Beschriftung
+  als Überschrift. Dadurch bleibt die Gliederung der Werkstatt erhalten und
+  jeder Punkt ist einzeln über den Stift bearbeitbar.
+- `note` wird ein Abschnitt „Hinweis".
+- `keywords` werden eine Steckbriefzeile „Stichworte" — sie fließen damit in
+  die Volltextsuche ein.
+- Das Glossar wird **ein** Eintrag mit 43 Abschnitten, nicht 43 Einträge.
+  43 Kleinsteinträge hätten die Übersicht überschwemmt; als ein Eintrag mit
+  Abschnitten bleibt es durchsuchbar und verlinkbar.
+
+### Nebenwirkung, geprüft statt vermutet
+
+Das Wörterbuch für die automatische Verlinkung wuchs von 45 auf 72 Begriffe.
+Vor der Übernahme geprüft, welche davon zu allgemein sind: Von den 26 neuen
+sind 22 mehrwortige Artikelnamen (unkritisch). Bei den vier einzelnen Wörtern
+wurde nachgemessen, wie oft sie ausserhalb des Regelteils vorkommen:
+
+| Begriff | Treffer in Welttexten |
+| --- | --- |
+| Stress | 15 Spezies |
+| Zustände | keine |
+| Countdowns | keine |
+| Glossar | keine |
+
+„Stress" bleibt bewusst drin: Die Treffer stehen in Spezies-Fähigkeiten, die
+genau diese Regel meinen. Der Verweis ist dort ein Gewinn, kein Rauschen.
+Nachgeprüft am Firbolg — „Stress" verweist dort jetzt auf `regel-stress`.
+
+### Verifiziert
+
+- 58 Einträge (vorher 32), 362 Panel-Abschnitte (vorher 108),
+  176 Attributzeilen (vorher 125).
+- Alle fünf Prüfskripte bestanden, `node --check` über alle Dateien.
+- Regelseite im Browser: Etikett „Regelartikel · Konflikte", 6 Abschnitte,
+  Steckbrief mit Bereich und Stichworten, Kontrast des Etiketts 8,33:1.
+- Querverweis Welt → Regeln am Firbolg nachgewiesen.
+
+### Nicht übertragbar
+
+Live-Sitzungen. Echtzeit-Zusammenarbeit braucht einen Server mit
+Rückkanal; GitHub Pages liefert nur statische Dateien aus. Das ist eine
+technische Grenze, keine Frage des Aufwands.
+
 ## [2.3.0] – 2026-08-26
 
 Modul „Daggerheart-Werkstatt" als eingebettete Anwendung, Layout näher am
@@ -841,7 +916,8 @@ Weltenschmiede-Projekt `project-sturmwende-20260730`.
 - Die Datendateien wurden vor dem Commit auf Zugangsdaten, Schlüssel und
   E-Mail-Adressen geprüft; Treffer: keine.
 
-[Unveröffentlicht]: https://github.com/Kimpaliz/age-of-beast/compare/v2.3.0...HEAD
+[Unveröffentlicht]: https://github.com/Kimpaliz/age-of-beast/compare/v2.4.0...HEAD
+[2.4.0]: https://github.com/Kimpaliz/age-of-beast/compare/v2.3.0...v2.4.0
 [2.3.0]: https://github.com/Kimpaliz/age-of-beast/compare/v2.2.0...v2.3.0
 [2.2.0]: https://github.com/Kimpaliz/age-of-beast/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/Kimpaliz/age-of-beast/compare/v2.0.1...v2.1.0
