@@ -42,7 +42,7 @@ jobs:
       - name: Quelltext auf Tippfehler prüfen
         run: |
           node --check wiki.js
-          # Die beiden Browser-Module sind ES-Module mit .js-Endung. Node
+          # Die Browser-Module sind ES-Module mit .js-Endung. Node
           # erkennt das nur an der Endung, deshalb der Umweg über eine Kopie.
           for datei in bearbeiten.js texte-bearbeiten.js struktur-bedienung.js rahmen-assistent.js; do
             cp "$datei" "$RUNNER_TEMP/${datei%.js}.mjs"
@@ -69,7 +69,7 @@ jobs:
           # unter dem Bearbeitungsmodus.
           node werkzeuge/pruefe-schreibweise.mjs
           node werkzeuge/pruefe-bearbeiten.mjs
-          # Anlegen, Loeschen und Umsortieren an allen 29 Eintraegen.
+          # Anlegen, Löschen und Umsortieren an allen Roh-Einträgen.
           node werkzeuge/pruefe-struktur.mjs
           # Und der Browser muss beim Speichern dieselben Dateien erzeugen
           # wie das Skript auf der Festplatte.

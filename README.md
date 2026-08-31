@@ -4,7 +4,7 @@ Ein Nachschlagewerk zur Daggerheart-Welt **Age of Beast**: Kampagnenübersicht,
 Fraktionen, Spezies, Figuren und Gegenstände. Verlinkte Begriffe zeigen beim
 Überfahren mit der Maus eine Kurzfassung, ohne dass man die Seite wechseln muss.
 
-**Stand der Weltdaten:** 22. August 2026 · **29 Einträge** · 79 Abschnitte
+**Stand der Weltdaten:** 26. August 2026 · **58 angezeigte Einträge** · 347 Abschnitte
 
 ---
 
@@ -36,8 +36,10 @@ Danach `http://localhost:4173` im Browser öffnen. Beenden mit `Strg + C`.
 | **Handy und Tablet** | Vollständig nutzbar; die Seitenleiste klappt ein. |
 | **Bearbeiten** | Nur angemeldet: Texte ändern, Abschnitte anlegen, löschen und umsortieren, Steckbriefzeilen pflegen. Siehe unten. |
 
-Alle Inhalte sind Text. Es gibt keine Bilder, keine Werbung, keine
-Nachverfolgung und keine Verbindung nach außen.
+Die redaktionellen Inhalte liegen als Text vor. Die Werkstattkarten verwenden
+234 lokal erzeugte SVG-Wappen. Es gibt keine Werbung und keine
+Nachverfolgung. Der Lesemodus braucht keine Verbindung nach außen; nur der
+angemeldete Bearbeitungsmodus verbindet sich mit GitHub.
 
 ---
 
@@ -176,9 +178,22 @@ den Stand aus dem Repository, nicht die veröffentlichte Kopie.
 
 ---
 
+## Weiterentwicklung
+
+Die technische Grundlage für sichere Upgrades ist dokumentiert:
+
+- [Projektinventar](docs/INVENTAR.md)
+- [Architekturkarte](docs/ARCHITEKTUR.md)
+- [Datenvertrag](docs/DATENVERTRAG.md)
+- [QA-Matrix](docs/QA_MATRIX.md)
+- [Release-Runbook](docs/RELEASE_RUNBOOK.md)
+- [Upgrade-Fahrplan](docs/UPGRADE_ROADMAP.md)
+
+---
+
 ## Prüfungen
 
-Drei Skripte sichern die Inhalte ab. Sie brauchen keine Installation und
+Fünf Skripte sichern die Inhalte ab. Sie brauchen keine Installation und
 schreiben nichts in die Datenbank.
 
 ```bash
@@ -204,15 +219,23 @@ Speichern passiert. Der Eintrag muss danach zeichengleich sein. Zusätzlich
 wird nachgewiesen, dass eine echte Änderung ankommt.
 
 ```bash
+node werkzeuge/pruefe-struktur.mjs
+```
+
+Prüft das Anlegen, Löschen und Umsortieren von Abschnitten und
+Steckbriefzeilen auf allen Roh-Einträgen.
+
+```bash
 node werkzeuge/pruefe-github.mjs
 ```
 
-Sichert den Speicherweg ab: dass die Umkodierung auch bei 274 KB und Umlauten
+Sichert den Speicherweg ab: dass die Umkodierung auch bei einer großen Quelle
+und Umlauten
 keinen Text verändert, und dass der Browser beim Speichern Zeichen für Zeichen
 dieselben Dateien erzeugt wie das Skript. Braucht kein Netz und keinen
 Schlüssel — es wird nichts geschrieben und nichts abgefragt.
 
-Alle vier laufen auch bei jeder Veröffentlichung automatisch. Schlägt eine
+Alle fünf laufen auch bei jeder Veröffentlichung automatisch. Schlägt eine
 fehl, geht die Änderung nicht online.
 
 ---
