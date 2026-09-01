@@ -989,9 +989,34 @@
    * wirklich gibt, und meldet sich sonst mit einem Hinweis.
    */
   const rahmenVorhanden = (id) => String(id || '').startsWith('rahmen-');
+
+  /**
+   * Jede gezeichnete Route bekommt eine eigene Generation. Ein asynchroner
+   * Renderer kann damit vor einem spaeten DOM-Schreiben pruefen, ob seine
+   * Darstellung noch die aktuelle ist.
+   */
+  let renderGeneration = 0;
+
+  /** Ist gerade eine vollstaendige Kampagnenrahmen-Route offen? */
+  function rahmenRouteIstOffen(rahmenId) {
+    const teile = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
+    if (teile[0] !== 'rahmen' || !teile[1]) return false;
+    if (rahmenId === undefined) return true;
+    try {
+      return decodeURIComponent(teile[1]) === rahmenId;
+    } catch (fehler) {
+      return false;
+    }
+  }
+
   function rahmenSeiteZeichnen(id) {
-    if (typeof window.ageOfBeast.rahmenZeichnen === 'function') {
-      window.ageOfBeast.rahmenZeichnen(inhalt, id);
+    const renderer = window.ageOfBeast.rahmenZeichnen;
+    if (typeof renderer === 'function') {
+      const generation = renderGeneration;
+      renderer(inhalt, id, {
+        generation,
+        istNochAktuell: () => renderGeneration === generation && rahmenRouteIstOffen(id),
+      });
       return;
     }
     inhalt.innerHTML =
@@ -1002,6 +1027,7 @@
     document.title = 'Kampagnenrahmen – ' + WELT.titel;
   }
   function seiteZeichnen() {
+    renderGeneration += 1;
     const teile = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
 
     vorschauVerbergen();
@@ -1106,20 +1132,23 @@
     document.getElementById('kopf-stand').textContent = 'Stand ' + datumKurz(WELT.standDerDaten);
   }
 
-  kopfzeileSetzen();
-
-  navigationZeichnen();
-  seiteZeichnen();
-
   /* ----------------------------------------------------------------
      Schnittstelle fuer die Bearbeitungsansicht
 
      bearbeiten.js laedt die Weltdaten angemeldet live aus der
      Weltenschmiede und reicht sie hier herein. Die Seite wird dann
-     ohne Neuladen neu gezeichnet.
+     ohne Neuladen neu gezeichnet. Die Fassade wird vor dem ersten
+     Seitenrender bereitgestellt: Ein direkter Aufruf einer Rahmen-Route
+     darf nicht von der spaeter geladenen Bearbeitungsansicht abhaengen.
      ---------------------------------------------------------------- */
 
-  window.ageOfBeast = {
+  const oeffentlicheFassade = {
+    /**
+     * Aelterer Anschluss fuer Rahmen-Renderer. Neue Module sollen
+     * rahmenRendererRegistrieren() verwenden, damit eine offene Route
+     * kontrolliert neu gezeichnet wird.
+     */
+    rahmenZeichnen: null,
     /** Tauscht die Weltdaten aus und zeichnet alles neu. */
     weltSetzen(neueWelt, stelleHalten) {
       if (!neueWelt || !Array.isArray(neueWelt.eintraege)) return false;
@@ -1146,5 +1175,27 @@
       nachDemZeichnen.push(rueckruf);
       try { rueckruf(); } catch (fehler) { console.error('Rückruf nach dem Zeichnen:', fehler); }
     },
+    /**
+     * Meldet einen Renderer fuer Kampagnenrahmen an.
+     *
+     * Renderer erhalten `(inhalt, rahmenId, kontext)`. Das dritte Argument
+     * ist optional und bietet `kontext.istNochAktuell()` fuer asynchrone
+     * Renderer: Vor jedem DOM-Schreiben nach einem `await` muss es noch
+     * `true` liefern. Renderer mit der bisherigen Signatur `(inhalt, id)`
+     * bleiben dadurch gueltig.
+     */
+    rahmenRendererRegistrieren(renderer) {
+      if (typeof renderer !== 'function') return false;
+      oeffentlicheFassade.rahmenZeichnen = renderer;
+      if (rahmenRouteIstOffen()) seiteZeichnen();
+      return true;
+    },
   };
+
+  window.ageOfBeast = oeffentlicheFassade;
+
+  kopfzeileSetzen();
+
+  navigationZeichnen();
+  seiteZeichnen();
 })();
