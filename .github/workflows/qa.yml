@@ -21,13 +21,20 @@ jobs:
 
       - name: Quelltext auf Syntax prüfen
         run: |
-          node --check wiki.js
-          # Die Browser-Module sind ES-Module mit .js-Endung. Node erkennt
-          # das nur an der Endung, deshalb der Umweg über temporäre Kopien.
-          for datei in bearbeiten.js texte-bearbeiten.js struktur-bedienung.js rahmen-assistent.js; do
-            cp "$datei" "$RUNNER_TEMP/${datei%.js}.mjs"
-            node --check "$RUNNER_TEMP/${datei%.js}.mjs"
-          done
+          # Alle lokalen Browser-Dateien werden als temporäre ES-Module
+          # geprüft. Neue Runtime- oder Kontextmodule können so nicht still
+          # an der Syntaxprüfung vorbeigehen.
+          anzahl=0
+          while IFS= read -r -d '' datei; do
+            ziel="$RUNNER_TEMP/browser-modulsyntax/${datei#./}"
+            ziel="${ziel%.js}.mjs"
+            mkdir -p "$(dirname "$ziel")"
+            cp "$datei" "$ziel"
+            node --check "$ziel"
+            anzahl=$((anzahl + 1))
+          done < <(find . \( -path './.git' -o -path '*/node_modules' \) -prune -o -type f -name '*.js' -print0 | LC_ALL=C sort -z)
+          test "$anzahl" -gt 0
+          echo "Browser-JavaScript-Dateien: $anzahl"
           for datei in werkzeuge/*.mjs; do node --check "$datei"; done
 
       - name: Daten und alle lokalen Prüfer ausführen
@@ -36,7 +43,13 @@ jobs:
           node -e "JSON.parse(require('fs').readFileSync('daten/welt.json','utf8'))"
           test -f daten/welt.js
           node -e "JSON.parse(require('fs').readFileSync('daten/rahmen-felder.json','utf8'))"
-          for datei in werkzeuge/pruefe-*.mjs; do node "$datei"; done
+          anzahl=0
+          while IFS= read -r datei; do
+            node "$datei"
+            anzahl=$((anzahl + 1))
+          done < <(find werkzeuge -maxdepth 1 -type f -name 'pruefe-*.mjs' -print | LC_ALL=C sort)
+          test "$anzahl" -gt 0
+          echo "Lokale Wächter: $anzahl"
 
       - name: Browser-Artefakt versionieren und vollständig prüfen
         run: |

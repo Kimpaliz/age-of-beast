@@ -41,13 +41,20 @@ jobs:
 
       - name: Quelltext auf Tippfehler prüfen
         run: |
-          node --check wiki.js
-          # Die Browser-Module sind ES-Module mit .js-Endung. Node
-          # erkennt das nur an der Endung, deshalb der Umweg über eine Kopie.
-          for datei in bearbeiten.js texte-bearbeiten.js struktur-bedienung.js rahmen-assistent.js; do
-            cp "$datei" "$RUNNER_TEMP/${datei%.js}.mjs"
-            node --check "$RUNNER_TEMP/${datei%.js}.mjs"
-          done
+          # Alle lokalen Browser-Dateien werden als temporäre ES-Module
+          # geprüft. Neue Runtime- oder Kontextmodule können so nicht still
+          # an der Syntaxprüfung vorbeigehen.
+          anzahl=0
+          while IFS= read -r -d '' datei; do
+            ziel="$RUNNER_TEMP/browser-modulsyntax/${datei#./}"
+            ziel="${ziel%.js}.mjs"
+            mkdir -p "$(dirname "$ziel")"
+            cp "$datei" "$ziel"
+            node --check "$ziel"
+            anzahl=$((anzahl + 1))
+          done < <(find . \( -path './.git' -o -path '*/node_modules' \) -prune -o -type f -name '*.js' -print0 | LC_ALL=C sort -z)
+          test "$anzahl" -gt 0
+          echo "Browser-JavaScript-Dateien: $anzahl"
           for datei in werkzeuge/*.mjs; do node --check "$datei"; done
 
       - name: Prüfen, ob die Weltdaten gültig sind
@@ -57,29 +64,18 @@ jobs:
           test -f daten/welt.js
           # Der Assistent braucht die Feldbeschreibung.
           node -e "JSON.parse(require('fs').readFileSync('daten/rahmen-felder.json','utf8'))"
-          # Die angezeigte Kopie muss zur Quelle passen. Speichert das Wiki
-          # selbst, legt es beide zusammen in einen Commit – schlägt das hier
-          # fehl, sind sie auseinandergelaufen.
-          node werkzeuge/pruefe-gleichstand.mjs
 
-      - name: Prüfen, dass Bearbeiten keinen Text beschädigt
+      - name: Alle lokalen Wächter ausführen
         run: |
-          # Öffnen und unverändertes Speichern muss jeden Text so lassen,
-          # wie er war. Diese beiden Prüfungen sind die Sicherheitsleine
-          # unter dem Bearbeitungsmodus.
-          node werkzeuge/pruefe-schreibweise.mjs
-          node werkzeuge/pruefe-bearbeiten.mjs
-          # Anlegen, Löschen und Umsortieren an allen Roh-Einträgen.
-          node werkzeuge/pruefe-struktur.mjs
-          # Und der Browser muss beim Speichern dieselben Dateien erzeugen
-          # wie das Skript auf der Festplatte.
-          node werkzeuge/pruefe-github.mjs
-          # Die beiden reinen Lese-Server dürfen nur veröffentlichte Dateien
-          # ausliefern und die Vorschau bleibt auf Loopback beschränkt.
-          node werkzeuge/pruefe-server-sicherheit.mjs
-          # Der Cache-Graph wird mit echten und absichtlich kaputten
-          # Abhängigkeiten geprüft. Die Quelle bleibt dabei unverändert.
-          node werkzeuge/pruefe-cache-graph.mjs
+          # Der Sortierschritt ist absichtlich deterministisch. Jeder neue
+          # Prüfer unter werkzeuge/pruefe-*.mjs läuft damit vor dem Deploy.
+          anzahl=0
+          while IFS= read -r datei; do
+            node "$datei"
+            anzahl=$((anzahl + 1))
+          done < <(find werkzeuge -maxdepth 1 -type f -name 'pruefe-*.mjs' -print | LC_ALL=C sort)
+          test "$anzahl" -gt 0
+          echo "Lokale Wächter: $anzahl"
 
       - name: Pages-Artefakt versionieren und vollständig prüfen
         run: |

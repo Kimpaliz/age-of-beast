@@ -4,8 +4,8 @@
  * Das Werkzeug arbeitet ausschließlich in dem mit --artefakt übergebenen
  * Verzeichnis. Es verändert niemals die Arbeitskopie des Repositories. Der
  * Graph beginnt bei index.html und folgt lokalen HTML-Referenzen, JavaScript-
- * Modulimports, einfachen fetch()-Adressen sowie CSS-Imports. Statische
- * Karten-SVGs bleiben bewusst unverändert.
+ * Modulimports, einfachen fetch()-Adressen sowie CSS-Imports und lokalen
+ * CSS-url()-Assets. Statische Karten-SVGs bleiben bewusst unverändert.
  *
  * Aufruf:
  *   node werkzeuge/versioniere-browser-ressourcen.mjs \
@@ -342,9 +342,7 @@ function javascriptFetchReferenzen(text) {
     }));
 }
 
-function cssReferenzen(text) {
-  const ohneKommentare = text.replace(/\/\*[\s\S]*?\*\//gu, (treffer, position) =>
-    kommentarMaskieren(text, position, position + treffer.length));
+function cssImportReferenzen(ohneKommentare, text) {
   const muster = /@import\s+(?:url\(\s*)?(?:"([^"]*)"|'([^']*)'|([^\s;)]+))/gidu;
   const funde = [];
 
@@ -354,6 +352,44 @@ function cssReferenzen(text) {
     funde.push({ start: bereich[0], ende: bereich[1], wert: text.slice(bereich[0], bereich[1]), format: 'css' });
   }
   return funde;
+}
+
+/**
+ * CSS-Assets sind ebenso Browser-Abhängigkeiten wie CSS-Imports. Statische
+ * url()-Werte (etwa var(--bild)) lassen sich nicht sicher auflösen und werden
+ * bewusst nicht als lokale Datei ausgegeben.
+ */
+function cssUrlReferenzen(ohneKommentare, text) {
+  const muster = /\burl\(\s*(?:"([^"]*)"|'([^']*)'|([^\s)]+))\s*\)/gidu;
+  const funde = [];
+
+  for (const treffer of ohneKommentare.matchAll(muster)) {
+    const gruppe = treffer[1] !== undefined ? 1 : treffer[2] !== undefined ? 2 : 3;
+    const bereich = treffer.indices[gruppe];
+    const wert = text.slice(bereich[0], bereich[1]);
+    if (wert.includes('(') || wert.includes(')')) continue;
+    funde.push({ start: bereich[0], ende: bereich[1], wert, format: 'css' });
+  }
+  return funde;
+}
+
+function cssReferenzen(text) {
+  const ohneKommentare = text.replace(/\/\*[\s\S]*?\*\//gu, (treffer, position) =>
+    kommentarMaskieren(text, position, position + treffer.length));
+  const funde = [
+    ...cssImportReferenzen(ohneKommentare, text),
+    ...cssUrlReferenzen(ohneKommentare, text),
+  ];
+  const gesehen = new Set();
+
+  // @import url(...) wird von beiden Mustern erkannt, ist aber nur eine
+  // Kante. Doppelte Ersetzungen an derselben Zeichenposition wären falsch.
+  return funde.filter((fund) => {
+    const kennung = fund.start + ':' + fund.ende;
+    if (gesehen.has(kennung)) return false;
+    gesehen.add(kennung);
+    return true;
+  });
 }
 
 function referenzenAusText(text, pfad) {

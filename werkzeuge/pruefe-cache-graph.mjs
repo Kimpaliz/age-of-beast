@@ -111,8 +111,14 @@ async function fixtureBauen(wurzel) {
 <a href="#inhalt">Anker</a>
 <a href="https://example.invalid/extern.js">Extern</a>
 `);
-  await dateiSchreiben(wurzel, 'css/app.css', '@import url("./grundlage.css?medium=screen#basis");\n');
+  await dateiSchreiben(wurzel, 'css/app.css', `@import url("./grundlage.css?medium=screen#basis");
+.zeichen { background-image: url("../bilder/zeichen.svg?farbe=violett#marke"); }
+.karte { mask-image: url("../daten/kartenbilder/stamm.svg"); }
+.extern { background-image: url("https://example.invalid/extern.svg"); }
+.daten { background-image: url(data:image/svg+xml,unveraendert); }
+`);
   await dateiSchreiben(wurzel, 'css/grundlage.css', ':root { color: #111; }\n');
+  await dateiSchreiben(wurzel, 'bilder/zeichen.svg', '<svg xmlns="http://www.w3.org/2000/svg"/>\n');
   await dateiSchreiben(wurzel, 'js/einstieg.js', `import './unter/modul.js?alt=1#eins';
 const FELDER_ADRESSE = '../daten/felder.json?quelle=regel#formular';
 await fetch(FELDER_ADRESSE);
@@ -135,16 +141,16 @@ async function fixturePruefen() {
     await cp(quelle, artefakt, { recursive: true });
 
     const quellGraph = await browserGraphLesen(quelle);
-    assert.equal(quellGraph.abhaengigkeiten.size, 8, 'Fixture muss acht lokale Abhängigkeiten erkennen.');
-    assert.equal(quellGraph.referenzen.length, 8, 'Fixture muss acht lokale Kanten erkennen.');
+    assert.equal(quellGraph.abhaengigkeiten.size, 9, 'Fixture muss neun lokale Abhängigkeiten erkennen.');
+    assert.equal(quellGraph.referenzen.length, 10, 'Fixture muss zehn lokale Kanten erkennen.');
     prueffalle += 2;
 
     const versioniert = await artefaktVersionieren({ artefakt, version: PRUEF_VERSION });
-    assert.equal(versioniert.umschreibungen, 7, 'Nur die sieben veränderlichen Fixture-Kanten dürfen versioniert werden.');
+    assert.equal(versioniert.umschreibungen, 8, 'Nur die acht veränderlichen Fixture-Kanten dürfen versioniert werden.');
     prueffalle += 1;
 
     const geprueft = await artefaktCacheGraphPruefen({ quelle, artefakt, version: PRUEF_VERSION });
-    assert.equal(geprueft.artefaktGraph.abhaengigkeiten.size, 8, 'Artefakt muss denselben Fixture-Graphen behalten.');
+    assert.equal(geprueft.artefaktGraph.abhaengigkeiten.size, 9, 'Artefakt muss denselben Fixture-Graphen behalten.');
     prueffalle += 1;
 
     const index = await readFile(join(artefakt, 'index.html'), 'utf8');
@@ -155,6 +161,13 @@ async function fixturePruefen() {
     assert.match(index, /daten\/kartenbilder\/stamm\.svg"/u, 'Statisches Karten-SVG darf keine Kennung erhalten.');
     assert.match(index, /href="#inhalt"/u, 'Hash-Anker darf nicht verändert werden.');
     prueffalle += 6;
+
+    const css = await readFile(join(artefakt, 'css', 'app.css'), 'utf8');
+    assert.match(css, /url\("\.\.\/bilder\/zeichen\.svg\?farbe=violett&v=cache-fixture-1#marke"\)/u, 'Lokales CSS-Asset muss eine Kennung erhalten.');
+    assert.match(css, /url\("\.\.\/daten\/kartenbilder\/stamm\.svg"\)/u, 'Statisches Karten-SVG aus CSS darf keine Kennung erhalten.');
+    assert.match(css, /https:\/\/example\.invalid\/extern\.svg/u, 'Externe CSS-Adresse darf nicht verändert werden.');
+    assert.match(css, /data:image\/svg\+xml,unveraendert/u, 'data:-Adresse in CSS darf nicht verändert werden.');
+    prueffalle += 4;
 
     await writeFile(
       join(artefakt, 'index.html'),
