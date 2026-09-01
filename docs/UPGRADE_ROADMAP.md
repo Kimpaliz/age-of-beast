@@ -1,8 +1,9 @@
 # Age of Beast – Upgrade-Fahrplan
 
-**Ausgangspunkt:** v2.7.0 ist funktionsfähig und der veröffentlichte Anker.
-Die folgende Reihenfolge schützt Daten, Links und Bearbeitung, bevor Dateien
-optisch oder organisatorisch aufgeteilt werden.
+**Ausgangspunkt:** v2.7.0 ist der veröffentlichte Anker. Die Pakete A–H sind
+auf dem lokalen Upgrade-Branch umgesetzt und geprüft, aber nicht gepusht oder
+veröffentlicht. Die Reihenfolge schützt Daten, Links und Bearbeitung, bevor
+Dateien optisch oder organisatorisch aufgeteilt werden.
 
 Jedes Paket erhält einen eigenen Branch, einen kleinen Commit-Satz, alle
 passenden Gates und einen klaren Rücksprung über Revert. Kein Paket verändert
@@ -28,6 +29,7 @@ automatisierte Nachweis ist pruefe-server-sicherheit.mjs.
 ## Paket B – Routen und Rahmen-Assistent stabilisieren
 
 **Priorität:** P1
+**Status:** Lokal umgesetzt und geprüft, noch nicht veröffentlicht.
 **Ziel:** Jeder gültige Deep Link funktioniert bei einem frischen Seitenaufruf;
 ein verspäteter Assistent überschreibt keine neue Route.
 
@@ -43,6 +45,7 @@ bewusst verzögertes Laden des Assistenten darf nach Routewechsel nicht in
 ## Paket C – Datenvertrag als lesender Wächter
 
 **Priorität:** P1
+**Status:** Lokal umgesetzt und geprüft, noch nicht veröffentlicht.
 **Ziel:** Neue Kategorien, IDs, Verweise, Panels, Rahmen und Bildpfade können
 nicht mehr still ungültig werden.
 
@@ -51,11 +54,12 @@ nicht mehr still ungültig werden.
 | Neuer rein lesender Prüfer pruefe-datenvertrag.mjs, Legacy-v0-Unterstützung, in CI und lokale QA aufgenommen. | Noch kein Schreiben von datenvertragVersion: 1, keine Datenmigration. |
 
 **Abnahme:** Aktueller Bestand ist grün; jede absichtlich verletzte Regel
-scheitert mit einem eindeutigen Fehler; bestehende fünf Prüfer bleiben grün.
+scheitert mit einem eindeutigen Fehler; alle vorhandenen Wächter bleiben grün.
 
 ## Paket D – GitHub-Schreibvertrag und Konfliktschutz härten
 
 **Priorität:** P1
+**Status:** Lokal umgesetzt und geprüft, noch nicht veröffentlicht.
 **Ziel:** Ein veralteter Bearbeitungsstand kann nicht nach einer Lücke im
 Optimistic Locking gespeichert werden.
 
@@ -63,8 +67,9 @@ Optimistic Locking gespeichert werden.
 | --- | --- |
 | Quellen-SHA verpflichtend machen, gegen den tatsächlich gelesenen Head prüfen, genau drei Weltdateien zulassen, Konflikt testbar abbrechen lassen. | Kein echter GitHub-Schreibtest ohne ausdrückliche Autorisierung; keine Änderung der fachlichen Daten. |
 
-**Entscheidungspunkt:** Schlüssel nur für die Sitzung oder optional dauerhaft
-speichern. Diese UX-Entscheidung wird vor der Umsetzung explizit getroffen.
+**Entscheidung:** Der Schlüssel gilt nur für die aktuelle Browser-Sitzung.
+Er liegt in `sessionStorage`; eine gleichnamige alte `localStorage`-Ablage wird
+entfernt. Es gibt keine dauerhafte „angemeldet bleiben“-Option.
 
 **Abnahme:** Fehlende oder alte SHA führt vor dem Schreiben zu einem
 kontrollierten Fehler; nur Quelle plus beide Ableitungen können im Weltpfad
@@ -73,6 +78,7 @@ gespeichert werden; bestehender GitHub-Attrappentest bleibt grün.
 ## Paket E – Branch-QA und vollständiger Cache-Graph
 
 **Priorität:** P1
+**Status:** Lokal umgesetzt und geprüft, noch nicht veröffentlicht.
 **Ziel:** Ein strukturelles Paket scheitert vor main und lädt keine Mischung
 aus neuen Startdateien und alten importierten Modulen.
 
@@ -87,6 +93,7 @@ Pages-Deploypfad.
 ## Paket F – Bearbeitungskontext explizit machen
 
 **Priorität:** P2
+**Status:** Lokal umgesetzt und geprüft, noch nicht veröffentlicht.
 **Ziel:** Text-, Struktur- und Rahmenmodule haben eine klar beschriebene
 Schnittstelle statt verdeckter Global- und DOM-Abhängigkeiten.
 
@@ -100,11 +107,14 @@ Rahmen-Freischaltung und Fehlerfall funktionieren ohne doppelte Listener.
 ## Paket G – Leseruntime nach Verantwortung teilen
 
 **Priorität:** P2
+**Status:** Lokal umgesetzt und geprüft, noch nicht veröffentlicht.
 **Ziel:** wiki.js wird eine schmale Kompatibilitätsfassade statt eine
 Sammeldatei.
 
-**Reihenfolge:** Zuerst Datenindex, dann Routing/Ansichten, dann
-Interaktionen. Nach jedem Teil bleibt window.ageOfBeast kompatibel.
+**Umsetzung:** `runtime/datenindex.js`, `runtime/ansichten.js`,
+`runtime/interaktion.js` und `runtime/routing.js` tragen die getrennten
+Verantwortungen. `wiki.js` prüft die Bausteine, setzt die Fassade und startet
+sie; `window.ageOfBeast` bleibt kompatibel.
 
 **Abnahme:** Genau ein Initialrender, keine doppelten Event-Listener, alle
 Hash-Routen und die bestehenden Bearbeitungstests grün.
@@ -112,20 +122,23 @@ Hash-Routen und die bestehenden Bearbeitungstests grün.
 ## Paket H – Styles nach Feature trennen und visuell absichern
 
 **Priorität:** P2
+**Status:** Lokal umgesetzt und geprüft, noch nicht veröffentlicht.
 **Ziel:** Stilregeln sind nachvollziehbar, ohne aktuelle Darstellung zu
 verändern.
 
-**Reihenfolge:** Tokens/Layout → Wiki → Bearbeitung → Werkstatt/Rahmen →
-erst dann nachgewiesen tote Selektoren entfernen.
+**Umsetzung:** `stil.css` ist die Importfassade für `styles/tokens.css`,
+`styles/wiki.css`, `styles/bearbeiten.css` und `styles/werkstatt.css`.
+`pruefe-stilstruktur.mjs` sichert den unveränderten Gesamtstil; unbekannte
+`styles/`-Pfade bleiben auf beiden lokalen Servern gesperrt.
 
 **Abnahme:** Desktop, 1024 px und 640 px; hell/dunkel; Wiki, Bearbeitung,
 Werkstatt und Rahmen ohne horizontalen Überlauf. Der gewünschte
 Werkstatt-Farbkontext wird an Übersicht und Assistent explizit geprüft.
 
-## Erst danach: fachliche Erweiterungen
+## Nach den Strukturpaketen: fachliche Erweiterungen
 
 Neue Regelwiki-Bereiche, Kategorien, Rahmenfelder, Karten oder Inhalte
-beginnen erst nach Paket C. Dann wird jede Fachänderung zugleich mit
+beginnen erst nach Paket A–H. Dann wird jede Fachänderung zugleich mit
 Datenvertrag, Transformation, Anzeige, Asset-Zuordnung und passenden
 Prüffällen geplant.
 

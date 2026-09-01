@@ -1,50 +1,64 @@
 # Age of Beast – QA-Matrix
 
-Diese Matrix trennt klar zwischen dem, was heute automatisch geschützt ist,
-und dem, was bei einem Upgrade zusätzlich getestet werden muss.
+Die Matrix trennt lokale, automatisierte Beweise von Browser- und
+Veröffentlichungsabnahmen. Alle lokalen Prüfer sind rein lesend; sie erzeugen
+keinen Commit und verwenden keine Zugangsdaten.
 
-## Bestehende lokale Gates
+## Automatische lokale Wächter
 
-| Befehl | Aktuell geschützter Vertrag | Bewusste Lücke |
+| Befehl | Geschützter Vertrag | Bewusste Lücke |
 | --- | --- | --- |
-| node werkzeuge/pruefe-gleichstand.mjs | Quelle erzeugt die angezeigte JSON-Welt. | Kein vollständiger Schema-/Referenzvertrag. |
-| node werkzeuge/pruefe-schreibweise.mjs | Sichtbarer Text bleibt beim Umwandeln erhalten. | Kein Browser-Bedienpfad. |
-| node werkzeuge/pruefe-bearbeiten.mjs | Bearbeitbare Felder lassen sich lesen, schreiben und umwandeln. | Kein echter GitHub-Write und kein DOM-Test. |
-| node werkzeuge/pruefe-struktur.mjs | Anlegen, Löschen und Sortieren lässt keine Rohdatenreste. | Kein Assistenten- oder UI-Test. |
-| node werkzeuge/pruefe-github.mjs | Base64, Drei-Dateien-Erzeugung und Determinismus. | Keine echte API-, CORS- oder Berechtigungsprüfung. |
-| node werkzeuge/pruefe-server-sicherheit.mjs | Öffentliche Server-Dateien, Methoden, Sperren, HEAD und Vorschau-Loopback. | Kein Angriffstest mit lokalem Schreibzugriff zwischen realpath und readFile. |
+| `pruefe-gleichstand.mjs` | Quelle erzeugt die angezeigte JSON-Welt. | Kein vollständiger Schema-/Referenzvertrag. |
+| `pruefe-schreibweise.mjs` | Sichtbarer Text bleibt beim Umwandeln erhalten. | Kein Browser-Bedienpfad. |
+| `pruefe-bearbeiten.mjs` | Bearbeitbare Felder lassen sich lesen, schreiben und umwandeln. | Kein echter GitHub-Write. |
+| `pruefe-struktur.mjs` | Anlegen, Löschen und Sortieren hinterlässt keine Rohdatenreste. | Kein Assistenten-UI-Test. |
+| `pruefe-github.mjs` | Drei-Dateien-Transaktion, Base64 und Konfliktvertrag. | Keine echte API-, CORS- oder Berechtigungsprüfung. |
+| `pruefe-server-sicherheit.mjs` | Freigabelisten, Methoden, Sperren, HEAD und Loopback. | Kein Angriffstest mit lokalem Schreibzugriff zwischen `realpath` und Lesen. |
+| `pruefe-datenvertrag.mjs` | Legacy-v0-IDs, Kategorien, Panels, Referenzen, Rahmen, Descriptor und Bildpfade. | Keine Datenmigration auf eine neue Vertragsversion. |
+| `pruefe-rahmen-routen.mjs` | Fassade, Deep Links, Render-Generation und asynchrone Rahmen-Guards. | Kein echter Browser-Renderer. |
+| `pruefe-bearbeitungskontext.mjs` | Eingefrorener Kontext, Delegation, Fehlerpfade und Runtime-Wechsel. | Keine Anmeldung gegen GitHub. |
+| `pruefe-leseruntime.mjs` | Klassische Bausteine, Reihenfolge, Fassade und getrennte Zuständigkeiten. | Kein Layout- oder Pointer-Rendering. |
+| `pruefe-cache-graph.mjs` | Vollständiger HTML-, JavaScript- und CSS-Abhängigkeitsgraph im Pages-Artefakt. | Kein CDN- oder Browser-Cache außerhalb des Artefakts. |
+| `pruefe-stilstruktur.mjs` | Vier CSS-Feature-Dateien ergeben exakt den bisherigen Stilinhalt. | Keine subjektive Designbewertung. |
 
-Zusätzlich vor jedem Upgrade-Paket:
+Alle starten lokal deterministisch mit:
 
 ~~~text
-node --check wiki.js
-node --check daten/welt.js
+Get-ChildItem werkzeuge\pruefe-*.mjs | Sort-Object Name | ForEach-Object { node $_.FullName }
 ~~~
 
-Die vier Browser-ES-Module prüft die CI über temporäre .mjs-Kopien. Lokal
-werden sie mit derselben Methode geprüft, nicht durch eine globale
-package.json-Konfiguration.
+Vorher wird jede Browser-`.js`-Datei als ES-Modul syntaxgeprüft; die CI nutzt
+dazu temporäre `.mjs`-Kopien, damit keine `package.json` nötig ist. Alle
+`werkzeuge/*.mjs` durchlaufen zusätzlich `node --check`.
 
-## Fehlende, aber geplante Gates
+## Browser-Abnahme
 
-| Gate | Auslöser | Abnahme |
+Der lokale Browser-Smoke prüft mindestens diese Matrix:
+
+| Fläche | Breiten | Zustände |
 | --- | --- | --- |
-| Datenvertrag | Vor jeder Schema- oder Kategorieerweiterung | IDs, Kategorien, Referenzen, Panels, Rahmen und Bildpfade grün. |
-| Routen-Smoke | Vor Änderungen an wiki.js oder rahmen-assistent.js | Start, Eintrag, Kategorie, Werkstatt und Rahmen per Direktaufruf und normaler Navigation. |
-| Asynchroner Routenwechsel | Vor Erweiterung des Rahmen-Assistenten | Ein verspäteter Ladevorgang darf keine neue Route überschreiben. |
-| Cache-Artefakt | Vor Änderung einer Browser-Abhängigkeit | Jede veränderliche Browser-Ressource trägt die Ziel-SHA oder ist ausdrücklich unveränderlich. |
-| Visuelle Abnahme | Vor CSS-Trennung oder Werkstatt-Änderung | Desktop, 1024 px und 640 px; hell/dunkel; Wiki, Bearbeiten, Werkstatt und Rahmen. |
-| Live-Abnahme | Erst nach autorisiertem main-Push | Actions für Ziel-SHA grün, frischer Browser und konkrete Upgrade-Funktion geprüft. |
+| Start, Eintrag, Kategorie, Werkstatt, Rahmen-Deep-Link | Desktop, 1024 px, 640 px | hell und dunkel, kein horizontaler Überlauf |
+| Suche und Tastatur | Desktop und 640 px | Treffer, Pfeiltasten, Enter, Escape und Leeren |
+| Vorschau | Desktop | Verzögerung, Übergang in die Vorschau und Route über „Öffnen“ |
+| Leiste | Desktop und 640 px | gespeicherter Desktopzustand, geschlossener Mobilzustand |
+| Nicht angemeldeter Rahmen | alle | sichtbarer Login-Hinweis, kein Schreibformular |
 
-## Ausführungsreihenfolge
+Der authentifizierte Bearbeitungspfad und echte GitHub-Schreibvorgänge bleiben
+bewusst außerhalb dieser lokalen Prüfung, solange kein Token und keine
+ausdrückliche Autorisierung vorliegen.
 
-1. Node 22 verwenden, wenn ein Ergebnis die GitHub-Action abbilden soll.
-2. Syntax prüfen.
-3. Alle sechs bestehenden Prüfscripts ausführen.
-4. Paketbezogene neue Tests ausführen.
-5. Erst danach einen Review oder einen ausdrücklich freigegebenen Push
-   vorbereiten.
+## CI und Veröffentlichung
 
-Das Projekt braucht aktuell keinen Paketmanager. Falls später ein
-Browser-Testwerkzeug wirklich notwendig wird, wird es als separates Paket mit
-pnpm eingeführt; bis dahin wird kein künstliches Node-Projekt angelegt.
+- `qa.yml` läuft für Pull Requests und manuell. Er prüft Syntax, alle
+  `pruefe-*.mjs` und einen vollständig versionierten Browser-Artefaktgraphen;
+  er veröffentlicht nie.
+- `pages.yml` läuft nur auf `main` oder manuell. Er führt dieselben Gates aus,
+  versioniert ausschließlich eine Artefaktkopie und kann erst danach Pages
+  bereitstellen.
+- Nach einem ausdrücklich freigegebenen Push wird zusätzlich der
+  Actions-Lauf für den Ziel-SHA und die öffentliche Seite in einem frischen
+  Browser geprüft.
+
+Das Projekt braucht keinen Paketmanager. Falls später ein eigenständiges
+Browser-Testwerkzeug nötig wird, wird es als begründetes separates Paket mit
+`pnpm` eingeführt – nicht als Nebenwirkung dieses statischen Wikis.

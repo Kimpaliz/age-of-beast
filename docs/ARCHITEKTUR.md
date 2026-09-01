@@ -1,96 +1,82 @@
 # Age of Beast – Architekturkarte
 
-**Ist-Stand:** v2.7.0
-**Ziel dieser Karte:** Die bestehende Anwendung verständlich teilen, ohne ihre
-Laufzeit jetzt durch eine Komplett-Neuschreibung zu gefährden.
+**Ist-Stand:** lokaler Upgrade-Stand nach den Paketen A–H. Er ist geprüft,
+aber noch nicht veröffentlicht.
 
 ## Start- und Laufzeitpfad
 
 ~~~text
 index.html
+ ├─ stil.css
+ │   └─ styles/tokens.css, wiki.css, bearbeiten.css, werkstatt.css
  ├─ daten/welt.js
  │   └─ window.AGE_OF_BEAST_WELT
+ ├─ runtime/datenindex.js
+ │   └─ Indizes, Volltextsuche, Verweise und Referenzen
+ ├─ runtime/ansichten.js
+ │   └─ Start-, Kategorie-, Eintrags- und Werkstattansichten
+ ├─ runtime/interaktion.js
+ │   └─ Suche, Vorschau, Theme, Leiste und Filter
+ ├─ runtime/routing.js
+ │   └─ Hash-Routen, Render-Generation und öffentliche Fassade
  ├─ wiki.js
- │   ├─ Indizes aus WELT
- │   ├─ Hash-Routing, Rendering, Suche, Vorschau und Theme
- │   └─ window.ageOfBeast
- │       ├─ weltSetzen()
- │       ├─ weltHolen()
- │       └─ beiNeuZeichnen()
+ │   └─ prüft die Bausteine, setzt window.ageOfBeast vor dem ersten Render
  └─ bearbeiten.js als ES-Modul
-     ├─ GitHub- und Datentransformation
+     ├─ GitHub-Speicher und Sitzungsschlüssel
+     ├─ bearbeiten-kontext.js
      ├─ texte-bearbeiten.js
      ├─ struktur-bedienung.js
      └─ rahmen-assistent.js
          └─ registriert den Rahmen-Renderer
 ~~~
 
-Die Leseruntime wird zuerst ausgeführt. Der Bearbeitungsmodus ergänzt sie
-anschließend. Das macht die Wiki-Seite ohne Anmeldung klein und direkt
-lesbar, erzeugt aber heute mehrere implizite Verträge.
+Die vier Reader-Dateien sind klassische Skripte in fester Reihenfolge, keine
+neuen Browser-ES-Module. Dadurch bleibt der Lesemodus ohne Build-Schritt
+startfähig. `wiki.js` hält die alte, bewusst kleine globale Schnittstelle
+stabil, während die Zuständigkeiten intern getrennt sind.
 
-## Bestehende Verträge
+## Öffentliche und interne Verträge
 
-| Vertrag | Wer stellt ihn bereit | Wer nutzt ihn | Upgrade-Regel |
+| Vertrag | Wer stellt ihn bereit | Wer nutzt ihn | Schutz |
 | --- | --- | --- | --- |
-| window.AGE_OF_BEAST_WELT | daten/welt.js | wiki.js | Dateiname und globaler Name bleiben bis zur kontrollierten Modulmigration stabil. |
-| window.ageOfBeast | wiki.js | bearbeiten.js und Rahmen-Assistent | Öffentliche Fassade zuerst initialisieren, erst danach die erste Route zeichnen. |
-| Statische DOM-Anker | index.html | wiki.js und Bearbeitung | #inhalt, #navigation, #rahmen, #vorschau und Kopf-Elemente nur mit begleitendem Test ändern. |
-| Gerendertes Datenattribut-Markup | wiki.js | Text- und Strukturbearbeitung | data-eintrag, data-feld, data-abschnitt, data-panel und data-zeile sind ein expliziter UI-Vertrag. |
-| Nach-Render-Rückrufe | wiki.js | Bearbeitungsmodule | Jeder Renderer muss idempotent sein; Listener dürfen sich nicht verdoppeln. |
-| Bearbeitungskontext | bearbeiten.js | Drei Bearbeitungsmodule | Rohstand, Änderung, Neuzeichnen und Fehlerbehandlung werden schrittweise als klare Schnittstelle geführt. |
+| `window.AGE_OF_BEAST_WELT` | `daten/welt.js` | `runtime/datenindex.js` | Dateiname und Global bleiben stabil. |
+| `window.__aobLeserBausteine` | vier `runtime/`-Dateien | `wiki.js` | Interner Bootstrap-Container; nicht für Bearbeitungsmodule bestimmt. |
+| `window.ageOfBeast` | `runtime/routing.js` über `wiki.js` | Bearbeitung und Rahmen-Assistent | `weltSetzen`, `weltHolen`, `beiNeuZeichnen`, `rahmenRendererRegistrieren` und `rahmenZeichnen` bleiben vor dem ersten Render verfügbar. |
+| Statische DOM-Anker | `index.html` | Runtime und Bearbeitung | `#inhalt`, `#navigation`, `#rahmen`, `#vorschau` und die Kopf-Elemente nur mit begleitenden Tests ändern. |
+| Gerendertes Datenattribut-Markup | `runtime/ansichten.js` | Text- und Strukturbearbeitung | `data-eintrag`, `data-feld`, `data-abschnitt`, `data-panel` und `data-zeile` sind ein UI-Vertrag. |
+| Bearbeitungskontext | `bearbeiten-kontext.js` | drei Bearbeitungsmodule | Eingefrorene Rückrufe für Rohstand, Schreiben, Neuzeichnen, Meldung und aktuellen Runtime-Zugriff. |
 
-## Wichtigste technische Risiken
+## Sicherheits- und Betriebsgrenzen
 
-| Priorität | Befund | Sichere erste Reaktion |
-| --- | --- | --- |
-| P1 | Ein frischer Direktaufruf von #/rahmen/<id> kann vor der Initialisierung der öffentlichen Fassade auf den Rahmen-Renderer zugreifen. | Fassade vor dem ersten Render erzeugen und Deep Links automatisiert prüfen. |
-| P2 | Der asynchrone Rahmen-Assistent kann eine inzwischen andere Route überschreiben. | Render-Generation oder Abbruchsignal einführen. |
-| P2 | Freischalten während einer offenen Rahmenroute zeichnet nicht zwingend erneut. | Registrierung des Renderers und Neuzeichnen als einen kontrollierten Ablauf behandeln. |
-| P2 | Bearbeitung hängt zugleich an Globals, DOM-Attributen und einem Custom Event. | Kontext und Markup-Vertrag vor einer Aufspaltung explizit dokumentieren und testen. |
-| P3 | Einige alte Einbettungs-Selektoren in stil.css sind unbenutzt. | Erst nach visueller Regressionstestung entfernen. |
+- Die Vorschau bindet ausschließlich an `127.0.0.1`; der Heim-Server bleibt
+  im NetBird-Modus, `--alle` ist eine sichtbare Ausnahme.
+- Beide Server liefern nur eine explizite Dateiliste, die vier Styles, die
+  vier Runtime-Dateien und lokale Karten-SVGs. Vertrauliche, versteckte,
+  ausbrechende und unbekannte Stilpfade bleiben gesperrt.
+- Der Browser-Speicheradapter akzeptiert bei einer Weltänderung ausschließlich
+  `daten/quelle.json`, `daten/welt.json` und `daten/welt.js`; der finale
+  Branch-Ref wird nie erzwungen aktualisiert.
+- Ein Fine-grained-Token liegt nur in `sessionStorage`. Er wird beim Start aus
+  einer möglichen alten dauerhaften Ablage entfernt und ist nach Ende der
+  Browser-Sitzung nicht mehr verfügbar.
+- `qa.yml` prüft Pull Requests und manuelle QA ohne Deployment. Nur
+  `pages.yml` auf `main` kann ein Pages-Artefakt hochladen.
 
-## Zielbild für die schrittweise Modulgrenze
+## Testbare Runtime-Regeln
 
-Dies ist eine **geplante** Struktur, keine bereits vorgenommene Verschiebung:
+1. Die Fassade ist vor dem ersten Schreiben nach `#inhalt` gesetzt.
+2. Jede Route erhält eine Generation. Ein später Rahmen-Renderer darf eine
+   inzwischen andere Route nicht überschreiben.
+3. Interaktions-Listener werden genau einmal installiert; ein Hashwechsel
+   verdoppelt weder Suche noch Theme, Leiste oder Vorschau.
+4. Die Vorschau behält die bewährten Verzögerungen und bleibt beim Übergang in
+   `#vorschau` offen, bis die Route wechselt, der Fokus wechselt oder sie
+   ausdrücklich verborgen wird.
+5. `weltSetzen()` baut Indizes, Kopf, Navigation und aktuelle Seite neu auf;
+   mit `stelleHalten` wird die frühere Scroll-Höhe wiederhergestellt.
+6. Die CSS-Fassade importiert ausschließlich die vier Feature-Dateien. Die
+   Stilstrukturprüfung stellt sicher, dass deren Gesamtinhalt dem bisherigen
+   Monolithen entspricht.
 
-~~~text
-web/
-  bootstrap.js        Einstieg und Kompatibilitätsfassade
-  runtime/
-    datenindex.js     Indizes und Suchdaten
-    routing.js        Hash-Route und Render-Generation
-    ansichten.js      Start-, Kategorie-, Eintrags- und Werkstattansichten
-    interaktion.js    Suche, Vorschau, Theme und Leiste
-  bearbeiten/
-    kontext.js        Bearbeitungskontext und kontrollierte Aktualisierung
-    text.js           Textbedienung
-    struktur.js       Strukturbedienung
-    rahmen.js         Rahmen-Assistent
-  styles/
-    tokens.css
-    wiki.css
-    bearbeiten.css
-    werkstatt.css
-~~~
-
-Der erste Schritt führt keine neue Verzeichnisstruktur erzwungen ein. Er
-zieht nur schmale, testbare Grenzen innerhalb der bestehenden Dateien. Die
-Fassade window.ageOfBeast bleibt dabei vorübergehend erhalten, damit
-Bearbeitung und bestehende Links nicht brechen.
-
-## Regeln für eine sichere Runtime-Migration
-
-1. Pro Paket genau eine Verantwortungsgrenze verschieben.
-2. Vor jedem Verschieben die vorhandenen DOM-Attribute als Vertragstest
-   festhalten.
-3. Hash-Routen immer als normale Navigation **und** als harter Seitenaufruf
-   prüfen.
-4. Asynchrone Ansichten erhalten eine aktuelle Render-Kennung; ein alter
-   Ladevorgang darf keine neue Route überschreiben.
-5. Weltformat und GitHub-Speicher bleiben bei reinen UI-Paketen unverändert.
-6. Erst nach grüner Runtime- und Bearbeitungsabnahme CSS nach Features
-   trennen.
-
-Die konkrete Reihenfolge, Dateien und Abnahmekriterien stehen in
-UPGRADE_ROADMAP.md.
+Die ausführbaren Nachweise stehen in `docs/QA_MATRIX.md`; die Paket-Historie
+und die noch fehlende Live-Abnahme stehen in `docs/UPGRADE_ROADMAP.md`.

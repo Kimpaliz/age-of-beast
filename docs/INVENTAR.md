@@ -1,6 +1,8 @@
 # Age of Beast – Projektinventar
 
-**Referenzstand:** Git-Tag v2.7.0, Commit 815a808c29375a5e4597b9fb64bb2742193807e5
+**Veröffentlichter Referenzstand:** Git-Tag v2.7.0, Commit 815a808c29375a5e4597b9fb64bb2742193807e5
+**Lokaler Ausbau:** Pakete A–H sind zusätzlich umgesetzt und geprüft, aber
+noch nicht veröffentlicht.
 **Erfasst am:** 1. September 2026
 **Zweck:** Diese Karte beschreibt den Ist-Zustand. Sie ist kein Auftrag, Dateien
 blind umzubauen.
@@ -17,18 +19,19 @@ Quelle über die GitHub-Git-Data-API zurück in das Repository.
 | Schicht | Verantwortliche Dateien | Aufgabe |
 | --- | --- | --- |
 | Einstieg | index.html | Statische DOM-Anker und feste Lade-Reihenfolge |
-| Leseruntime | wiki.js | Routing, Navigation, Suche, Rendering, Vorschau, Theme und öffentliche Kompatibilitätsfassade |
-| Bearbeitung | bearbeiten.js | Anmeldung, geladener Rohstand, Speichern und gemeinsamer Bearbeitungskontext |
+| Leseruntime | runtime/datenindex.js, ansichten.js, interaktion.js, routing.js; wiki.js | Indizes, Ansichten, Interaktion, Routing; `wiki.js` ist Bootstrap und öffentliche Kompatibilitätsfassade |
+| Bearbeitung | bearbeiten.js, bearbeiten-kontext.js | Anmeldung, geladener Rohstand, Speichern und eingefrorener Bearbeitungskontext |
 | Textoberfläche | texte-bearbeiten.js | Bearbeiten der Textfelder |
 | Strukturoberfläche | struktur-bedienung.js | Abschnitte, Steckbriefzeilen, Reihenfolge |
 | Rahmen-Assistent | rahmen-assistent.js | Asynchroner Kampagnenrahmen-Editor |
-| Darstellung | stil.css | Design-Tokens, Layout, Leser-, Bearbeitungs-, Werkstatt- und Assistentenflächen |
+| Darstellung | stil.css; styles/ | Importfassade sowie getrennte Tokens, Wiki-, Bearbeitungs- und Werkstatt-/Rahmen-Stile |
 | Kanonische Daten | daten/quelle.json | Einzige bearbeitbare Weltquelle |
 | Abgeleitete Daten | daten/welt.json, daten/welt.js | Deterministische Anzeigeformate |
 | Assistenten-Descriptor | daten/rahmen-felder.json | UI-Felder und Schritte, nicht Teil der Weltquelle |
 | Lokale Wappen | daten/kartenbilder | 234 selbst erzeugte SVG-Dateien |
-| Transformation und Tests | werkzeuge | Aufbereitung, GitHub-Speicher, lokale Server und Prüfscripts |
-| Auslieferung | .github/workflows/pages.yml | Syntax, Datenprüfungen, Cache-Artefakt und GitHub Pages |
+| Transformation und Tests | werkzeuge | Aufbereitung, GitHub-Speicher, lokale Server und zwölf Prüfscripts |
+| Qualitätssicherung | .github/workflows/qa.yml | Pull-Request-/manuelle Prüfung ohne Deployment |
+| Auslieferung | .github/workflows/pages.yml | Syntax, alle Wächter, Cache-Artefakt und GitHub Pages auf main |
 
 ## Inhaltlicher Datenstand
 

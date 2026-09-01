@@ -48,9 +48,11 @@ angemeldete Bearbeitungsmodus verbindet sich mit GitHub.
 ## Aufbau des Projekts
 
 ```
-index.html                 die Seite selbst
-stil.css                   die gesamte Gestaltung
-wiki.js                    Navigation, Suche, Verweise, Vorschau
+index.html                 die Seite selbst und die feste Lade-Reihenfolge
+stil.css                   schmale Stil-Fassade
+styles/                    Tokens, Wiki-, Bearbeitungs- und Werkstatt-Stile
+runtime/                   Datenindex, Ansichten, Interaktion und Routing
+wiki.js                    Bootstrap und öffentliche Kompatibilitätsfassade
 bearbeiten.js              Anmeldung und Speichern nach GitHub
 texte-bearbeiten.js        die Bedienung zum Ändern von Texten
 daten/quelle.json          DIE WELT – hier steht die Wahrheit
@@ -134,7 +136,8 @@ jederzeit in den GitHub-Einstellungen.
 ### Danach: bearbeiten
 
 1. Oben rechts auf **Anmelden**, Schlüssel einfügen. Das Wiki merkt ihn sich
-   auf diesem Gerät — auf einem neuen Gerät einmal wiederholen.
+   nur für diese Browser-Sitzung; nach dem Schließen des Tabs oder Browsers
+   wird er nicht dauerhaft auf dem Gerät abgelegt.
 2. Auf **Bearbeiten** klicken.
 3. Auf den Stift ✎ neben dem gewünschten Text klicken.
 4. Ändern, **Speichern**.
@@ -195,7 +198,8 @@ Die technische Grundlage für sichere Upgrades ist dokumentiert:
 
 ## Prüfungen
 
-Sechs Skripte sichern die Inhalte ab. Sie brauchen keine Installation und
+Zwölf lokale Wächter sichern Daten, Speicherweg, Laufzeit, Stilstruktur und
+Servergrenzen ab. Sie brauchen keine Installation und
 schreiben nichts in die Datenbank.
 
 ```bash
@@ -245,8 +249,15 @@ Startet beide reinen Lese-Server nur kurz lokal und prüft erlaubte
 Browser-Dateien, gesperrte Pfade, Methoden, HEAD-Antworten und die
 Loopback-Bindung der Vorschau.
 
-Alle sechs laufen auch bei jeder Veröffentlichung automatisch. Schlägt eine
-fehl, geht die Änderung nicht online.
+Zusätzlich prüfen `pruefe-datenvertrag.mjs`, `pruefe-rahmen-routen.mjs`,
+`pruefe-bearbeitungskontext.mjs`, `pruefe-leseruntime.mjs`,
+`pruefe-cache-graph.mjs` und `pruefe-stilstruktur.mjs` den Legacy-v0-Vertrag,
+Rahmenrouten, Bearbeitungsgrenzen, die aufgeteilte Leseruntime, den
+Cache-Graphen und die unveränderte Stilbasis.
+
+Die beiden GitHub-Workflows finden alle Dateien nach dem Muster
+`werkzeuge/pruefe-*.mjs` automatisch. Schlägt ein Wächter fehl, wird ein
+Pages-Artefakt nicht bereitgestellt.
 
 ---
 
