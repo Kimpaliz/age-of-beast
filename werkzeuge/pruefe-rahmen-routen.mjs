@@ -34,6 +34,12 @@ const WURZEL = process.env.AGE_OF_BEAST_PRUEFWURZEL
   ? resolve(process.env.AGE_OF_BEAST_PRUEFWURZEL)
   : join(HIER, '..');
 const WIKI_DATEI = join(WURZEL, 'wiki.js');
+const RUNTIME_DATEIEN = [
+  join(WURZEL, 'runtime', 'datenindex.js'),
+  join(WURZEL, 'runtime', 'ansichten.js'),
+  join(WURZEL, 'runtime', 'interaktion.js'),
+  join(WURZEL, 'runtime', 'routing.js'),
+];
 const ASSISTENT_DATEI = join(WURZEL, 'rahmen-assistent.js');
 
 const fehler = [];
@@ -201,15 +207,19 @@ function wikiPruefstand() {
       for (const rueckruf of ereignisse.get(art) || []) rueckruf({ type: art });
     },
     get fassade() { return fassade; },
+    listenerZahl(art) { return (ereignisse.get(art) || []).length; },
     location,
     protokoll,
     sandkasten,
   };
 }
 
-function hostPruefen(wikiQuelltext) {
+function hostPruefen(runtimeQuelltexte, wikiQuelltext) {
   const stand = wikiPruefstand();
   try {
+    for (let index = 0; index < runtimeQuelltexte.length; index += 1) {
+      new vm.Script(runtimeQuelltexte[index], { filename: RUNTIME_DATEIEN[index] }).runInNewContext(stand.sandkasten);
+    }
     new vm.Script(wikiQuelltext, { filename: WIKI_DATEI }).runInNewContext(stand.sandkasten);
   } catch (fehlerBeimStart) {
     fehlermeldung(
@@ -225,6 +235,22 @@ function hostPruefen(wikiQuelltext) {
     Boolean(fassade),
     'wiki.js / öffentliche Fassade: window.ageOfBeast wurde beim Start nicht bereitgestellt.',
   );
+  pruefe(
+    stand.listenerZahl('hashchange') === 1,
+    'wiki.js / Leseruntime: Der Start muss genau einen hashchange-Listener installieren.',
+  );
+  let nachRenderAufrufe = 0;
+  const abmelden = fassade.beiNeuZeichnen(() => { nachRenderAufrufe += 1; });
+  pruefe(nachRenderAufrufe === 1, 'wiki.js / Leseruntime: beiNeuZeichnen() muss sofort genau einmal laufen.');
+  const globaleVorher = ['hashchange', 'resize', 'scroll'].map((art) => stand.listenerZahl(art)).join(':');
+  stand.location.hash = '#/werkstatt';
+  stand.ausloesen('hashchange');
+  pruefe(nachRenderAufrufe === 2, 'wiki.js / Leseruntime: Ein Routenrender muss den Rückruf genau einmal ausführen.');
+  pruefe(globaleVorher === ['hashchange', 'resize', 'scroll'].map((art) => stand.listenerZahl(art)).join(':'), 'wiki.js / Leseruntime: Routenwechsel dürfen keine globalen Listener duplizieren.');
+  pruefe(fassade.beiNeuZeichnen(null) === undefined, 'wiki.js / Leseruntime: Ungültige Nachrender-Rückrufe bleiben ein stiller No-op.');
+  abmelden?.();
+  stand.location.hash = '#/rahmen/rahmen-probe';
+  stand.ausloesen('hashchange');
   if (!fassade) return;
 
   const fassadeStelle = stand.protokoll.findIndex((eintrag) => eintrag.art === 'fassade');
@@ -524,18 +550,18 @@ async function assistentSzenarioPruefen(assistentQuelltext, art) {
   );
 }
 
-function quellvertraegePruefen(wikiQuelltext, assistentQuelltext) {
+function quellvertraegePruefen(routingQuelltext, assistentQuelltext) {
   pruefe(
-    /\brahmenRendererRegistrieren\s*\(\s*renderer\s*\)/.test(wikiQuelltext),
-    'wiki.js / Quellvertrag: Die registrierbare Schnittstelle rahmenRendererRegistrieren(renderer) fehlt.',
+    /\brahmenRendererRegistrieren\s*\(\s*renderer\s*\)/.test(routingQuelltext),
+    'runtime/routing.js / Quellvertrag: Die registrierbare Schnittstelle rahmenRendererRegistrieren(renderer) fehlt.',
   );
   pruefe(
-    /\brenderGeneration\s*\+=\s*1\s*;/.test(wikiQuelltext),
-    'wiki.js / Quellvertrag: Jede Route muss eine Render-Generation fortschreiben.',
+    /\brenderGeneration\s*\+=\s*1\s*;/.test(routingQuelltext),
+    'runtime/routing.js / Quellvertrag: Jede Route muss eine Render-Generation fortschreiben.',
   );
   pruefe(
-    /istNochAktuell\s*:\s*\(\)\s*=>[\s\S]{0,180}rahmenRouteIstOffen\s*\(\s*id\s*\)/.test(wikiQuelltext),
-    'wiki.js / Quellvertrag: Der Aktualitätskontext muss Generation und exakt offene Rahmen-ID prüfen.',
+    /istNochAktuell\s*:\s*\(\)\s*=>[\s\S]{0,180}rahmenRouteIstOffen\s*\(\s*id\s*\)/.test(routingQuelltext),
+    'runtime/routing.js / Quellvertrag: Der Aktualitätskontext muss Generation und exakt offene Rahmen-ID prüfen.',
   );
   pruefe(
     /async\s+function\s+zeichnen\s*\(\s*inhalt\s*,\s*rahmenId\s*,\s*routenKontext\s*\)/.test(assistentQuelltext),
@@ -574,10 +600,11 @@ function quellvertraegePruefen(wikiQuelltext, assistentQuelltext) {
 
 async function ausfuehren() {
   const wikiQuelltext = readFileSync(WIKI_DATEI, 'utf8');
+  const runtimeQuelltexte = RUNTIME_DATEIEN.map((datei) => readFileSync(datei, 'utf8'));
   const assistentQuelltext = readFileSync(ASSISTENT_DATEI, 'utf8');
 
-  quellvertraegePruefen(wikiQuelltext, assistentQuelltext);
-  hostPruefen(wikiQuelltext);
+  quellvertraegePruefen(runtimeQuelltexte[3], assistentQuelltext);
+  hostPruefen(runtimeQuelltexte, wikiQuelltext);
   await assistentSzenarioPruefen(assistentQuelltext, 'frisch');
   await assistentSzenarioPruefen(assistentQuelltext, 'veraltet-erfolg');
   await assistentSzenarioPruefen(assistentQuelltext, 'veraltet-fehler');
