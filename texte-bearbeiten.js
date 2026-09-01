@@ -19,7 +19,7 @@
 
    Diese Datei enthält ausschließlich die Bedienung. Sie weiß bewusst
    nicht, wohin gespeichert wird – das entscheidet `bearbeiten.js` und
-   reicht es als `werkzeug.schreiben` herein. Genau diese Trennung hat den
+   reicht es als `kontext.schreiben` herein. Genau diese Trennung hat den
    Umzug von Firebase nach GitHub zu einer kleinen Änderung gemacht.
 
    Welche Stelle im Weltstand zu einem Feld gehört und wie umgerechnet
@@ -175,12 +175,13 @@ function stiftBauen(beschriftung) {
 /**
  * Richtet die Bearbeitungsansicht ein.
  *
- * @param {object} werkzeug
- * @param {Function} werkzeug.rohStand    Gibt den gehaltenen Rohstand zurück
- * @param {Function} werkzeug.schreiben   Schreibt ein Bündel Änderungen
- * @param {Function} werkzeug.neuZeichnen Baut die Welt neu auf und zeichnet
+ * @param {object} kontext
+ * @param {Function} kontext.rohStand    Gibt den gehaltenen Rohstand zurück
+ * @param {Function} kontext.schreiben   Schreibt ein Bündel Änderungen
+ * @param {Function} kontext.neuZeichnen Baut die Welt neu auf und zeichnet
+ * @param {Function} kontext.runtimeHolen Liest den aktuellen Runtime-Host
  */
-export function bearbeitenEinrichten(werkzeug) {
+export function bearbeitenEinrichten(kontext) {
   const knopf = document.getElementById('bearbeiten-knopf');
   if (!knopf) return;
 
@@ -212,11 +213,13 @@ export function bearbeitenEinrichten(werkzeug) {
 
     const eintragId = artikel.dataset.eintrag;
     const kategorie = artikel.dataset.kategorie;
-    const roh = werkzeug.rohStand();
+    const roh = kontext.rohStand();
     const element = roh?.elements?.[kategorie]?.[eintragId];
     if (!element) return;
 
-    const welt = window.ageOfBeast.weltHolen();
+    const runtime = kontext.runtimeHolen();
+    const welt = typeof runtime?.weltHolen === 'function' ? runtime.weltHolen() : null;
+    if (!welt || !Array.isArray(welt.eintraege)) return;
     const eintrag = welt.eintraege.find((e) => e.id === eintragId);
     if (!eintrag) return;
 
@@ -235,7 +238,7 @@ export function bearbeitenEinrichten(werkzeug) {
         // Beim Öffnen wird der Wert frisch geholt: Zwischen dem Setzen des
         // Stifts und dem Klick kann bereits ein anderes Feld gespeichert
         // worden sein.
-        const jetzt = stelleFinden(werkzeug.rohStand()?.elements?.[kategorie]?.[eintragId], feld, herkunft);
+        const jetzt = stelleFinden(kontext.rohStand()?.elements?.[kategorie]?.[eintragId], feld, herkunft);
         if (!jetzt) {
           window.alert(
             'Dieser Text lässt sich gerade nicht bearbeiten. ' +
@@ -270,13 +273,14 @@ export function bearbeitenEinrichten(werkzeug) {
     aenderungen[basis + 'updatedAt'] = jetzt;
     aenderungen.updatedAt = jetzt;
 
-    await werkzeug.schreiben(aenderungen, eintragName + ': ' + stelle.beschriftung + ' geändert');
+    await kontext.schreiben(aenderungen, eintragName + ': ' + stelle.beschriftung + ' geändert');
 
-    werkzeug.neuZeichnen();
+    kontext.neuZeichnen();
   }
 
   // Nach jedem Seitenwechsel müssen die Stifte neu gesetzt werden.
-  window.ageOfBeast.beiNeuZeichnen(stifteSetzen);
+  const runtime = kontext.runtimeHolen();
+  if (typeof runtime?.beiNeuZeichnen === 'function') runtime.beiNeuZeichnen(stifteSetzen);
 
   zustandSetzen(false);
 }

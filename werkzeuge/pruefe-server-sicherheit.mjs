@@ -124,6 +124,7 @@ async function serverPruefen(name, port) {
     '/stil.css',
     '/wiki.js',
     '/bearbeiten.js',
+    '/bearbeiten-kontext.js',
     '/texte-bearbeiten.js',
     '/struktur-bedienung.js',
     '/rahmen-assistent.js',

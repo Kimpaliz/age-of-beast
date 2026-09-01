@@ -54,7 +54,7 @@ function formularSchliessen() {
    Einrichtung
    ================================================================ */
 
-export function strukturEinrichten(werkzeug) {
+export function strukturEinrichten(kontext) {
   /** Ist der Bearbeitungsmodus gerade an? */
   const an = () => document.documentElement.dataset.bearbeiten === 'an';
 
@@ -77,8 +77,8 @@ export function strukturEinrichten(werkzeug) {
     aenderungen[basis + 'updatedAt'] = jetzt;
     aenderungen.updatedAt = jetzt;
 
-    await werkzeug.schreiben(aenderungen, eintragName + ': ' + schritt.beschreibung);
-    werkzeug.neuZeichnen();
+    await kontext.schreiben(aenderungen, eintragName + ': ' + schritt.beschreibung);
+    kontext.neuZeichnen();
   }
 
   /** Zeigt einen Fehler so, dass er nicht zu übersehen ist. */
@@ -105,11 +105,13 @@ export function strukturEinrichten(werkzeug) {
 
     const eintragId = artikel.dataset.eintrag;
     const kategorie = artikel.dataset.kategorie;
-    const holen = () => werkzeug.rohStand()?.elements?.[kategorie]?.[eintragId];
+    const holen = () => kontext.rohStand()?.elements?.[kategorie]?.[eintragId];
     const element = holen();
     if (!element) return;
 
-    const welt = window.ageOfBeast.weltHolen();
+    const runtime = kontext.runtimeHolen();
+    const welt = typeof runtime?.weltHolen === 'function' ? runtime.weltHolen() : null;
+    if (!welt || !Array.isArray(welt.eintraege)) return;
     const eintrag = welt.eintraege.find((e) => e.id === eintragId);
     if (!eintrag) return;
     const name = eintrag.name;
@@ -280,7 +282,8 @@ export function strukturEinrichten(werkzeug) {
      Anschluss
      -------------------------------------------------------------- */
 
-  window.ageOfBeast.beiNeuZeichnen(bedienungSetzen);
+  const runtime = kontext.runtimeHolen();
+  if (typeof runtime?.beiNeuZeichnen === 'function') runtime.beiNeuZeichnen(bedienungSetzen);
   document.addEventListener('bearbeiten-umgeschaltet', bedienungSetzen);
   bedienungSetzen();
 }

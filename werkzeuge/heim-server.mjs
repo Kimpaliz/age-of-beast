@@ -65,6 +65,7 @@ const OEFFENTLICHE_DATEIEN = new Set([
   'stil.css',
   'wiki.js',
   'bearbeiten.js',
+  'bearbeiten-kontext.js',
   'texte-bearbeiten.js',
   'struktur-bedienung.js',
   'rahmen-assistent.js',

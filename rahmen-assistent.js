@@ -47,8 +47,8 @@ const sicher = (text) =>
  * Der Host gibt dem Renderer bei neuen Routen eine eigene Generation mit.
  * Alte, noch laufende Ladevorgänge dürfen danach nichts mehr zeichnen.
  */
-function istNochAktuell(kontext) {
-  return typeof kontext?.istNochAktuell !== 'function' || kontext.istNochAktuell();
+function istNochAktuell(routenKontext) {
+  return typeof routenKontext?.istNochAktuell !== 'function' || routenKontext.istNochAktuell();
 }
 
 /** Liest `core/concept` aus einem verschachtelten Objekt. */
@@ -65,7 +65,7 @@ function inTiefeLesen(objekt, pfad) {
    Einrichtung
    ================================================================ */
 
-export function rahmenAssistentEinrichten(werkzeug) {
+export function rahmenAssistentEinrichten(bearbeitungsKontext) {
   /** Welcher Schritt ist gerade offen? Je Rahmen gemerkt. */
   const offenerSchritt = new Map();
 
@@ -85,12 +85,12 @@ export function rahmenAssistentEinrichten(werkzeug) {
    * Der optionale Kontext kommt vom Router und schützt vor einem verspäteten
    * Feldbeschreibungs-Ladevorgang nach einem Routewechsel.
    */
-  async function zeichnen(inhalt, rahmenId, kontext) {
-    const stand = werkzeug.rohStand();
+  async function zeichnen(inhalt, rahmenId, routenKontext) {
+    const stand = bearbeitungsKontext.rohStand();
     const rahmen = stand?.rahmen?.[rahmenId];
 
     if (!rahmen) {
-      if (!istNochAktuell(kontext)) return;
+      if (!istNochAktuell(routenKontext)) return;
       inhalt.innerHTML =
         '<div class="hinweis"><strong>Diesen Kampagnenrahmen gibt es nicht.</strong><br>' +
         'Vielleicht wurde er umbenannt. Zurück zur ' +
@@ -102,14 +102,14 @@ export function rahmenAssistentEinrichten(werkzeug) {
     try {
       b = await beschreibungLaden();
     } catch (fehler) {
-      if (!istNochAktuell(kontext)) return;
+      if (!istNochAktuell(routenKontext)) return;
       inhalt.innerHTML =
         '<div class="hinweis"><strong>Der Assistent lässt sich nicht laden.</strong><br>' +
         sicher(fehler.message) + '</div>';
       return;
     }
 
-    if (!istNochAktuell(kontext)) return;
+    if (!istNochAktuell(routenKontext)) return;
 
     const schrittNr = offenerSchritt.get(rahmenId) || 1;
     const titel = rahmen.inhalt?.title || 'Kampagnenrahmen';
@@ -133,17 +133,17 @@ export function rahmenAssistentEinrichten(werkzeug) {
         '<div class="schritt-inhalt" id="schritt-inhalt"></div>' +
       '</div>';
 
-    if (!istNochAktuell(kontext)) return;
+    if (!istNochAktuell(routenKontext)) return;
     document.title = titel + ' – Assistent';
 
     for (const knopf of inhalt.querySelectorAll('.schritt-knopf')) {
       knopf.addEventListener('click', () => {
         offenerSchritt.set(rahmenId, Number(knopf.dataset.schritt));
-        zeichnen(inhalt, rahmenId, kontext);
+        zeichnen(inhalt, rahmenId, routenKontext);
       });
     }
 
-    if (!istNochAktuell(kontext)) return;
+    if (!istNochAktuell(routenKontext)) return;
     schrittZeichnen(inhalt.querySelector('#schritt-inhalt'), b, rahmen, rahmenId, schrittNr);
   }
 
@@ -219,7 +219,7 @@ export function rahmenAssistentEinrichten(werkzeug) {
 
       try {
         const anzahl = Object.keys(aenderungen).length - 2;
-        await werkzeug.schreiben(
+        await bearbeitungsKontext.schreiben(
           aenderungen,
           (rahmen.inhalt?.title || 'Rahmen') + ': ' + (schritt ? schritt.name : 'Schritt ' + nummer) +
             ' (' + anzahl + (anzahl === 1 ? ' Feld' : ' Felder') + ')',
@@ -228,7 +228,7 @@ export function rahmenAssistentEinrichten(werkzeug) {
         // Feld, die Meldung erscheint danach im frisch gebauten.
         naechsteMeldung =
           'Gespeichert — ' + anzahl + (anzahl === 1 ? ' Feld' : ' Felder') + ' geändert.';
-        werkzeug.neuZeichnen();
+        bearbeitungsKontext.neuZeichnen();
       } catch (fehler) {
         meldung.textContent = '';
         window.alert(
@@ -349,7 +349,7 @@ export function rahmenAssistentEinrichten(werkzeug) {
      Anschluss
      -------------------------------------------------------------- */
 
-  const host = window.ageOfBeast;
+  const host = bearbeitungsKontext.runtimeHolen();
   if (!host) return;
 
   // Die Registrierung zeichnet eine bereits offene Rahmenroute sofort neu.

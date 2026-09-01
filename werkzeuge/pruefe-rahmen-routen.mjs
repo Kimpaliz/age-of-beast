@@ -364,6 +364,8 @@ function inhaltMitSchreibfalle() {
 function rahmenRendererAusfuehren(assistentQuelltext, fetchVersprechen) {
   let renderer;
   let fetchAufrufe = 0;
+  let rohStandAufrufe = 0;
+  let runtimeAufrufe = 0;
   const fassade = {
     rahmenRendererRegistrieren(neuerRenderer) {
       renderer = neuerRenderer;
@@ -403,13 +405,24 @@ function rahmenRendererAusfuehren(assistentQuelltext, fetchVersprechen) {
   const einrichten = kontext.__rahmenAssistentEinrichten;
   if (typeof einrichten !== 'function') throw new Error('Der Rahmen-Assistent wurde nicht exportiert.');
 
-  einrichten({
-    rohStand: () => ({
-      rahmen: {
-        'rahmen-probe': { inhalt: { title: 'Prüfrahmen' } },
-      },
-    }),
+  const bearbeitungsKontext = Object.freeze({
+    rohStand() {
+      rohStandAufrufe += 1;
+      return {
+        rahmen: {
+          'rahmen-probe': { inhalt: { title: 'Prüfrahmen' } },
+        },
+      };
+    },
+    schreiben() {},
+    neuZeichnen() {},
+    melden() {},
+    runtimeHolen() {
+      runtimeAufrufe += 1;
+      return sandkasten.window.ageOfBeast;
+    },
   });
+  einrichten(bearbeitungsKontext);
 
   if (typeof renderer !== 'function') {
     throw new Error('Der Assistent hat keinen Rahmen-Renderer registriert.');
@@ -417,6 +430,8 @@ function rahmenRendererAusfuehren(assistentQuelltext, fetchVersprechen) {
 
   return {
     get fetchAufrufe() { return fetchAufrufe; },
+    get rohStandAufrufe() { return rohStandAufrufe; },
+    get runtimeAufrufe() { return runtimeAufrufe; },
     renderer,
   };
 }
@@ -425,6 +440,7 @@ async function assistentSzenarioPruefen(assistentQuelltext, art) {
   const laden = aufschub();
   let aktuell = art === 'frisch';
   let aktualitaetsPruefungen = 0;
+  let routenRohstandAufrufe = 0;
   let pruefstand;
 
   try {
@@ -439,13 +455,27 @@ async function assistentSzenarioPruefen(assistentQuelltext, art) {
   }
 
   const schreibfalle = inhaltMitSchreibfalle();
-  const lauf = pruefstand.renderer(schreibfalle.inhalt, 'rahmen-probe', {
+  const routenKontext = Object.freeze({
     generation: 7,
     istNochAktuell() {
       aktualitaetsPruefungen += 1;
       return aktuell;
     },
+    rohStand() {
+      routenRohstandAufrufe += 1;
+      throw new Error('PRUEF_FALLE_ROUTENKONTEXT_ROHSTAND');
+    },
   });
+  const lauf = pruefstand.renderer(schreibfalle.inhalt, 'rahmen-probe', routenKontext);
+
+  pruefe(
+    pruefstand.rohStandAufrufe === 1 && routenRohstandAufrufe === 0,
+    'rahmen-assistent.js / ' + art + ': Der Renderer muss den äußeren Bearbeitungskontext statt des Routen-Kontexts für den Rohstand verwenden.',
+  );
+  pruefe(
+    pruefstand.runtimeAufrufe === 1,
+    'rahmen-assistent.js / ' + art + ': Die Renderer-Registrierung muss den Runtime-Host über den äußeren Bearbeitungskontext holen.',
+  );
 
   pruefe(
     pruefstand.fetchAufrufe === 1,
@@ -508,8 +538,14 @@ function quellvertraegePruefen(wikiQuelltext, assistentQuelltext) {
     'wiki.js / Quellvertrag: Der Aktualitätskontext muss Generation und exakt offene Rahmen-ID prüfen.',
   );
   pruefe(
-    /async\s+function\s+zeichnen\s*\(\s*inhalt\s*,\s*rahmenId\s*,\s*kontext\s*\)/.test(assistentQuelltext),
-    'rahmen-assistent.js / Quellvertrag: zeichnen(inhalt, rahmenId, kontext) muss den optionalen Kontext annehmen.',
+    /async\s+function\s+zeichnen\s*\(\s*inhalt\s*,\s*rahmenId\s*,\s*routenKontext\s*\)/.test(assistentQuelltext),
+    'rahmen-assistent.js / Quellvertrag: zeichnen(inhalt, rahmenId, routenKontext) muss den optionalen Routen-Kontext annehmen.',
+  );
+  pruefe(
+    /export\s+function\s+rahmenAssistentEinrichten\s*\(\s*bearbeitungsKontext\s*\)/.test(assistentQuelltext) &&
+      /bearbeitungsKontext\.rohStand\s*\(\s*\)/.test(assistentQuelltext) &&
+      !/routenKontext\.rohStand\s*\(/.test(assistentQuelltext),
+    'rahmen-assistent.js / Quellvertrag: Bearbeitungs- und Routen-Kontext müssen für Rohstand und Aktualität getrennt bleiben.',
   );
 
   const awaitStelle = assistentQuelltext.indexOf('await beschreibungLaden()');
@@ -517,11 +553,11 @@ function quellvertraegePruefen(wikiQuelltext, assistentQuelltext) {
   const fehlerSchreiben = assistentQuelltext.indexOf('inhalt.innerHTML', catchStelle + 1);
   const erfolgSchreiben = assistentQuelltext.indexOf('inhalt.innerHTML', fehlerSchreiben + 1);
   const istAktualitaetsGuard = (text) =>
-    /if\s*\(\s*!\s*istNochAktuell\s*\(\s*kontext\s*\)\s*\)\s*return\s*;/.test(text) ||
-    /if\s*\([\s\S]{0,180}kontext(?:\?\.|\.)istNochAktuell[\s\S]{0,180}\)\s*return\s*;/.test(text);
+    /if\s*\(\s*!\s*istNochAktuell\s*\(\s*routenKontext\s*\)\s*\)\s*return\s*;/.test(text) ||
+    /if\s*\([\s\S]{0,180}routenKontext(?:\?\.|\.)istNochAktuell[\s\S]{0,180}\)\s*return\s*;/.test(text);
 
   pruefe(
-    /(?:function\s+istNochAktuell\s*\(\s*kontext\s*\)|kontext(?:\?\.|\.)istNochAktuell)/.test(assistentQuelltext),
+    /(?:function\s+istNochAktuell\s*\(\s*routenKontext\s*\)|routenKontext(?:\?\.|\.)istNochAktuell)/.test(assistentQuelltext),
     'rahmen-assistent.js / Quellvertrag: Der optionale Kontext muss über istNochAktuell() auswertbar sein.',
   );
   pruefe(

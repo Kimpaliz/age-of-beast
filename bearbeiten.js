@@ -27,6 +27,7 @@
 
 import { weltDateien, QUELLE } from './werkzeuge/welt-dateien.mjs';
 import { inTiefeSetzen } from './werkzeuge/bearbeiten-stellen.mjs';
+import { bearbeitungskontextErstellen } from './bearbeiten-kontext.js';
 import { bearbeitenEinrichten } from './texte-bearbeiten.js';
 import { strukturEinrichten } from './struktur-bedienung.js';
 import { rahmenAssistentEinrichten } from './rahmen-assistent.js';
@@ -242,7 +243,13 @@ async function liveLaden() {
 function weltNeuZeichnen(stelleHalten) {
   if (!rohStand) return false;
   const { welt } = weltDateien(rohStand);
-  return Boolean(window.ageOfBeast && window.ageOfBeast.weltSetzen(welt, stelleHalten));
+  const runtime = runtimeHolen();
+  return Boolean(runtime && runtime.weltSetzen(welt, stelleHalten));
+}
+
+/** Liest den Runtime-Host bei jedem Zugriff neu, statt ihn einzufrieren. */
+function runtimeHolen() {
+  return window.ageOfBeast || null;
 }
 
 /* ------------------------------------------------------------------ *
@@ -251,19 +258,22 @@ function weltNeuZeichnen(stelleHalten) {
 
 function bearbeitenAnbieten() {
   if (bearbeitenBereit) return;
-  bearbeitenBereit = true;
 
-  const werkzeug = {
+  const kontext = bearbeitungskontextErstellen({
     rohStand: () => rohStand,
     schreiben,
     neuZeichnen: () => weltNeuZeichnen(true),
-  };
+    melden,
+    runtimeHolen,
+  });
+
+  bearbeitenBereit = true;
 
   // Zwei Bedienungen am selben Eintrag: Stifte fuer die Texte, Leisten fuer
   // den Aufbau. Sie kennen einander nicht und teilen sich nur den Schalter.
-  bearbeitenEinrichten(werkzeug);
-  strukturEinrichten(werkzeug);
-  rahmenAssistentEinrichten(werkzeug);
+  bearbeitenEinrichten(kontext);
+  strukturEinrichten(kontext);
+  rahmenAssistentEinrichten(kontext);
 }
 
 /**
