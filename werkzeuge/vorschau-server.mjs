@@ -13,12 +13,13 @@
  */
 
 import { createServer } from 'node:http';
-import { readFile, stat } from 'node:fs/promises';
+import { readFile, realpath, stat } from 'node:fs/promises';
 import { extname, isAbsolute, join, normalize, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { dirname } from 'node:path';
 
 const WURZEL = join(dirname(fileURLToPath(import.meta.url)), '..');
+const ECHTE_WURZEL = await realpath(WURZEL);
 const PORT = Number(process.env.PORT) || 4173;
 
 const TYPEN = {
@@ -78,8 +79,8 @@ function hatGesperrtesSegment(pfad) {
     });
 }
 
-function liegtAußerhalbDerWurzel(datei) {
-  const abstand = relative(WURZEL, datei);
+function liegtAußerhalbDerWurzel(datei, wurzel = WURZEL) {
+  const abstand = relative(wurzel, datei);
 
   return abstand === '..' || abstand.startsWith(`..${sep}`) || isAbsolute(abstand);
 }
@@ -151,9 +152,28 @@ const server = createServer(async (anfrage, antwort) => {
       return;
     }
 
-    const inhalt = await readFile(datei);
+    const echteDatei = await realpath(datei);
+    const echterRelativ = relative(ECHTE_WURZEL, echteDatei);
+
+    // Junctions und Symlinks dürfen weder aus der Wurzel noch aus der Freigabe führen.
+    if (
+      liegtAußerhalbDerWurzel(echteDatei, ECHTE_WURZEL) ||
+      hatGesperrtesSegment(echterRelativ) ||
+      !istFreigegebeneDatei(echterRelativ)
+    ) {
+      sendeAntwort(
+        antwort,
+        methode,
+        403,
+        { 'Content-Type': 'text/html; charset=utf-8' },
+        '<h1>403 – Zugriff verweigert</h1>',
+      );
+      return;
+    }
+
+    const inhalt = await readFile(echteDatei);
     sendeAntwort(antwort, methode, 200, {
-      'Content-Type': TYPEN[extname(datei).toLowerCase()] || 'application/octet-stream',
+      'Content-Type': TYPEN[extname(echteDatei).toLowerCase()] || 'application/octet-stream',
       'Cache-Control': 'no-cache',
     }, inhalt);
   } catch {
