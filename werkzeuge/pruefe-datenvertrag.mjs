@@ -47,43 +47,44 @@ const REFERENZ_FELDER = new Set([
 // zu customPanels. Sie sind daher in panelOrder zulässig.
 const FESTE_PANEL_IDS = new Set(['core-connections', 'references']);
 
-// Der Descriptor ist kein freier Weltinhalt. Die Pfade sind absichtlich
-// vollständig festgeschrieben: Eine neue Frage benötigt eine bewusste
-// Änderung des Assistenten, seiner Quelle und dieses Vertrags.
-const RAHMEN_FELD_PFADE = new Set([
-  'title',
-  'tagline',
-  'core/concept',
-  'core/recurringActivity',
-  'core/centralStakes',
-  'pitch',
-  'mood/tone',
-  'mood/themes',
-  'mood/touchstones',
-  'overview/before',
-  'overview/change',
-  'overview/today',
-  'overview/forces',
-  'overview/charactersMatter',
-  'engine/recurringSituation',
-  'engine/risingPressure',
-  'engine/meaningfulChoices',
-  'engine/consequences',
-  'characterHooks/sharedReason',
-  'characterHooks/ancestryNotes',
-  'characterHooks/communityNotes',
-  'characterHooks/classNotes',
-  'characterHooks/creationQuestions',
-  'opening/location',
-  'opening/situation',
-  'opening/importantNpc',
-  'opening/immediateProblem',
-  'opening/firstGoal',
-  'optionalMechanic/name',
-  'optionalMechanic/trigger',
-  'optionalMechanic/effect',
-  'optionalMechanic/tracking',
-  'finalNotes',
+// Der Descriptor ist kein freier Weltinhalt. Jeder Pfad, sein Schritt und
+// seine Eingabeart sind absichtlich vollständig festgeschrieben: Eine neue
+// Frage benötigt eine bewusste Änderung des Assistenten, seiner Quelle und
+// dieses Vertrags.
+const RAHMEN_FELD_VERTRAG = new Map([
+  ['title', { schritt: 1, art: 'zeile' }],
+  ['tagline', { schritt: 1, art: 'zeile' }],
+  ['core/concept', { schritt: 1, art: 'absatz' }],
+  ['core/recurringActivity', { schritt: 1, art: 'absatz' }],
+  ['core/centralStakes', { schritt: 1, art: 'absatz' }],
+  ['pitch', { schritt: 1, art: 'absatz' }],
+  ['mood/tone', { schritt: 2, art: 'zeile' }],
+  ['mood/themes', { schritt: 2, art: 'absatz' }],
+  ['mood/touchstones', { schritt: 2, art: 'absatz' }],
+  ['overview/before', { schritt: 3, art: 'absatz' }],
+  ['overview/change', { schritt: 3, art: 'absatz' }],
+  ['overview/today', { schritt: 3, art: 'absatz' }],
+  ['overview/forces', { schritt: 3, art: 'absatz' }],
+  ['overview/charactersMatter', { schritt: 3, art: 'absatz' }],
+  ['engine/recurringSituation', { schritt: 4, art: 'absatz' }],
+  ['engine/risingPressure', { schritt: 4, art: 'absatz' }],
+  ['engine/meaningfulChoices', { schritt: 4, art: 'absatz' }],
+  ['engine/consequences', { schritt: 4, art: 'absatz' }],
+  ['characterHooks/sharedReason', { schritt: 7, art: 'absatz' }],
+  ['characterHooks/ancestryNotes', { schritt: 7, art: 'absatz' }],
+  ['characterHooks/communityNotes', { schritt: 7, art: 'absatz' }],
+  ['characterHooks/classNotes', { schritt: 7, art: 'absatz' }],
+  ['characterHooks/creationQuestions', { schritt: 7, art: 'absatz' }],
+  ['opening/location', { schritt: 8, art: 'absatz' }],
+  ['opening/situation', { schritt: 8, art: 'absatz' }],
+  ['opening/importantNpc', { schritt: 8, art: 'absatz' }],
+  ['opening/immediateProblem', { schritt: 8, art: 'absatz' }],
+  ['opening/firstGoal', { schritt: 8, art: 'absatz' }],
+  ['optionalMechanic/name', { schritt: 8, art: 'zeile' }],
+  ['optionalMechanic/trigger', { schritt: 8, art: 'absatz' }],
+  ['optionalMechanic/effect', { schritt: 8, art: 'absatz' }],
+  ['optionalMechanic/tracking', { schritt: 8, art: 'zeile' }],
+  ['finalNotes', { schritt: 9, art: 'absatz' }],
 ]);
 
 const RAHMEN_LISTEN_PFADE = new Map([
@@ -93,7 +94,6 @@ const RAHMEN_LISTEN_PFADE = new Map([
 
 const RAHMEN_SCHRITTE = new Set([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 const RAHMEN_LISTEN_SCHRITT = new Map([['distinctions', 5], ['factions', 6]]);
-const RAHMEN_FELD_ARTEN = new Set(['zeile', 'absatz']);
 
 const istObjekt = (wert) => wert !== null && typeof wert === 'object' && !Array.isArray(wert);
 const istText = (wert) => typeof wert === 'string' && wert.trim().length > 0;
@@ -409,27 +409,28 @@ function rahmenDescriptorPruefen(descriptor, fehler, bilanz) {
       const ort = 'daten/rahmen-felder.json.felder[' + index + ']';
       if (!fordere(fehler, bilanz, istObjekt(feld), 'descriptor-feld-kein-objekt', ort + ' muss ein Objekt sein.')) continue;
       const pfadGueltig = fordere(
-        fehler, bilanz, istText(feld.pfad) && RAHMEN_FELD_PFADE.has(feld.pfad), 'descriptor-pfad-nicht-erlaubt',
+        fehler, bilanz, istText(feld.pfad) && RAHMEN_FELD_VERTRAG.has(feld.pfad), 'descriptor-pfad-nicht-erlaubt',
         ort + '.pfad „' + String(feld.pfad) + '“ ist nicht in der Rahmen-Pfad-Allowlist.',
       );
       if (pfadGueltig) {
+        const erwartung = RAHMEN_FELD_VERTRAG.get(feld.pfad);
         fordere(
           fehler, bilanz, !feldPfade.has(feld.pfad), 'descriptor-pfad-doppelt',
           ort + '.pfad „' + feld.pfad + '“ kommt mehrfach vor.',
         );
         feldPfade.add(feld.pfad);
+        fordere(
+          fehler, bilanz, feld.schritt === erwartung.schritt, 'descriptor-feld-schritt-falsch',
+          ort + '.schritt ist ' + String(feld.schritt) + ', für „' + feld.pfad + '“ ist aber Schritt ' + erwartung.schritt + ' festgelegt.',
+        );
+        fordere(
+          fehler, bilanz, feld.art === erwartung.art, 'descriptor-feld-art-falsch',
+          ort + '.art ist „' + String(feld.art) + '“, für „' + feld.pfad + '“ ist aber „' + erwartung.art + '“ festgelegt.',
+        );
       }
-      fordere(
-        fehler, bilanz, RAHMEN_SCHRITTE.has(feld.schritt), 'descriptor-feld-schritt-nicht-erlaubt',
-        ort + '.schritt „' + String(feld.schritt) + '“ ist nicht in der Schritt-Allowlist.',
-      );
-      fordere(
-        fehler, bilanz, RAHMEN_FELD_ARTEN.has(feld.art), 'descriptor-feld-art-nicht-erlaubt',
-        ort + '.art „' + String(feld.art) + '“ ist weder zeile noch absatz.',
-      );
     }
   }
-  for (const pfad of RAHMEN_FELD_PFADE) {
+  for (const pfad of RAHMEN_FELD_VERTRAG.keys()) {
     fordere(
       fehler, bilanz, feldPfade.has(pfad), 'descriptor-pfad-fehlt',
       'daten/rahmen-felder.json enthält den erwarteten Feldpfad „' + pfad + '“ nicht.',
@@ -766,6 +767,20 @@ function ausfuehren() {
       code: 'descriptor-pfad-nicht-erlaubt',
       mutieren: (_kopie, descriptorKopie) => {
         descriptorKopie.felder[0].pfad = 'core/../../vertragsbruch';
+      },
+    },
+    {
+      name: 'Rahmen-Feldpfad im falschen Schritt',
+      code: 'descriptor-feld-schritt-falsch',
+      mutieren: (_kopie, descriptorKopie) => {
+        descriptorKopie.felder[0].schritt = 2;
+      },
+    },
+    {
+      name: 'Rahmen-Feldpfad mit falscher Eingabeart',
+      code: 'descriptor-feld-art-falsch',
+      mutieren: (_kopie, descriptorKopie) => {
+        descriptorKopie.felder[0].art = 'absatz';
       },
     },
     {
