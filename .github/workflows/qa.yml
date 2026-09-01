@@ -1,0 +1,48 @@
+name: Wiki-Qualitätssicherung
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pruefen:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository holen
+        uses: actions/checkout@v4
+
+      - name: Node bereitstellen
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Quelltext auf Syntax prüfen
+        run: |
+          node --check wiki.js
+          # Die Browser-Module sind ES-Module mit .js-Endung. Node erkennt
+          # das nur an der Endung, deshalb der Umweg über temporäre Kopien.
+          for datei in bearbeiten.js texte-bearbeiten.js struktur-bedienung.js rahmen-assistent.js; do
+            cp "$datei" "$RUNNER_TEMP/${datei%.js}.mjs"
+            node --check "$RUNNER_TEMP/${datei%.js}.mjs"
+          done
+          for datei in werkzeuge/*.mjs; do node --check "$datei"; done
+
+      - name: Daten und alle lokalen Prüfer ausführen
+        run: |
+          node -e "JSON.parse(require('fs').readFileSync('daten/quelle.json','utf8'))"
+          node -e "JSON.parse(require('fs').readFileSync('daten/welt.json','utf8'))"
+          test -f daten/welt.js
+          node -e "JSON.parse(require('fs').readFileSync('daten/rahmen-felder.json','utf8'))"
+          for datei in werkzeuge/pruefe-*.mjs; do node "$datei"; done
+
+      - name: Browser-Artefakt versionieren und vollständig prüfen
+        run: |
+          ARTEFAKT="$RUNNER_TEMP/wiki-artefakt"
+          mkdir -p "$ARTEFAKT"
+          git archive --format=tar HEAD | tar -x -C "$ARTEFAKT"
+          KENN="${GITHUB_SHA:0:8}"
+          node werkzeuge/versioniere-browser-ressourcen.mjs --artefakt "$ARTEFAKT" --version "$KENN"
+          node werkzeuge/pruefe-cache-graph.mjs --quelle . --artefakt "$ARTEFAKT" --version "$KENN"

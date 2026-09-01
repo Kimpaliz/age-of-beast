@@ -77,22 +77,22 @@ jobs:
           # Die beiden reinen Lese-Server dürfen nur veröffentlichte Dateien
           # ausliefern und die Vorschau bleibt auf Loopback beschränkt.
           node werkzeuge/pruefe-server-sicherheit.mjs
+          # Der Cache-Graph wird mit echten und absichtlich kaputten
+          # Abhängigkeiten geprüft. Die Quelle bleibt dabei unverändert.
+          node werkzeuge/pruefe-cache-graph.mjs
 
-      - name: Dateien gegen den Zwischenspeicher versionieren
+      - name: Pages-Artefakt versionieren und vollständig prüfen
         run: |
-          # GitHub Pages laesst Browser Dateien 10 Minuten behalten
-          # (Cache-Control: max-age=600). Nach einer Veroeffentlichung sah
-          # Jannik deshalb noch den alten Stand - einmal sogar ein ganzes
-          # neues Modul nicht. Ein Kennzeichen aus dem Commit an den
-          # Adressen macht jede Fassung zu einer eigenen Datei, die der
-          # Browser gar nicht erst aus dem Zwischenspeicher nehmen kann.
+          # GitHub Pages lässt Browser-Dateien im Zwischenspeicher. Ein
+          # Kennzeichen aus dem Commit macht jede veränderliche Abhängigkeit
+          # zu einer eigenen Adresse. Nicht die Quelle, sondern ausschließlich
+          # diese neu erzeugte und danach geprüfte Kopie wird hochgeladen.
+          ARTEFAKT="$RUNNER_TEMP/pages-artefakt"
+          mkdir -p "$ARTEFAKT"
+          git archive --format=tar HEAD | tar -x -C "$ARTEFAKT"
           KENN="${GITHUB_SHA:0:8}"
-          sed -i "s|href=\"stil.css\"|href=\"stil.css?v=$KENN\"|g" index.html
-          sed -i "s|src=\"daten/welt.js\"|src=\"daten/welt.js?v=$KENN\"|g" index.html
-          sed -i "s|src=\"wiki.js\"|src=\"wiki.js?v=$KENN\"|g" index.html
-          sed -i "s|src=\"bearbeiten.js\"|src=\"bearbeiten.js?v=$KENN\"|g" index.html
-          echo "Kennzeichen: $KENN"
-          grep -E "stil.css|welt.js|wiki.js|bearbeiten.js" index.html
+          node werkzeuge/versioniere-browser-ressourcen.mjs --artefakt "$ARTEFAKT" --version "$KENN"
+          node werkzeuge/pruefe-cache-graph.mjs --quelle . --artefakt "$ARTEFAKT" --version "$KENN"
 
       - name: Pages vorbereiten
         uses: actions/configure-pages@v5
@@ -100,7 +100,7 @@ jobs:
       - name: Dateien hochladen
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: ${{ runner.temp }}/pages-artefakt
 
       - name: Bereitstellen
         id: bereitstellen
