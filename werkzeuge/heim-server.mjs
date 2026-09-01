@@ -63,6 +63,10 @@ const TYPEN = {
 const OEFFENTLICHE_DATEIEN = new Set([
   'index.html',
   'stil.css',
+  'styles/tokens.css',
+  'styles/wiki.css',
+  'styles/bearbeiten.css',
+  'styles/werkstatt.css',
   'wiki.js',
   'bearbeiten.js',
   'bearbeiten-kontext.js',
@@ -133,6 +137,11 @@ function istOeffentlicheDatei(relativ) {
   return OEFFENTLICHE_DATEIEN.has(webPfad) || OEFFENTLICHER_SVG_PFAD.test(webPfad);
 }
 
+function istUnbekannterStilPfad(relativ) {
+  const webPfad = relativ.replace(/\\/gu, '/');
+  return (webPfad === 'styles' || webPfad.startsWith('styles/')) && !istOeffentlicheDatei(relativ);
+}
+
 function mehrfachDekodieren(text) {
   let dekodiert = text;
 
@@ -179,7 +188,7 @@ export function pfadAusAnfrage(roheUrl) {
 export async function dateiSuchen(relativ) {
   const ziel = resolve(join(WURZEL, relativ));
   // Maßnahme 3: Der aufgelöste Pfad muss unterhalb der Wurzel liegen.
-  if (!liegtInnerhalb(WURZEL, ziel) || hatVertraulichesSegment(relativ)) {
+  if (!liegtInnerhalb(WURZEL, ziel) || hatVertraulichesSegment(relativ) || istUnbekannterStilPfad(relativ)) {
     return { status: 403 };
   }
 

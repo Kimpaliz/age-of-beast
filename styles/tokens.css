@@ -1,0 +1,113 @@
+/* ===================================================================
+   Age-of-Beast-Wiki – Gestaltung
+   -------------------------------------------------------------------
+   Der Stil folgt dem Entwurf „Aschekodex" aus Janniks Design-Projekt
+   (Stand 24.08.2026): dunkler olivfarbener Grund mit Licht in der oberen
+   linken Ecke, durchgehend Grotesk, blauviolette Akzente, kleine gesperrte
+   Großbuchstaben-Etiketten, Kacheln mit Schein beim Überfahren und
+   Vorschaukarten an verlinkten Begriffen.
+
+   Alle Farben stehen als Variablen ganz oben.
+   =================================================================== */
+
+:root {
+  /* Grundflächen – dunkles Oliv statt Neutralschwarz */
+  --grund:        #161815;
+  --grund-tief:   #22251f;   /* nur für den Lichtverlauf oben links */
+  --flaeche:      #1e211d;
+  --flaeche-hoch: #262a24;
+  --rand:         rgba(233, 233, 237, 0.16);
+  --rand-hell:    rgba(233, 233, 237, 0.26);
+
+  --schrift:       #e9e9ed;
+  --schrift-matt:  rgba(233, 233, 237, 0.70);
+  --schrift-leise: rgba(233, 233, 237, 0.42);
+
+  /* Akzent: blauviolett. Verweise und Etiketten nehmen den hellen Ton. */
+  --akzent:          #9184d9;
+  --akzent-hell:     #d2cefd;
+  --akzent-schleier: rgba(145, 132, 217, 0.16);
+  --akzent-rand:     rgba(145, 132, 217, 0.42);
+
+  /* Verweise ruhen im satteren Ton und hellen beim Überfahren auf.
+     So steht der Entwurf: Ruhe #af9ee4, Berührung #d2cefd. */
+  --verweis:       #af9ee4;
+  --verweis-aktiv: #d2cefd;
+
+  /* Türkis kennzeichnet Herkunft und Einordnung: Brotkrumen und die
+     Kategoriezeile über dem Titel. Zweitfarbe aus dem Entwurf. */
+  --tuerkis: #71c3b1;
+
+  --schein: rgba(145, 132, 217, 0.34);
+  --schatten:       0 0 0 1px rgba(89, 93, 108, 0.9), 0 16px 40px rgba(0, 0, 0, 0.65);
+  --schatten-klein: 0 0 0 1px rgba(89, 93, 108, 0.7), 0 6px 18px rgba(0, 0, 0, 0.55);
+
+  /* Der Entwurf setzt durchgehend eine Grotesk, auch in den Überschriften. */
+  --serif: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --sans:  "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  --kopf-hoehe: 3.25rem;
+  --nav-breite: 15.5rem;
+  --radius: 0.75rem;
+  --radius-klein: 0.5rem;
+}
+
+html[data-thema="hell"] {
+  --grund:        #f6f6f3;
+  --grund-tief:   #ecece6;
+  --flaeche:      #ffffff;
+  --flaeche-hoch: #fbfbf8;
+  --rand:         rgba(22, 24, 21, 0.14);
+  --rand-hell:    rgba(22, 24, 21, 0.24);
+
+  --schrift:       #171916;
+  --schrift-matt:  rgba(23, 25, 22, 0.70);
+  --schrift-leise: rgba(23, 25, 22, 0.48);
+
+  --akzent:          #5d5294;
+  --akzent-hell:     #423a6a;
+  --akzent-schleier: rgba(93, 82, 148, 0.10);
+  --akzent-rand:     rgba(93, 82, 148, 0.38);
+
+  /* Der Entwurf ist nur dunkel. Für die helle Ansicht sind beide Töne
+     abgedunkelt, damit der Kontrast auf hellem Grund trägt. */
+  --verweis:       #5d5294;
+  --verweis-aktiv: #423a6a;
+  --tuerkis:       #2c6c5e;
+
+  --schein: rgba(93, 82, 148, 0.16);
+  --schatten:       0 0 0 1px rgba(23, 25, 22, 0.12), 0 16px 40px rgba(40, 38, 60, 0.16);
+  --schatten-klein: 0 0 0 1px rgba(23, 25, 22, 0.10), 0 6px 18px rgba(40, 38, 60, 0.12);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+
+body {
+  margin: 0;
+  /* Der Entwurf legt ein weiches Licht in die obere linke Ecke. */
+  background: var(--grund);
+  background-image: radial-gradient(1200px 700px at 8% -18%, var(--grund-tief), var(--grund) 60%);
+  background-attachment: fixed;
+  color: var(--schrift);
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  line-height: 1.62;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Kleines gesperrtes Etikett – das Leitmotiv des Entwurfs */
+.mikro {
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tuerkis);
+}

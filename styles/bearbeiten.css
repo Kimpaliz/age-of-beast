@@ -1,0 +1,430 @@
+
+.bearbeiten-knopf {
+  flex: none;
+  padding: 0.32rem 0.7rem;
+  background: transparent;
+  color: var(--schrift-matt);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.bearbeiten-knopf:hover {
+  background: var(--akzent-schleier);
+  border-color: var(--akzent-rand);
+  color: var(--akzent-hell);
+}
+.bearbeiten-knopf[aria-pressed="true"] {
+  background: var(--akzent-schleier);
+  border-color: var(--akzent-rand);
+  color: var(--akzent-hell);
+}
+
+/* Damit ein aufgeklapptes Feld den ursprünglichen Text sicher verdeckt,
+   auch wenn dieser eine eigene Anzeigeart mitbringt. */
+.artikel [hidden] { display: none !important; }
+
+/* --------------------------- Der Stift ---------------------------- */
+
+.bearbeiten-stift {
+  margin-left: 0.45rem;
+  padding: 0 0.3rem;
+  vertical-align: middle;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius-klein);
+  color: var(--schrift-leise);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 0.15s, color 0.15s, border-color 0.15s;
+}
+.bearbeiten-stift:hover,
+.bearbeiten-stift:focus-visible {
+  opacity: 1;
+  color: var(--akzent-hell);
+  border-color: var(--akzent-rand);
+}
+
+/* Der Stift am Abschnittstext steht als eigene Zeile am Ende, sonst
+   klebte er mitten im letzten Satz. */
+.abschnitt-text > .bearbeiten-stift { display: block; margin: -0.4rem 0 0; }
+
+/* Im Bearbeitungsmodus zeigt ein zarter Rahmen, was änderbar ist. */
+html[data-bearbeiten="an"] .artikel [data-feld] {
+  outline: 1px dashed var(--rand);
+  outline-offset: 0.35rem;
+  border-radius: 2px;
+}
+html[data-bearbeiten="an"] .artikel [data-feld]:hover {
+  outline-color: var(--akzent-rand);
+}
+
+/* --------------------------- Das Feld ----------------------------- */
+
+.bearbeiten-kasten {
+  margin: 0.4rem 0 1.2rem;
+  padding: 0.85rem;
+  background: var(--flaeche);
+  border: 1px solid var(--akzent-rand);
+  border-radius: var(--radius);
+  box-shadow: var(--schatten-klein);
+}
+
+.bearbeiten-beschriftung {
+  display: block;
+  margin-bottom: 0.45rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--schrift-leise);
+}
+
+.bearbeiten-eingabe {
+  display: block;
+  width: 100%;
+  padding: 0.55rem 0.65rem;
+  background: var(--grund);
+  color: var(--schrift);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+  font: inherit;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  resize: vertical;
+}
+.bearbeiten-eingabe:focus {
+  outline: none;
+  border-color: var(--akzent-rand);
+  box-shadow: 0 0 0 3px var(--akzent-schleier);
+}
+
+.bearbeiten-hilfe {
+  margin: 0.45rem 0 0;
+  font-size: 0.72rem;
+  color: var(--schrift-leise);
+}
+
+.bearbeiten-knopfleiste {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.7rem;
+}
+
+.bearbeiten-speichern,
+.bearbeiten-abbrechen {
+  padding: 0.34rem 0.85rem;
+  border-radius: var(--radius-klein);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.bearbeiten-speichern {
+  background: var(--akzent-schleier);
+  color: var(--akzent-hell);
+  border: 1px solid var(--akzent-rand);
+}
+.bearbeiten-speichern:hover { background: var(--akzent); color: var(--grund); }
+.bearbeiten-abbrechen {
+  background: transparent;
+  color: var(--schrift-matt);
+  border: 1px solid var(--rand);
+}
+.bearbeiten-abbrechen:hover { border-color: var(--rand-hell); color: var(--schrift); }
+.bearbeiten-speichern:disabled,
+.bearbeiten-abbrechen:disabled { opacity: 0.5; cursor: progress; }
+
+.bearbeiten-meldung {
+  font-size: 0.74rem;
+  color: var(--schrift-leise);
+}
+.bearbeiten-meldung[data-zustand="fehler"] { color: #e9a9a9; }
+
+/* Auf schmalen Fenstern bleibt der Bearbeiten-Knopf, die Beschriftung
+   des Themenschalters und die Quellenangabe weichen ohnehin schon. */
+@media (max-width: 48rem) {
+  .bearbeiten-knopf { padding: 0.32rem 0.5rem; }
+}
+
+/* ------------------------------------------------------------------ *
+   Schlüssel-Dialog (Fassung 2.0.0)
+
+   Erscheint nur, wenn jemand auf „Anmelden" klickt. Für Besucher wird er
+   nie gebaut – bearbeiten.js erzeugt ihn erst bei Bedarf.
+   ------------------------------------------------------------------ */
+
+.schluessel-huelle {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.62);
+  backdrop-filter: blur(2px);
+  overflow-y: auto;
+}
+
+.schluessel-kasten {
+  width: min(34rem, 100%);
+  margin: auto;
+  padding: 1.4rem 1.5rem 1.2rem;
+  background: var(--flaeche);
+  border: 1px solid var(--rand-hell);
+  border-radius: var(--radius);
+  box-shadow: var(--schatten);
+}
+
+.schluessel-kasten h2 {
+  margin: 0 0 0.7rem;
+  font-size: 1.12rem;
+  font-weight: 650;
+  color: var(--schrift);
+}
+
+.schluessel-text {
+  margin: 0 0 0.9rem;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--schrift-matt);
+}
+
+.schluessel-schritte {
+  margin: 0 0 1.1rem;
+  padding-left: 1.25rem;
+  font-size: 0.85rem;
+  line-height: 1.65;
+  color: var(--schrift-matt);
+}
+.schluessel-schritte li { margin-bottom: 0.3rem; }
+.schluessel-schritte a { color: var(--akzent-hell); }
+
+.schluessel-kasten code {
+  padding: 0.06rem 0.32rem;
+  background: var(--grund);
+  border: 1px solid var(--rand);
+  border-radius: 0.3rem;
+  font-size: 0.85em;
+  color: var(--schrift);
+}
+
+.schluessel-beschriftung {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--schrift-leise);
+}
+
+.schluessel-feld {
+  display: block;
+  width: 100%;
+  padding: 0.55rem 0.65rem;
+  background: var(--grund);
+  color: var(--schrift);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+  font: inherit;
+  font-size: 0.92rem;
+}
+.schluessel-feld:focus {
+  outline: none;
+  border-color: var(--akzent-rand);
+  box-shadow: 0 0 0 3px var(--akzent-schleier);
+}
+
+.schluessel-hinweis {
+  margin: 0.75rem 0 0;
+  padding: 0.6rem 0.7rem;
+  background: var(--akzent-schleier);
+  border-radius: var(--radius-klein);
+  font-size: 0.76rem;
+  line-height: 1.6;
+  color: var(--schrift-matt);
+}
+
+.schluessel-knoepfe {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.95rem;
+}
+
+.schluessel-ok,
+.schluessel-abbruch {
+  padding: 0.38rem 0.95rem;
+  border-radius: var(--radius-klein);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.schluessel-ok {
+  background: var(--akzent-schleier);
+  color: var(--akzent-hell);
+  border: 1px solid var(--akzent-rand);
+}
+.schluessel-ok:hover { background: var(--akzent); color: var(--grund); }
+.schluessel-abbruch {
+  background: transparent;
+  color: var(--schrift-matt);
+  border: 1px solid var(--rand);
+}
+.schluessel-abbruch:hover { border-color: var(--rand-hell); color: var(--schrift); }
+
+.schluessel-meldung { font-size: 0.76rem; color: var(--schrift-leise); }
+.schluessel-meldung[data-zustand="fehler"] { color: #e9a9a9; }
+
+/* Meldungen im Kopf dürfen im Fehlerfall auffallen. */
+.anmelde-status[data-zustand="fehler"] { color: #e9a9a9; }
+.anmelde-status[data-zustand="angemeldet"] { color: var(--akzent-hell); }
+
+/* Der Fehlertext im Kopf darf länger sein als die knappe Statusanzeige. */
+@media (min-width: 68rem) {
+  .anmelde-status[data-zustand="fehler"] { max-width: 30rem; }
+}
+
+/* ------------------------------------------------------------------ *
+   Themenwechsel ohne Farbnachzug
+
+   Aendert sich beim Umschalten nur eine Variable, loest das keinen neuen
+   Farbuebergang aus: Elemente mit `transition: color` behielten sonst die
+   Farbe des vorherigen Themas. wiki.js setzt deshalb fuer einen Bildaufbau
+   diese Klasse.
+   ------------------------------------------------------------------ */
+
+html.thema-wechsel *,
+html.thema-wechsel *::before,
+html.thema-wechsel *::after {
+  transition: none !important;
+}
+
+/* ------------------------------------------------------------------ *
+   Aufbau bearbeiten – Leisten, Anhänge, Zeilenformular
+
+   Die Bedienelemente halten sich absichtlich zurück: Sie erscheinen nur
+   im Bearbeitungsmodus und treten erst beim Überfahren hervor. Beim
+   Lesen soll nichts davon stören.
+   ------------------------------------------------------------------ */
+
+.struktur-leiste {
+  display: flex;
+  gap: 0.15rem;
+  opacity: 0.4;
+  transition: opacity 0.15s;
+}
+
+/* Am Abschnitt sitzt die Leiste rechts oben, ohne Platz wegzunehmen. */
+section.abschnitt > .struktur-leiste {
+  position: absolute;
+  top: 0.1rem;
+  right: 0;
+}
+section.abschnitt { position: relative; }
+
+section.abschnitt:hover > .struktur-leiste,
+section.abschnitt:focus-within > .struktur-leiste,
+.struktur-leiste:focus-within { opacity: 1; }
+
+/* In einer Steckbriefzeile steht sie in derselben Zeile wie der Wert. */
+.struktur-leiste.zeile {
+  display: inline-flex;
+  margin-left: 0.35rem;
+  vertical-align: middle;
+}
+.eigenschaften dd:hover .struktur-leiste.zeile { opacity: 1; }
+
+.struktur-knopf {
+  padding: 0 0.3rem;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius-klein);
+  color: var(--schrift-leise);
+  font: inherit;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.struktur-knopf:hover:not(:disabled),
+.struktur-knopf:focus-visible {
+  color: var(--akzent-hell);
+  border-color: var(--akzent-rand);
+  background: var(--akzent-schleier);
+}
+.struktur-knopf:disabled { opacity: 0.25; cursor: default; }
+
+/* Löschen bekommt erst beim Überfahren einen Warnton – dauerhaft rot
+   wäre im Text zu laut. */
+.struktur-knopf.gefahr:hover:not(:disabled),
+.struktur-knopf.gefahr:focus-visible {
+  color: #e9a9a9;
+  border-color: #d98a8a;
+  background: rgba(217, 138, 138, 0.12);
+}
+
+.struktur-anhang { margin-top: 0.9rem; }
+
+.struktur-neu {
+  padding: 0.3rem 0.7rem;
+  background: none;
+  border: 1px dashed var(--rand-hell);
+  border-radius: var(--radius-klein);
+  color: var(--schrift-leise);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.struktur-neu:hover, .struktur-neu:focus-visible {
+  color: var(--akzent-hell);
+  border-color: var(--akzent-rand);
+  border-style: solid;
+  background: var(--akzent-schleier);
+}
+
+/* --- Formular für eine Steckbriefzeile --------------------------- */
+
+.zeile-formular {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+  padding: 0.6rem;
+  background: var(--flaeche-hoch);
+  border: 1px solid var(--akzent-rand);
+  border-radius: var(--radius-klein);
+}
+
+.zeile-feld {
+  width: 100%;
+  padding: 0.35rem 0.5rem;
+  background: var(--grund);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+  color: var(--schrift);
+  font: inherit;
+  font-size: 0.82rem;
+}
+.zeile-feld:focus {
+  outline: none;
+  border-color: var(--akzent);
+  box-shadow: 0 0 0 2px var(--akzent-schleier);
+}
+
+.zeile-knoepfe { display: flex; gap: 0.4rem; }

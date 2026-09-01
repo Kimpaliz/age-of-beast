@@ -1,0 +1,642 @@
+
+/* ------------------------------------------------------------------ *
+   Hilfen
+   ------------------------------------------------------------------ */
+
+.visuell-versteckt {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.zum-inhalt {
+  position: absolute; left: 0.5rem; top: -3rem; z-index: 100;
+  background: var(--akzent); color: #0b0b0d;
+  padding: 0.5rem 0.9rem; border-radius: var(--radius);
+  font-weight: 600; text-decoration: none;
+  transition: top 0.15s;
+}
+.zum-inhalt:focus { top: 0.5rem; }
+
+:focus-visible {
+  outline: 2px solid var(--akzent);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* ------------------------------------------------------------------ *
+   Kopfzeile
+   ------------------------------------------------------------------ */
+
+.kopf {
+  position: sticky; top: 0; z-index: 40;
+  height: var(--kopf-hoehe);
+  display: grid;
+  /* Die Suche behält immer mindestens 200 Pixel; der Untertitel weicht. */
+  /* Spalten: Kategorien | Marke | Suche | Werkstatt | rechte Knoepfe */
+  grid-template-columns: var(--nav-breite) minmax(0, auto) minmax(12.5rem, 1fr) auto auto;
+  align-items: center;
+  gap: 1rem;
+  padding-right: 1rem;
+  /* Der Entwurf fuehrt Kopf und Seitenleiste ohne eigene Flaeche und ohne
+     Trennlinien: Die ganze Seite ist ein durchgehender Grund, durch den der
+     Lichtverlauf laeuft. Der Weichzeichner bleibt, damit der Text beim
+     Darunterscrollen lesbar bleibt. */
+  background: color-mix(in srgb, var(--grund) 72%, transparent);
+  backdrop-filter: blur(14px);
+}
+
+/* Knopf über der Seitenleiste, gehört optisch zu ihr */
+.leiste-schalter {
+  justify-self: start;
+  margin-left: 0.85rem;
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  height: 1.85rem; padding: 0 0.7rem;
+  background: var(--flaeche);
+  border: 1px solid var(--rand-hell);
+  border-radius: var(--radius-klein);
+  color: var(--schrift-matt);
+  font-family: var(--sans); font-size: 0.78rem; font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+.leiste-schalter:hover { border-color: var(--akzent-rand); color: var(--schrift); }
+.leiste-schalter .symbol { color: var(--akzent); font-size: 0.9rem; line-height: 1; }
+.leiste-schalter .pfeil { color: var(--schrift-leise); font-size: 0.6rem; transition: transform 0.2s; }
+.leiste-schalter[aria-expanded="false"] .pfeil { transform: rotate(-90deg); }
+
+.marke {
+  display: flex; align-items: baseline; gap: 0.55rem;
+  text-decoration: none; color: inherit;
+  white-space: nowrap;
+  min-width: 0; overflow: hidden;
+}
+.marke strong { flex: 0 0 auto; }
+.marke small { overflow: hidden; text-overflow: ellipsis; }
+.marke strong {
+  font-family: var(--sans);
+  font-size: 0.95rem; font-weight: 700;
+  letter-spacing: 0.005em;
+}
+.marke .teiler { color: var(--rand-hell); }
+.marke small { color: var(--schrift-leise); font-size: 0.78rem; }
+
+.kopf-rechts {
+  display: flex; align-items: center; gap: 0.6rem;
+  white-space: nowrap;
+}
+.kopf-rechts .stand-chip {
+  padding: 0.2rem 0.6rem;
+  background: var(--flaeche-hoch);
+  border-radius: var(--radius-klein);
+  color: var(--schrift-matt);
+  font-size: 0.72rem; font-weight: 600;
+}
+.kopf-rechts .leise { color: var(--schrift-leise); font-size: 0.74rem; }
+
+.thema-knopf {
+  width: 1.85rem; height: 1.85rem;
+  background: none; border: 1px solid var(--rand-hell);
+  border-radius: var(--radius-klein); cursor: pointer;
+  color: var(--schrift-matt); font-size: 0.85rem; line-height: 1;
+}
+.thema-knopf:hover { border-color: var(--akzent-rand); color: var(--akzent); }
+
+/* ------------------------------------------------------------------ *
+   Suche
+   ------------------------------------------------------------------ */
+
+.suche { position: relative; max-width: 26rem; width: 100%; }
+
+.suche input {
+  width: 100%; height: 1.95rem;
+  padding: 0 2rem 0 2rem;
+  background: var(--flaeche);
+  color: var(--schrift);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+  font-family: inherit; font-size: 0.82rem;
+}
+.suche input::placeholder { color: var(--schrift-leise); }
+.suche input:focus { border-color: var(--akzent-rand); outline: none; }
+.suche .lupe {
+  position: absolute; left: 0.6rem; top: 50%; transform: translateY(-50%);
+  color: var(--schrift-leise); font-size: 0.8rem; pointer-events: none;
+}
+
+.suche-leeren {
+  position: absolute; right: 0.35rem; top: 50%; transform: translateY(-50%);
+  width: 1.3rem; height: 1.3rem;
+  background: none; border: 0; cursor: pointer;
+  color: var(--schrift-leise); font-size: 1rem; line-height: 1;
+}
+.suche-leeren:hover { color: var(--schrift); }
+
+.such-treffer {
+  position: absolute; top: calc(100% + 0.4rem); left: 0; right: 0;
+  max-height: min(24rem, 62vh); overflow-y: auto;
+  background: var(--flaeche-hoch);
+  border: 1px solid var(--rand-hell);
+  border-radius: var(--radius);
+  box-shadow: var(--schatten);
+  padding: 0.3rem;
+}
+.such-treffer .treffer {
+  display: block; width: 100%; text-align: left;
+  padding: 0.45rem 0.55rem; border-radius: var(--radius-klein);
+  background: none; border: 0; cursor: pointer;
+  color: inherit; font: inherit;
+}
+.such-treffer .treffer:hover,
+.such-treffer .treffer.aktiv { background: var(--akzent-schleier); }
+.such-treffer .treffer strong {
+  display: block; font-family: var(--serif);
+  font-weight: 600; font-size: 0.95rem;
+}
+.such-treffer .treffer small { color: var(--schrift-leise); font-size: 0.75rem; }
+.such-treffer .treffer mark {
+  background: transparent; color: var(--akzent-hell); font-weight: 600;
+}
+.such-treffer .leer { padding: 0.85rem; color: var(--schrift-leise); font-size: 0.85rem; }
+
+/* ------------------------------------------------------------------ *
+   Aufbau
+   ------------------------------------------------------------------ */
+
+.rahmen {
+  display: grid;
+  grid-template-columns: var(--nav-breite) minmax(0, 1fr);
+  align-items: start;
+  transition: grid-template-columns 0.22s ease;
+}
+.rahmen.leiste-zu { grid-template-columns: 0 minmax(0, 1fr); }
+
+.navigation {
+  position: sticky; top: var(--kopf-hoehe);
+  height: calc(100vh - var(--kopf-hoehe));
+  overflow-y: auto; overflow-x: hidden;
+  padding: 0.7rem 0.7rem 4.5rem 1.05rem;
+  transition: opacity 0.18s ease;
+}
+.rahmen.leiste-zu .navigation {
+  opacity: 0; pointer-events: none;
+  padding-left: 0; padding-right: 0;
+}
+/* Beim Überfahren des Umschalters kurz aufleuchten. Ohne Trennlinie
+   geschieht das jetzt ueber einen zarten Schleier statt ueber den Rand. */
+.rahmen.leiste-hervorheben .navigation {
+  background: linear-gradient(90deg, var(--akzent-schleier), transparent 70%);
+}
+
+.nav-gruppe { margin-bottom: 1.15rem; }
+.nav-gruppe > h2 {
+  margin: 0 0 0.3rem; padding: 0 0.6rem;
+  display: flex; align-items: center; gap: 0.4rem;
+}
+.nav-gruppe > h2 a { color: inherit; text-decoration: none; }
+.nav-gruppe > h2 a:hover { color: var(--schrift-matt); }
+.nav-gruppe > h2 .anzahl { margin-left: auto; opacity: 0.8; }
+
+.nav-gruppe ul { list-style: none; margin: 0; padding: 0; }
+.nav-gruppe li a {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.24rem 0.6rem;
+  border-radius: var(--radius-klein);
+  color: var(--schrift-matt);
+  text-decoration: none; font-size: 0.84rem;
+  transition: background 0.12s, color 0.12s;
+}
+.nav-gruppe li a::before {
+  content: ""; flex: 0 0 auto;
+  width: 2px; height: 0.85em;
+  background: var(--rand-hell); border-radius: 1px;
+  transition: background 0.12s;
+}
+.nav-gruppe li a:hover { background: var(--flaeche); color: var(--schrift); }
+.nav-gruppe li a:hover::before { background: var(--schrift-leise); }
+.nav-gruppe li a[aria-current="page"] {
+  background: var(--flaeche-hoch);
+  color: var(--schrift);
+  font-weight: 600;
+}
+.nav-gruppe li a[aria-current="page"]::before { background: var(--akzent); }
+
+.inhalt {
+  /* Entwurf: 16.8px 22.4px 110px */
+  padding: 1.05rem 1.4rem 6.9rem;
+  min-width: 0;
+  outline: none;
+}
+
+/* ------------------------------------------------------------------ *
+   Startseite und Kategorieseite
+   ------------------------------------------------------------------ */
+
+.seitenkopf { max-width: 46rem; margin-bottom: 1.7rem; }
+.seitenkopf > h1 {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 1.3rem + 2.6vw, 2.9rem);
+  line-height: 1.1; font-weight: 500;
+  margin: 0.5rem 0 0.75rem;
+  letter-spacing: -0.01em;
+}
+.seitenkopf .einleitung {
+  color: var(--schrift-matt);
+  font-size: 0.97rem; line-height: 1.7;
+  margin: 0;
+  max-width: 40rem;
+}
+
+/* Filterknöpfe */
+.filter { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.4rem; }
+.filter button {
+  padding: 0.3rem 0.85rem;
+  background: var(--flaeche);
+  border: 1px solid var(--rand-hell);
+  border-radius: 999px;
+  color: var(--schrift-matt);
+  font-family: inherit; font-size: 0.8rem;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+.filter button:hover { border-color: var(--akzent-rand); color: var(--schrift); }
+.filter button[aria-pressed="true"] {
+  border-color: var(--akzent-rand);
+  background: var(--akzent-schleier);
+  color: var(--akzent-hell);
+}
+
+/* Kachelraster */
+.kacheln {
+  display: grid; gap: 0.7rem;
+  grid-template-columns: repeat(auto-fill, minmax(17.6rem, 1fr));
+}
+
+.kachel {
+  position: relative;
+  display: flex; flex-direction: column;
+  min-height: 10.4rem;
+  padding: 0.85rem 0.95rem 0.7rem;
+  background: color-mix(in srgb, var(--flaeche) 82%, transparent);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius);
+  text-decoration: none; color: inherit;
+  overflow: hidden;
+  transition: border-color 0.18s, transform 0.18s, box-shadow 0.18s;
+}
+/* Der Schein liegt innerhalb der Kachel, nicht darum herum */
+.kachel::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(
+    18rem circle at var(--maus-x, 50%) var(--maus-y, 0%),
+    var(--schein), transparent 65%);
+  opacity: 0; transition: opacity 0.22s;
+  pointer-events: none;
+}
+.kachel:hover, .kachel:focus-visible {
+  border-color: var(--akzent-rand);
+  transform: translateY(-3px);
+  box-shadow: var(--schatten-klein);
+}
+.kachel:hover::before, .kachel:focus-visible::before { opacity: 1; }
+
+.kachel .k-etikett { color: var(--akzent-hell); margin-bottom: 0.4rem; }
+.kachel h2 {
+  font-family: var(--serif);
+  font-size: 1.16rem; font-weight: 500; letter-spacing: -0.01em;
+  margin: 0 0 0.4rem; line-height: 1.25;
+}
+.kachel p {
+  margin: 0; color: var(--schrift-matt);
+  font-size: 0.85rem; line-height: 1.55;
+}
+.kachel .k-fuss {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 0.5rem; margin-top: auto; padding-top: 0.75rem;
+  font-size: 0.72rem; color: var(--schrift-leise);
+}
+.kachel .k-fuss .reife { font-weight: 600; }
+.kachel .k-fuss .reife.ausgebaut { color: var(--akzent-hell); opacity: 0.85; }
+
+.leermeldung {
+  padding: 2rem; text-align: center;
+  color: var(--schrift-leise);
+  border: 1px dashed var(--rand-hell);
+  border-radius: var(--radius);
+}
+
+/* ------------------------------------------------------------------ *
+   Artikelseite
+   ------------------------------------------------------------------ */
+
+.brotkrumen {
+  display: flex; align-items: center; gap: 0.55rem;
+  margin: 0 0 1.1rem;
+  font-size: 0.78rem;
+}
+.brotkrumen .zurueck {
+  color: var(--akzent); text-decoration: none; font-weight: 500;
+}
+.brotkrumen .zurueck:hover { text-decoration: underline; }
+.brotkrumen .pfad { color: var(--tuerkis); }
+.brotkrumen .pfad a { color: var(--tuerkis); text-decoration: none; }
+.brotkrumen .pfad a:hover { color: var(--tuerkis); text-decoration: underline; }
+
+.artikel > .mikro { display: block; margin-bottom: 0.45rem; }
+.artikel > h1 {
+  font-family: var(--serif);
+  font-size: clamp(1.9rem, 1.3rem + 2.2vw, 2.7rem);
+  line-height: 1.12; font-weight: 500;
+  margin: 0 0 1.6rem;
+  letter-spacing: -0.01em;
+}
+
+.artikel-raster {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 17rem;
+  gap: 2.6rem;
+  align-items: start;
+}
+
+/* Fließtext */
+.artikel-text { max-width: 40rem; }
+.artikel-text .anriss {
+  font-size: 1.02rem; line-height: 1.7;
+  color: var(--schrift);
+  margin: 0 0 1.5rem;
+}
+.artikel-text .abschnitt { margin: 0 0 1.5rem; }
+.artikel-text .abschnitt > h2 {
+  font-family: var(--serif);
+  font-size: 1.18rem; font-weight: 500;
+  margin: 1.6rem 0 0.55rem;
+  color: var(--schrift);
+}
+.artikel-text .abschnitt:first-child > h2 { margin-top: 0; }
+.artikel-text h3 {
+  font-family: var(--sans);
+  font-size: 0.87rem; font-weight: 700;
+  letter-spacing: 0.02em;
+  margin: 1.1rem 0 0.2rem;
+  color: var(--schrift);
+}
+.artikel-text h4 { font-size: 0.85rem; margin: 0.9rem 0 0.2rem; }
+.artikel-text p { margin: 0 0 0.8rem; color: var(--schrift-matt); }
+.artikel-text ul, .artikel-text ol { margin: 0 0 0.9rem; padding-left: 1.3rem; color: var(--schrift-matt); }
+.artikel-text li { margin-bottom: 0.25rem; }
+.artikel-text blockquote {
+  margin: 0 0 0.9rem; padding: 0.3rem 0 0.3rem 0.9rem;
+  border-left: 2px solid var(--rand-hell);
+  color: var(--schrift-leise); font-style: italic;
+}
+.artikel-text strong { color: var(--schrift); font-weight: 650; }
+
+.artikel-text .abschnitt.ergaenzt > h2::after {
+  content: "aus der Weltenschmiede";
+  margin-left: 0.6rem;
+  font-family: var(--sans); font-size: 0.6rem;
+  font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--schrift-leise);
+  vertical-align: 0.4em;
+}
+
+/* Rechte Spalte */
+.artikel-seite { display: flex; flex-direction: column; gap: 2.2rem; }
+.artikel-seite > section > h2 { margin: 0 0 0.65rem; }
+
+.eigenschaften {
+  display: grid;
+  grid-template-columns: minmax(5rem, 45%) minmax(0, 1fr);
+  gap: 0;
+}
+.eigenschaften > div {
+  display: contents;
+}
+.eigenschaften dt,
+.eigenschaften dd {
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--rand);
+  font-size: 0.83rem;
+  margin: 0;
+}
+.eigenschaften dt { color: var(--schrift-leise); padding-right: 1.1rem; }
+.eigenschaften dd { color: var(--schrift); }
+
+.bezugsliste { list-style: none; margin: 0; padding: 0; }
+.bezugsliste li {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 0.8rem; padding: 0.4rem 0;
+  border-bottom: 1px solid var(--rand);
+  font-size: 0.84rem;
+}
+.bezugsliste li:last-child { border-bottom: 0; }
+.bezugsliste .art {
+  flex: 0 0 auto;
+  color: var(--schrift-leise);
+  font-size: 0.6rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  text-align: right;
+}
+.bezugsliste .erklaerung {
+  display: block; width: 100%;
+  color: var(--schrift-leise); font-size: 0.78rem;
+  margin-top: 0.15rem;
+}
+.bezugsliste li.mit-erklaerung { flex-wrap: wrap; }
+
+/* ------------------------------------------------------------------ *
+   Verweise im Text und Vorschaukarte
+   ------------------------------------------------------------------ */
+
+a.verweis {
+  color: var(--verweis);
+  text-decoration: none;
+  border-bottom: 1px solid var(--akzent-rand);
+  padding: 0.05em 0.1em;
+  margin: 0 -0.1em;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.14s, border-color 0.14s, color 0.14s;
+}
+a.verweis:hover, a.verweis:focus-visible, a.verweis.aktiv {
+  background: var(--akzent-schleier);
+  border-bottom-color: var(--akzent);
+  color: var(--verweis-aktiv);
+}
+
+.vorschau {
+  position: absolute; z-index: 60;
+  width: min(21rem, calc(100vw - 2rem));
+  padding: 0.8rem 0.9rem 0.65rem;
+  background: var(--flaeche-hoch);
+  border: 1px solid var(--rand-hell);
+  border-radius: var(--radius);
+  box-shadow: var(--schatten);
+  animation: einblenden 0.18s ease both;
+}
+@keyframes einblenden {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+.vorschau .v-etikett { color: var(--akzent-hell); }
+.vorschau .v-name {
+  font-family: var(--serif);
+  font-size: 1rem; font-weight: 500;
+  margin: 0.25rem 0 0.375rem;
+  line-height: 1.2;
+}
+.vorschau .v-text {
+  color: var(--schrift-matt);
+  font-size: 0.82rem; line-height: 1.5;
+  margin: 0 0 0.5rem;
+}
+.vorschau .v-fuss {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 0.6rem;
+  color: var(--schrift-leise); font-size: 0.72rem;
+}
+.vorschau .v-oeffnen {
+  color: var(--akzent-hell); text-decoration: none; font-weight: 600;
+}
+.vorschau .v-oeffnen:hover { text-decoration: underline; }
+
+/* ------------------------------------------------------------------ *
+   Hinweiskasten und Fußzeile
+   ------------------------------------------------------------------ */
+
+.hinweis {
+  padding: 0.85rem 1rem;
+  background: var(--flaeche);
+  border: 1px solid var(--rand);
+  border-left: 2px solid var(--akzent);
+  border-radius: var(--radius-klein);
+  font-size: 0.86rem; color: var(--schrift-matt);
+  margin: 0 0 1.4rem;
+}
+.hinweis strong { color: var(--schrift); }
+.hinweis a { color: var(--akzent); }
+
+.fusszeile {
+  margin-top: 2.8rem; padding-top: 1rem;
+  border-top: 1px solid var(--rand);
+}
+
+/* ------------------------------------------------------------------ *
+   Kleinere Bildschirme
+   ------------------------------------------------------------------ */
+
+/* Unter etwa 1000px verfügbarer Breite klappt die Artikelseite auf eine
+   Spalte um; Attribute und Verknüpfungen wandern als zwei Blöcke unter
+   den Text. */
+@media (max-width: 68rem) {
+  /* Untertitel und Stand weichen, damit die Suche Platz behält */
+  .marke small, .marke .teiler { display: none; }
+  .kopf-rechts .leise, .kopf-rechts .stand-chip { display: none; }
+
+  .artikel-raster { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+  .artikel-seite {
+    flex-direction: row; flex-wrap: wrap; gap: 2rem;
+  }
+  .artikel-seite > section { flex: 1 1 16rem; min-width: 0; }
+  .artikel-text { max-width: none; }
+}
+
+@media (max-width: 60rem) {
+  /* Auf schmalen Bildschirmen liegt die Leiste über dem Inhalt.
+     Deshalb hier immer eine einzige Spalte – auch bei `leiste-zu`,
+     sonst bekäme der Inhalt die 0-Pixel-Spalte der Leiste. */
+  .rahmen,
+  .rahmen.leiste-zu { grid-template-columns: minmax(0, 1fr); }
+  .kopf { grid-template-columns: auto auto minmax(0, 1fr) auto; }
+  .leiste-schalter { margin-left: 0; }
+  .leiste-schalter .beschriftung { display: none; }
+  .marke small, .kopf-rechts .leise, .kopf-rechts .stand-chip { display: none; }
+
+  .navigation {
+    position: fixed; top: var(--kopf-hoehe); left: 0;
+    width: min(var(--nav-breite), 82vw);
+    height: calc(100vh - var(--kopf-hoehe));
+    transform: translateX(-100%);
+    transition: transform 0.2s ease;
+    z-index: 45;
+    box-shadow: var(--schatten);
+    opacity: 1; pointer-events: auto;
+    padding: 1.15rem 0.6rem 3rem;
+  }
+  .rahmen:not(.leiste-zu) .navigation { transform: none; }
+  .rahmen.leiste-zu .navigation { opacity: 1; }
+
+  .inhalt { padding: 1.4rem 1.1rem 4rem; }
+  .artikel-seite { flex-direction: column; }
+}
+
+@media (max-width: 40rem) {
+  .suche input { font-size: 16px; height: 2.1rem; } /* verhindert Hineinzoomen auf iPhones */
+  .kacheln { grid-template-columns: minmax(0, 1fr); }
+  .bezugsliste li { flex-wrap: wrap; }
+  .bezugsliste .art { text-align: left; }
+}
+
+/* ------------------------------------------------------------------ *
+   Anmeldung und Live-Stand
+   ------------------------------------------------------------------ */
+
+.anmelde-knopf {
+  flex: none;
+  padding: 0.32rem 0.7rem;
+  background: transparent;
+  color: var(--schrift-matt);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.anmelde-knopf:hover {
+  background: var(--akzent-schleier);
+  border-color: var(--akzent-rand);
+  color: var(--akzent-hell);
+}
+.anmelde-knopf[data-zustand="angemeldet"] {
+  border-color: var(--akzent-rand);
+  color: var(--akzent-hell);
+}
+.anmelde-knopf[data-zustand="laedt"] { opacity: 0.6; cursor: progress; }
+.anmelde-knopf[data-zustand="fehler"] {
+  border-color: #d98a8a;
+  color: #e9a9a9;
+}
+
+.anmelde-status {
+  flex: none;
+  font-size: 0.74rem;
+  color: var(--schrift-leise);
+  white-space: nowrap;
+  max-width: 18rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Live-Stand: die Quellenangabe im Kopf bekommt den Akzentton. */
+html[data-quelle="live"] #kopf-quelle {
+  color: var(--akzent-hell);
+  font-weight: 600;
+}
+
+/* Auf schmalen Fenstern verschwindet der Meldungstext, der Knopf bleibt. */
+@media (max-width: 68rem) {
+  .anmelde-status { display: none; }
+}
+
+/* ------------------------------------------------------------------ *
+   Bearbeiten (Fassung 1.4.0)
+
+   Sichtbar nur für das angemeldete Konto. Ohne Anmeldung wird nichts
+   davon je gezeichnet: Der Knopf bleibt versteckt, und die Stifte setzt
+   erst texte-bearbeiten.js.
+   ------------------------------------------------------------------ */

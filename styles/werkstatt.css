@@ -1,0 +1,385 @@
+
+/* ------------------------------------------------------------------ *
+   Modul „Werkstatt" – eigener Farbton
+
+   Die Einträge aus der Daggerheart-Werkstatt sind kein Weltwissen,
+   sondern Spielmaterial: Kampagnenrahmen, Figurenbögen, Karten. Sie
+   bekommen deshalb einen eigenen Ton — das warme Gold aus Janniks
+   Entwurf, dort als `--wk-warm` angelegt.
+
+   Umgesetzt wird das, indem die Akzentvariablen innerhalb der
+   Werkstatt-Bereiche überschrieben werden. Alles Weitere — Verweise,
+   Kacheln, Stifte, Bedienleisten — nimmt den neuen Ton dadurch von
+   selbst an, ohne eine einzige zusätzliche Regel.
+   ------------------------------------------------------------------ */
+
+.kachel[data-kategorie="werkstatt"],
+.artikel[data-kategorie="werkstatt"],
+.nav-gruppe[data-kategorie="werkstatt"] {
+  --akzent:          #b79a6a;
+  --akzent-hell:     #e2cda2;
+  --akzent-schleier: rgba(183, 154, 106, 0.16);
+  --akzent-rand:     rgba(183, 154, 106, 0.46);
+  --schein:          rgba(183, 154, 106, 0.34);
+  --verweis:         #d8bd8c;
+  --verweis-aktiv:   #f0e0bd;
+  --tuerkis:         #c8a97a;
+}
+
+html[data-thema="hell"] .kachel[data-kategorie="werkstatt"],
+html[data-thema="hell"] .artikel[data-kategorie="werkstatt"],
+html[data-thema="hell"] .nav-gruppe[data-kategorie="werkstatt"] {
+  --akzent:          #7a5f2e;
+  --akzent-hell:     #5a4520;
+  --akzent-schleier: rgba(122, 95, 46, 0.10);
+  --akzent-rand:     rgba(122, 95, 46, 0.40);
+  --schein:          rgba(122, 95, 46, 0.16);
+  --verweis:         #7a5f2e;
+  --verweis-aktiv:   #5a4520;
+  --tuerkis:         #6b5326;
+}
+
+/* ------------------------------------------------------------------ *
+   Eingebettete Module
+
+   Die Daggerheart-Werkstatt ist eine eigenstaendige Anwendung und wird
+   eingebettet statt nachgebaut. Der Rahmen bekommt denselben Goldton
+   wie die uebrigen Werkstatt-Inhalte, damit erkennbar bleibt, dass es
+   zusammengehoert.
+   ------------------------------------------------------------------ */
+
+.modul-rahmen {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+}
+
+.modul-leiste {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.modul-knopf {
+  flex: none;
+  padding: 0.32rem 0.75rem;
+  background: var(--akzent-schleier);
+  border: 1px solid var(--akzent-rand);
+  border-radius: var(--radius-klein);
+  color: var(--akzent-hell);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s;
+}
+.modul-knopf:hover, .modul-knopf:focus-visible {
+  background: color-mix(in srgb, var(--akzent) 26%, transparent);
+  border-color: var(--akzent);
+}
+
+/* Das Fenster nimmt die volle verbleibende Hoehe ein. Der Abzug deckt
+   Kopfzeile, Brotkrume, Leiste und Hinweis darunter ab. */
+.modul-fenster {
+  width: 100%;
+  height: calc(100vh - var(--kopf-hoehe) - 11rem);
+  min-height: 30rem;
+  border: 1px solid var(--akzent-rand);
+  border-radius: var(--radius);
+  background: var(--flaeche);
+}
+
+.modul-hinweis {
+  color: var(--schrift-leise);
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* Werkzeuge stehen etwas abgesetzt unter den Inhalten. */
+.nav-werkzeuge {
+  margin-top: 1.6rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--rand);
+}
+
+/* ------------------------------------------------------------------ *
+   Modul „Regeln" – eigener Farbton
+
+   Regelartikel sind Nachschlagewerk, kein Weltwissen. Sie bekommen einen
+   ruhigen Blauton, der sich vom Violett der Welt und vom Gold der
+   Werkstatt unterscheidet, ohne aus der Reihe zu fallen.
+   ------------------------------------------------------------------ */
+
+.kachel[data-kategorie="regeln"],
+.artikel[data-kategorie="regeln"],
+.nav-gruppe[data-kategorie="regeln"] {
+  --akzent:          #7fa8c9;
+  --akzent-hell:     #bcd6ea;
+  --akzent-schleier: rgba(127, 168, 201, 0.16);
+  --akzent-rand:     rgba(127, 168, 201, 0.46);
+  --schein:          rgba(127, 168, 201, 0.34);
+  --verweis:         #a4c6de;
+  --verweis-aktiv:   #d6e8f5;
+  --tuerkis:         #8fb6d2;
+}
+
+html[data-thema="hell"] .kachel[data-kategorie="regeln"],
+html[data-thema="hell"] .artikel[data-kategorie="regeln"],
+html[data-thema="hell"] .nav-gruppe[data-kategorie="regeln"] {
+  --akzent:          #2f5c7a;
+  --akzent-hell:     #1f4257;
+  --akzent-schleier: rgba(47, 92, 122, 0.10);
+  --akzent-rand:     rgba(47, 92, 122, 0.40);
+  --schein:          rgba(47, 92, 122, 0.16);
+  --verweis:         #2f5c7a;
+  --verweis-aktiv:   #1f4257;
+  --tuerkis:         #2a5268;
+}
+
+/* ------------------------------------------------------------------ *
+   Kampagnenrahmen-Assistent
+
+   Neun Schritte, dieselben Fragen wie in der Werkstatt. Die Gestaltung
+   hält sich an das übrige Wiki; nur die Schrittleiste ist neu.
+   ------------------------------------------------------------------ */
+
+.assistent { max-width: 46rem; }
+.assistent > h1 { margin: 0.2rem 0 1.2rem; }
+
+.schritt-leiste {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  list-style: none;
+  margin: 0 0 1.6rem;
+  padding: 0;
+}
+
+.schritt-knopf {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.34rem 0.7rem;
+  background: none;
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+  color: var(--schrift-matt);
+  font: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.schritt-knopf .nummer {
+  display: inline-flex;
+  align-items: center; justify-content: center;
+  width: 1.2rem; height: 1.2rem;
+  border-radius: 50%;
+  background: var(--akzent-schleier);
+  font-size: 0.7rem; font-weight: 600;
+}
+.schritt-knopf:hover, .schritt-knopf:focus-visible {
+  border-color: var(--akzent-rand);
+  color: var(--akzent-hell);
+}
+.schritt-knopf[aria-current="step"] {
+  background: var(--akzent-schleier);
+  border-color: var(--akzent);
+  color: var(--akzent-hell);
+  font-weight: 600;
+}
+
+.assistent-formular { display: flex; flex-direction: column; gap: 1.4rem; }
+
+.assistent-feld { display: flex; flex-direction: column; gap: 0.3rem; }
+
+.assistent-beschriftung {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--schrift);
+}
+.assistent-beschriftung .pflicht { color: var(--akzent-hell); }
+
+.assistent-hilfe {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--schrift-leise);
+}
+
+.assistent-eingabe {
+  width: 100%;
+  padding: 0.5rem 0.65rem;
+  background: var(--grund);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+  color: var(--schrift);
+  font: inherit;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  resize: vertical;
+}
+.assistent-eingabe:focus {
+  outline: none;
+  border-color: var(--akzent);
+  box-shadow: 0 0 0 2px var(--akzent-schleier);
+}
+.assistent-eingabe::placeholder { color: var(--schrift-leise); opacity: 0.7; }
+
+.assistent-liste { display: flex; flex-direction: column; gap: 0.9rem; }
+.assistent-liste > h3 { margin: 0.6rem 0 0; font-size: 1.05rem; }
+
+.assistent-listeneintrag {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 0.9rem;
+  background: color-mix(in srgb, var(--flaeche) 60%, transparent);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+}
+
+.assistent-knopfleiste {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 0.6rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--rand);
+}
+.assistent-meldung { font-size: 0.8rem; }
+
+/* Der Verweis in den Assistenten steht rechts neben der Kategoriezeile. */
+.assistent-verweis { margin-left: 0.7rem; vertical-align: middle; }
+
+/* ------------------------------------------------------------------ *
+   Werkstatt: Knopf in der Kopfzeile und eigene Seite
+
+   Die Werkstatt ist kein Kapitel der Welt, sondern ein Werkzeug. Sie
+   bekommt deshalb einen eigenen Platz im Kopf statt einer Zeile in der
+   Seitenleiste — und durchgehend ihren Goldton.
+   ------------------------------------------------------------------ */
+
+.werkstatt-knopf {
+  --akzent:          #b79a6a;
+  --akzent-hell:     #e2cda2;
+  --akzent-schleier: rgba(183, 154, 106, 0.16);
+  --akzent-rand:     rgba(183, 154, 106, 0.46);
+
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.34rem 0.75rem;
+  border: 1px solid var(--akzent-rand);
+  border-radius: var(--radius-klein);
+  background: var(--akzent-schleier);
+  color: var(--akzent-hell);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s;
+}
+.werkstatt-knopf:hover, .werkstatt-knopf:focus-visible {
+  background: color-mix(in srgb, #b79a6a 26%, transparent);
+  border-color: #b79a6a;
+}
+.werkstatt-knopf .symbol { font-size: 0.95rem; line-height: 1; }
+
+html[data-thema="hell"] .werkstatt-knopf {
+  --akzent-hell:     #5a4520;
+  --akzent-schleier: rgba(122, 95, 46, 0.10);
+  --akzent-rand:     rgba(122, 95, 46, 0.40);
+}
+
+/* Auf schmalen Fenstern bleibt nur das Zeichen. */
+@media (max-width: 68rem) {
+  .werkstatt-knopf .beschriftung { display: none; }
+  .werkstatt-knopf { padding: 0.34rem 0.5rem; }
+}
+
+/* --- Die Seite ---------------------------------------------------- */
+
+.werkstatt-seite { max-width: 58rem; }
+.werkstatt-seite > h1 { margin: 0.2rem 0 0.6rem; }
+.werkstatt-seite > .anriss { margin-bottom: 2rem; max-width: 44rem; }
+
+.werkstatt-felder {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 0.9rem;
+}
+
+.werkstatt-feld {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 1.1rem;
+  background: color-mix(in srgb, var(--flaeche) 82%, transparent);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius);
+}
+.werkstatt-feld > h2 { margin: 0; font-size: 1.05rem; }
+.werkstatt-feld .zahl {
+  margin: 0;
+  font-size: 1.9rem;
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--akzent-hell);
+}
+.werkstatt-feld .zahl span {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--schrift-leise);
+}
+.werkstatt-feld .text {
+  margin: 0;
+  flex: 1;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--schrift-matt);
+}
+.werkstatt-feld .modul-knopf { align-self: flex-start; }
+
+/* Noch nicht übernommene Bereiche treten zurück, statt zu verschwinden:
+   So ist sichtbar, was noch kommt. */
+.werkstatt-feld[data-zustand="teilweise"] { border-style: dashed; }
+.werkstatt-feld[data-zustand="teilweise"] .zahl { color: var(--schrift-matt); }
+
+.werkstatt-marke {
+  align-self: flex-start;
+  padding: 0.2rem 0.55rem;
+  border: 1px dashed var(--rand-hell);
+  border-radius: var(--radius-klein);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--schrift-leise);
+}
+
+.werkstatt-ueberschrift { margin: 2.4rem 0 1rem; font-size: 1.1rem; }
+
+/* ------------------------------------------------------------------ *
+   Bild eines Eintrags
+
+   Bisher hatte das Wiki keine Bilder. Die Kartenwappen sind die erste
+   Ausnahme: Sie stehen als Kopfschmuck über dem Text, nicht darin.
+   ------------------------------------------------------------------ */
+
+.eintrag-bild {
+  margin: 0.9rem 0 1.4rem;
+  max-width: 22rem;
+}
+.eintrag-bild img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+}

@@ -122,6 +122,10 @@ async function serverPruefen(name, port) {
   const oeffentlicheDateien = [
     '/',
     '/stil.css',
+    '/styles/tokens.css',
+    '/styles/wiki.css',
+    '/styles/bearbeiten.css',
+    '/styles/werkstatt.css',
     '/wiki.js',
     '/bearbeiten.js',
     '/bearbeiten-kontext.js',
@@ -165,6 +169,7 @@ async function serverPruefen(name, port) {
     '/README.md',
     '/daten/quelle.json',
     '/werkzeuge/vorschau-server.mjs',
+    '/styles/unbekannt.css',
     '/%2e%2e%2f.env',
     '/%2e%2e%5c.env',
   ]) {

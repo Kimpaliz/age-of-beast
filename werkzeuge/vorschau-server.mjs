@@ -37,6 +37,10 @@ const TYPEN = {
 const FREIGEGEBENE_DATEIEN = new Set([
   'index.html',
   'stil.css',
+  'styles/tokens.css',
+  'styles/wiki.css',
+  'styles/bearbeiten.css',
+  'styles/werkstatt.css',
   'wiki.js',
   'bearbeiten.js',
   'bearbeiten-kontext.js',
@@ -95,6 +99,11 @@ function istFreigegebeneDatei(relativ) {
   );
 }
 
+function istUnbekannterStilPfad(relativ) {
+  const webPfad = relativ.replace(/\\/g, '/');
+  return (webPfad === 'styles' || webPfad.startsWith('styles/')) && !istFreigegebeneDatei(relativ);
+}
+
 const server = createServer(async (anfrage, antwort) => {
   const methode = anfrage.method || '';
 
@@ -119,6 +128,19 @@ const server = createServer(async (anfrage, antwort) => {
 
     // Ausbrüche und vertrauliche Dateien ohne Dateizugriff sperren.
     if (liegtAußerhalbDerWurzel(datei) || hatGesperrtesSegment(relativ)) {
+      sendeAntwort(
+        antwort,
+        methode,
+        403,
+        { 'Content-Type': 'text/html; charset=utf-8' },
+        '<h1>403 – Zugriff verweigert</h1>',
+      );
+      return;
+    }
+
+    // Der neue Stilordner bleibt ebenso geschlossen wie alle übrigen Dateien:
+    // Nur die vier explizit freigegebenen CSS-Dateien dürfen ihn verlassen.
+    if (istUnbekannterStilPfad(relativ)) {
       sendeAntwort(
         antwort,
         methode,
