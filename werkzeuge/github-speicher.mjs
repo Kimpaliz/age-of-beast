@@ -32,6 +32,8 @@ export const REPO = {
 
 const API = 'https://api.github.com';
 const VERSION = '2022-11-28';
+const WELT_DATEIEN = ['daten/quelle.json', 'daten/welt.json', 'daten/welt.js'];
+const QUELLEN_PFAD = WELT_DATEIEN[0];
 
 /* ------------------------------------------------------------------ *
  * Zeichen und Base64
@@ -155,6 +157,51 @@ export async function dateiLesen(token, pfad) {
  * Schreiben
  * ------------------------------------------------------------------ */
 
+/** Lehnt unvollständige oder nicht zum Weltvertrag passende Aufträge ab. */
+function schreibauftragPruefen(dateien, erwarteteSha, erwartetePfad) {
+  if (!dateien || typeof dateien !== 'object' || Array.isArray(dateien)) {
+    throw new GitHubFehler(
+      'Der Schreibauftrag muss genau die drei Weltdateien enthalten.',
+      400,
+      null,
+    );
+  }
+
+  const pfade = Object.keys(dateien);
+  const hatGenauWeltDateien =
+    pfade.length === WELT_DATEIEN.length &&
+    WELT_DATEIEN.every((pfad) => Object.prototype.hasOwnProperty.call(dateien, pfad));
+  if (!hatGenauWeltDateien) {
+    throw new GitHubFehler(
+      'Der Schreibauftrag muss genau daten/quelle.json, daten/welt.json und daten/welt.js enthalten.',
+      400,
+      null,
+    );
+  }
+
+  for (const pfad of WELT_DATEIEN) {
+    if (typeof dateien[pfad] !== 'string') {
+      throw new GitHubFehler('Die Weltdatei „' + pfad + '“ muss Text enthalten.', 400, null);
+    }
+  }
+
+  if (typeof erwarteteSha !== 'string' || !erwarteteSha.trim()) {
+    throw new GitHubFehler(
+      'Die Quellenkennung fehlt. Bitte die Seite neu laden, bevor du speicherst.',
+      409,
+      null,
+    );
+  }
+
+  if (erwartetePfad !== QUELLEN_PFAD) {
+    throw new GitHubFehler(
+      'Die Quellenkennung gehört nicht zu daten/quelle.json. Bitte die Seite neu laden.',
+      409,
+      null,
+    );
+  }
+}
+
 /**
  * Legt mehrere Dateien in EINEM Commit ab.
  *
@@ -168,27 +215,18 @@ export async function dateiLesen(token, pfad) {
  * @param {object} auftrag
  * @param {Object<string,string>} auftrag.dateien   Pfad -> Inhalt
  * @param {string} auftrag.nachricht                Commit-Nachricht
- * @param {string} [auftrag.erwarteteSha]           Blob-Kennung der Quelldatei,
+ * @param {string} auftrag.erwarteteSha             Blob-Kennung der Quelldatei,
  *   so wie sie beim Laden war. Weicht sie ab, wird nicht geschrieben.
- * @param {string} [auftrag.erwartetePfad]          Zu welcher Datei die Kennung gehoert
+ * @param {'daten/quelle.json'} auftrag.erwartetePfad Zu welcher Datei die Kennung gehört
  * @returns {{commit: string, kurz: string}}
  */
 export async function dateienSchreiben(token, auftrag) {
-  const { dateien, nachricht, erwarteteSha, erwartetePfad } = auftrag;
+  const { dateien, nachricht, erwarteteSha, erwartetePfad } = auftrag || {};
   const basis = `/repos/${REPO.besitzer}/${REPO.name}`;
 
-  // 0. Hat sich die Quelldatei seit dem Laden geaendert?
-  if (erwarteteSha && erwartetePfad) {
-    const jetzt = await dateiLesen(token, erwartetePfad);
-    if (jetzt.sha !== erwarteteSha) {
-      throw new GitHubFehler(
-        'In der Zwischenzeit wurde an anderer Stelle gespeichert. ' +
-          'Bitte die Seite neu laden, damit nichts überschrieben wird.',
-        409,
-        null,
-      );
-    }
-  }
+  // 0. Erst den vollständigen Schreibvertrag prüfen. Bei einem ungültigen
+  //    Auftrag darf nicht einmal eine schreibende GitHub-Anfrage entstehen.
+  schreibauftragPruefen(dateien, erwarteteSha, erwartetePfad);
 
   // 1. Wo steht der Zweig gerade?
   const verweis = await anfragen(token, `${basis}/git/ref/heads/${REPO.zweig}`);
@@ -197,9 +235,26 @@ export async function dateienSchreiben(token, auftrag) {
   // 2. Welchen Baum hat dieser Commit?
   const commit = await anfragen(token, `${basis}/git/commits/${letzterCommit}`);
 
-  // 3. Für jede Datei einen Blob anlegen
+  // 3. Die erwartete Quellen-SHA muss zum Baum genau dieses Heads gehören.
+  //    Ein früherer Contents-Abruf wäre hier nicht ausreichend: Zwischen ihm
+  //    und dem Commit-Aufbau könnte der Zweig weitergelaufen sein.
+  const kopfBaum = await anfragen(token, `${basis}/git/trees/${commit.tree.sha}?recursive=1`);
+  const quelleImKopf = Array.isArray(kopfBaum?.tree)
+    ? kopfBaum.tree.find((eintrag) => eintrag.path === QUELLEN_PFAD && eintrag.type === 'blob')
+    : null;
+  if (!quelleImKopf || quelleImKopf.sha !== erwarteteSha) {
+    throw new GitHubFehler(
+      'In der Zwischenzeit wurde an anderer Stelle gespeichert. ' +
+        'Bitte die Seite neu laden, damit nichts überschrieben wird.',
+      409,
+      null,
+    );
+  }
+
+  // 4. Für jede Datei einen Blob anlegen
   const eintraege = [];
-  for (const [pfad, inhalt] of Object.entries(dateien)) {
+  for (const pfad of WELT_DATEIEN) {
+    const inhalt = dateien[pfad];
     const blob = await anfragen(token, `${basis}/git/blobs`, {
       method: 'POST',
       body: JSON.stringify({ content: alsBase64(inhalt), encoding: 'base64' }),
@@ -207,19 +262,19 @@ export async function dateienSchreiben(token, auftrag) {
     eintraege.push({ path: pfad, mode: '100644', type: 'blob', sha: blob.sha });
   }
 
-  // 4. Einen neuen Baum auf den alten aufsetzen
+  // 5. Einen neuen Baum auf den alten aufsetzen
   const baum = await anfragen(token, `${basis}/git/trees`, {
     method: 'POST',
     body: JSON.stringify({ base_tree: commit.tree.sha, tree: eintraege }),
   });
 
-  // 5. Commit erzeugen
+  // 6. Commit erzeugen
   const neuerCommit = await anfragen(token, `${basis}/git/commits`, {
     method: 'POST',
     body: JSON.stringify({ message: nachricht, tree: baum.sha, parents: [letzterCommit] }),
   });
 
-  // 6. Zweig weiterschieben. Ohne `force`: Ist inzwischen ein anderer Commit
+  // 7. Zweig weiterschieben. Ohne `force`: Ist inzwischen ein anderer Commit
   //    dazugekommen, lehnt GitHub ab, statt ihn zu ueberschreiben.
   await anfragen(token, `${basis}/git/refs/heads/${REPO.zweig}`, {
     method: 'PATCH',

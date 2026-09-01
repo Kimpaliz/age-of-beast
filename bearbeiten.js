@@ -38,7 +38,7 @@ import {
   veroeffentlichungStand,
 } from './werkzeuge/github-speicher.mjs';
 
-/** Wo der Schlüssel im Browser liegt. Nur auf diesem Gerät, nur für diese Seite. */
+/** Wo der Schlüssel im Browser liegt. Nur für diese Browser-Sitzung und diese Seite. */
 const SCHLUESSEL_ABLAGE = 'age-of-beast-schluessel';
 
 /** Adresse, unter der sich ein passender Schlüssel erzeugen lässt. */
@@ -96,7 +96,7 @@ function schluesselAbfragen() {
         <p class="schluessel-text">
           Das Wiki speichert direkt in dein GitHub-Repository
           <code>${REPO.besitzer}/${REPO.name}</code>. Dafür braucht es einmalig
-          einen Schlüssel. Er bleibt nur auf diesem Gerät.
+          einen Schlüssel. Er bleibt nur für diese Browser-Sitzung gespeichert.
         </p>
         <ol class="schluessel-schritte">
           <li><a href="${SCHLUESSEL_ADRESSE}" target="_blank" rel="noopener">Schlüssel bei GitHub erzeugen</a> (öffnet einen neuen Tab)</li>
@@ -181,14 +181,19 @@ async function abmelden() {
 }
 
 function schluesselLesen() {
-  try { return localStorage.getItem(SCHLUESSEL_ABLAGE) || null; } catch { return null; }
+  try { return sessionStorage.getItem(SCHLUESSEL_ABLAGE) || null; } catch { return null; }
 }
 function schluesselSchreiben(wert) {
-  try { localStorage.setItem(SCHLUESSEL_ABLAGE, wert); } catch { /* egal */ }
+  try { sessionStorage.setItem(SCHLUESSEL_ABLAGE, wert); } catch { /* egal */ }
 }
 function schluesselLoeschen() {
   schluessel = null;
   konto = null;
+  try { sessionStorage.removeItem(SCHLUESSEL_ABLAGE); } catch { /* egal */ }
+}
+
+/** Entfernt einen Schlüssel aus dem früheren dauerhaften Speicher. */
+function alteLokaleAblageLoeschen() {
   try { localStorage.removeItem(SCHLUESSEL_ABLAGE); } catch { /* egal */ }
 }
 
@@ -197,12 +202,19 @@ function schluesselLoeschen() {
  * ------------------------------------------------------------------ */
 
 async function liveLaden() {
+  // Eine fehlgeschlagene Aktualisierung darf keine alte Kennung für einen
+  // späteren Schreibversuch zurücklassen.
+  quelleSha = null;
   melden('Weltstand wird geholt …', 'laedt');
   try {
     const datei = await dateiLesen(schluessel, QUELLE);
     rohStand = JSON.parse(datei.text);
+    if (typeof datei.sha !== 'string' || !datei.sha.trim()) {
+      throw new Error('GitHub hat keine Quellenkennung geliefert.');
+    }
     quelleSha = datei.sha;
   } catch (fehler) {
+    quelleSha = null;
     melden(fehler.message || 'Der Weltstand ließ sich nicht holen.', 'fehler');
     return false;
   }
@@ -266,6 +278,12 @@ function bearbeitenAnbieten() {
  * @param {string} beschreibung                für die Commit-Nachricht
  */
 async function schreiben(aenderungen, beschreibung) {
+  if (!rohStand || typeof quelleSha !== 'string' || !quelleSha.trim()) {
+    throw new Error(
+      'Die Quellenkennung fehlt. Bitte lade die Seite neu, bevor du erneut speicherst.',
+    );
+  }
+
   const kopie = structuredClone(rohStand);
 
   for (const [pfad, wert] of Object.entries(aenderungen)) {
@@ -286,8 +304,19 @@ async function schreiben(aenderungen, beschreibung) {
   quelleSha = null; // wird gleich frisch geholt
   try {
     const datei = await dateiLesen(schluessel, QUELLE);
+    if (typeof datei.sha !== 'string' || !datei.sha.trim()) {
+      throw new Error('GitHub hat keine Quellenkennung geliefert.');
+    }
     quelleSha = datei.sha;
-  } catch { /* nicht schlimm; beim nächsten Speichern wird ohne Vergleich geschrieben */ }
+  } catch {
+    melden(
+      'Gespeichert (' + ergebnis.kurz +
+        '), aber der aktuelle Quellstand konnte nicht nachgeladen werden. ' +
+        'Bitte lade die Seite neu, bevor du erneut speicherst.',
+      'fehler',
+    );
+    return ergebnis;
+  }
 
   veroeffentlichungMelden(ergebnis);
 }
@@ -338,6 +367,9 @@ if (knopf) {
     else anmelden();
   });
 }
+
+// Einen früher dauerhaft gespeicherten Schlüssel nie in die Sitzung übernehmen.
+alteLokaleAblageLoeschen();
 
 // Liegt hier schon ein Schlüssel, wird die Sitzung stillschweigend fortgesetzt.
 if (schluesselLesen()) anmelden();
