@@ -43,6 +43,14 @@ const sicher = (text) =>
     .split('>').join('&gt;')
     .split('"').join('&quot;');
 
+/**
+ * Der Host gibt dem Renderer bei neuen Routen eine eigene Generation mit.
+ * Alte, noch laufende Ladevorgänge dürfen danach nichts mehr zeichnen.
+ */
+function istNochAktuell(kontext) {
+  return typeof kontext?.istNochAktuell !== 'function' || kontext.istNochAktuell();
+}
+
 /** Liest `core/concept` aus einem verschachtelten Objekt. */
 function inTiefeLesen(objekt, pfad) {
   let stelle = objekt;
@@ -74,13 +82,15 @@ export function rahmenAssistentEinrichten(werkzeug) {
 
   /**
    * Zeichnet den Assistenten für einen Rahmen.
-   * Wird von `wiki.js` über `window.ageOfBeast.rahmenZeichnen` gerufen.
+   * Der optionale Kontext kommt vom Router und schützt vor einem verspäteten
+   * Feldbeschreibungs-Ladevorgang nach einem Routewechsel.
    */
-  async function zeichnen(inhalt, rahmenId) {
+  async function zeichnen(inhalt, rahmenId, kontext) {
     const stand = werkzeug.rohStand();
     const rahmen = stand?.rahmen?.[rahmenId];
 
     if (!rahmen) {
+      if (!istNochAktuell(kontext)) return;
       inhalt.innerHTML =
         '<div class="hinweis"><strong>Diesen Kampagnenrahmen gibt es nicht.</strong><br>' +
         'Vielleicht wurde er umbenannt. Zurück zur ' +
@@ -92,11 +102,14 @@ export function rahmenAssistentEinrichten(werkzeug) {
     try {
       b = await beschreibungLaden();
     } catch (fehler) {
+      if (!istNochAktuell(kontext)) return;
       inhalt.innerHTML =
         '<div class="hinweis"><strong>Der Assistent lässt sich nicht laden.</strong><br>' +
         sicher(fehler.message) + '</div>';
       return;
     }
+
+    if (!istNochAktuell(kontext)) return;
 
     const schrittNr = offenerSchritt.get(rahmenId) || 1;
     const titel = rahmen.inhalt?.title || 'Kampagnenrahmen';
@@ -120,15 +133,17 @@ export function rahmenAssistentEinrichten(werkzeug) {
         '<div class="schritt-inhalt" id="schritt-inhalt"></div>' +
       '</div>';
 
+    if (!istNochAktuell(kontext)) return;
     document.title = titel + ' – Assistent';
 
     for (const knopf of inhalt.querySelectorAll('.schritt-knopf')) {
       knopf.addEventListener('click', () => {
         offenerSchritt.set(rahmenId, Number(knopf.dataset.schritt));
-        zeichnen(inhalt, rahmenId);
+        zeichnen(inhalt, rahmenId, kontext);
       });
     }
 
+    if (!istNochAktuell(kontext)) return;
     schrittZeichnen(inhalt.querySelector('#schritt-inhalt'), b, rahmen, rahmenId, schrittNr);
   }
 
@@ -334,5 +349,14 @@ export function rahmenAssistentEinrichten(werkzeug) {
      Anschluss
      -------------------------------------------------------------- */
 
-  window.ageOfBeast.rahmenZeichnen = zeichnen;
+  const host = window.ageOfBeast;
+  if (!host) return;
+
+  // Die Registrierung zeichnet eine bereits offene Rahmenroute sofort neu.
+  // Die direkte Zuweisung bleibt nur für ältere Host-Fassungen erhalten.
+  if (typeof host.rahmenRendererRegistrieren === 'function') {
+    const registriert = host.rahmenRendererRegistrieren(zeichnen);
+    if (registriert !== false) return;
+  }
+  host.rahmenZeichnen = zeichnen;
 }
