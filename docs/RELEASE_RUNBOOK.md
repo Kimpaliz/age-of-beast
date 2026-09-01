@@ -17,6 +17,7 @@ node werkzeuge/pruefe-schreibweise.mjs
 node werkzeuge/pruefe-bearbeiten.mjs
 node werkzeuge/pruefe-struktur.mjs
 node werkzeuge/pruefe-github.mjs
+node werkzeuge/pruefe-server-sicherheit.mjs
 git diff --check
 ~~~
 
@@ -30,7 +31,7 @@ Der bestehende Workflow läuft bei Push auf main oder manuell:
 
 1. Checkout und Node 22.
 2. Syntax- und JSON-Prüfungen.
-3. Fünf Daten- und Bearbeitungsprüfungen.
+3. Sechs Daten-, Bearbeitungs- und Serverprüfungen.
 4. Erzeugung eines Pages-Artefakts.
 5. Cache-Versionierung im Artefakt.
 6. Upload und Bereitstellung auf GitHub Pages.
@@ -59,12 +60,12 @@ gemeinsamen Historie ist dafür nicht nötig.
 
 ## Lokale Server
 
-- Der Vorschau-Server ist nach der Härtung ausschließlich für Loopback
-  vorgesehen.
-- Der Heim-Server ist der bewusste Weg für den NetBird-Zugriff und benötigt
-  eine Pfad-Allowlist für auslieferbare Dateien.
-- Keiner der Server darf versteckte Projektdateien, .env-Dateien oder
-  lokale Credential-Dateien ausliefern.
+- Der Vorschau-Server bindet ausschließlich an 127.0.0.1 und liefert nur
+  eine feste Freigabeliste aus.
+- Der Heim-Server ist der bewusste Weg für den NetBird-Zugriff; --alle bleibt
+  eine sichtbare, ausdrückliche Ausnahme und nutzt dieselbe Freigabeliste.
+- Kein Server liefert versteckte Projektdateien, .env-Dateien, lokale
+  Credential-Dateien oder andere nicht veröffentlichte Repository-Dateien.
 
-Die Härtung selbst ist Paket A des Upgrade-Fahrplans und wird erst mit
-zugehörigen Server-Tests umgesetzt.
+Paket A ist lokal umgesetzt und durch pruefe-server-sicherheit.mjs abgesichert.
+Es ist damit noch nicht veröffentlicht.

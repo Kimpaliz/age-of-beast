@@ -11,17 +11,19 @@ ungefragt Weltinhalte.
 ## Paket A – Lokale Server und ausgelieferte Dateien begrenzen
 
 **Priorität:** P1
+**Status:** Lokal umgesetzt und geprüft, noch nicht veröffentlicht.
 **Ziel:** Eine lokale Vorschau bleibt lokal; Netzwerk-Server liefern nur
 öffentliche Wiki-Dateien.
 
 | Umfang | Nicht Umfang |
 | --- | --- |
-| Vorschau explizit an 127.0.0.1 binden; versteckte Pfade, .env-Dateien und Credential-Dateinamen sperren; für den Heim-Server dieselben Sperren und mittelfristig eine Asset-Allowlist. | Keine Änderung an Wiki-Daten, GitHub-API oder Pages. |
+| Vorschau explizit an 127.0.0.1 binden; feste Freigabeliste für Browser-Dateien und Karten-SVGs; versteckte, vertrauliche und ausbrechende Pfade sperren; Heim-Server mit derselben Freigabe. | Keine Änderung an Wiki-Daten, GitHub-API oder Pages. |
 
 **Abnahme:** index.html, CSS, JavaScript, daten/welt.js und ein SVG liefern
 200; .env, .git, .claude, Credential-/ADC-Dateinamen und kodiertes Traversal
-liefern 403. Vorschau bindet Loopback; Heim-Server bleibt nur bewusst im
-NetBird-Modus erreichbar.
+liefern 403. Nicht vorhandene unverdächtige Pfade liefern 404. Vorschau bindet
+Loopback; Heim-Server bleibt nur bewusst im NetBird-Modus erreichbar. Der
+automatisierte Nachweis ist pruefe-server-sicherheit.mjs.
 
 ## Paket B – Routen und Rahmen-Assistent stabilisieren
 

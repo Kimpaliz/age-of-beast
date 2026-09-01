@@ -12,6 +12,7 @@ und dem, was bei einem Upgrade zusätzlich getestet werden muss.
 | node werkzeuge/pruefe-bearbeiten.mjs | Bearbeitbare Felder lassen sich lesen, schreiben und umwandeln. | Kein echter GitHub-Write und kein DOM-Test. |
 | node werkzeuge/pruefe-struktur.mjs | Anlegen, Löschen und Sortieren lässt keine Rohdatenreste. | Kein Assistenten- oder UI-Test. |
 | node werkzeuge/pruefe-github.mjs | Base64, Drei-Dateien-Erzeugung und Determinismus. | Keine echte API-, CORS- oder Berechtigungsprüfung. |
+| node werkzeuge/pruefe-server-sicherheit.mjs | Öffentliche Server-Dateien, Methoden, Sperren, HEAD und Vorschau-Loopback. | Kein Angriffstest mit lokalem Schreibzugriff zwischen realpath und readFile. |
 
 Zusätzlich vor jedem Upgrade-Paket:
 
@@ -31,7 +32,6 @@ package.json-Konfiguration.
 | Datenvertrag | Vor jeder Schema- oder Kategorieerweiterung | IDs, Kategorien, Referenzen, Panels, Rahmen und Bildpfade grün. |
 | Routen-Smoke | Vor Änderungen an wiki.js oder rahmen-assistent.js | Start, Eintrag, Kategorie, Werkstatt und Rahmen per Direktaufruf und normaler Navigation. |
 | Asynchroner Routenwechsel | Vor Erweiterung des Rahmen-Assistenten | Ein verspäteter Ladevorgang darf keine neue Route überschreiben. |
-| Server-Freigabe | Vor Änderungen an Vorschau- oder Heim-Server | Erlaubte Assets 200; Geheim- und versteckte Pfade 403; Bindung korrekt. |
 | Cache-Artefakt | Vor Änderung einer Browser-Abhängigkeit | Jede veränderliche Browser-Ressource trägt die Ziel-SHA oder ist ausdrücklich unveränderlich. |
 | Visuelle Abnahme | Vor CSS-Trennung oder Werkstatt-Änderung | Desktop, 1024 px und 640 px; hell/dunkel; Wiki, Bearbeiten, Werkstatt und Rahmen. |
 | Live-Abnahme | Erst nach autorisiertem main-Push | Actions für Ziel-SHA grün, frischer Browser und konkrete Upgrade-Funktion geprüft. |
@@ -40,7 +40,7 @@ package.json-Konfiguration.
 
 1. Node 22 verwenden, wenn ein Ergebnis die GitHub-Action abbilden soll.
 2. Syntax prüfen.
-3. Alle fünf bestehenden Prüfscripts ausführen.
+3. Alle sechs bestehenden Prüfscripts ausführen.
 4. Paketbezogene neue Tests ausführen.
 5. Erst danach einen Review oder einen ausdrücklich freigegebenen Push
    vorbereiten.

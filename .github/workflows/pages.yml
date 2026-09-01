@@ -74,6 +74,9 @@ jobs:
           # Und der Browser muss beim Speichern dieselben Dateien erzeugen
           # wie das Skript auf der Festplatte.
           node werkzeuge/pruefe-github.mjs
+          # Die beiden reinen Lese-Server dürfen nur veröffentlichte Dateien
+          # ausliefern und die Vorschau bleibt auf Loopback beschränkt.
+          node werkzeuge/pruefe-server-sicherheit.mjs
 
       - name: Dateien gegen den Zwischenspeicher versionieren
         run: |

@@ -19,7 +19,9 @@ Installation und ohne Internetverbindung direkt im Browser.
 node werkzeuge/vorschau-server.mjs
 ```
 
-Danach `http://localhost:4173` im Browser öffnen. Beenden mit `Strg + C`.
+Danach `http://127.0.0.1:4173` im Browser öffnen. Die Vorschau ist bewusst
+nur auf diesem PC erreichbar. Für eingetragene Geräte im NetBird-Netz gibt es
+`Wiki-im-eigenen-Netz-starten.cmd`. Beenden mit `Strg + C`.
 
 ---
 
@@ -193,7 +195,7 @@ Die technische Grundlage für sichere Upgrades ist dokumentiert:
 
 ## Prüfungen
 
-Fünf Skripte sichern die Inhalte ab. Sie brauchen keine Installation und
+Sechs Skripte sichern die Inhalte ab. Sie brauchen keine Installation und
 schreiben nichts in die Datenbank.
 
 ```bash
@@ -235,7 +237,15 @@ keinen Text verändert, und dass der Browser beim Speichern Zeichen für Zeichen
 dieselben Dateien erzeugt wie das Skript. Braucht kein Netz und keinen
 Schlüssel — es wird nichts geschrieben und nichts abgefragt.
 
-Alle fünf laufen auch bei jeder Veröffentlichung automatisch. Schlägt eine
+```bash
+node werkzeuge/pruefe-server-sicherheit.mjs
+```
+
+Startet beide reinen Lese-Server nur kurz lokal und prüft erlaubte
+Browser-Dateien, gesperrte Pfade, Methoden, HEAD-Antworten und die
+Loopback-Bindung der Vorschau.
+
+Alle sechs laufen auch bei jeder Veröffentlichung automatisch. Schlägt eine
 fehl, geht die Änderung nicht online.
 
 ---
