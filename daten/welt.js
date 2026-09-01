@@ -2,7 +2,7 @@
 window.AGE_OF_BEAST_WELT = {
   "titel": "Age of Beast",
   "untertitel": "Daggerheart-Welt zwischen Magie, Natur und Maschinen",
-  "standDerDaten": "2026-08-26T00:07:38.674Z",
+  "standDerDaten": "2026-09-01T04:22:54.346Z",
   "kategorien": [
     {
       "schluessel": "wiki",
@@ -2009,7 +2009,7 @@ window.AGE_OF_BEAST_WELT = {
       ],
       "verbindungen": [],
       "bild": "",
-      "geaendert": "2026-08-25T22:53:51.317Z"
+      "geaendert": "2026-09-01T04:22:54.346Z"
     },
     {
       "id": "werkstatt-karte-clank",
