@@ -26,7 +26,7 @@ const WELT_TITEL = 'Age of Beast';
  * ------------------------------------------------------------------ */
 
 // Reihenfolge der Kategorien im Wiki
-const KATEGORIEN = [
+export const KATEGORIEN = [
   { schluessel: 'wiki', name: 'Kampagne', einzahl: 'Kampagnenübersicht', zeichen: '◆' },
   { schluessel: 'factions', name: 'Fraktionen', einzahl: 'Fraktion', zeichen: '⚑' },
   { schluessel: 'species', name: 'Spezies', einzahl: 'Spezies', zeichen: '❖' },

@@ -10,6 +10,94 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ## [Unveröffentlicht]
 
+## [2.8.0] – 2026-09-02
+
+Kategoriesymbole als SVG-Sprite, eigene Farbtöne für alle zehn Kategorien
+und ein Wächter, der beides misst statt behauptet.
+
+### Hinzugefügt
+
+- `runtime/symbole.js`: klassischer Leserbaustein mit zehn Motiven als
+  24×24-Pfade, `sprite()` für den einmaligen `<symbol>`-Vorrat und
+  `symbol(kategorie, klasse)` für die `<use>`-Verweise. Der Baustein fasst
+  kein DOM an; er liefert Zeichenketten.
+- `styles/kategorien.css`: Symbolgestaltung und je Kategorie ein Block, der
+  nur die Akzentvariablen überschreibt — dasselbe Muster, das Werkstatt und
+  Regeln bereits nutzen. Kachel, Rand, Schein und Etikett folgen daraus.
+- `werkzeuge/pruefe-symbole.mjs`: 505 Prüfungen. Führt `runtime/symbole.js`
+  in einer VM aus und misst gegen `KATEGORIEN` aus `welt-umwandeln.mjs`.
+- Symbole an fünf Stellen: Kachel (Plakette), Navigation, Filterknöpfe,
+  Kopfzeile der Kategorieseite, Kategoriezeile der Eintragsseite.
+
+### Geändert
+
+- `werkzeuge/welt-umwandeln.mjs` exportiert `KATEGORIEN`, damit die Prüfung
+  gegen die Quelle statt gegen eine Kopie messen kann.
+- `werkzeuge/pruefe-stilstruktur.mjs` unterscheidet jetzt `STIL_TEILE`
+  (die vier Teile der ursprünglichen Aufteilung) von `STIL_ZUSATZ`. Der
+  SHA-256-Beweis, dass die Aufteilung nichts verloren hat, läuft weiterhin
+  ausschließlich über die vier Ursprungsteile — sonst hätte die erste neue
+  Datei diese Aussage entwertet.
+- `werkzeuge/pruefe-rahmen-routen.mjs` ordnet den Quellvertrag über den
+  Dateinamen statt über `runtimeQuelltexte[3]` zu. Der feste Index zeigte
+  nach dem Hinzufügen einer Runtime-Datei auf die falsche Quelle. Die
+  DOM-Attrappe kennt jetzt `insertAdjacentHTML`, `document.body` und
+  `document.querySelector`, damit der Symbolpfad wirklich durchlaufen wird.
+- `werkzeuge/vorschau-server.mjs` und `werkzeuge/heim-server.mjs` geben die
+  zwei neuen Dateien frei. Beide arbeiten mit einer Positivliste; ohne den
+  Eintrag antworten sie mit 403.
+
+### Farbmessung statt Augenmaß
+
+Abstände in OKLab, weil gleiche Zahlenabstände dort ungefähr gleichen
+wahrgenommenen Abständen entsprechen. In sRGB gemessen wäre „weit
+auseinander" eine Behauptung.
+
+Zwei Kollisionen im dunklen Stil, beide gemessen:
+
+| Paar | vorher | nachher |
+| --- | --- | --- |
+| items / regeln | 0.065 | 0.092 |
+| events / werkstatt | 0.050 | über 0.10 |
+
+Im hellen Stil lagen **elf** Paare unter der Schwelle, das engste bei 0.031.
+Ursache ist strukturell: Auf hellem Grund brauchen alle Töne wenig
+Helligkeit, wodurch das nutzbare Band schrumpft. Sieben Töne wurden per
+lokaler Suche neu bestimmt — Farbwinkel je Kategorie festgehalten (er trägt
+die Bedeutung), Helligkeit und Sattheit frei, Zielgröße der kleinste
+Paarabstand.
+
+Erster Lauf ohne Helligkeitsschranke lieferte formal bessere Werte
+(0.102) und optisch ein anderes Wiki: `#10103d` statt Violett für die
+Leitfarbe. Mit der Schranke L 0.38…0.58 bleibt 0.083 — und das engste Paar
+ist `wiki`/`regeln`, also bestehende Gestaltung.
+
+Schwellen: Abstand ≥ 0.08, Kontrast ≥ 4.5:1 gegen den jeweiligen Grund.
+Gemessen liegt der schwächste Kontrast bei 5.37:1.
+
+### Zwei Fehler in der eigenen Prüfung
+
+1. Die erste Fassung las jede Zahl im Pfad als absolute Koordinate. In
+   `h-11` ist die −11 aber ein relativer Schritt. Gemeldet wurden Fehler,
+   die es nicht gab. Der Pfad wird jetzt abgelaufen; für Kurven genügen
+   Stütz- und Endpunkte, weil eine Bezierkurve ihre Hülle nie verlässt.
+2. Der Tokenizer verlangte einen Ziffernanfang und las aus `.8` eine `8`.
+   Dadurch schienen drei Pfote-Pfade das Feld bei 25.4, 24.9 und 28.3 zu
+   verlassen. Das Muster fasst jetzt auch Zahlen ohne führende Null.
+
+### Verifiziert
+
+- 505 Prüfungen in `pruefe-symbole.mjs`, alle 13 Wächter grün.
+- Im Browser gegengeprüft: 10 `<symbol>` im Sprite, 58 Plaketten auf der
+  Startseite, 72 Symbole im Dokument; Kachel, Navigation, Filter,
+  Kategorieseite und Eintragsseite einzeln belegt.
+- Helle Ansicht gemessen statt geschätzt: Der dunkle Streifen im
+  Vorschaubild war eine eingefrorene Compositing-Ebene
+  (`position: sticky` mit eigenem Scrollbereich) — die berechneten Farben
+  waren durchgehend korrekt, nach einem Scroll auch die Darstellung.
+
+
+
 ### Geändert
 
 - Inhaltliche Umbenennung in der Realtime Database (Quelle, nicht Repository):

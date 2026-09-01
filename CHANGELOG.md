@@ -7,6 +7,66 @@ Das Neueste steht immer oben.
 
 ---
 
+## Fassung 2.8.0 – 2. September 2026
+
+**Jede Kachel hat jetzt ein Bildzeichen.** Man sieht auf einen Blick, ob vor
+einem eine Fraktion, ein Ort oder ein Gegenstand liegt — ohne den Text lesen
+zu müssen.
+
+### Wie es vorher war
+
+Von zehn Kategorien hatten genau zwei eine eigene Farbe: Werkstatt und
+Regeln. Die acht Weltkategorien sahen **alle gleich aus**. Der einzige
+Unterschied war ein kleines Wort über der Überschrift.
+
+### Die zehn Zeichen
+
+| | | | |
+| --- | --- | --- | --- |
+| Kampagne | aufgeschlagenes Buch | Orte | Turm mit Zinnen |
+| Fraktionen | Standarte | Ereignisse | Sanduhr |
+| Spezies | Pfotenabdruck | Wissen | Federkiel |
+| Figuren | Kopf und Schultern | Werkstatt | Schmiedehammer |
+| Gegenstände | Schwert | Regeln | Waage |
+
+Sie stehen auf den Kacheln, in der Kategorienliste links, auf den
+Filterknöpfen, über einer Kategorieseite und über jedem Eintrag.
+
+### Warum gezeichnet und nicht getippt
+
+In den Daten standen schon Schriftzeichen wie ☗ und ⌂. Die waren unbrauchbar:
+Keine der verwendeten Schriften enthält sie vollständig. Auf manchen Geräten
+erscheint dort ein leeres Kästchen. Ein gezeichnetes Zeichen sieht überall
+gleich aus.
+
+### Farben gibt es zusätzlich
+
+Jede Kategorie hat jetzt auch einen eigenen Farbton. Das Zeichen bleibt aber
+das Wichtigere — es ist auch dann eindeutig, wenn jemand Farben schlecht
+unterscheiden kann.
+
+### Zwei Farben mussten weichen
+
+Beim Nachmessen kamen sich zwei Paare zu nahe: Gegenstände lag zu dicht am
+Blau der Regeln, Ereignisse zu dicht am Gold der Werkstatt. Beide wurden
+ausgetauscht — nicht nach Gefühl, sondern durch eine Suche über tausende
+Kandidaten.
+
+Für die helle Ansicht mussten sogar **sieben von zehn** Tönen neu berechnet
+werden. Der Grund: Auf hellem Grund müssen alle Farben dunkel sein, damit man
+sie lesen kann — dadurch rücken sie zwangsläufig zusammen. Elf Paare lagen zu
+eng beieinander.
+
+### Nachgeprüft
+
+- Alle zehn Zeichen liegen sauber im Feld, keins ist doppelt vergeben.
+- Der schwächste Kontrast beträgt 5,4 : 1 — deutlich über der üblichen
+  Lesbarkeitsgrenze von 4,5 : 1.
+- Kommt später eine elfte Kategorie dazu **ohne** eigenes Zeichen, schlägt
+  eine Prüfung an. Vorher wäre das niemandem aufgefallen.
+
+---
+
 ## Fassung 2.7.0 – 26. August 2026
 
 **Das Wiki hat jetzt Bilder** — 234 eigene Kartenwappen, erzeugt statt

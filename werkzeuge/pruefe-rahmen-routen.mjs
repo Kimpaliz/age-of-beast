@@ -35,6 +35,7 @@ const WURZEL = process.env.AGE_OF_BEAST_PRUEFWURZEL
   : join(HIER, '..');
 const WIKI_DATEI = join(WURZEL, 'wiki.js');
 const RUNTIME_DATEIEN = [
+  join(WURZEL, 'runtime', 'symbole.js'),
   join(WURZEL, 'runtime', 'datenindex.js'),
   join(WURZEL, 'runtime', 'ansichten.js'),
   join(WURZEL, 'runtime', 'interaktion.js'),
@@ -99,6 +100,9 @@ function domKnoten(name, protokoll) {
     getBoundingClientRect() {
       return { left: 0, top: 0, right: 0, bottom: 0, width: 0, height: 0 };
     },
+    insertAdjacentHTML(stelle, wert) {
+      protokoll.push({ art: 'eingefuegt', knoten: name, stelle, wert: String(wert) });
+    },
     querySelector() { return null; },
     querySelectorAll() { return []; },
     remove() {},
@@ -146,6 +150,10 @@ function wikiPruefstand() {
       return { currentNode: null, nextNode() { return false; } };
     },
     getElementById: element,
+    /* Der Symbolvorrat wird einmalig in den Body gehaengt. Ohne diese
+       beiden Eintraege liefe die Laufzeitprobe an der Stelle vorbei. */
+    body: element('body'),
+    querySelector() { return null; },
   };
 
   const speicher = new Map();
@@ -603,7 +611,11 @@ async function ausfuehren() {
   const runtimeQuelltexte = RUNTIME_DATEIEN.map((datei) => readFileSync(datei, 'utf8'));
   const assistentQuelltext = readFileSync(ASSISTENT_DATEI, 'utf8');
 
-  quellvertraegePruefen(runtimeQuelltexte[3], assistentQuelltext);
+  /* Nicht ueber die Position in der Liste suchen: Kommt eine Runtime-Datei
+     hinzu, zeigt ein fester Index stillschweigend auf die falsche Datei. */
+  const routingIndex = RUNTIME_DATEIEN.findIndex((pfad) => pfad.endsWith('routing.js'));
+  if (routingIndex === -1) throw new Error('runtime/routing.js fehlt in RUNTIME_DATEIEN.');
+  quellvertraegePruefen(runtimeQuelltexte[routingIndex], assistentQuelltext);
   hostPruefen(runtimeQuelltexte, wikiQuelltext);
   await assistentSzenarioPruefen(assistentQuelltext, 'frisch');
   await assistentSzenarioPruefen(assistentQuelltext, 'veraltet-erfolg');

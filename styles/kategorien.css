@@ -1,0 +1,322 @@
+/* ===================================================================
+   Kategoriesymbole und Kategoriefarben
+   -------------------------------------------------------------------
+   Vorher unterschied nur ein Wort, worum es auf einer Kachel geht, und
+   eine eigene Farbe hatten von zehn Kategorien genau zwei: Werkstatt und
+   Regeln. Die acht Weltkategorien sahen alle gleich aus.
+
+   Hier bekommen sie beides: ein gezeichnetes Symbol und einen eigenen
+   Farbton. Das Symbol traegt die Hauptlast — es ist auch dann eindeutig,
+   wenn zwei Farbtoene nebeneinander aehnlich wirken oder jemand Farben
+   schlecht unterscheidet.
+
+   Umgesetzt wie bei Werkstatt und Regeln: Innerhalb eines Bereichs mit
+   `data-kategorie` werden nur die Akzentvariablen ueberschrieben. Kachel,
+   Symbol, Rand und Schein folgen dann von selbst.
+   =================================================================== */
+
+/* ------------------------------------------------------------------ *
+   Die Symbole selbst
+   ------------------------------------------------------------------ */
+
+/* Der Vorrat haelt alle zehn Zeichnungen genau einmal im Dokument.
+   Er wird nie sichtbar; die Symbole verweisen nur darauf. */
+.symbol-vorrat {
+  position: absolute;
+  width: 0; height: 0;
+  overflow: hidden;
+}
+
+.symbol {
+  width: 1em; height: 1em;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vertical-align: -0.125em;
+}
+
+/* ------------------------------------------------------------------ *
+   Wo die Symbole stehen
+   ------------------------------------------------------------------ */
+
+/* Kachel: das Symbol sitzt als Plakette links neben dem Etikett. Es ist
+   das Erste, was man auf einer Kachel sieht. */
+.kachel .k-kopf {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 0.5rem;
+}
+
+.kachel .k-etikett { margin-bottom: 0; }
+
+.kachel .k-marke {
+  box-sizing: border-box;
+  width: 2.1rem; height: 2.1rem;
+  padding: 0.36rem;
+  border-radius: 0.6rem;
+  border: 1px solid var(--akzent-rand);
+  /* Kraeftiger als der uebliche Schleier: Die Plakette ist der Ankerpunkt
+     der Kachel und darf sich vom Untergrund abheben. */
+  background: color-mix(in srgb, var(--akzent) 15%, transparent);
+  color: var(--akzent-hell);
+  stroke-width: 1.5;
+  vertical-align: baseline;
+  transition: background 0.18s, border-color 0.18s;
+}
+
+.kachel:hover .k-marke,
+.kachel:focus-visible .k-marke {
+  background: color-mix(in srgb, var(--akzent) 26%, transparent);
+  border-color: var(--akzent);
+}
+
+/* Navigation: kleines Zeichen vor dem Kategorienamen. */
+.nav-gruppe h2 a { display: inline-flex; align-items: center; gap: 0.42rem; }
+.nav-marke { width: 0.95em; height: 0.95em; opacity: 0.9; }
+
+/* Filterknoepfe der Startseite. */
+.filter button { display: inline-flex; align-items: center; gap: 0.4rem; }
+.filter-marke { width: 0.95em; height: 0.95em; opacity: 0.85; }
+.filter button[aria-pressed="true"] .filter-marke { opacity: 1; }
+
+/* Kopfzeile einer Kategorieseite: das Symbol gross neben der Ueberschrift. */
+h1.mit-marke { display: flex; align-items: center; gap: 0.6rem; }
+.titel-marke { width: 1em; height: 1em; color: var(--akzent); stroke-width: 1.4; }
+
+/* Eintragsseite: vor der Kategoriezeile ueber dem Titel. */
+.mikro.mit-marke { display: inline-flex; align-items: center; gap: 0.42rem; }
+.etikett-marke { width: 1em; height: 1em; }
+
+/* ------------------------------------------------------------------ *
+   Die acht Farbtoene der Weltkategorien
+
+   Gewaehlt mit Abstand zueinander und zu den beiden bereits vergebenen
+   Toenen (Werkstatt Gold, Regeln Blau). Gedaempft, damit der ruhige
+   olivfarbene Grund des Entwurfs erhalten bleibt.
+   ------------------------------------------------------------------ */
+
+/* Kampagne behaelt das Blauviolett der Leitfarbe und braucht deshalb
+   keine eigene Regel. */
+
+.kachel[data-kategorie="factions"],
+.artikel[data-kategorie="factions"],
+.seitenkopf[data-kategorie="factions"],
+.filter button[data-kategorie="factions"],
+.nav-gruppe[data-kategorie="factions"] {
+  --akzent:          #cb7a6b;
+  --akzent-hell:     #eab7ab;
+  --akzent-schleier: rgba(203, 122, 107, 0.16);
+  --akzent-rand:     rgba(203, 122, 107, 0.46);
+  --schein:          rgba(203, 122, 107, 0.30);
+  --verweis:         #dda294;
+  --verweis-aktiv:   #f3ccc2;
+  --tuerkis:         #d59083;
+}
+
+.kachel[data-kategorie="species"],
+.artikel[data-kategorie="species"],
+.seitenkopf[data-kategorie="species"],
+.filter button[data-kategorie="species"],
+.nav-gruppe[data-kategorie="species"] {
+  --akzent:          #8fb56e;
+  --akzent-hell:     #c6dcae;
+  --akzent-schleier: rgba(143, 181, 110, 0.16);
+  --akzent-rand:     rgba(143, 181, 110, 0.46);
+  --schein:          rgba(143, 181, 110, 0.30);
+  --verweis:         #aac98d;
+  --verweis-aktiv:   #d7e8c4;
+  --tuerkis:         #9dc07e;
+}
+
+.kachel[data-kategorie="characters"],
+.artikel[data-kategorie="characters"],
+.seitenkopf[data-kategorie="characters"],
+.filter button[data-kategorie="characters"],
+.nav-gruppe[data-kategorie="characters"] {
+  --akzent:          #6cc0af;
+  --akzent-hell:     #b2e3d8;
+  --akzent-schleier: rgba(108, 192, 175, 0.16);
+  --akzent-rand:     rgba(108, 192, 175, 0.46);
+  --schein:          rgba(108, 192, 175, 0.30);
+  --verweis:         #8fd0c2;
+  --verweis-aktiv:   #c8ede4;
+  --tuerkis:         #7cc8b7;
+}
+
+/* Gegenstaende bekommen als einzige einen fast unbunten Ton. Das
+   unterscheidet sie sicher von allen anderen und passt zu Metall. */
+.kachel[data-kategorie="items"],
+.artikel[data-kategorie="items"],
+.seitenkopf[data-kategorie="items"],
+.filter button[data-kategorie="items"],
+.nav-gruppe[data-kategorie="items"] {
+  --akzent:          #b3bdcb;
+  --akzent-hell:     #dde2e9;
+  --akzent-schleier: rgba(179, 189, 203, 0.16);
+  --akzent-rand:     rgba(179, 189, 203, 0.46);
+  --schein:          rgba(179, 189, 203, 0.26);
+  --verweis:         #c6cedb;
+  --verweis-aktiv:   #e7ebf1;
+  --tuerkis:         #bcc5d1;
+}
+
+.kachel[data-kategorie="places"],
+.artikel[data-kategorie="places"],
+.seitenkopf[data-kategorie="places"],
+.filter button[data-kategorie="places"],
+.nav-gruppe[data-kategorie="places"] {
+  --akzent:          #4f97a6;
+  --akzent-hell:     #a3d2dc;
+  --akzent-schleier: rgba(79, 151, 166, 0.16);
+  --akzent-rand:     rgba(79, 151, 166, 0.46);
+  --schein:          rgba(79, 151, 166, 0.30);
+  --verweis:         #74b3c0;
+  --verweis-aktiv:   #b8dee6;
+  --tuerkis:         #5fa6b4;
+}
+
+.kachel[data-kategorie="events"],
+.artikel[data-kategorie="events"],
+.seitenkopf[data-kategorie="events"],
+.filter button[data-kategorie="events"],
+.nav-gruppe[data-kategorie="events"] {
+  --akzent:          #e0ba7e;
+  --akzent-hell:     #f4dfbc;
+  --akzent-schleier: rgba(224, 186, 126, 0.16);
+  --akzent-rand:     rgba(224, 186, 126, 0.46);
+  --schein:          rgba(224, 186, 126, 0.28);
+  --verweis:         #e9cb9b;
+  --verweis-aktiv:   #f8ead0;
+  --tuerkis:         #e4c48e;
+}
+
+.kachel[data-kategorie="lore"],
+.artikel[data-kategorie="lore"],
+.seitenkopf[data-kategorie="lore"],
+.filter button[data-kategorie="lore"],
+.nav-gruppe[data-kategorie="lore"] {
+  --akzent:          #c48fc0;
+  --akzent-hell:     #e6c8e3;
+  --akzent-schleier: rgba(196, 143, 192, 0.16);
+  --akzent-rand:     rgba(196, 143, 192, 0.46);
+  --schein:          rgba(196, 143, 192, 0.28);
+  --verweis:         #d3a8d0;
+  --verweis-aktiv:   #eed6ec;
+  --tuerkis:         #cb9bc7;
+}
+
+/* ------------------------------------------------------------------ *
+   Dieselben acht Toene fuer die helle Ansicht
+
+   Auf hellem Grund tragen die dunklen Fassungen den Kontrast. Ohne
+   diesen Block waeren die Symbole dort blass bis unlesbar.
+   ------------------------------------------------------------------ */
+
+html[data-thema="hell"] .kachel[data-kategorie="factions"],
+html[data-thema="hell"] .artikel[data-kategorie="factions"],
+html[data-thema="hell"] .seitenkopf[data-kategorie="factions"],
+html[data-thema="hell"] .filter button[data-kategorie="factions"],
+html[data-thema="hell"] .nav-gruppe[data-kategorie="factions"] {
+  --akzent:          #88341c;
+  --akzent-hell:     #652615;
+  --akzent-schleier: rgba(136, 52, 28, 0.10);
+  --akzent-rand:     rgba(136, 52, 28, 0.40);
+  --schein:          rgba(136, 52, 28, 0.14);
+  --verweis:         #88341c;
+  --verweis-aktiv:   #652615;
+  --tuerkis:         #782e19;
+}
+
+html[data-thema="hell"] .kachel[data-kategorie="species"],
+html[data-thema="hell"] .artikel[data-kategorie="species"],
+html[data-thema="hell"] .seitenkopf[data-kategorie="species"],
+html[data-thema="hell"] .filter button[data-kategorie="species"],
+html[data-thema="hell"] .nav-gruppe[data-kategorie="species"] {
+  --akzent:          #105210;
+  --akzent-hell:     #0c3d0c;
+  --akzent-schleier: rgba(16, 82, 16, 0.10);
+  --akzent-rand:     rgba(16, 82, 16, 0.40);
+  --schein:          rgba(16, 82, 16, 0.14);
+  --verweis:         #105210;
+  --verweis-aktiv:   #0c3d0c;
+  --tuerkis:         #0e480e;
+}
+
+html[data-thema="hell"] .kachel[data-kategorie="characters"],
+html[data-thema="hell"] .artikel[data-kategorie="characters"],
+html[data-thema="hell"] .seitenkopf[data-kategorie="characters"],
+html[data-thema="hell"] .filter button[data-kategorie="characters"],
+html[data-thema="hell"] .nav-gruppe[data-kategorie="characters"] {
+  --akzent:          #106d5b;
+  --akzent-hell:     #0c5143;
+  --akzent-schleier: rgba(16, 109, 91, 0.10);
+  --akzent-rand:     rgba(16, 109, 91, 0.40);
+  --schein:          rgba(16, 109, 91, 0.14);
+  --verweis:         #106d5b;
+  --verweis-aktiv:   #0c5143;
+  --tuerkis:         #0e6050;
+}
+
+html[data-thema="hell"] .kachel[data-kategorie="items"],
+html[data-thema="hell"] .artikel[data-kategorie="items"],
+html[data-thema="hell"] .seitenkopf[data-kategorie="items"],
+html[data-thema="hell"] .filter button[data-kategorie="items"],
+html[data-thema="hell"] .nav-gruppe[data-kategorie="items"] {
+  --akzent:          #58524c;
+  --akzent-hell:     #413d38;
+  --akzent-schleier: rgba(88, 82, 76, 0.10);
+  --akzent-rand:     rgba(88, 82, 76, 0.40);
+  --schein:          rgba(88, 82, 76, 0.14);
+  --verweis:         #58524c;
+  --verweis-aktiv:   #413d38;
+  --tuerkis:         #4d4843;
+}
+
+html[data-thema="hell"] .kachel[data-kategorie="places"],
+html[data-thema="hell"] .artikel[data-kategorie="places"],
+html[data-thema="hell"] .seitenkopf[data-kategorie="places"],
+html[data-thema="hell"] .filter button[data-kategorie="places"],
+html[data-thema="hell"] .nav-gruppe[data-kategorie="places"] {
+  --akzent:          #104c4c;
+  --akzent-hell:     #0c3838;
+  --akzent-schleier: rgba(16, 76, 76, 0.10);
+  --akzent-rand:     rgba(16, 76, 76, 0.40);
+  --schein:          rgba(16, 76, 76, 0.14);
+  --verweis:         #104c4c;
+  --verweis-aktiv:   #0c3838;
+  --tuerkis:         #0e4343;
+}
+
+html[data-thema="hell"] .kachel[data-kategorie="events"],
+html[data-thema="hell"] .artikel[data-kategorie="events"],
+html[data-thema="hell"] .seitenkopf[data-kategorie="events"],
+html[data-thema="hell"] .filter button[data-kategorie="events"],
+html[data-thema="hell"] .nav-gruppe[data-kategorie="events"] {
+  --akzent:          #4c4313;
+  --akzent-hell:     #38320e;
+  --akzent-schleier: rgba(76, 67, 19, 0.10);
+  --akzent-rand:     rgba(76, 67, 19, 0.40);
+  --schein:          rgba(76, 67, 19, 0.14);
+  --verweis:         #4c4313;
+  --verweis-aktiv:   #38320e;
+  --tuerkis:         #433b11;
+}
+
+html[data-thema="hell"] .kachel[data-kategorie="lore"],
+html[data-thema="hell"] .artikel[data-kategorie="lore"],
+html[data-thema="hell"] .seitenkopf[data-kategorie="lore"],
+html[data-thema="hell"] .filter button[data-kategorie="lore"],
+html[data-thema="hell"] .nav-gruppe[data-kategorie="lore"] {
+  --akzent:          #4c3a58;
+  --akzent-hell:     #382b41;
+  --akzent-schleier: rgba(76, 58, 88, 0.10);
+  --akzent-rand:     rgba(76, 58, 88, 0.40);
+  --schein:          rgba(76, 58, 88, 0.14);
+  --verweis:         #4c3a58;
+  --verweis-aktiv:   #382b41;
+  --tuerkis:         #43334d;
+}

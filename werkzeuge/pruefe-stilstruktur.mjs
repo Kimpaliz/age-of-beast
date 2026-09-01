@@ -26,6 +26,17 @@ const STIL_TEILE = [
   'styles/werkstatt.css',
 ];
 
+/* Nach der Aufteilung hinzugekommene Stilteile. Sie sind bewusst von
+   STIL_TEILE getrennt: Der SHA-256-Beweis weiter unten belegt, dass die
+   urspruengliche stil.css durch die Aufteilung nichts verloren hat. Diese
+   Aussage bleibt nur gueltig, solange sie ausschliesslich ueber die vier
+   Ursprungsteile gefuehrt wird. Neue Gestaltung kommt deshalb hier dazu. */
+const STIL_ZUSATZ = [
+  'styles/kategorien.css',
+];
+
+const STIL_ALLE = [...STIL_TEILE, ...STIL_ZUSATZ];
+
 // SHA-256 der unveränderten vollständigen stil.css vor der Aufteilung.
 const URSPRUNG_STIL_SHA256 = '638fbdf31d1d8a35b291f7667d34fb4d6455a327397a914e81fe8c0d22470133';
 
@@ -51,6 +62,13 @@ const SENTINELS = {
     'html.thema-wechsel *',
     '.struktur-leiste {',
     '.zeile-formular {',
+  ],
+  'styles/kategorien.css': [
+    '.symbol-vorrat {',
+    '.symbol {',
+    '.kachel .k-marke {',
+    '.kachel[data-kategorie="factions"],',
+    '.kachel[data-kategorie="lore"],',
   ],
   'styles/werkstatt.css': [
     '.kachel[data-kategorie="werkstatt"]',
@@ -87,7 +105,7 @@ function importsLesen(fassade) {
 
 function reineFassadePruefen(fassade) {
   const imports = importsLesen(fassade);
-  assert.deepEqual(imports.map((eintrag) => eintrag.pfad), STIL_TEILE, 'stil.css muss die vier CSS-Teile exakt in Quellreihenfolge importieren.');
+  assert.deepEqual(imports.map((eintrag) => eintrag.pfad), STIL_ALLE, 'stil.css muss alle CSS-Teile exakt in Quellreihenfolge importieren.');
 
   const ohneKommentare = fassade.replace(/\/\*[\s\S]*?\*\//gu, ' ');
   const ohneImports = ohneKommentare.replace(/@import\s+url\(\s*["'][^"']+["']\s*\)\s*;/gu, ' ').trim();
@@ -109,7 +127,7 @@ function sentinelPruefen(teile) {
     for (const sentinel of sentinels) {
       assert.ok(stilankerVorhanden(text, sentinel), pfad + ' muss den Stilanker „' + sentinel + '“ enthalten.');
 
-      for (const andererPfad of STIL_TEILE) {
+      for (const andererPfad of STIL_ALLE) {
         if (andererPfad === pfad) continue;
         assert.ok(
           !stilankerVorhanden(teile.get(andererPfad), sentinel),
@@ -124,8 +142,8 @@ async function cacheGraphPruefen() {
   const graph = await browserGraphLesen(WURZEL);
   const kanten = graph.referenzen.filter((referenz) => referenz.von === STIL_FASSADE);
 
-  assert.equal(kanten.length, STIL_TEILE.length, 'stil.css darf genau vier Browser-Abhängigkeiten haben.');
-  assert.deepEqual(kanten.map((referenz) => referenz.ziel), STIL_TEILE, 'Der Cache-Graph muss die CSS-Imports in Quellreihenfolge erkennen.');
+  assert.equal(kanten.length, STIL_ALLE.length, 'stil.css darf genau ' + STIL_ALLE.length + ' Browser-Abhängigkeiten haben.');
+  assert.deepEqual(kanten.map((referenz) => referenz.ziel), STIL_ALLE, 'Der Cache-Graph muss die CSS-Imports in Quellreihenfolge erkennen.');
 
   for (const referenz of kanten) {
     assert.equal(referenz.format, 'css', referenz.von + ' → ' + referenz.ziel + ' muss als CSS-Kante erkannt werden.');
@@ -138,12 +156,12 @@ async function cacheGraphPruefen() {
 
 async function ausfuehren() {
   const vorab = new Map();
-  for (const pfad of [STIL_FASSADE, ...STIL_TEILE]) {
+  for (const pfad of [STIL_FASSADE, ...STIL_ALLE]) {
     vorab.set(pfad, await textLesen(pfad));
   }
 
   reineFassadePruefen(vorab.get(STIL_FASSADE));
-  const teile = new Map(STIL_TEILE.map((pfad) => [pfad, vorab.get(pfad)]));
+  const teile = new Map(STIL_ALLE.map((pfad) => [pfad, vorab.get(pfad)]));
   sentinelPruefen(teile);
 
   const wiederhergestellt = STIL_TEILE.map((pfad) => teile.get(pfad)).join('');
@@ -160,8 +178,8 @@ async function ausfuehren() {
   }
 
   console.log('Age-of-Beast-Wiki – Stilstruktur geprüft');
-  console.log('Importe: ' + STIL_TEILE.length);
-  console.log('CSS-Abhängigkeiten: ' + STIL_TEILE.length);
+  console.log('Importe: ' + STIL_ALLE.length + ' (' + STIL_TEILE.length + ' aus der Aufteilung, ' + STIL_ZUSATZ.length + ' später hinzugekommen)');
+  console.log('CSS-Abhängigkeiten: ' + STIL_ALLE.length);
   console.log('Browser-Abhängigkeiten gesamt: ' + graph.abhaengigkeiten.size);
   console.log('Ursprungsstil vollständig: ja');
   console.log('Quelle unverändert: ja');

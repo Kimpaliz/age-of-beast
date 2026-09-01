@@ -7,7 +7,9 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const wurzel = join(dirname(fileURLToPath(import.meta.url)), '..');
-const dateien = ['runtime/datenindex.js', 'runtime/ansichten.js', 'runtime/interaktion.js', 'runtime/routing.js', 'wiki.js'];
+const dateien = ['runtime/symbole.js', 'runtime/datenindex.js', 'runtime/ansichten.js', 'runtime/interaktion.js', 'runtime/routing.js', 'wiki.js'];
+// Alle Runtime-Dateien ausser dem Bootstrap wiki.js.
+const bausteinDateien = dateien.slice(0, -1);
 let pruefungen = 0;
 const fehler = [];
 function pruefe(wert, text) { pruefungen += 1; if (!wert) fehler.push(text); }
@@ -15,9 +17,11 @@ const quelltext = Object.fromEntries(dateien.map((datei) => [datei, readFileSync
 const laufzeitprobe = spawnSync(process.execPath, [join(wurzel, 'werkzeuge', 'pruefe-rahmen-routen.mjs')], { encoding: 'utf8' });
 pruefe(laufzeitprobe.status === 0, 'Die VM-Laufzeitprobe für alle fünf klassischen Dateien ist fehlgeschlagen: ' + (laufzeitprobe.stderr || laufzeitprobe.stdout).trim());
 
-for (const datei of dateien.slice(0, 4)) {
+for (const datei of bausteinDateien) {
   pruefe(quelltext[datei].includes('window.__aobLeserBausteine'), datei + ': registriert ausschließlich den internen Baustein.');
 }
+pruefe(!quelltext['runtime/symbole.js'].includes('document.'), 'Symbole fasst kein DOM an und liefert nur Zeichenketten.');
+pruefe(quelltext['runtime/ansichten.js'].includes('bausteine.symbole') && quelltext['runtime/ansichten.js'].includes("symbolvorrat ? symbolvorrat.symbol"), 'Ansichten holt die Symbole und bleibt ohne sie lauffaehig.');
 pruefe(!quelltext['runtime/datenindex.js'].includes('seiteZeichnen'), 'Datenindex darf keine Seite zeichnen.');
 pruefe(!quelltext['runtime/ansichten.js'].includes("addEventListener('hashchange'"), 'Ansichten darf kein Hash-Routing besitzen.');
 pruefe(!quelltext['runtime/interaktion.js'].includes("addEventListener('hashchange'"), 'Interaktion darf kein Hash-Routing besitzen.');
