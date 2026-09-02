@@ -40,8 +40,9 @@ nur auf diesem PC erreichbar. Für eingetragene Geräte im NetBird-Netz gibt es
 
 Die redaktionellen Inhalte liegen als Text vor. Die Werkstattkarten verwenden
 234 lokal erzeugte SVG-Wappen. Es gibt keine Werbung und keine
-Nachverfolgung. Der Lesemodus braucht keine Verbindung nach außen; nur der
-angemeldete Bearbeitungsmodus verbindet sich mit GitHub.
+Nachverfolgung. Der Lesemodus lädt kein fremdes Skript; er holt die
+Weltdaten über eine einfache Abfrage bei Firebase. Erst zum Bearbeiten wird
+das Firebase-SDK nachgeladen.
 
 ---
 
@@ -53,9 +54,11 @@ stil.css                   schmale Stil-Fassade
 styles/                    Tokens, Wiki-, Bearbeitungs- und Werkstatt-Stile
 runtime/                   Datenindex, Ansichten, Interaktion und Routing
 wiki.js                    Bootstrap und öffentliche Kompatibilitätsfassade
-bearbeiten.js              Anmeldung und Speichern nach GitHub
+bearbeiten.js              Weltdaten holen, Anmeldung und Speichern
+firebase-konfig.js         öffentliche Zugangsdaten des Firebase-Projekts
+firestore.rules            wer lesen und schreiben darf
 texte-bearbeiten.js        die Bedienung zum Ändern von Texten
-daten/quelle.json          DIE WELT – hier steht die Wahrheit
+daten/quelle.json          Abbild der Welt für den ersten Bildaufbau
 daten/welt.json            daraus abgeleitet, die Anzeigefassung
 daten/welt.js              dieselben Daten für den Betrieb ohne Server
 werkzeuge/                 Umwandlung, Speicherweg und Prüfungen
@@ -64,10 +67,20 @@ werkzeuge/                 Umwandlung, Speicherweg und Prüfungen
 Bewusst **ohne** Baukasten, ohne `npm install`, ohne Übersetzungsschritt:
 Wer die Dateien herunterlädt, kann das Wiki sofort öffnen.
 
-**Ohne fremde Dienste.** Seit Fassung 2.0.0 braucht das Wiki keinen Server
-und keinen Datenbankanbieter. Die Welt liegt als Datei im Repository, gelesen
-und geschrieben wird über GitHub selbst. Für Besucher wird nichts von außen
-nachgeladen — keine Schriftart, kein Skript, keine Nachverfolgung.
+**Ohne eigenen Server.** Seit Fassung 3.0.0 liegt die Welt in Firestore, im
+Firebase-Projekt `kampagnenrahmen-jt`. Angemeldet wird mit dem Google-Konto.
+
+Der Lesemodus lädt trotzdem **kein fremdes Skript**: Die Weltdaten kommen
+über eine gewöhnliche Abfrage der Firebase-Schnittstelle, nicht über deren
+Programmbibliothek. Die wird erst beim Anmelden geholt. Wer das Wiki nur
+liest, lädt damit genauso wenig wie vorher — keine Schriftart, kein Skript,
+keine Nachverfolgung.
+
+**Getrennt von allem anderen im selben Projekt.** In `kampagnenrahmen-jt`
+läuft auch das Spiel Scotophobia. Das Wiki benutzt eigene Sammlungen
+(`wiki_welt`, `wiki_zugang`) und eigene Regelblöcke; wer dort
+freigeschaltet ist, darf dadurch **nicht** das Wiki bearbeiten. Ein Wächter
+prüft diese Trennung bei jeder Veröffentlichung.
 
 ---
 
@@ -115,30 +128,26 @@ verlieren, was seither im Wiki geändert wurde.
 ## Texte im Wiki ändern
 
 Texte lassen sich direkt im Wiki bearbeiten — im Browser, auch auf dem Handy.
-Gespeichert wird als Commit in dieses Repository.
+Gespeichert wird in Firestore.
 
-### Einmalig: Schlüssel anlegen
+### Anmelden
 
-GitHub Pages liefert nur Dateien aus; dort läuft kein Programm, das ein
-Passwort verwahren könnte. Zum Schreiben braucht das Wiki deshalb einen
-Schlüssel, den du selbst erzeugst:
-
-1. [Fine-grained Token bei GitHub anlegen](https://github.com/settings/personal-access-tokens/new)
-2. **Repository access** → *Only select repositories* → `age-of-beast`
-3. **Permissions** → *Repository permissions* → **Contents: Read and write**
-4. Erzeugen und kopieren
-
-Der Schlüssel darf damit **nur Dateien in diesem einen Repository ändern** —
-nicht an dein Konto, nicht an andere Repositories, an gar nichts sonst. Jede
-Änderung ist ein Commit und damit rücknehmbar. Widerrufen kannst du ihn
-jederzeit in den GitHub-Einstellungen.
-
-### Danach: bearbeiten
-
-1. Oben rechts auf **Anmelden**, Schlüssel einfügen. Das Wiki merkt ihn sich
-   nur für diese Browser-Sitzung; nach dem Schließen des Tabs oder Browsers
-   wird er nicht dauerhaft auf dem Gerät abgelegt.
+1. Oben rechts auf **Anmelden**. Es öffnet sich das gewohnte Google-Fenster.
 2. Auf **Bearbeiten** klicken.
+
+Mehr ist nicht nötig. Bis Fassung 2.x brauchte es einen selbst erzeugten
+GitHub-Schlüssel — anlegen, richtig zuschneiden, in den Browser kopieren.
+Genau daran ist der Weg gescheitert: Über ihn wurde nie ein Text gespeichert.
+
+### Wer bearbeiten darf
+
+Ohne Freigabe geht es nicht. Jannik ist als Verwalter eingetragen; jedes
+andere Google-Konto kann sich anmelden und legt damit **eine** Anfrage an,
+die Jannik bestätigen muss.
+
+Entschieden wird das in `firestore.rules`, nicht im Browser. Eine
+veränderte Seite kann sich den Stift zwar anzeigen lassen, aber keinen
+Schreibvorgang durchsetzen.
 3. Auf den Stift ✎ neben dem gewünschten Text klicken.
 4. Ändern, **Speichern**.
 
@@ -174,12 +183,14 @@ Im Bearbeitungsfeld steht kein HTML, sondern eine einfache Schreibweise:
 
 ### Wann die öffentliche Seite den neuen Stand zeigt
 
-Gespeichert ist sofort. Die öffentliche Seite baut GitHub danach neu, das
-dauert etwa eine Minute. Das Wiki sagt dir Bescheid: erst
-„Wird veröffentlicht …", dann „Veröffentlicht. Die Seite ist überall aktuell."
+Sofort. Gespeichert **ist** veröffentlicht: Die Seite liest die Welt aus
+Firestore, es gibt nichts mehr zu bauen.
 
-Du selbst siehst deine Änderung natürlich sofort — angemeldet zeigt das Wiki
-den Stand aus dem Repository, nicht die veröffentlichte Kopie.
+Bis Fassung 2.x lag zwischen Speichern und Sichtbarwerden etwa eine Minute,
+weil GitHub die Seite neu baute. Dieses Warten entfällt.
+
+Jeder Browser merkt sich die zuletzt geholte Welt. Beim nächsten Besuch fragt
+er zuerst nur nach, ob sich etwas geändert hat — ein Abruf statt zehn.
 
 ---
 
@@ -235,11 +246,9 @@ Steckbriefzeilen auf allen Roh-Einträgen.
 node werkzeuge/pruefe-github.mjs
 ```
 
-Sichert den Speicherweg ab: dass die Umkodierung auch bei einer großen Quelle
-und Umlauten
-keinen Text verändert, und dass der Browser beim Speichern Zeichen für Zeichen
-dieselben Dateien erzeugt wie das Skript. Braucht kein Netz und keinen
-Schlüssel — es wird nichts geschrieben und nichts abgefragt.
+Sichert den früheren Speicherweg über GitHub ab. Er wird seit Fassung 3.0.0
+nicht mehr benutzt; die Prüfung bleibt, solange der Weg als Rückfall
+bestehen soll. Braucht kein Netz und keine Anmeldung.
 
 ```bash
 node werkzeuge/pruefe-server-sicherheit.mjs

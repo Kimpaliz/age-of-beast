@@ -7,6 +7,75 @@ Das Neueste steht immer oben.
 
 ---
 
+## Fassung 3.0.0 – 2. September 2026
+
+**Anmelden geht jetzt mit dem Google-Konto.** Ein Klick, das gewohnte
+Google-Fenster, fertig.
+
+### Warum das nötig war
+
+Bis jetzt brauchte das Bearbeiten einen selbst erzeugten GitHub-Schlüssel:
+anlegen, richtig zuschneiden, kopieren, in den Browser einfügen. Das war die
+Hürde — **über diesen Weg ist nie ein einziger Text gespeichert worden.**
+
+Ein Google-Knopf ging vorher technisch nicht. GitHub Pages liefert nur Dateien
+aus; dort läuft kein Programm, das eine Anmeldung nachprüfen könnte. Ein Knopf
+wäre reine Verzierung gewesen.
+
+### Was sich geändert hat
+
+Die Welt liegt jetzt in Firebase — in demselben Projekt, in dem auch das Spiel
+*Scotophobia* läuft, aber **vollständig getrennt davon**.
+
+| | vorher | jetzt |
+| --- | --- | --- |
+| Anmelden | GitHub-Schlüssel selbst anlegen | Klick auf Google |
+| Wo die Welt liegt | Datei im Repository | Firebase |
+| Nach dem Speichern | etwa eine Minute warten | sofort sichtbar |
+
+### Speichern ist jetzt Veröffentlichen
+
+Das Warten entfällt. Vorher musste GitHub die Seite neu bauen, das dauerte
+rund eine Minute. Jetzt liest die Seite die Welt direkt — es gibt nichts mehr
+zu bauen.
+
+### Getrennt von Scotophobia
+
+Beide Anwendungen teilen sich ein Firebase-Projekt, berühren sich aber nicht:
+
+- Eigene Ablagen: Das Wiki benutzt `wiki_welt` und `wiki_zugang`, Scotophobia
+  seine drei eigenen.
+- Eigene Freigaben: Wer bei Scotophobia freigeschaltet ist, darf dadurch
+  **nicht** das Wiki bearbeiten. Und umgekehrt.
+- **Eine Prüfung wacht darüber.** Firebase erlaubt nur eine einzige
+  Regeldatei. Würde jemand die Wiki-Regeln allein veröffentlichen, wäre
+  Scotophobia sofort tot — Spielstände und Freigaben unlesbar. Ein Wächter
+  verhindert das: Er lässt eine Veröffentlichung nur zu, wenn Scotophobias
+  Regeln Wort für Wort enthalten sind.
+
+### Die Seite bleibt sauber
+
+Wer das Wiki nur liest, lädt weiterhin **kein einziges fremdes Skript**. Die
+Weltdaten kommen über eine schlichte Abfrage, nicht über Googles
+Programmbibliothek. Die wird erst geholt, wenn sich jemand anmeldet.
+
+### Schneller beim zweiten Besuch
+
+Jeder Browser merkt sich die zuletzt geholte Welt. Beim nächsten Aufruf fragt
+er zuerst nur nach, ob sich etwas geändert hat — ein Abruf statt zehn.
+
+### Wer bearbeiten darf
+
+Jannik ist als Verwalter eingetragen und kann sofort loslegen. Jedes andere
+Google-Konto kann sich anmelden, legt damit eine Anfrage an und wartet auf
+seine Bestätigung.
+
+Entschieden wird das bei Firebase, nicht im Browser. Wer die Seite in seinem
+Browser verändert, kann sich den Stift zwar anzeigen lassen — gespeichert
+wird trotzdem nichts.
+
+---
+
 ## Fassung 2.8.0 – 2. September 2026
 
 **Jede Kachel hat jetzt ein Bildzeichen.** Man sieht auf einen Blick, ob vor

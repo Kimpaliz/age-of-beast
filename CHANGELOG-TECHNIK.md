@@ -10,6 +10,132 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ## [Unveröffentlicht]
 
+## [3.0.0] – 2026-09-02
+
+Weltdaten in Firestore, Anmeldung über Google. Der GitHub-Schlüssel als
+Schreibweg entfällt.
+
+### Warum
+
+Der Schreibweg aus 2.0.0 funktionierte, wurde aber nie benutzt: Ein
+fein zugeschnittener GitHub-Token musste von Hand erzeugt und in den Browser
+kopiert werden. Damit stand zwischen „Text ändern" und „Text ändern können"
+eine Hürde, die niemand genommen hat.
+
+Der Grund für diese Bauart war real: Auf reinem Statik-Hosting gibt es keine
+Stelle, die eine Anmeldung nachprüfen könnte. Firebase ist genau diese Stelle.
+Die Prüfung liegt in `firestore.rules` und damit außerhalb des Browsers.
+
+### Hinzugefügt
+
+- `werkzeuge/firestore-format.mjs`: Zerlegung der Welt in Dokumente und
+  zurück. Reine Logik, ohne DOM und ohne Node-Bausteine, deshalb ohne Netz
+  prüfbar.
+- `werkzeuge/firestore-speicher.mjs`: Lesen über REST, Anmeldung und
+  Schreiben über das SDK.
+- `firebase-konfig.js`: die öffentliche Web-Konfiguration.
+- `firestore.rules`: Regeln für **beide** Anwendungen im Projekt.
+- `werkzeuge/pruefe-firestore-trennung.mjs`: 135 Prüfungen gegen die
+  Deploy-Falle.
+- `werkzeuge/pruefe-firestore-format.mjs`: Umlaufprüfung der Zerlegung.
+- `werkzeuge/welt-hochladen.mjs`: einmalige Erstbefüllung, ohne `--wirklich`
+  ein reiner Trockenlauf.
+
+### Aufteilung der Welt
+
+`daten/quelle.json` misst 483 KB. Als ein Dokument abgelegt, schriebe jede
+geänderte Zeile die ganze Datei neu. Aufgeteilt wird deshalb nach Modul:
+
+| Dokument | Größe |
+| --- | --- |
+| regeln | 260.4 KB |
+| species | 151.0 KB |
+| factions | 25.2 KB |
+| wiki | 25.1 KB |
+| werkstatt | 8.6 KB |
+| items | 4.8 KB |
+| characters | 4.0 KB |
+| _rahmen | 3.1 KB |
+| _kopf | 1.1 KB |
+
+Der Inhalt liegt als JSON-**Zeichenkette** in einem Feld, nicht als
+verschachteltes Firestore-Objekt. Firestore beschränkt Feldnamen, verbietet
+Arrays in Arrays und begrenzt die Verschachtelung; die Weltdaten halten sich
+an nichts davon. Als Zeichenkette kommt exakt zurück, was hineinging — und
+genau das lässt sich zeichenweise nachprüfen. Abgefragt wird auf Feldern
+ohnehin nie, das Wiki liest immer die ganze Welt.
+
+### Zwei Wege statt einem
+
+**Lesen** über die Firestore-REST-Schnittstelle mit gewöhnlichem `fetch`.
+Kein SDK, kein fremdes Skript, keine Anmeldung. Die Alternative wäre überall
+das SDK gewesen — dann zöge jeder Besucher rund ein halbes Megabyte fremden
+Code nach, nur um Text zu lesen.
+
+**Schreiben** über das SDK, dynamisch importiert beim Anmelden. Token-Erneuerung
+und Fehlerbehandlung von Hand nachzubauen wäre fahrlässig.
+
+### Zwischenspeicher im Browser
+
+Ein voller Abruf sind zehn Lesevorgänge, ein Standabruf einer. Der Browser
+merkt sich die zuletzt geholte Welt samt Standkennung; beim nächsten Besuch
+genügt der Standabruf, solange sich nichts geändert hat.
+
+**Ein Entwurfsfehler dabei, vor dem Bauen bemerkt:** Der erste Ansatz verglich
+gegen den in `daten/welt.js` mitgelieferten Stand. Das hätte nie gegriffen —
+die Datei ändert sich nur bei einer Veröffentlichung des Repositories,
+während in Firestore laufend gespeichert wird. Der Vergleich läuft deshalb
+gegen den im Browser gemerkten Stand.
+
+### Nebenläufigkeit
+
+`weltSchreiben()` schreibt nur die Dokumente, deren Inhalt sich wirklich
+geändert hat — eine Textänderung an einer Spezies berührt eins statt zehn.
+
+Der Schutz gegen gleichzeitiges Bearbeiten liegt in einer Transaktion: Sie
+liest die betroffenen Dokumente erneut und bricht ab, wenn ihr Stand nicht
+mehr der ist, auf dem die Änderung beruht.
+
+### Trennung von Scotophobia
+
+Firestore hat pro Datenbank genau **eine** Regeldatei, und der Spark-Plan
+erlaubt keine zweite Datenbank (`billingEnabled: false`, gemessen). Ein
+Deploy der Wiki-Regeln allein würde Scotophobia abschalten.
+
+`werkzeuge/pruefe-firestore-trennung.mjs` macht das mechanisch unmöglich: Es
+liest Scotophobias Regeldatei aus deren Repository, prüft die drei Blöcke auf
+Wortgleichheit und schlägt an, wenn einer fehlt oder entschärft wurde. Der
+Wächter belegt seine eigene Wirksamkeit an sechs absichtlichen
+Beschädigungen — ein Wächter, der nie rot wird, prüft nichts.
+
+Die Freigabelogik ist getrennt: eigene Sammlungen `wiki_welt` und
+`wiki_zugang`, eigene Funktionen `istWikiAdmin()` und `istWikiSchreiber()`.
+Scotophobias `istFreigeschaltet()` wird nicht wiederverwendet.
+
+### Behoben
+
+- `darfSchreiben()` prüfte anfangs nur den Freigabeeintrag in `wiki_zugang`.
+  Für den Verwalter gibt es dort keinen — ausgerechnet er hätte sich anmelden
+  können und keinen Stift bekommen. Die Admin-Prüfung steht jetzt vor der
+  Abfrage, wie in `istWikiAdmin()` der Regeln.
+
+### Bekannte Einschränkung
+
+`werkzeuge/pruefe-stilstruktur.mjs` friert die vier Ursprungs-Stildateien über
+eine SHA-256-Summe ein. Der Beweis gilt der Aufteilung — er verhindert aber
+auch jede spätere legitime Änderung an ihnen, etwa das Entfernen der nun
+toten Stile des früheren Schlüsseldialogs. Beim Nachziehen eines Kommentars
+in dieser Fassung ist die Prüfung angeschlagen; die Änderung wurde
+zurückgenommen. Sauber wäre, den historischen Beweis gegen den Git-Stand des
+Aufteilungs-Commits zu führen statt gegen die Arbeitskopie.
+
+### Nicht entfernt
+
+`werkzeuge/github-speicher.mjs` und `werkzeuge/pruefe-github.mjs` bleiben
+liegen. Sie werden von keiner Seite mehr geladen, sind aber der belegte
+Rückweg, solange der erste echte Schreibvorgang über Firestore aussteht.
+
+
 ## [2.8.0] – 2026-09-02
 
 Kategoriesymbole als SVG-Sprite, eigene Farbtöne für alle zehn Kategorien

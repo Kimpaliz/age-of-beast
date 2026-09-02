@@ -160,12 +160,12 @@
         name: 'Karten', text: 'Karten mit Regeltext und Angaben. Der Kartenbaukasten mit Vorlagen und PDF-Ausgabe fehlt noch.', anzahl: zaehle('Karte'), einheit: zaehle('Karte') === 1 ? 'Karte' : 'Karten', zustand: 'teilweise'
       }];
       const eigene = welt.eintraege.filter((e) => e.kategorie === 'werkstatt');
-      inhalt.innerHTML = '<div class="werkstatt-seite" data-kategorie="werkstatt"><span class="mikro">Modul</span><h1>Daggerheart-Werkstatt</h1><p class="anriss">Kampagnenrahmen, Regeln, Figuren und Karten &mdash; alles an einem Ort und vollständig im Repository. Keine Anmeldung bei Google, kein Datenbankanbieter.</p><div class="werkstatt-felder">' + bereiche.map((b) => '<section class="werkstatt-feld" data-zustand="' + b.zustand + '"><h2>' + sicher(b.name) + '</h2><p class="zahl">' + b.anzahl + ' <span>' + sicher(b.einheit) + '</span></p><p class="text">' + sicher(b.text) + '</p>' + (b.ziel ? '<a class="modul-knopf" href="' + b.ziel + '">' + sicher(b.knopf) + '</a>' : '<span class="werkstatt-marke">wird noch übernommen</span>') + '</section>').join('') + '</div>' + (eigene.length ? '<h2 class="werkstatt-ueberschrift">Inhalte der Werkstatt</h2><div class="kacheln">' + eigene.map(kachel).join('') + '</div>' : '') + '</div>';
+      inhalt.innerHTML = '<div class="werkstatt-seite" data-kategorie="werkstatt"><span class="mikro">Modul</span><h1>Daggerheart-Werkstatt</h1><p class="anriss">Kampagnenrahmen, Regeln, Figuren und Karten &mdash; alles an einem Ort. Zum Lesen genügt der Browser, zum Bearbeiten eine Anmeldung mit dem Google-Konto.</p><div class="werkstatt-felder">' + bereiche.map((b) => '<section class="werkstatt-feld" data-zustand="' + b.zustand + '"><h2>' + sicher(b.name) + '</h2><p class="zahl">' + b.anzahl + ' <span>' + sicher(b.einheit) + '</span></p><p class="text">' + sicher(b.text) + '</p>' + (b.ziel ? '<a class="modul-knopf" href="' + b.ziel + '">' + sicher(b.knopf) + '</a>' : '<span class="werkstatt-marke">wird noch übernommen</span>') + '</section>').join('') + '</div>' + (eigene.length ? '<h2 class="werkstatt-ueberschrift">Inhalte der Werkstatt</h2><div class="kacheln">' + eigene.map(kachel).join('') + '</div>' : '') + '</div>';
       document.title = 'Werkstatt – ' + welt.titel;
     }
 
     function rahmenHinweisZeichnen() {
-      inhalt.innerHTML = '<p class="brotkrumen"><a class="zurueck" href="#/">&lsaquo; Arbeitsfläche</a></p><div class="hinweis"><strong>Zum Bearbeiten anmelden.</strong><br>Der Kampagnenrahmen-Assistent ändert Inhalte und braucht deshalb einen Schlüssel. Oben rechts auf <em>Anmelden</em>.</div>';
+      inhalt.innerHTML = '<p class="brotkrumen"><a class="zurueck" href="#/">&lsaquo; Arbeitsfläche</a></p><div class="hinweis"><strong>Zum Bearbeiten anmelden.</strong><br>Der Kampagnenrahmen-Assistent ändert Inhalte. Oben rechts auf <em>Anmelden</em>.</div>';
       navigationMarkieren(null);
     }
 

@@ -1,0 +1,283 @@
+/* ===================================================================
+   Eine Datei, zwei Anwendungen — bitte vor jeder Änderung lesen
+   ===================================================================
+
+   Das Firebase-Projekt kampagnenrahmen-jt hat genau eine
+   Firestore-Datenbank, und eine Datenbank hat genau eine Regeldatei. Es
+   gibt keinen zweiten Platz: Eine zweite Datenbank setzt den Blaze-Plan
+   voraus, dieses Projekt läuft im kostenlosen Spark-Plan.
+
+   Daraus folgt die Falle, an der hier alles hängt. Wer aus dem
+   Wiki-Repository firebase deploy --only firestore:rules ausführt,
+   überschreibt damit auch Scotophobias Regeln. Stünden hier nur
+   Wiki-Regeln, wären Spielstände, Rückmeldungen und Freigaben von
+   Scotophobia im selben Augenblick unlesbar — ohne Warnung, ohne
+   Fehlermeldung im Deploy, nur mit einem Spiel, das seine Daten nicht
+   mehr findet.
+
+   Deshalb enthält diese Datei beide Anwendungen, und deshalb wacht
+   werkzeuge/pruefe-firestore-trennung.mjs darüber. Die Prüfung liest
+   Scotophobias eigene Regeldatei und vergleicht Wort für Wort. Wer hier
+   einen Scotophobia-Block entfernt, bekommt einen roten Lauf statt eines
+   stillen Ausfalls.
+
+   Der zweite Grundsatz ist die Trennung. Beide Anwendungen teilen sich
+   die Datei, aber keine einzige Bedingung: Jede hat eigene
+   Hilfsfunktionen und ihre eigene Freigabesammlung. Wer bei Scotophobia
+   freigeschaltet ist, darf dadurch nicht das Wiki bearbeiten — und wer
+   das Wiki bearbeiten darf, kommt dadurch nicht an fremde Spielstände.
+   =================================================================== */
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /* ==================================================================
+       Scotophobia
+       ================================================================== */
+
+    /* Scotophobia besitzt drei ausdrücklich begrenzte Firestore-Sammlungen:
+
+       - zugriffsanfragen: Ein Google-Konto beantragt einmalig den Zugang.
+         Nur das verifizierte Admin-Konto darf alle offenen Anfragen lesen und
+         von „offen“ auf „bestaetigt“ setzen.
+       - rueckmeldungen: Nur freigeschaltete Konten dürfen schreiben; niemand
+         liest oder verändert die Nachrichten über die App.
+       - spielstaende: Nur freigeschaltete Konten lesen oder schreiben ihren
+         eigenen Pfad.
+
+       Damit ist die Freigabe nicht nur eine Browseranzeige. Ein nicht
+       bestätigtes Konto kann die Seite verändern, wie es will, erhält aber von
+       Firestore weder Schreib- noch Leserechte für Spielzustand und Feedback. */
+
+    function angemeldet() {
+      return request.auth != null;
+    }
+
+    function istAdmin() {
+      return angemeldet()
+        && request.auth.token.email_verified == true
+        && request.auth.token.email == 'kimpaliz1989@gmail.com';
+    }
+
+    function istFreigeschaltet() {
+      return angemeldet() && (
+        istAdmin()
+        || (
+          exists(/databases/$(database)/documents/zugriffsanfragen/$(request.auth.uid))
+          && get(/databases/$(database)/documents/zugriffsanfragen/$(request.auth.uid))
+              .data.status == 'bestaetigt'
+        )
+      );
+    }
+
+    /* ── Einmalige Zugriffsanfrage ────────────────────────────────── */
+    match /zugriffsanfragen/{konto} {
+      allow get: if angemeldet() && (request.auth.uid == konto || istAdmin());
+      allow list: if istAdmin();
+
+      allow create: if angemeldet()
+        && request.auth.uid == konto
+        && request.resource.data.keys().hasOnly([
+          'konto', 'email', 'name', 'status', 'angefragtAm'
+        ])
+        && request.resource.data.keys().hasAll([
+          'konto', 'email', 'name', 'status', 'angefragtAm'
+        ])
+        && request.resource.data.konto == request.auth.uid
+        && request.resource.data.email == request.auth.token.email
+        && request.resource.data.name is string
+        && request.resource.data.name.size() > 0
+        && request.resource.data.name.size() <= 120
+        && request.resource.data.status == 'offen'
+        && request.resource.data.angefragtAm == request.time;
+
+      /* Die Anfrage bleibt unverändert, außer dass Jannik sie genau einmal
+         bestätigt und diese Entscheidung mit Zeit und Admin-Kennung versieht. */
+      allow update: if istAdmin()
+        && resource.data.status == 'offen'
+        && request.resource.data.status == 'bestaetigt'
+        && request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['status', 'bestaetigtAm', 'bestaetigtVon'])
+        && request.resource.data.bestaetigtAm == request.time
+        && request.resource.data.bestaetigtVon == request.auth.uid;
+
+      allow delete: if false;
+    }
+
+    /* ── Rückmeldungen ────────────────────────────────────────────── */
+    match /rueckmeldungen/{eintrag} {
+      allow read: if false;
+      allow create: if istFreigeschaltet()
+        && request.resource.data.keys().hasOnly([
+          'konto', 'name', 'art', 'text', 'fassung', 'geraet', 'angekommen'
+        ])
+        && request.resource.data.keys().hasAll([
+          'konto', 'name', 'art', 'text', 'fassung', 'geraet', 'angekommen'
+        ])
+        && request.resource.data.konto == request.auth.uid
+        && request.resource.data.name is string
+        && request.resource.data.name.size() > 0
+        && request.resource.data.name.size() <= 120
+        && request.resource.data.text is string
+        && request.resource.data.text.size() > 0
+        && request.resource.data.text.size() <= 2000
+        && request.resource.data.art in ['gameplay', 'oberflaeche', 'welt', 'fehler']
+        && request.resource.data.fassung is string
+        && request.resource.data.fassung.size() <= 80
+        && request.resource.data.geraet is string
+        && request.resource.data.geraet.size() <= 40
+        && request.resource.data.angekommen == request.time;
+      allow update, delete: if false;
+    }
+
+    /* ── Spielstände ──────────────────────────────────────────────── */
+    match /spielstaende/{konto} {
+      allow read, write: if istFreigeschaltet() && request.auth.uid == konto;
+    }
+
+    /* ==================================================================
+       Age-of-Beast-Wiki
+       ==================================================================
+
+       Grundsatz: Das Wiki benutzt istFreigeschaltet() bewusst nicht,
+       sondern hat eigene Hilfsfunktionen und mit wiki_zugang eine eigene
+       Freigabesammlung. Eine Bestätigung bei Scotophobia öffnet damit
+       nicht das Wiki, und eine Bestätigung im Wiki öffnet nicht
+       Scotophobia. Teilten sich beide eine Funktion, wäre ein einziger
+       Eintrag in der falschen Sammlung genug, um die jeweils andere
+       Anwendung mit aufzuschließen — und niemand würde es bemerken,
+       weil nichts kaputtgeht, sondern nur zu viel erlaubt ist. */
+
+    function wikiAngemeldet() {
+      return request.auth != null;
+    }
+
+    /* Dass dasselbe Konto beide Anwendungen verwaltet, ist eine Tatsache
+       über Jannik und keine gemeinsame Logik. Die Bedingung steht hier
+       eigens, damit eine spätere Änderung an Scotophobias Admin nicht
+       stillschweigend mitbestimmt, wer das Wiki bearbeiten darf. */
+    function istWikiAdmin() {
+      return wikiAngemeldet()
+        && request.auth.token.email_verified == true
+        && request.auth.token.email == 'kimpaliz1989@gmail.com';
+    }
+
+    function istWikiSchreiber() {
+      return wikiAngemeldet() && (
+        istWikiAdmin()
+        || (
+          exists(/databases/$(database)/documents/wiki_zugang/$(request.auth.uid))
+          && get(/databases/$(database)/documents/wiki_zugang/$(request.auth.uid))
+              .data.status == 'bestaetigt'
+        )
+      );
+    }
+
+    /* ── Weltdaten ──────────────────────────────────── */
+
+    /* Lesen ist für alle offen, und das ist Absicht: Das Wiki ist eine
+       öffentliche Leseseite, die ihre Welt ohne Anmeldung über die
+       REST-Schnittstelle holt. Dieselben Texte liegen ohnehin offen im
+       GitHub-Repository. Eine Anmeldepflicht würde hier also nichts
+       schützen, sondern nur die Besucheransicht zerstören.
+
+       Geschrieben wird dagegen nur von bestätigten Konten, und jedes
+       Dokument muss dabei die vollständige erwartete Form haben. Ein
+       Schreibvorgang, der Felder erfindet oder weglässt, wird abgewiesen,
+       bevor er die Welt beschädigt — die Zusammensetzung beim Lesen
+       bricht ab, sobald ein Dokument nicht mehr passt.
+
+       geaendertVon und geaendertAm setzt nicht der Browser, sondern die
+       Regel. Sonst könnte ein Schreiber eine fremde Kennung oder ein
+       falsches Datum eintragen und die Herkunft einer Änderung
+       verschleiern.
+
+       Die Grenze für inhalt: Das größte echte Modul misst gemessene
+       264.079 Zeichen. 500.000 lassen der Welt Luft zum Wachsen und
+       bleiben zugleich weit unter Firestores harter Grenze von 1 MiB je
+       Dokument. Die Regel fängt den Unfall damit früher ab, und zwar mit
+       einer Aussage über die Größe statt mit einer Ablehnung, deren
+       Grund niemand sieht. */
+    match /wiki_welt/{dokument} {
+      allow read: if true;
+
+      allow create, update: if istWikiSchreiber()
+        && request.resource.data.keys().hasOnly([
+          'inhalt', 'stand', 'geaendertAm', 'geaendertVon'
+        ])
+        && request.resource.data.keys().hasAll([
+          'inhalt', 'stand', 'geaendertAm', 'geaendertVon'
+        ])
+        && request.resource.data.inhalt is string
+        && request.resource.data.inhalt.size() > 0
+        && request.resource.data.inhalt.size() <= 500000
+        && request.resource.data.stand is string
+        && request.resource.data.stand.size() > 0
+        && request.resource.data.stand.size() <= 120
+        && request.resource.data.geaendertVon == request.auth.uid
+        && request.resource.data.geaendertAm == request.time;
+
+      /* Ein Modul verschwindet nicht, es wird überschrieben. Löschen
+         wäre der einzige Weg, die Welt unwiederbringlich zu zerreißen:
+         Beim Lesen wird sie aus allen Dokumenten zusammengesetzt, und ein
+         fehlendes Dokument bricht diesen Vorgang ab. */
+      allow delete: if false;
+    }
+
+    /* ── Freigabe zum Bearbeiten ──────────────────────── */
+
+    /* Nach demselben Muster wie Scotophobias Zugriffsanfragen, aber als
+       eigener Block auf einer eigenen Sammlung. Ein Konto beantragt
+       einmalig den Zugang, und nur Jannik setzt ihn von offen auf
+       bestaetigt. Ein Antragsteller sieht seinen eigenen Antrag, aber
+       nicht die der anderen — die Liste sieht nur der Admin.
+
+       Entscheidend ist, was hier nicht steht: kein Verweis auf
+       zugriffsanfragen. Genau diese fehlende Zeile ist die Trennung. */
+    match /wiki_zugang/{konto} {
+      allow get: if wikiAngemeldet() && (request.auth.uid == konto || istWikiAdmin());
+      allow list: if istWikiAdmin();
+
+      allow create: if wikiAngemeldet()
+        && request.auth.uid == konto
+        && request.resource.data.keys().hasOnly([
+          'konto', 'email', 'name', 'status', 'angefragtAm'
+        ])
+        && request.resource.data.keys().hasAll([
+          'konto', 'email', 'name', 'status', 'angefragtAm'
+        ])
+        && request.resource.data.konto == request.auth.uid
+        && request.resource.data.email == request.auth.token.email
+        && request.resource.data.name is string
+        && request.resource.data.name.size() > 0
+        && request.resource.data.name.size() <= 120
+        && request.resource.data.status == 'offen'
+        && request.resource.data.angefragtAm == request.time;
+
+      /* Der Antrag bleibt unverändert, außer dass Jannik ihn genau
+         einmal bestätigt. Dass ausschließlich der Übergang von offen
+         nach bestaetigt erlaubt ist, verhindert beides: das stille
+         Zurücknehmen einer Freigabe und das erneute Bestätigen mit
+         geänderten Nebenfeldern. */
+      allow update: if istWikiAdmin()
+        && resource.data.status == 'offen'
+        && request.resource.data.status == 'bestaetigt'
+        && request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['status', 'bestaetigtAm', 'bestaetigtVon'])
+        && request.resource.data.bestaetigtAm == request.time
+        && request.resource.data.bestaetigtVon == request.auth.uid;
+
+      allow delete: if false;
+    }
+
+    /* Der Riegel bleibt der letzte Block der Datei. Er schließt alles,
+       was oben nicht ausdrücklich genannt ist — auch eine Sammlung, die
+       morgen jemand versehentlich anlegt. Neue Sammlungen des Wikis
+       tragen das Praefix wiki_ und stehen über diesem Riegel. */
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

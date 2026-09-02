@@ -1,57 +1,69 @@
 /* ===================================================================
-   Age-of-Beast-Wiki – Anmeldung und Speichern (Fassung 2.0.0)
+   Age-of-Beast-Wiki – Weltdaten, Anmeldung und Speichern (Fassung 3.0.0)
    -------------------------------------------------------------------
-   Das Wiki kommt ohne Server und ohne Datenbankanbieter aus. Die Welt
-   liegt als Datei `daten/quelle.json` im GitHub-Repository, und dort
-   wird auch gespeichert. Jede Änderung ist ein Commit: mit Geschichte,
-   mit Urheber, jederzeit rücknehmbar.
+   Die Welt liegt in Firestore, im Firebase-Projekt `kampagnenrahmen-jt`.
+   Angemeldet wird mit dem Google-Konto.
 
-   Ohne Anmeldung zeigt das Wiki die Kopie aus `daten/welt.js`. Sie liegt
-   im Repository, lädt sofort und braucht kein Internet.
+   Was sich gegenüber Fassung 2 geändert hat und warum
 
-   Mit Schlüssel holt dieses Modul den aktuellen Stand direkt aus dem
-   Repository — also auch das, was noch nicht veröffentlicht ist — und
-   schaltet das Bearbeiten frei.
+   Vorher lag die Welt als Datei im GitHub-Repository, und wer sie ändern
+   wollte, brauchte einen selbst erzeugten GitHub-Schlüssel. Das
+   funktionierte, aber der Schlüssel war die Hürde: Er musste von Hand
+   angelegt, richtig zugeschnitten und in den Browser kopiert werden.
+   Deshalb ist über diesen Weg nie ein einziger Text gespeichert worden.
 
-   -------------------------------------------------------------------
-   Warum ein Schlüssel und kein Anmeldeknopf
+   Ein Google-Knopf ging damals nicht: GitHub Pages liefert nur Dateien
+   aus, es gibt dort keine Stelle, die eine Anmeldung nachprüfen könnte.
+   Firebase ist genau diese Stelle. Die Regeln in `firestore.rules`
+   entscheiden, wer schreiben darf — nicht der Browser.
 
-   GitHub Pages liefert nur Dateien aus. Dort läuft kein Programm, das ein
-   Geheimnis verwahren könnte, und es gibt niemanden, der prüfen würde, ob
-   ein Anmeldeknopf wirklich gedrückt wurde. Ein Knopf wäre also reine
-   Verzierung; wer die Daten ändern darf, entscheidet allein der Schlüssel.
+   Drei Wege, drei Aufgaben:
 
-   Deshalb sollte er eng zugeschnitten sein: nur dieses eine Repository,
-   nur „Contents: Read and write". Dann kann er nichts anderes anfassen.
+   1. `daten/welt.js` liegt weiterhin im Repository und wird sofort
+      angezeigt. Kein Warten, kein leerer Bildschirm, und das Wiki
+      funktioniert auch, wenn Firebase gerade nicht erreichbar ist.
+   2. Firestore wird danach abgefragt und ersetzt die Anzeige, sobald
+      etwas Neueres da ist. Das läuft ohne Anmeldung und ohne fremdes
+      Skript über die REST-Schnittstelle.
+   3. Erst zum Bearbeiten wird das Firebase-SDK geladen.
+
+   Gespeichert heisst jetzt veröffentlicht. Das Warten auf den
+   Seitenbau von GitHub Pages entfällt.
    =================================================================== */
 
-import { weltDateien, QUELLE } from './werkzeuge/welt-dateien.mjs';
+import { weltDateien } from './werkzeuge/welt-dateien.mjs';
 import { inTiefeSetzen } from './werkzeuge/bearbeiten-stellen.mjs';
 import { bearbeitungskontextErstellen } from './bearbeiten-kontext.js';
 import { bearbeitenEinrichten } from './texte-bearbeiten.js';
 import { strukturEinrichten } from './struktur-bedienung.js';
 import { rahmenAssistentEinrichten } from './rahmen-assistent.js';
+import { ADMIN_EMAIL } from './firebase-konfig.js';
 import {
-  REPO,
-  schluesselPruefen,
-  dateiLesen,
-  dateienSchreiben,
-  veroeffentlichungStand,
-} from './werkzeuge/github-speicher.mjs';
+  standLesen,
+  weltLesen,
+  anmelden as firebaseAnmelden,
+  abmelden as firebaseAbmelden,
+  beiKontoWechsel,
+  darfSchreiben,
+  zugangAnfragen,
+  weltSchreiben,
+} from './werkzeuge/firestore-speicher.mjs';
 
-/** Wo der Schlüssel im Browser liegt. Nur für diese Browser-Sitzung und diese Seite. */
-const SCHLUESSEL_ABLAGE = 'age-of-beast-schluessel';
+/** Merkt sich nur, dass zuletzt angemeldet war – niemals ein Geheimnis.
+    Firebase stellt die Anmeldung selbst wieder her; dieser Eintrag
+    verhindert bloss, dass beim Start unnötig das SDK geladen wird. */
+const ANMELDE_MERKER = 'age-of-beast-angemeldet';
 
-/** Adresse, unter der sich ein passender Schlüssel erzeugen lässt. */
-const SCHLUESSEL_ADRESSE = 'https://github.com/settings/personal-access-tokens/new';
+/** Ablage eines früheren GitHub-Schlüssels. Wird nur noch aufgeräumt. */
+const ALTE_SCHLUESSEL_ABLAGE = 'age-of-beast-schluessel';
 
-let schluessel = null;
 let konto = null;
+let darfBearbeiten = false;
 
 /** Der zuletzt geholte Weltstand im Quellformat – die Wahrheit. */
 let rohStand = null;
-/** Kennung genau dieses Inhalts, um gleichzeitige Änderungen zu erkennen. */
-let quelleSha = null;
+/** Je Dokument der gelesene Stand, um gleichzeitige Änderungen zu erkennen. */
+let staende = new Map();
 /** Die Bearbeitungsansicht wird nur einmal eingerichtet. */
 let bearbeitenBereit = false;
 
@@ -77,162 +89,90 @@ function knopfText(text, beschriftung) {
   knopf.setAttribute('aria-label', beschriftung || text);
 }
 
+function quelleAnzeigen(text, kennzeichen) {
+  document.documentElement.dataset.quelle = kennzeichen;
+  const feld = document.getElementById('kopf-quelle');
+  if (feld) feld.textContent = text;
+}
+
 /* ------------------------------------------------------------------ *
- * Der Schlüssel-Dialog
+ * Die Welt holen — ohne Anmeldung
  * ------------------------------------------------------------------ */
+
+/** Zwischenspeicher der zuletzt geholten Welt, im Browser dieses Besuchers. */
+const WELT_ABLAGE = 'age-of-beast-welt';
 
 /**
- * Fragt den Schlüssel ab. Der Dialog wird erst gebaut, wenn er gebraucht
- * wird – Besucher ohne Anmeldung bekommen ihn nie zu sehen.
+ * Holt die Welt aus Firestore und zeichnet sie.
  *
- * @returns {Promise<string|null>} der eingegebene Schlüssel oder `null`
+ * Der Standabruf davor ist kein Geiz, sondern Rücksicht: Ein voller
+ * Abruf sind neun Lesevorgänge, ein Standabruf einer. Der kostenlose
+ * Firebase-Tarif zählt Lesevorgänge.
+ *
+ * Verglichen wird gegen den **im Browser gemerkten** Stand, nicht gegen
+ * `daten/welt.js`. Das ist der springende Punkt: Die mitgelieferte Datei
+ * ändert sich nur bei einer Veröffentlichung des Repositories, während
+ * hier laufend gespeichert wird. Ein Vergleich gegen sie schlüge deshalb
+ * fast immer fehl und spärte nichts.
  */
-function schluesselAbfragen() {
-  return new Promise((fertig) => {
-    const huelle = document.createElement('div');
-    huelle.className = 'schluessel-huelle';
-    huelle.innerHTML = `
-      <div class="schluessel-kasten" role="dialog" aria-modal="true" aria-labelledby="schluessel-titel">
-        <h2 id="schluessel-titel">Zum Bearbeiten anmelden</h2>
-        <p class="schluessel-text">
-          Das Wiki speichert direkt in dein GitHub-Repository
-          <code>${REPO.besitzer}/${REPO.name}</code>. Dafür braucht es einmalig
-          einen Schlüssel. Er bleibt nur für diese Browser-Sitzung gespeichert.
-        </p>
-        <ol class="schluessel-schritte">
-          <li><a href="${SCHLUESSEL_ADRESSE}" target="_blank" rel="noopener">Schlüssel bei GitHub erzeugen</a> (öffnet einen neuen Tab)</li>
-          <li>Bei <em>Repository access</em>: <strong>Only select repositories</strong> → <code>${REPO.name}</code></li>
-          <li>Bei <em>Permissions</em> → <em>Repository permissions</em>: <strong>Contents</strong> auf <strong>Read and write</strong></li>
-          <li>Erzeugen, kopieren und hier einfügen</li>
-        </ol>
-        <label class="schluessel-beschriftung" for="schluessel-feld">Schlüssel</label>
-        <input type="password" id="schluessel-feld" class="schluessel-feld"
-               autocomplete="off" spellcheck="false" placeholder="github_pat_…">
-        <p class="schluessel-hinweis">
-          Der Schlüssel darf nur Dateien in diesem einen Repository ändern.
-          Käme er abhanden, könnte damit niemand an dein Konto, deine anderen
-          Repositories oder irgendwelche Zahlungsdaten. Jede Änderung wäre
-          zudem ein Commit, den du zurücknehmen kannst. Widerrufen lässt er
-          sich jederzeit in den GitHub-Einstellungen.
-        </p>
-        <div class="schluessel-knoepfe">
-          <button type="button" class="schluessel-ok">Anmelden</button>
-          <button type="button" class="schluessel-abbruch">Abbrechen</button>
-          <span class="schluessel-meldung" role="status"></span>
-        </div>
-      </div>`;
-
-    document.body.append(huelle);
-    const feld = huelle.querySelector('#schluessel-feld');
-    const meldung = huelle.querySelector('.schluessel-meldung');
-    feld.focus();
-
-    const schliessen = (wert) => { huelle.remove(); fertig(wert); };
-
-    huelle.querySelector('.schluessel-ok').addEventListener('click', () => {
-      const wert = feld.value.trim();
-      if (!wert) {
-        meldung.textContent = 'Bitte den Schlüssel einfügen.';
-        meldung.dataset.zustand = 'fehler';
-        feld.focus();
-        return;
+async function weltAusFirestoreHolen({ erzwingen = false } = {}) {
+  try {
+    const gemerkt = erzwingen ? null : zwischenspeicherLesen();
+    if (gemerkt) {
+      const stand = await standLesen();
+      if (stand && stand === gemerkt.stand) {
+        rohStand = gemerkt.quelle;
+        staende = new Map(gemerkt.staende);
+        if (weltNeuZeichnen(false)) {
+          quelleAnzeigen('aktueller Stand', 'live');
+          return true;
+        }
       }
-      schliessen(wert);
-    });
-
-    huelle.querySelector('.schluessel-abbruch').addEventListener('click', () => schliessen(null));
-    huelle.addEventListener('click', (e) => { if (e.target === huelle) schliessen(null); });
-    huelle.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') schliessen(null);
-      if (e.key === 'Enter' && e.target === feld) huelle.querySelector('.schluessel-ok').click();
-    });
-  });
-}
-
-/* ------------------------------------------------------------------ *
- * An- und Abmelden
- * ------------------------------------------------------------------ */
-
-async function anmelden() {
-  let wert = schluesselLesen();
-  if (!wert) {
-    wert = await schluesselAbfragen();
-    if (!wert) return false;
-  }
-
-  melden('Schlüssel wird geprüft …', 'laedt');
-  try {
-    const ergebnis = await schluesselPruefen(wert);
-    schluessel = wert;
-    konto = ergebnis.konto;
-    schluesselSchreiben(wert);
-  } catch (fehler) {
-    schluesselLoeschen();
-    melden(fehler.message || 'Der Schlüssel wurde nicht anerkannt.', 'fehler');
-    knopfText('Anmelden', 'Zum Bearbeiten mit einem GitHub-Schlüssel anmelden');
-    return false;
-  }
-
-  return liveLaden();
-}
-
-async function abmelden() {
-  schluesselLoeschen();
-  location.reload();
-}
-
-function schluesselLesen() {
-  try { return sessionStorage.getItem(SCHLUESSEL_ABLAGE) || null; } catch { return null; }
-}
-function schluesselSchreiben(wert) {
-  try { sessionStorage.setItem(SCHLUESSEL_ABLAGE, wert); } catch { /* egal */ }
-}
-function schluesselLoeschen() {
-  schluessel = null;
-  konto = null;
-  try { sessionStorage.removeItem(SCHLUESSEL_ABLAGE); } catch { /* egal */ }
-}
-
-/** Entfernt einen Schlüssel aus dem früheren dauerhaften Speicher. */
-function alteLokaleAblageLoeschen() {
-  try { localStorage.removeItem(SCHLUESSEL_ABLAGE); } catch { /* egal */ }
-}
-
-/* ------------------------------------------------------------------ *
- * Live-Stand holen und anzeigen
- * ------------------------------------------------------------------ */
-
-async function liveLaden() {
-  // Eine fehlgeschlagene Aktualisierung darf keine alte Kennung für einen
-  // späteren Schreibversuch zurücklassen.
-  quelleSha = null;
-  melden('Weltstand wird geholt …', 'laedt');
-  try {
-    const datei = await dateiLesen(schluessel, QUELLE);
-    rohStand = JSON.parse(datei.text);
-    if (typeof datei.sha !== 'string' || !datei.sha.trim()) {
-      throw new Error('GitHub hat keine Quellenkennung geliefert.');
     }
-    quelleSha = datei.sha;
+
+    const { quelle, staende: gelesen } = await weltLesen();
+    rohStand = quelle;
+    staende = gelesen;
+    if (!weltNeuZeichnen(false)) return false;
+    zwischenspeicherSchreiben();
+    quelleAnzeigen('aktueller Stand', 'live');
+    return true;
   } catch (fehler) {
-    quelleSha = null;
-    melden(fehler.message || 'Der Weltstand ließ sich nicht holen.', 'fehler');
+    // Ein Fehler hier darf das Wiki nicht lahmlegen: Die mitgelieferte
+    // Kopie steht ja schon auf dem Bildschirm. Nur wer bearbeiten will,
+    // muss es erfahren.
+    if (konto) melden(fehler.message || 'Die Weltdaten ließen sich nicht laden.', 'fehler');
+    quelleAnzeigen('gespeicherter Stand', 'datei');
     return false;
   }
+}
 
-  if (!weltNeuZeichnen(false)) {
-    melden('Der Weltstand ließ sich nicht anzeigen.', 'fehler');
-    return false;
+function zwischenspeicherLesen() {
+  try {
+    const roh = localStorage.getItem(WELT_ABLAGE);
+    if (!roh) return null;
+    const abgelegt = JSON.parse(roh);
+    if (!abgelegt?.stand || !abgelegt?.quelle || !Array.isArray(abgelegt.staende)) return null;
+    return abgelegt;
+  } catch {
+    // Beschädigt oder gesperrt: dann eben der volle Abruf.
+    return null;
   }
+}
 
-  document.documentElement.dataset.quelle = 'live';
-  const quelle = document.getElementById('kopf-quelle');
-  if (quelle) quelle.textContent = 'live aus GitHub';
-  knopfText('Abmelden', 'Abmelden, angemeldet als ' + konto);
-  melden('', 'angemeldet');
-
-  bearbeitenAnbieten();
-  return true;
+function zwischenspeicherSchreiben() {
+  try {
+    const stand = staende.get('_stand') ?? null;
+    if (!stand || !rohStand) return;
+    localStorage.setItem(WELT_ABLAGE, JSON.stringify({
+      stand,
+      quelle: rohStand,
+      staende: [...staende.entries()],
+    }));
+  } catch {
+    // Voller oder gesperrter Speicher ist kein Grund zum Abbrechen –
+    // es wird dann eben jedes Mal voll geladen.
+  }
 }
 
 /**
@@ -253,7 +193,84 @@ function runtimeHolen() {
 }
 
 /* ------------------------------------------------------------------ *
- * Speichern
+ * An- und Abmelden
+ * ------------------------------------------------------------------ */
+
+async function anmelden() {
+  melden('Anmeldefenster wird geöffnet …', 'laedt');
+  try {
+    await firebaseAnmelden();
+    // Wie es weitergeht, entscheidet `kontoUebernehmen` – es wird von
+    // Firebase mit dem neuen Konto aufgerufen.
+    try { localStorage.setItem(ANMELDE_MERKER, '1'); } catch { /* egal */ }
+  } catch (fehler) {
+    melden(fehler.message || 'Die Anmeldung ist fehlgeschlagen.', 'fehler');
+    knopfText('Anmelden', 'Mit dem Google-Konto anmelden, um zu bearbeiten');
+  }
+}
+
+async function abmelden() {
+  try { localStorage.removeItem(ANMELDE_MERKER); } catch { /* egal */ }
+  await firebaseAbmelden().catch(() => {});
+  location.reload();
+}
+
+/**
+ * Wird bei jedem Wechsel des Anmeldezustands aufgerufen – auch beim
+ * Start, wenn Firebase eine frühere Anmeldung wiederherstellt.
+ */
+async function kontoUebernehmen(neuesKonto) {
+  konto = neuesKonto;
+
+  if (!konto) {
+    darfBearbeiten = false;
+    knopfText('Anmelden', 'Mit dem Google-Konto anmelden, um zu bearbeiten');
+    melden('', '');
+    return;
+  }
+
+  knopfText('Abmelden', 'Abmelden, angemeldet als ' + konto.email);
+
+  const freigabe = await darfSchreiben(konto);
+  darfBearbeiten = freigabe.erlaubt;
+
+  if (!darfBearbeiten) {
+    await zugangMelden();
+    return;
+  }
+
+  melden('Weltstand wird geholt …', 'laedt');
+  await weltAusFirestoreHolen({ erzwingen: true });
+  melden('', 'angemeldet');
+  bearbeitenAnbieten();
+}
+
+/**
+ * Sagt einem angemeldeten, aber nicht freigeschalteten Konto, woran es
+ * liegt – und legt genau eine Anfrage an.
+ *
+ * Ohne das sähe es wie ein Fehler aus: angemeldet, aber kein Stift.
+ */
+async function zugangMelden() {
+  if (konto.email === ADMIN_EMAIL && !konto.bestaetigt) {
+    melden('Diese Google-Adresse ist noch nicht bestätigt.', 'fehler');
+    return;
+  }
+  try {
+    const status = await zugangAnfragen(konto);
+    melden(
+      status === 'offen'
+        ? 'Angemeldet als ' + konto.email + '. Zum Bearbeiten fehlt noch die Freigabe.'
+        : 'Angemeldet. Der Zugang steht auf „' + status + '".',
+      'fehler',
+    );
+  } catch {
+    melden('Angemeldet als ' + konto.email + ', aber ohne Recht zum Bearbeiten.', 'fehler');
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Bearbeiten
  * ------------------------------------------------------------------ */
 
 function bearbeitenAnbieten() {
@@ -277,21 +294,22 @@ function bearbeitenAnbieten() {
 }
 
 /**
- * Trägt Änderungen ein und legt sie als einen Commit ab.
+ * Trägt Änderungen ein und speichert sie.
  *
  * Die Änderungen werden zuerst auf einer **Kopie** ausgeführt. Erst wenn
- * GitHub den Commit bestätigt hat, wird die Kopie übernommen. Schlägt das
- * Speichern fehl, bleibt der angezeigte Stand also unberührt – sonst zeigte
- * das Wiki etwas, das nirgends gespeichert ist.
+ * Firestore bestätigt hat, wird die Kopie übernommen. Schlägt das
+ * Speichern fehl, bleibt der angezeigte Stand also unberührt – sonst
+ * zeigte das Wiki etwas, das nirgends gespeichert ist.
  *
  * @param {Object<string,string>} aenderungen  Pfad -> neuer Wert
- * @param {string} beschreibung                für die Commit-Nachricht
+ * @param {string} beschreibung                für die Rückmeldung
  */
 async function schreiben(aenderungen, beschreibung) {
-  if (!rohStand || typeof quelleSha !== 'string' || !quelleSha.trim()) {
-    throw new Error(
-      'Die Quellenkennung fehlt. Bitte lade die Seite neu, bevor du erneut speicherst.',
-    );
+  if (!rohStand) {
+    throw new Error('Es liegt kein Weltstand vor. Bitte lade die Seite neu.');
+  }
+  if (!darfBearbeiten || !konto) {
+    throw new Error('Zum Speichern fehlt die Freigabe.');
   }
 
   const kopie = structuredClone(rohStand);
@@ -302,84 +320,72 @@ async function schreiben(aenderungen, beschreibung) {
     }
   }
 
-  const { dateien } = weltDateien(kopie);
-  const ergebnis = await dateienSchreiben(schluessel, {
-    dateien,
-    nachricht: beschreibung || 'Wiki: Text geändert',
-    erwarteteSha: quelleSha,
-    erwartetePfad: QUELLE,
+  const ergebnis = await weltSchreiben({
+    vorher: rohStand,
+    nachher: kopie,
+    staende,
+    konto,
   });
 
   rohStand = kopie;
-  quelleSha = null; // wird gleich frisch geholt
-  try {
-    const datei = await dateiLesen(schluessel, QUELLE);
-    if (typeof datei.sha !== 'string' || !datei.sha.trim()) {
-      throw new Error('GitHub hat keine Quellenkennung geliefert.');
-    }
-    quelleSha = datei.sha;
-  } catch {
-    melden(
-      'Gespeichert (' + ergebnis.kurz +
-        '), aber der aktuelle Quellstand konnte nicht nachgeladen werden. ' +
-        'Bitte lade die Seite neu, bevor du erneut speicherst.',
-      'fehler',
-    );
-    return ergebnis;
-  }
+  staende = ergebnis.staende;
+  // Sonst läge im Browser ein alter Stand mit neuer Kennung – der nächste
+  // Besuch zeigte dann die Änderung nicht an.
+  zwischenspeicherSchreiben();
 
-  veroeffentlichungMelden(ergebnis);
-}
+  const teile = ergebnis.geschrieben.filter((n) => !n.startsWith('_'));
+  melden(
+    ergebnis.geschrieben.length
+      ? 'Gespeichert und veröffentlicht' + (teile.length ? ' (' + teile.join(', ') + ')' : '') + '.'
+      : 'Nichts zu speichern – der Text war unverändert.',
+    'angemeldet',
+  );
+  setTimeout(() => melden('', 'angemeldet'), 6000);
 
-/**
- * Sagt Bescheid, wann die öffentliche Seite den neuen Stand zeigt.
- *
- * Gespeichert ist sofort – aber GitHub Pages baut die Seite neu, und das
- * dauert etwa eine Minute. Ohne diesen Hinweis sähe es nach einem Fehler
- * aus, wenn die Änderung auf dem Handy noch nicht da ist.
- */
-function veroeffentlichungMelden(ergebnis) {
-  melden('Gespeichert (' + ergebnis.kurz + '). Wird veröffentlicht …', 'laedt');
-
-  let versuche = 0;
-  const nachsehen = async () => {
-    versuche += 1;
-    const stand = await veroeffentlichungStand(schluessel, ergebnis.commit);
-
-    if (stand.zustand === 'fertig') {
-      melden('Veröffentlicht. Die Seite ist überall aktuell.', 'angemeldet');
-      setTimeout(() => melden('', 'angemeldet'), 6000);
-      return;
-    }
-    if (stand.zustand === 'fehlgeschlagen') {
-      melden('Gespeichert, aber das Veröffentlichen ist fehlgeschlagen.', 'fehler');
-      return;
-    }
-    if (versuche >= 20) {
-      melden('Gespeichert. Das Veröffentlichen dauert gerade länger.', 'angemeldet');
-      return;
-    }
-    setTimeout(nachsehen, 5000);
-  };
-
-  setTimeout(nachsehen, 5000);
+  return { kurz: beschreibung || 'gespeichert', geschrieben: ergebnis.geschrieben };
 }
 
 /* ------------------------------------------------------------------ *
  * Start
  * ------------------------------------------------------------------ */
 
+/** Einen früher gespeicherten GitHub-Schlüssel restlos entfernen. */
+function alteAblageLoeschen() {
+  try { localStorage.removeItem(ALTE_SCHLUESSEL_ABLAGE); } catch { /* egal */ }
+  try { sessionStorage.removeItem(ALTE_SCHLUESSEL_ABLAGE); } catch { /* egal */ }
+}
+
+function warAngemeldet() {
+  try { return localStorage.getItem(ANMELDE_MERKER) === '1'; } catch { return false; }
+}
+
+alteAblageLoeschen();
+
 if (knopf) {
-  knopfText('Anmelden', 'Zum Bearbeiten mit einem GitHub-Schlüssel anmelden');
+  knopfText('Anmelden', 'Mit dem Google-Konto anmelden, um zu bearbeiten');
   knopf.hidden = false;
   knopf.addEventListener('click', () => {
-    if (schluessel) abmelden();
+    if (konto) abmelden();
     else anmelden();
   });
 }
 
-// Einen früher dauerhaft gespeicherten Schlüssel nie in die Sitzung übernehmen.
-alteLokaleAblageLoeschen();
+// Zuerst der öffentliche Weg: aktuelle Weltdaten ohne Anmeldung und ohne
+// fremdes Skript. Fehlschläge sind hier stumm – die mitgelieferte Kopie
+// steht bereits auf dem Bildschirm.
+weltAusFirestoreHolen();
 
-// Liegt hier schon ein Schlüssel, wird die Sitzung stillschweigend fortgesetzt.
-if (schluesselLesen()) anmelden();
+// War hier zuletzt jemand angemeldet, wird die Anmeldung wiederhergestellt.
+// Ohne den Merker bliebe das SDK für alle anderen ungeladen.
+if (warAngemeldet()) {
+  beiKontoWechsel(kontoUebernehmen).catch(() => {
+    melden('Die Anmeldung ließ sich nicht wiederherstellen.', 'fehler');
+  });
+} else if (knopf) {
+  // Nach einem Klick auf „Anmelden" muss der Wechsel trotzdem beobachtet
+  // werden – das übernimmt `anmelden()` über denselben Weg.
+  knopf.addEventListener('click', function einmal() {
+    knopf.removeEventListener('click', einmal);
+    beiKontoWechsel(kontoUebernehmen).catch(() => {});
+  }, { once: true });
+}
