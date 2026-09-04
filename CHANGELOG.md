@@ -7,6 +7,19 @@ Das Neueste steht immer oben.
 
 ---
 
+## Ein ehrlicher Hinweis statt einer falschen Anzeige – 4. September 2026
+
+Das Hauptmenü verweist auf `wiki.html?w=<name>`. Die Wikiseite zeigt
+aber bis auf Weiteres **immer dieselbe Welt** — der Umzug auf mehrere
+Welten ist der nächste Schritt.
+
+Wer mit einer fremden Kennung dort landet, bekäme sonst fremde Inhalte
+unter dem richtigen Namen zu sehen. Das ist die schlimmste Art von
+Fehler, weil ihn niemand bemerkt. Stattdessen steht jetzt ein Hinweis
+da, dass diese Welt noch nicht angezeigt werden kann.
+
+---
+
 ## Hauptmenü, Handy-Kopfzeile, Rechtsklickmenü – 4. September 2026
 
 **Man landet jetzt zuerst im Hauptmenü.** Dort stehen die Wikis, die du

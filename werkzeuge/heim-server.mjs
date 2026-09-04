@@ -89,6 +89,7 @@ const OEFFENTLICHE_DATEIEN = new Set([
   'runtime/kontextmenue.js',
   'runtime/kontextmenue-wiki.js',
   'runtime/plattform.js',
+  'runtime/wiki-kennung.js',
   'runtime/datenindex.js',
   'runtime/ansichten.js',
   'runtime/interaktion.js',

@@ -308,3 +308,12 @@
   font-size: 0.85rem;
   max-width: calc(100vw - 2rem);
 }
+
+/* Ein Wiki, das diese Seite noch nicht zeigen kann — siehe
+   `runtime/wiki-kennung.js`. */
+.wiki-fremd { margin-bottom: 1.25rem; }
+.wiki-fremd code {
+  padding: 0.1rem 0.35rem;
+  background: var(--grund);
+  border-radius: 0.25rem;
+}
