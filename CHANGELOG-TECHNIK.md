@@ -12,6 +12,92 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ### Hinzugefügt
 
+- **`werkzeuge/gegenstaende-auslesen.mjs`** liest die Ausruestungs-
+  tabellen aus `docs/daggerheart/` und erzeugt
+  `daten/daggerheart-gegenstaende.json` — **123 Eintraege**
+  (67 Primaerwaffen, 24 Sekundaerwaffen, 27 Ruestungen, 2 Fundstuecke,
+  3 Verbrauchsgueter), 6 davon mit `unsicher`.
+  Die Recherchedateien sind die Quelle; nichts ist abgetippt.
+  Stichproben gegen die Tabellen: Longsword (Agility/Melee/d8+3 phy/
+  zweihaendig/Reliable), Dagger (Finesse/d8+1/Heavy), Gambeson (5/11,
+  Score 3, Flexible), Katana (vier Stufenwerte). 0 doppelte Namen.
+  ⚠️ Der erste Lauf brach ab: `### Rüstung` in den Grundregeln ist nur
+  ein **Verweis**, die Tabelle steht in Abschnitt 5. Der Ausleser hat das
+  gemeldet, statt die naechstbeste Tabelle zu nehmen — `tabelleNach()`
+  bricht am naechsten `#` ab.
+- **`karte/karten-daten.js`** — beide Datensaetze an einer Stelle, Suche
+  ueber einen normalisierten Namen („Gambeson" findet „Gambeson Armor").
+- **`karte/kartenblase.js`** — die Karte beim Ueberfahren. Eine einzige
+  Blase je Seite; `mouseenter`/`focus` am Rechner, `click` auf
+  Beruehrungsgeraeten, dort fest am unteren Rand (`hover: none` oder
+  Fenster < 640 px). Escape und Klick daneben schliessen.
+- **`runtime/favoriten.js`** — Sterne in `localStorage`
+  (`aob.favoriten.v1`). Klassisches Skript, damit alle drei Seiten
+  dasselbe benutzen. `lies()`/`schreibe()` sind die einzigen zwei
+  Stellen, die den Speicher kennen — ein spaeterer Abgleich je Konto
+  aendert sonst nichts. Beide in `try` gefangen: In einem privaten
+  Fenster **wirft** `localStorage`, es ist nicht bloss leer.
+
+### Geändert
+
+- **Charakterbogen: eine Figur je Seite**, Auswahl darueber, Zustand in
+  `?figur=`. 17 Kartenanker auf beiden Boegen zusammen.
+  `spielwerte.waffen[].regelname` und `ruestung.regelname` verbinden die
+  deutsche Anzeige mit dem englischen Regelnamen; steht dort `null`,
+  meldet die Blase ehrlich, dass es keine Karte gibt (Machete,
+  Kurzschwert).
+- **Kartenseite: 270 → 393 Kacheln**, eigene Kachelform fuer
+  Gegenstaende (Werte statt Regeltext), Filter in vier Gruppen, Suche
+  auch ueber Merkmal, Wirkung, Attribut und Reichweite.
+  Gemessen nach dem Umbau: **0 Ueberlaeufe** bei 393 Kacheln.
+
+### Hinzugefügt
+
+- **Plattformregeln** in `firestore.rules`: `wiki_projekte/{wikiId}` mit
+  Untersammlung `welt`. Mitgliedschaft als `mitgliederIds` (Liste, fuer
+  `array-contains`) **und** `rollen` (Map uid → Rolle); `mitgliedschaft-
+  Stimmig()` erzwingt, dass beide deckungsgleich bleiben.
+  **Warum auf dem Dokument und nicht in einer Untersammlung:** Ein
+  `get()` in einer Regel kostet einen Lesevorgang und ist auf zehn je
+  Anfrage begrenzt — und „meine Wikis" liesse sich ueber eine
+  Untersammlung gar nicht abfragen.
+  **Warum generisch:** Ein neues Wiki darf keinen Rules-Deploy ausloesen;
+  ein Deploy trifft auch Scotophobia (`docs/PROJEKTGRENZE.md`).
+  Eine ungefilterte Abfrage auf `wiki_projekte` wird abgewiesen — an der
+  laufenden Datenbank nachgemessen (HTTP 403), waehrend `wiki_welt`
+  weiter 200 liefert und Scotophobias vier Sammlungen 403 bleiben.
+  **Simulator: 25 von 25 Faellen**, davon 11 neue. Dafuer musste
+  `regeln-testen.mjs` `functionMocks` je Fall durchreichen — die
+  Plattformregeln schlagen das Wiki-Dokument mit `get()` nach, und ohne
+  Attrappe faellt jede davon aus dem falschen Grund durch.
+- **`werkzeuge/plattform-speicher.mjs`**: Wikis auflisten (REST, ohne
+  SDK), anlegen und uebernehmen (SDK). `verbinden()` ist dafuer aus
+  `firestore-speicher.mjs` exportiert.
+- **`docs/PLATTFORM.md`**: Entwurf, Rollen, Regelwerke als Daten, der
+  Migrationsweg und die neun Bauschritte.
+
+### Entfernt
+
+- **`werkzeuge/github-speicher.mjs` und `werkzeuge/pruefe-github.mjs`**
+  (Janniks Ansage: „weg von den GitHub-Code-Login, wir machen
+  Google-Login"). Sie lagen seit dem 02.09.2026 als toter Rueckweg da —
+  **kein** Browserpfad hat sie geladen (nachgezaehlt: nur die eigene
+  Pruefung und die Server-Positivlisten nannten sie).
+
+### Geändert
+
+- **`sammlungenLesen()` zaehlt nur oberste Sammlungen.** Die
+  Praefixregel `wiki_` gibt es, damit zwei Anwendungen sich nicht
+  denselben Namen greifen; eine Untersammlung liegt unter ihrem
+  Elterndokument und kann mit nichts kollidieren. Ohne die Aenderung
+  haette jede kuenftige Untersammlung `wiki_` heissen muessen.
+- **Selbsttest herausgeloest** nach `werkzeuge/firestore-selbsttest.mjs`
+  (50 Zeilen). `docs/ALTLASTEN.md` hatte genau diesen Schnitt
+  vorgesehen; der Ratchet hat ihn eingefordert, weil die Datei durch die
+  neue Zaehlung auf 617 Zeilen gewachsen war. Jetzt **571**.
+
+### Hinzugefügt
+
 - **Spielwerte fuer Brix Borin** (`character-aob-xeno-sc`). Quelle ist
   die Werkstattfigur `werkstatt-figur-brix-borin` (Klasse, Unterklasse,
   Abstammung, Gemeinschaft, Attribute, Ausweichen, Ausruestung, Karten);

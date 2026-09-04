@@ -1911,7 +1911,8 @@ window.AGE_OF_BEAST_WELT = {
           "score": 3,
           "basisSchwer": 5,
           "basisErnst": 11,
-          "merkmal": "Flexible: +1 Ausweichen"
+          "merkmal": "Flexible: +1 Ausweichen",
+          "regelname": "Gambeson Armor"
         },
         "hp": 6,
         "stress": 6,
@@ -1930,11 +1931,13 @@ window.AGE_OF_BEAST_WELT = {
         "waffen": [
           {
             "name": "Dolch",
-            "hand": "primär"
+            "hand": "primär",
+            "regelname": "Dagger"
           },
           {
             "name": "Kurzschwert",
-            "hand": "sekundär"
+            "hand": "sekundär",
+            "regelname": null
           }
         ],
         "klassengegenstand": "Fälscherwerkzeug",
@@ -2116,7 +2119,8 @@ window.AGE_OF_BEAST_WELT = {
           "name": "Lederrüstung",
           "score": 3,
           "basisSchwer": 6,
-          "basisErnst": 13
+          "basisErnst": 13,
+          "regelname": "Leather Armor"
         },
         "hp": 6,
         "stress": 6,
@@ -2135,7 +2139,8 @@ window.AGE_OF_BEAST_WELT = {
         "waffen": [
           {
             "name": "Machete",
-            "hand": "primär"
+            "hand": "primär",
+            "regelname": null
           }
         ],
         "erfahrungen": [

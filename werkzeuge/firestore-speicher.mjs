@@ -104,7 +104,10 @@ async function fehlertextLesen(antwort, einleitung) {
 let verbindung = null;
 let verbindungsVersuch = null;
 
-async function verbinden() {
+/* Auch `plattform-speicher.mjs` braucht die Verbindung — deshalb
+   exportiert. Die Funktion baut sie hoechstens einmal auf und merkt sie
+   sich; ein zweiter Aufrufer bekommt dieselbe. */
+export async function verbinden() {
   if (verbindung) return verbindung;
   if (verbindungsVersuch) return verbindungsVersuch;
 

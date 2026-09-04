@@ -24,12 +24,28 @@ const filterleiste = document.getElementById('kartenfilter');
 const suchfeld = document.getElementById('kartensuche');
 const zahl = document.getElementById('kartenzahl');
 
+import { blasenAnbinden } from './kartenblase.js';
+
 const ARTNAMEN = {
   domain: 'Domänenkarte',
   ancestry: 'Abstammung',
   community: 'Gemeinschaft',
   subclass: 'Unterklasse',
+  primaerwaffe: 'Primärwaffe',
+  sekundaerwaffe: 'Sekundärwaffe',
+  ruestung: 'Rüstung',
+  gegenstand: 'Fundstück',
+  verbrauch: 'Verbrauchsgut',
 };
+
+/* Die Reihenfolge der Gruppen in der Filterleiste. Ohne sie stuenden
+   die Arten in der Reihenfolge, in der sie zufaellig zuerst vorkommen —
+   und die haengt an der Sortierung der Datei. */
+const GRUPPEN = [
+  ['Karten', ['domain', 'ancestry', 'community', 'subclass']],
+  ['Ausrüstung', ['primaerwaffe', 'sekundaerwaffe', 'ruestung']],
+  ['Fundstücke', ['gegenstand', 'verbrauch']],
+];
 
 let alleKarten = [];
 let filter = 'alle';
@@ -88,6 +104,62 @@ function aufteilen(karten) {
   return aus;
 }
 
+/* Ein Gegenstand hat andere Felder als eine Domaenenkarte: Attribut,
+   Reichweite, Schaden, Traglast — dafuer keinen Regeltext und keine
+   Rueckholkosten. Eine gemeinsame Funktion mit zehn Abfragen waere
+   schwerer zu lesen als zwei getrennte. */
+function gegenstandKachel(g) {
+  const t = [];
+  t.push('<article class="spielkarte gegenstand" data-art="' + sicher(g.art) + '">');
+
+  t.push('<div class="karte-kopf">');
+  if (g.abStufe && g.abStufe > 1) {
+    t.push('<span class="karte-stufe" title="ab Stufe">' + sicher(g.abStufe) + '</span>');
+  }
+  t.push('<span class="stern-platz" data-fav-typ="karte" data-fav-id="' + sicher(g.id)
+    + '" data-fav-name="' + sicher(g.name) + '"></span>');
+  t.push('</div>');
+
+  t.push('<div class="karte-band">');
+  t.push('<h2 class="karte-name">' + sicher(g.name) + '</h2>');
+  t.push('<p class="karte-unterzeile">' + sicher(ARTNAMEN[g.art] || g.art) + '</p>');
+  t.push('</div>');
+
+  t.push('<div class="karte-text">');
+  const werte = [];
+  const w = (b, v) => { if (v !== null && v !== undefined && v !== '') werte.push([b, v]); };
+  w('Attribut', g.attribut);
+  w('Reichweite', g.reichweite);
+  w('Schaden', g.schaden && g.schaden.text);
+  w('Traglast', g.traglast);
+  if (g.schwellen) w('Grundschwellen', g.schwellen.schwer + ' / ' + g.schwellen.ernst);
+  w('Schwellen je Stufe', g.schwellenStufen);
+  w('Rüstungswert', g.score);
+  w('Rüstungswert je Stufe', g.scoreStufen);
+  w('Beutewurf', g.wurf);
+  if (werte.length) {
+    t.push('<dl class="gegenstand-werte">' + werte.map(([b, v]) =>
+      '<div><dt>' + sicher(b) + '</dt><dd>' + sicher(v) + '</dd></div>').join('') + '</dl>');
+  }
+  if (g.merkmal) {
+    t.push('<div class="karte-merkmal"><span class="karte-merkmal-name">'
+      + sicher(g.merkmal) + '</span>'
+      + (g.wirkung ? textAufbereiten(g.wirkung) : '') + '</div>');
+  } else if (g.wirkung) {
+    t.push(textAufbereiten(g.wirkung));
+  }
+  if (g.unsicher) {
+    t.push('<p class="karte-unsicher">' + sicher(g.unsicher) + '</p>');
+  }
+  t.push('</div>');
+
+  t.push('<div class="karte-fuss"><span class="karte-art">'
+    + sicher(ARTNAMEN[g.art] || g.art) + '</span><span>'
+    + sicher(g.quelle || '') + '</span></div>');
+  t.push('</article>');
+  return t.join('');
+}
+
 function kachel(k) {
   const art = k.art || 'domain';
   const domaene = k.domaene || '';
@@ -115,6 +187,8 @@ function kachel(k) {
   if (k.wappen) {
     teile.push('<img class="karte-wappen" src="' + sicher(k.wappen) + '" alt="" decoding="async">');
   }
+  teile.push('<span class="stern-platz" data-fav-typ="karte" data-fav-id="'
+    + sicher(k.id) + '" data-fav-name="' + sicher(k.name) + '"></span>');
   teile.push('</div>');
 
   /* Titelband */
@@ -213,10 +287,21 @@ function zeichnen() {
       if (!passt) return false;
     }
     if (!suchtext) return true;
-    return (k.name + ' ' + (k.domaene || '') + ' ' + (k.regeltext || '')).toLowerCase().includes(suchtext);
+    const heuhaufen = [k.name, k.domaene, k.regeltext, k.merkmal, k.wirkung,
+      k.attribut, k.reichweite, ARTNAMEN[k.art]].filter(Boolean).join(' ');
+    return heuhaufen.toLowerCase().includes(suchtext);
   });
 
-  raster.innerHTML = gezeigt.map(kachel).join('');
+  raster.innerHTML = gezeigt.map((k) =>
+    (k.quelleTyp === 'gegenstand' ? gegenstandKachel(k) : kachel(k))).join('');
+
+  /* Erst nach dem Zeichnen: Vorher gibt es die Plaetze nicht. */
+  const fav = window.aobFavoriten;
+  if (fav) {
+    for (const platz of raster.querySelectorAll('.stern-platz:empty')) {
+      platz.appendChild(fav.knopf(platz.dataset.favTyp, platz.dataset.favId, platz.dataset.favName));
+    }
+  }
   passendMachen();
   if (zahl) {
     zahl.textContent = gezeigt.length === alleKarten.length
@@ -228,17 +313,34 @@ function zeichnen() {
 function filterLeisteBauen() {
   if (!filterleiste) return;
   const domaenen = [...new Set(alleKarten.map((k) => k.domaene).filter(Boolean))].sort();
-  const arten = [...new Set(alleKarten.map((k) => k.art).filter(Boolean))];
 
   const knopf = (wert, text, anzahl) => (
     '<button type="button" class="karten-knopf" data-filter="' + sicher(wert) + '"'
     + (wert === filter ? ' aria-pressed="true"' : ' aria-pressed="false"') + '>'
     + sicher(text) + (anzahl ? ' <small>' + anzahl + '</small>' : '') + '</button>'
   );
+  const zaehle = (art) => alleKarten.filter((k) => k.art === art).length;
 
-  filterleiste.innerHTML = knopf('alle', 'Alle', alleKarten.length)
-    + arten.map((a) => knopf(a, ARTNAMEN[a] || a, alleKarten.filter((k) => k.art === a).length)).join('')
-    + domaenen.map((d) => knopf('domaene:' + d, d, alleKarten.filter((k) => k.domaene === d).length)).join('');
+  /* Nach Gruppen statt in einer langen Reihe: Mit den Gegenstaenden sind
+     es neun Arten plus neun Domaenen — als eine Zeile waere das auf dem
+     Handy eine endlose Rutschbahn. */
+  const teile = ['<div class="karten-gruppe">' + knopf('alle', 'Alle', alleKarten.length) + '</div>'];
+  for (const [titel, arten] of GRUPPEN) {
+    const vorhanden = arten.filter((a) => zaehle(a) > 0);
+    if (!vorhanden.length) continue;
+    teile.push('<div class="karten-gruppe">'
+      + '<span class="karten-gruppe-name">' + sicher(titel) + '</span>'
+      + vorhanden.map((a) => knopf(a, ARTNAMEN[a] || a, zaehle(a))).join('')
+      + '</div>');
+  }
+  if (domaenen.length) {
+    teile.push('<div class="karten-gruppe">'
+      + '<span class="karten-gruppe-name">Domänen</span>'
+      + domaenen.map((d) => knopf('domaene:' + d, d,
+        alleKarten.filter((k) => k.domaene === d).length)).join('')
+      + '</div>');
+  }
+  filterleiste.innerHTML = teile.join('');
 
   filterleiste.querySelectorAll('button').forEach((b) => {
     b.addEventListener('click', () => {
@@ -272,11 +374,21 @@ suchfeld?.addEventListener('input', () => {
     /* Der Pfad wird am Modul aufgeloest, nicht an der Seiten-URL. Ein
        blosses 'daten/...' waere relativ zum Dokument und ginge nur
        zufaellig gut, solange die Seite in der Wurzel liegt. */
-    const quelle = new URL('../daten/daggerheart-karten.json', import.meta.url);
-    const antwort = await fetch(quelle);
-    if (!antwort.ok) throw new Error('HTTP ' + antwort.status);
-    const daten = await antwort.json();
-    alleKarten = aufteilen(Array.isArray(daten.karten) ? daten.karten : []);
+    const holen = async (pfad) => {
+      const antwort = await fetch(new URL(pfad, import.meta.url));
+      if (!antwort.ok) throw new Error(pfad + ': HTTP ' + antwort.status);
+      return antwort.json();
+    };
+    const [daten, dinge] = await Promise.all([
+      holen('../daten/daggerheart-karten.json'),
+      /* Die Gegenstaende sind neuer als die Karten. Fehlen sie, zeigt die
+         Seite eben nur die Karten — das ist besser als eine leere Seite. */
+      holen('../daten/daggerheart-gegenstaende.json').catch(() => ({ gegenstaende: [] })),
+    ]);
+    alleKarten = [
+      ...aufteilen(Array.isArray(daten.karten) ? daten.karten : []),
+      ...(dinge.gegenstaende || []).map((g) => ({ ...g, quelleTyp: 'gegenstand' })),
+    ];
     if (!alleKarten.length) throw new Error('Die Datei enthält keine Karten.');
     filterLeisteBauen();
     zeichnen();

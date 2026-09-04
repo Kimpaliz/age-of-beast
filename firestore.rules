@@ -405,11 +405,141 @@ service cloud.firestore {
       allow delete: if false;
     }
 
-    /* Andere Anwendungen im Firebase-Projekt verwenden Firestore nicht.
-       Jede nicht ausdrücklich genannte Sammlung bleibt geschlossen. */
 
-    /* Andere Anwendungen im Firebase-Projekt verwenden Firestore nicht.
-       Jede nicht ausdrücklich genannte Sammlung bleibt geschlossen. */
+    /* ══ Plattform: mehrere Wikis ═══════════════════════════════════
+
+       Jedes Wiki ist ein Dokument unter `wikis/` mit seinen Weltdaten
+       als Untersammlung. Warum überhaupt so:
+
+       **Ein neues Wiki darf keinen Deploy auslösen.** Firestore hat pro
+       Datenbank genau eine Regeldatei, und ihr Deploy trifft auch
+       Scotophobia (siehe docs/PROJEKTGRENZE.md). Deshalb sprechen diese
+       Regeln über `{wikiId}` statt über feste Namen — ein Wiki anzulegen
+       ist ein gewöhnlicher Schreibvorgang.
+
+       **Die Mitgliedschaft steht auf dem Wiki-Dokument, nicht in einer
+       Untersammlung.** Zwei Gründe, beide praktisch: Ein `get()` in einer
+       Regel kostet einen Lesevorgang und ist auf zehn je Anfrage
+       begrenzt; und „meine Wikis" liesse sich über eine Untersammlung
+       gar nicht abfragen. Mit `mitgliederIds` als Feld genügt ein
+       `array-contains`.
+
+       **`rollen` ist eine Map uid → Rolle.** Sie steht neben
+       `mitgliederIds`, weil eine Map sich nicht abfragen und ein Array
+       sich nicht nach Rollen auswerten lässt. Beide müssen zueinander
+       passen; das erzwingt `mitgliedschaftStimmig()`.
+       ══════════════════════════════════════════════════════════════ */
+
+    function wikiDoku(wikiId) {
+      return get(/databases/$(database)/documents/wiki_projekte/$(wikiId)).data;
+    }
+
+    function wikiRolle(wikiId) {
+      return wikiAngemeldet()
+        ? wikiDoku(wikiId).rollen.get(request.auth.uid, '')
+        : '';
+    }
+
+    function darfWikiLesen(wikiId) {
+      return wikiDoku(wikiId).oeffentlich == true
+        || wikiRolle(wikiId) in ['besitzer', 'schreiber', 'leser'];
+    }
+
+    function darfWikiSchreiben(wikiId) {
+      return wikiRolle(wikiId) in ['besitzer', 'schreiber'];
+    }
+
+    function istWikiBesitzer(wikiId) {
+      return wikiRolle(wikiId) == 'besitzer';
+    }
+
+    /* Array und Map dürfen nicht auseinanderlaufen: Wer in `rollen`
+       steht, aber nicht in `mitgliederIds`, hätte Rechte, die niemand
+       findet — und umgekehrt stünde jemand in der Liste, dessen Rolle
+       leer ist. */
+    function mitgliedschaftStimmig(d) {
+      return d.mitgliederIds is list
+        && d.rollen is map
+        && d.mitgliederIds.size() == d.rollen.keys().size()
+        && d.rollen.keys().hasOnly(d.mitgliederIds)
+        && d.mitgliederIds.hasOnly(d.rollen.keys())
+        && d.mitgliederIds.size() >= 1
+        && d.mitgliederIds.size() <= 200;
+    }
+
+    function wikiFelderStimmen(d) {
+      return d.keys().hasOnly([
+          'name', 'beschreibung', 'oeffentlich', 'regelwerke',
+          'mitgliederIds', 'rollen', 'erstelltAm', 'erstelltVon'
+        ])
+        && d.keys().hasAll([
+          'name', 'beschreibung', 'oeffentlich', 'regelwerke',
+          'mitgliederIds', 'rollen', 'erstelltAm', 'erstelltVon'
+        ])
+        && d.name is string && d.name.size() > 0 && d.name.size() <= 120
+        && d.beschreibung is string && d.beschreibung.size() <= 600
+        && d.oeffentlich is bool
+        && d.regelwerke is list && d.regelwerke.size() <= 20
+        && mitgliedschaftStimmig(d);
+    }
+
+    match /wiki_projekte/{wikiId} {
+      /* Ein einzelnes Wiki liest, wer Mitglied ist — oder jeder, wenn es
+         öffentlich ist. Für `list` prüft Firestore dieselbe Bedingung
+         gegen die Abfrage: Eine Liste kommt nur durch, wenn sie sich auf
+         `oeffentlich == true` oder auf `mitgliederIds` mit der eigenen
+         Kennung beschränkt. Eine Abfrage „alle Wikis" scheitert damit von
+         selbst, ohne dass hier eine Sonderregel nötig wäre. */
+      allow read: if resource.data.oeffentlich == true
+        || (wikiAngemeldet() && request.auth.uid in resource.data.mitgliederIds);
+
+      /* Wer ein Wiki anlegt, ist sein Besitzer — und zwar allein. Ein
+         Anlegen, das gleich Fremde einträgt, wäre der bequemste Weg,
+         jemandem ungefragt ein Wiki unterzuschieben. */
+      allow create: if wikiAngemeldet()
+        && wikiFelderStimmen(request.resource.data)
+        && request.resource.data.erstelltVon == request.auth.uid
+        && request.resource.data.erstelltAm == request.time
+        && request.resource.data.mitgliederIds == [request.auth.uid]
+        && request.resource.data.rollen[request.auth.uid] == 'besitzer';
+
+      /* Ändern darf der Besitzer. Was er **nicht** darf: sich selbst
+         herausschreiben — dann gäbe es ein Wiki ohne Besitzer, das
+         niemand mehr verwalten kann. */
+      allow update: if istWikiBesitzer(wikiId)
+        && wikiFelderStimmen(request.resource.data)
+        && request.resource.data.erstelltVon == resource.data.erstelltVon
+        && request.resource.data.erstelltAm == resource.data.erstelltAm
+        && request.resource.data.rollen[request.auth.uid] == 'besitzer';
+
+      allow delete: if istWikiBesitzer(wikiId);
+
+      /* ── Die Welt dieses Wikis ── */
+      match /welt/{teil} {
+        allow read: if darfWikiLesen(wikiId);
+
+        allow create, update: if darfWikiSchreiben(wikiId)
+          && request.resource.data.keys().hasOnly([
+            'inhalt', 'stand', 'geaendertAm', 'geaendertVon'
+          ])
+          && request.resource.data.keys().hasAll([
+            'inhalt', 'stand', 'geaendertAm', 'geaendertVon'
+          ])
+          && request.resource.data.inhalt is string
+          && request.resource.data.inhalt.size() > 0
+          && request.resource.data.inhalt.size() <= 500000
+          && request.resource.data.stand is string
+          && request.resource.data.stand.size() > 0
+          && request.resource.data.stand.size() <= 120
+          && request.resource.data.geaendertVon == request.auth.uid
+          && request.resource.data.geaendertAm == request.time;
+
+        /* Ein Modul verschwindet nicht, es wird überschrieben — sonst
+           zerreisst die Welt beim Zusammensetzen. Ein ganzes Wiki
+           loescht der Besitzer über sein Dokument. */
+        allow delete: if false;
+      }
+    }
 
     /* Andere Anwendungen im Firebase-Projekt verwenden Firestore nicht.
        Jede nicht ausdrücklich genannte Sammlung bleibt geschlossen. */

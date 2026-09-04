@@ -144,7 +144,6 @@ async function serverPruefen(name, port) {
     '/werkzeuge/bearbeiten-stellen.mjs',
     '/werkzeuge/text-schreibweise.mjs',
     '/werkzeuge/struktur-bearbeiten.mjs',
-    '/werkzeuge/github-speicher.mjs',
   ];
 
   for (const pfad of oeffentlicheDateien) {
