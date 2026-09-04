@@ -7,6 +7,7 @@ Das Neueste steht immer oben.
 
 ---
 
+<<<<<<< HEAD
 ## Ein ehrlicher Hinweis statt einer falschen Anzeige – 4. September 2026
 
 Das Hauptmenü verweist auf `wiki.html?w=<name>`. Die Wikiseite zeigt
@@ -101,6 +102,21 @@ Zur Veranschaulichung gibt es zwei vorhandene Welt-Einträge mit Stecknadeln:
 den Kampagnen-Frame „Age of Beast“ und die Maschinisten. Die Daten enthalten
 zurzeit noch keine eigenen Orts- oder Regionseinträge; diese zwei Nadeln sind
 deshalb technische Beispiele und keine neu behaupteten Ortsfakten.
+=======
+## Farben für die Bögen und eine Favoritenliste – 4. September 2026
+
+Jeder Charakterbogen trägt jetzt eine **eigene, zurückhaltende Farbe**,
+die aus den beiden Domänen seiner Klasse kommt. Sie sitzt nur an der
+Kopfleiste, der Stufe, starken Werten und Domänenmarken. Der Lesetext
+bleibt auf seiner ruhigen Fläche. Abstammung und Gemeinschaft bekommen
+als unabhängige Kennzeichnung einen kleinen türkisfarbenen Punkt statt
+einer zweiten Farbleiste.
+
+Neu gibt es **Meine Favoriten**: Ein Stern bei einem Eintrag, einer Karte
+oder einem Bogen legt ihn dort ab. Die Liste trennt Einträge, Karten und
+Bögen, führt zurück zur jeweiligen Ansicht und lässt Sterne direkt wieder
+entfernen. Sie bleibt nur in deinem Browser und braucht keine Anmeldung.
+>>>>>>> paket/bogenfarben
 
 ---
 

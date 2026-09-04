@@ -41,6 +41,28 @@ const ATTRIBUTE = [
   ['knowledge', 'Knowledge', 'Wissen'],
 ];
 
+/* Die Klassenfarbe kommt nicht aus dem Namen der Klasse, sondern aus
+   ihrem Paar von Domänen. Fehlt eines der beiden Felder, bleibt der
+   Bogen absichtlich beim ruhigen Grundton: Eine erfundene Zuordnung
+   wäre am Spieltisch irreführender als keine Markierung. */
+const KLASSEN_NACH_DOMAENEN = new Map([
+  ['Codex|Grace', 'bard'],
+  ['Arcana|Sage', 'druid'],
+  ['Blade|Valor', 'guardian'],
+  ['Bone|Sage', 'ranger'],
+  ['Grace|Midnight', 'rogue'],
+  ['Splendor|Valor', 'seraph'],
+  ['Arcana|Midnight', 'sorcerer'],
+  ['Blade|Bone', 'warrior'],
+  ['Codex|Splendor', 'wizard'],
+]);
+
+function klassenSchluessel(domaenen) {
+  if (!Array.isArray(domaenen)) return '';
+  const paar = [...new Set(domaenen.filter((d) => typeof d === 'string'))].sort();
+  return paar.length === 2 ? KLASSEN_NACH_DOMAENEN.get(paar.join('|')) || '' : '';
+}
+
 function sicher(text) {
   return String(text ?? '')
     .replace(/&/g, '&amp;').replace(/</g, '&lt;')
@@ -88,7 +110,8 @@ function bogen(e) {
   const w = e.spielwerte || {};
   const t = [];
 
-  t.push('<article class="bogen">');
+  const klasse = klassenSchluessel(w.domaenen);
+  t.push('<article class="bogen"' + (klasse ? ' data-klasse="' + klasse + '"' : '') + '>');
 
   /* ── Kopf: Name, Herkunft, Klasse, Stufe ── */
   t.push('<header class="bogen-kopf">');

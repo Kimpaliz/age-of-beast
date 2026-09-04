@@ -1,0 +1,146 @@
+/* ===================================================================
+   Age of Beast – Favoritenseite
+   [Aufgabe: Gestaltung]
+
+   -------------------------------------------------------------------
+   Die Liste ist kein zweites Kartenraster. Sie bleibt bewusst ruhig:
+   Der Stern beschleunigt das Wiederfinden, nicht das Lesen eines neuen
+   Informationsblocks.
+   =================================================================== */
+
+.favoritenseite .kopf {
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  padding-left: 1rem;
+}
+
+.favoriten-inhalt {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 4rem;
+}
+
+.favoriten-liste {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.favoriten-gruppe {
+  padding: 1rem;
+  background: var(--flaeche);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius);
+  box-shadow: var(--schatten-klein);
+}
+
+.favoriten-gruppen-kopf {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--rand);
+}
+
+.favoriten-gruppen-kopf h2 {
+  margin: 0;
+  color: var(--schrift-matt);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.favoriten-zahl {
+  color: var(--akzent-hell);
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.favoriten-eintraege {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0.7rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.favoriten-eintraege li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 0;
+  padding: 0.35rem 0.35rem 0.35rem 0.65rem;
+  background: var(--grund);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+}
+
+.favoriten-verweis {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: var(--verweis);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.favoriten-verweis:hover,
+.favoriten-verweis:focus-visible { color: var(--verweis-aktiv); }
+
+.favoriten-liste .stern {
+  flex: none;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  padding: 0.2rem 0.3rem;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius-klein);
+  color: var(--schrift-matt);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.favoriten-liste .stern:hover,
+.favoriten-liste .stern:focus-visible {
+  color: var(--akzent-hell);
+  border-color: var(--akzent-rand);
+  outline: none;
+}
+
+.favoriten-liste .stern[aria-pressed="true"] { color: var(--akzent-hell); }
+
+.favoriten-leer {
+  margin: 0;
+  padding: 1rem;
+  color: var(--schrift-matt);
+  background: var(--flaeche);
+  border: 1px dashed var(--rand-hell);
+  border-radius: var(--radius);
+}
+
+@media (max-width: 32rem) {
+  .favoritenseite .kopf {
+    height: auto;
+    min-height: var(--kopf-hoehe);
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .favoritenseite .kopf-rechts {
+    justify-content: flex-end;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+  }
+
+  .favoritenseite .modul-knopf {
+    padding-inline: 0.5rem;
+    font-size: 0.72rem;
+  }
+
+  .favoriten-inhalt { padding: 1rem 0.75rem 3rem; }
+  .favoriten-gruppe { padding: 0.85rem; }
+}

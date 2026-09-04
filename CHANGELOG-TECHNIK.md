@@ -13,6 +13,7 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 ### Hinzugefügt
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 - **Hauptmenü** (`index.html`, `runtime/plattform.js`,
   `styles/plattform.css`). Das bisherige Wiki liegt als `wiki.html`
   (`git mv`, Historie erhalten) und bekam einen Menue-Knopf.
@@ -107,6 +108,44 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
   auf den settingnahen Kampagnen-Frame (780, 400) und die Maschinisten
   (900, 560); sie behaupten keine neuen Orte.
 >>>>>>> paket/kartenpins
+=======
+- **`favoriten.html`**, `runtime/favoriten-liste.js` und
+  `styles/favoriten.css`: gruppierte persönliche Liste für `eintrag`,
+  `karte` und `bogen`. Die Darstellung hängt sich ausschließlich an
+  `window.aobFavoriten.beiAenderung()` und zeichnet nach jeder lokalen
+  oder tabübergreifenden Änderung neu. Beschädigte oder unvollständige
+  Speicherobjekte werden vor dem Rendern verworfen; der Leerzustand
+  erklärt das Setzen eines Sterns.
+- **`werkzeuge/pruefe-favoriten.mjs`**: prüft den werfenden
+  `localStorage`-Pfad, reversibles Umschalten, Duplikatfreiheit und eine
+  beschädigte Favoritenliste sowie die sofortige Listenaktualisierung.
+  Rot bewiesen mit der absichtlich falschen Erwartung, zwei Umschaltungen
+  müssten zwei Einträge hinterlassen (tatsächlich 0 statt 2).
+- **`werkzeuge/pruefe-bogenfarben.mjs`**: misst den gerenderten Bogen im
+  lokalen Chromium. Vordergrund und jede transparente Hintergrundschicht
+  werden über eine 1×1-Canvasfläche aufgelöst, damit `color-mix(in oklab, …)`
+  nicht als Schwarz fehlinterpretiert wird. Beide Figuren und beide Schemata
+  werden geprüft. Rot bewiesen mit zwei absichtlich identischen Farben,
+  deren Abstand 0,000 unter der Schwelle 0,050 liegt.
+
+### Geändert
+
+- **Charakterbögen:** Das `data-klasse` entsteht aus dem sortierten
+  Domänenpaar der neun Daggerheart-Klassen. Wie in `kategorien.css`
+  überschreibt der Bogen nur lokale Akzentvariablen; die Quelltöne stammen
+  aus den Domänen. Ein schmales Doppelband zeigt beide Domänen. Herkunft
+  nutzt stattdessen die bestehende türkisfarbene Einordnungsfarbe.
+  Gemessen: engster OKLab-Abstand dunkel **0,067** (Ranger/Warrior), hell
+  **0,053** (Ranger/Warrior), jeweils bei Mindestabstand **0,050**.
+  Kleinster Textkontrast dunkel **6,62:1**, hell **4,72:1**; Normaltext
+  verlangt **4,5:1**, große fette Schrift **3,0:1**.
+- **Stern auf dem Bogen:** Der ungesetzte Stern verwendet `--schrift-matt`
+  statt `--schrift-leise`, weil er sonst als normal großer Text unter
+  4,5:1 lag.
+- **Lokale Server:** `favoriten.html`, `styles/favoriten.css` und
+  `runtime/favoriten-liste.js` wurden ausschließlich in die Positivlisten
+  von Vorschau- und Heimserver aufgenommen.
+>>>>>>> paket/bogenfarben
 
 ### Behoben
 
