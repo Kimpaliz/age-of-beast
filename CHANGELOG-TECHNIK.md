@@ -10,6 +10,46 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ## [Unveröffentlicht]
 
+### Behoben
+
+- **Rollbalken auf einzelnen Spielkarten.** `data-enge` staffelt die
+  Schriftgroesse nach Textlaenge, war aber bei 306 px Kartenbreite
+  eingestellt. Das Raster (`minmax(16.5rem, 1fr)`) erzeugt als schmalste
+  Karte **264 px**; dort liefen 6 von 270 Karten ueber — `Syndicate`,
+  `Warden of the Elements` (Foundation und Mastery), `Book of Vagras`,
+  `Teleport`, `Forager`.
+
+  Eine feinere Staffelung traegt nicht: Bei 264 px gemessen braucht eine
+  Karte mit 601 Zeichen 0,659 rem, eine mit 627 Zeichen dagegen 0,687 —
+  die Zeichenzahl sagt den Platzbedarf nicht genau genug voraus, weil
+  Merkmalsueberschriften und Absaetze eigene Hoehe tragen.
+
+  `passendMachen()` in `karte/karten-zeigen.js` verkleinert deshalb nur,
+  was wirklich ueberlaeuft, in 0,015-rem-Schritten bis zu einer Untergrenze
+  von 0,58 rem. Vor dem Messen wird `style.fontSize` geleert, sonst bliebe
+  eine einmal geschrumpfte Karte nach dem Vergroessern des Fensters klein.
+  Laeuft nach jedem `zeichnen()` und 150 ms nach dem letzten `resize`.
+
+  **Gemessen:** 12 von 270 Karten angepasst, 279 Layoutschritte, **29 ms**
+  gesamt; kleinste Schrift 10 px. Bei zehn Fensterbreiten von 380 bis
+  1900 px je **0** Ueberlaeufe, und nach dem Zuruecksetzen ist die kleinste
+  Schrift wieder 10,48 px. Gegenprobe: ohne die Anpassung sind es bei
+  265 px Kartenbreite wieder genau 6.
+
+  Der Rollbalken (`overflow-y: auto`) bleibt als letzter Ausweg — Text
+  auszublenden waere die schlechtere Havarie.
+
+### Geändert
+
+- **`firestore.rules` wird jetzt auch von Scotophobia in voller Fassung
+  gefuehrt.** Das Projekt `kampagnenrahmen-jt` hat eine Datenbank und
+  damit eine Regeldatei; der Spark-Plan erlaubt keine zweite. Scotophobias
+  Teilfassung loeschte bei jedem Deploy die `wiki_`-Bloecke — am
+  04.09.2026 viermal, einmal 68 s nach einer Reparatur. Beide Repositorys
+  fuehren nun dieselbe Datei (18.823 Zeichen), und `pruefe-firestore-wiki.mjs`
+  dort sichert es spiegelbildlich zu `pruefe-firestore-trennung.mjs` hier.
+
+
 ### Alpha-Code nachgerüstet – 2026-09-04
 
 Gerüst, Wächter und Karten der Alpha-Code-Methode. **Kein Verhalten

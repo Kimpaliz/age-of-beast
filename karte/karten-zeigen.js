@@ -158,6 +158,51 @@ function kachel(k) {
   return teile.join('');
 }
 
+/**
+ * Jede Karte macht ihre Schrift selbst passend.
+ *
+ * Warum nicht die Stufen aus `data-enge` allein: Die Textlaenge sagt die
+ * noetige Schriftgroesse **nicht genau genug** voraus. Bei 264 px
+ * Kartenbreite gemessen — das ist die schmalste Karte, die das Raster
+ * erzeugt (`minmax(16.5rem, 1fr)`) — braucht eine Karte mit 601 Zeichen
+ * 0,659 rem, eine mit 627 Zeichen dagegen 0,687. Ueberschriften,
+ * Absatzumbrueche und lange Woerter wiegen schwerer als die blosse
+ * Zeichenzahl.
+ *
+ * Die Folge war ein Rollbalken auf genau einer Karte: Die Stufen waren
+ * bei 306 px eingestellt, und bei 264 px liefen sechs Karten ueber.
+ *
+ * Jetzt schrumpft nur, was wirklich ueberlaeuft. Gemessen an 270 Karten:
+ * **12 mussten angepasst werden, 29 ms fuer alle**, danach 0 Ueberlaeufe;
+ * kleinste Schrift 10 px. Die Stufen bleiben als guter erster Tipp — sie
+ * sparen dem Nachmessen die Arbeit.
+ *
+ * Der Rollbalken bleibt als letzter Ausweg stehen. Text zu verstecken
+ * waere schlimmer: Am Spieltisch ist eine Regel, die man nicht sieht,
+ * gefaehrlicher als eine, die man wegscrollen muss.
+ */
+const SCHRIFT_MINDEST = 0.58;  /* rem — darunter wird es unlesbar */
+const SCHRIFT_SCHRITT = 0.015;
+
+function passendMachen() {
+  const wurzel = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+  for (const karte of raster.querySelectorAll('.spielkarte')) {
+    const t = karte.querySelector('.karte-text');
+    if (!t) continue;
+    /* Erst zurueck auf den Stufenwert: Sonst bliebe eine Karte, die
+       einmal geschrumpft wurde, nach dem Vergroessern des Fensters
+       fuer immer klein. */
+    t.style.fontSize = '';
+    if (t.scrollHeight <= t.clientHeight) continue;
+    let gr = parseFloat(getComputedStyle(t).fontSize) / wurzel;
+    while (gr > SCHRIFT_MINDEST) {
+      gr -= SCHRIFT_SCHRITT;
+      t.style.fontSize = gr.toFixed(3) + 'rem';
+      if (t.scrollHeight <= t.clientHeight) break;
+    }
+  }
+}
+
 function zeichnen() {
   const suchtext = suche.trim().toLowerCase();
   const gezeigt = alleKarten.filter((k) => {
@@ -172,6 +217,7 @@ function zeichnen() {
   });
 
   raster.innerHTML = gezeigt.map(kachel).join('');
+  passendMachen();
   if (zahl) {
     zahl.textContent = gezeigt.length === alleKarten.length
       ? alleKarten.length + ' Karten'
@@ -202,6 +248,15 @@ function filterLeisteBauen() {
     });
   });
 }
+
+/* Ein schmaleres Fenster heisst schmalere Karten und damit mehr Zeilen.
+   Erst wenn das Ziehen aufhoert — waehrenddessen waere es Arbeit fuer
+   Zwischenstaende, die niemand ansieht. */
+let ruhe = 0;
+addEventListener('resize', () => {
+  clearTimeout(ruhe);
+  ruhe = setTimeout(passendMachen, 150);
+});
 
 suchfeld?.addEventListener('input', () => {
   suche = suchfeld.value;

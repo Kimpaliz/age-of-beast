@@ -250,22 +250,25 @@ service cloud.firestore {
     }
 
     /* ==================================================================
-       Ab hier: Age-of-Beast-Wiki
+       Ab hier: Age-of-Beast-Wiki — NICHT ENTFERNEN
        ==================================================================
 
-       Alles oberhalb gehoert Scotophobia und stammt Zeichen fuer Zeichen
-       aus dessen eigener Regeldatei. Diese Datei wird nicht von Hand
-       gepflegt, sondern aus Scotophobias Fassung neu gebaut.
+       Diese Bloecke gehoeren nicht zu Scotophobia. Sie stehen hier,
+       weil Firestore pro Datenbank genau **eine** Regeldatei hat und
+       der Spark-Plan keine zweite Datenbank erlaubt.
 
-       Warum beide in einer Datei stehen: Firestore hat pro Datenbank
-       genau eine Regeldatei, und der Spark-Plan erlaubt keine zweite
-       Datenbank. Wer nur die Regeln einer der beiden Anwendungen
-       veroeffentlicht, schaltet die andere ab.
+       Wer sie entfernt und die Datei veroeffentlicht, schaltet das Wiki
+       ab: Weltdaten und Freigaben sind dann nicht mehr lesbar. Der
+       Deploy meldet dabei Erfolg.
 
-       Das ist am 04.09.2026 tatsaechlich passiert: Scotophobias
-       Teilfassung wurde deployt, und das Wiki konnte seine eigenen
-       Daten nicht mehr lesen. Vor jedem Deploy deshalb
-       node werkzeuge/pruefe-firestore-trennung.mjs ausfuehren.
+       Das ist am 04.09.2026 **viermal** passiert, weil hier eine
+       Teilfassung ohne diese Bloecke lag. Deshalb liegt die
+       vollstaendige Fassung jetzt in beiden Repositories, und
+       `werkzeuge/pruefe-firestore-wiki.mjs` haelt sie fest.
+
+       Die Trennung bleibt streng: Das Wiki hat eigene Sammlungen
+       (wiki_*) und eigene Freigabefunktionen. Wer bei Scotophobia
+       freigeschaltet ist, darf dadurch nicht das Wiki bearbeiten.
        ================================================================== */
     /* ==================================================================
        Age-of-Beast-Wiki
@@ -401,6 +404,9 @@ service cloud.firestore {
 
       allow delete: if false;
     }
+
+    /* Andere Anwendungen im Firebase-Projekt verwenden Firestore nicht.
+       Jede nicht ausdrücklich genannte Sammlung bleibt geschlossen. */
 
     /* Andere Anwendungen im Firebase-Projekt verwenden Firestore nicht.
        Jede nicht ausdrücklich genannte Sammlung bleibt geschlossen. */
