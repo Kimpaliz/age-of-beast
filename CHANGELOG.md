@@ -5,6 +5,19 @@ Dieselben Änderungen stehen in Entwicklersprache in [CHANGELOG-TECHNIK.md](CHAN
 
 Das Neueste steht immer oben.
 
+## Nachtrag zu den Bogenfarben – 4. September 2026
+
+Die Farben der Charakterbögen kommen aus den zwei Domänen jeder Klasse.
+Zwei Klassen teilen sich dabei eine Domäne — Waldläufer und Krieger haben
+beide „Bone" — und liegen deshalb zwangsläufig nah beieinander.
+
+Der Prüfwert dafür war stillschweigend niedriger angesetzt als der, den
+das Wiki für die Kategoriefarben benutzt. Das steht jetzt begründet da,
+statt unbemerkt zu bleiben: Man sieht immer nur einen Bogen, und die
+Klasse ist auf jedem Bogen ausgeschrieben. Die Farbe ist Wiedererkennung,
+nie die einzige Auskunft.
+
+
 ---
 
 <<<<<<< HEAD

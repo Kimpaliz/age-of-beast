@@ -10,6 +10,23 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ## [Unveröffentlicht]
 
+### Nachtrag des Organisators zum Paket „Bogenfarben"
+
+- **`MINDESTABSTAND = 0.05` stand ohne Begruendung da.** Das Projekt fuehrt
+  fuer Kategoriefarben laengst **0.08** (`pruefe-symbole.mjs`); die
+  gemessenen Klassenabstaende (0,069 dunkel / 0,054 hell) waeren daran
+  gescheitert. Eine still gesenkte Schwelle ist genau der Fehler, den ein
+  Waechter verhindern soll — deshalb steht die Begruendung jetzt an der
+  Konstante:
+  1. Die Farben sind **aus den Domaenen abgeleitet**, nicht frei gewaehlt.
+     Ranger (Bone + Sage) und Warrior (Blade + Bone) teilen sich eine
+     Domaene und koennen gar nicht weit auseinanderliegen.
+  2. **Man sieht immer nur einen Bogen** — seit dem 04.09.2026 zeigt
+     `bogen.html` eine Figur je Seite. Die neun Kategoriesymbole stehen
+     dagegen nebeneinander in einem Raster.
+  Dazu traegt jeder Bogen seine Klasse ausgeschrieben; die Farbe ist nie
+  der einzige Traeger einer Aussage.
+
 ### Hinzugefügt
 
 <<<<<<< HEAD
