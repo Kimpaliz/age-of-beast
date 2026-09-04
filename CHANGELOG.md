@@ -7,6 +7,26 @@ Das Neueste steht immer oben.
 
 ---
 
+## Nachtrag: die Veröffentlichung stand still – 4. September 2026
+
+Der Bau der Seite ist fehlgeschlagen — bei mir lief alles grün. Ursache
+war eine Namenskonvention: Drei neue Sicherheitsfunktionen hießen
+`darfWikiLesen` statt `wikiDarfLesen`. Der Wächter, der Wiki und
+Scotophobia auseinanderhält, ordnet Funktionen nach ihrem Namen zu,
+sobald er Scotophobias Datei nicht danebenliegen hat — und auf dem
+Bauserver liegt sie nie daneben.
+
+**Der Fehler war meiner, und er ist grundsätzlicher als der Name:** Der
+Wächter hat zwei Wege, und ich habe nur einen geprüft. Am Arbeitsplatz
+erkennt er Scotophobias Funktionen an ihrem Inhalt, auf dem Bauserver
+nur am Namen. Er war also ausgerechnet dort schwächer, wo er mehr weiß.
+
+Behoben und abgesichert: Jede Wiki-Funktion muss jetzt auch am
+Arbeitsplatz ein `wiki` im Namen tragen. Damit sagen beide Wege
+dasselbe. Der alte Name schlägt jetzt auch hier an — ausprobiert.
+
+---
+
 ## Karten beim Überfahren, alle Gegenstände, Sterne – 4. September 2026
 
 **Fahr auf dem Charakterbogen über „Ribbet", „Gambeson" oder „Pick and

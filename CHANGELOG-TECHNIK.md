@@ -10,6 +10,25 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ## [Unveröffentlicht]
 
+### Behoben
+
+- **Die Veroeffentlichung stand still**, weil `pruefe-firestore-trennung`
+  auf dem Bauserver rot war — lokal gruen. Ursache: Der Waechter ordnet
+  Funktionen **nach dem Namenspraefix** zu, wenn Scotophobias Repository
+  nicht danebenliegt. `darfWikiLesen`, `darfWikiSchreiben` und
+  `mitgliedschaftStimmig` fangen nicht mit `wiki` an und galten dort als
+  Scotophobia-Funktionen (6 Meldungen). Umbenannt zu `wikiDarfLesen`,
+  `wikiDarfSchreiben`, `wikiMitgliedschaftStimmig`.
+  ⚠️ **Der eigentliche Fehler war meiner:** Der Waechter hat zwei Wege,
+  und ich habe nur einen geprueft. Am Arbeitsplatz erkennt er
+  Scotophobias Funktionen an ihrem **Inhalt**, auf dem Bauserver nur am
+  **Namen** — er war also dort schwaecher, wo er mehr weiss.
+  **Neue Pruefung:** Jede Wiki-Funktion muss `wiki`/`istWiki` heissen,
+  auch im Vergleichsmodus. Damit decken sich beide Wege. Rot bewiesen:
+  Mit `darfWikiLesen` schlaegt der Waechter jetzt **am Arbeitsplatz** an,
+  wo er vorher durchliess.
+  Beide Wege einzeln nachgefahren (`CI=1` stellt den Bauserver nach).
+
 ### Hinzugefügt
 
 - **`werkzeuge/gegenstaende-auslesen.mjs`** liest die Ausruestungs-
