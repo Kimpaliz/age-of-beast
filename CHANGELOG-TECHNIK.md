@@ -10,6 +10,26 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ## [Unveröffentlicht]
 
+### Behoben
+
+- **Zweispaltiges Kartenraster unter 30rem.** `minmax(12rem, 1fr)` ergab
+  bei 470 px Fensterbreite zwei Spalten à 228 px; dort liefen **25 von
+  270** Karten ueber, obwohl `passendMachen()` bereits bis zur
+  Untergrenze 0,58rem (9,3 px) geschrumpft hatte. Jetzt `1fr`.
+  ⚠️ **Der Fall war in der ersten Pruefung unsichtbar**, weil ich
+  `main.style.width` gesetzt habe statt der Fensterbreite — Media
+  Queries folgen dem Viewport, die Regel loeste nie aus. Derselbe Fehler
+  war kurz zuvor schon bei der Kopfleiste passiert.
+  **Gemessen mit echten Viewports** (375/470/500/820/1100/1140/1420/
+  1600/1920): ueberall **0** Ueberlaeufe, kleinste Schrift durchgaengig
+  10,48 px — die Anpassung muss gar nicht mehr eingreifen. Schmalste
+  Karte real 270 px (bei 1140 und 1420, kurz bevor eine Spalte
+  dazukommt).
+  Nebenbefund: Eine emulierte Viewport-Aenderung loest **kein**
+  `resize`-Ereignis in der Seite aus. Eine Messung nach blossem
+  Umschalten der Groesse zeigt deshalb einen Ueberlauf, den ein frischer
+  Aufruf derselben Breite nicht hat.
+
 ### Hinzugefügt
 
 - **Charakterbögen** (`bogen.html`, `karte/bogen-zeigen.js`,

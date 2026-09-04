@@ -7,6 +7,25 @@ Das Neueste steht immer oben.
 
 ---
 
+## Karten auf schmalen Bildschirmen – 4. September 2026
+
+Nachtrag zum Rollbalken. Auf der veröffentlichten Seite bei 470 Pixeln
+Fensterbreite gemessen: Das Raster machte dort **zwei Spalten von
+228 Pixeln**, und 25 Karten passten selbst dann nicht, als die Schrift
+schon auf 9,3 Pixel geschrumpft war.
+
+**Mein Fehler beim ersten Prüfen:** Ich hatte die Breite am Seiteninhalt
+gesetzt statt am Fenster. Die Regel, die das Raster umstellt, folgt aber
+dem *Fenster* — sie hat bei meiner Messung nie ausgelöst, und ich habe
+den Fall dadurch gar nicht gesehen.
+
+Jetzt bekommt ein schmales Fenster **eine** Spalte. Eine breite Karte
+liest sich auf dem Handy ohnehin besser als zwei schmale. Bei zehn
+geprüften Fensterbreiten von 375 bis 1920 Pixeln: keine einzige Karte
+mit Rollbalken, und die Schrift muss nirgends mehr verkleinert werden.
+
+---
+
 ## Echte Charakterbögen für die Spielfiguren – 4. September 2026
 
 Neuer Bereich **Bögen** in der Kopfleiste. Die Spielfiguren stehen dort

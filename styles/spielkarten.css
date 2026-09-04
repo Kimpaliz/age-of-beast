@@ -273,7 +273,13 @@
 }
 
 @media (max-width: 30rem) {
-  .spielkarten-raster { grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr)); }
+  /* Nur **eine** Spalte. Mit `minmax(12rem, 1fr)` entstanden bei 470 px
+     Fensterbreite zwei Spalten von 228 px — und dort liefen 25 Karten
+     ueber, obwohl die Schrift schon auf 9,3 px geschrumpft war. Eine
+     breite Karte ist auf einem Handy ohnehin besser zu lesen als zwei
+     schmale; 16.5rem aus der Grundregel ergibt hier von selbst eine
+     Spalte. */
+  .spielkarten-raster { grid-template-columns: 1fr; }
   
   .karte-wappen { width: 4.2rem; height: 4.2rem; }
 }
