@@ -5,6 +5,31 @@ Dieselben Änderungen stehen in Entwicklersprache in [CHANGELOG-TECHNIK.md](CHAN
 
 Das Neueste steht immer oben.
 
+## Das bestehende Wiki ist eingetragen – 4. September 2026
+
+**„Age of Beast" steht jetzt im Hauptmenü** und lässt sich anklicken —
+auch ohne Anmeldung, weil es als öffentlich lesbar eingetragen ist. Du
+bist als Besitzer hinterlegt; sobald du dich anmeldest, taucht es auch
+unter „Meine Wikis" auf.
+
+Die Weltdaten liegen zusätzlich im neuen Bereich, **ohne dass die alten
+angerührt wurden**. Beide laufen jetzt parallel; umgeschaltet wird erst,
+wenn nachweislich dasselbe drinsteht.
+
+**Dabei ist mir ein Rückschritt aufgefallen, den ich selbst eingebaut
+hatte:** Das Hauptmenü lud das komplette Firebase-Paket — drei fremde
+Skripte — bei **jedem** Besuch, auch für jemanden, der sich nie anmeldet.
+Genau das vermeidet das Wiki seit dem 2. September sorgfältig.
+
+Jetzt merkt sich der Browser, ob hier schon einmal jemand angemeldet
+war. Wenn nicht, wird gar nichts nachgeladen; der schlimmste Fall ist ein
+zusätzlicher Klick beim allerersten Mal. Gemessen: **null fremde Skripte**
+für einen neuen Besucher — und die Wikiliste ist trotzdem da.
+
+Damit das nicht zurückfällt, prüft das jetzt ein Wächter mit 20
+Prüfungen, zweimal absichtlich rot gemacht.
+
+
 ## Nachtrag zu den Bogenfarben – 4. September 2026
 
 Die Farben der Charakterbögen kommen aus den zwei Domänen jeder Klasse.

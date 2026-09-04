@@ -148,8 +148,16 @@ function kontoAnzeigen() {
 teile.anmeldeKnopf?.addEventListener('click', async () => {
   teile.anmeldeKnopf.disabled = true;
   try {
-    if (konto) await abmelden();
-    else await anmelden();
+    if (konto) {
+      await abmelden();
+      spurSetzen(false);
+    } else {
+      /* Beim ersten Mal gibt es noch keinen Horcher — er wird hier
+         gestartet und meldet danach jede Aenderung von selbst. */
+      await kontoHorchen();
+      await anmelden();
+      spurSetzen(true);
+    }
     melde('');
   } catch (fehler) {
     /* Ein blockiertes Popup ist der häufigste Fall und sieht sonst aus,
@@ -239,15 +247,57 @@ teile.themaKnopf?.addEventListener('click', () => {
 regelwerkeZeichnen();
 listenFuellen();
 
-/* `beiKontoWechsel` lädt das Firebase-SDK nach. Schlägt das fehl — etwa
-   ohne Netz —, bleibt die Seite als reine Leseansicht benutzbar, statt
-   mit einer Fehlermeldung stehenzubleiben. */
-beiKontoWechsel((neuesKonto) => {
-  konto = neuesKonto;
-  kontoAnzeigen();
-  listenFuellen();
-}).catch((fehler) => {
-  melde('<strong>Die Anmeldung ist gerade nicht erreichbar.</strong><br>'
-    + 'Öffentliche Wikis kannst du trotzdem lesen. <small>'
-    + sicher(fehler.message) + '</small>', 'warnung');
-});
+/* ⚠️ **Das Firebase-SDK wird nur geladen, wenn es gebraucht wird.**
+
+   `beiKontoWechsel()` zieht `firebase-app`, `-auth` und `-firestore`
+   nach — drei fremde Skripte von gstatic. Ruft man es beim Seitenaufbau
+   auf, laedt sie **jeder Besucher**, auch wer sich nie anmeldet. Genau
+   das vermeidet die Leseansicht des Wikis seit dem 02.09.2026
+   sorgfaeltig, und das Hauptmenue haette es gleich wieder eingerissen.
+
+   Woher weiss die Seite ohne SDK, ob jemand angemeldet ist? Gar nicht —
+   die Sitzung liegt in einer IndexedDB, die nur das SDK versteht.
+   Deshalb merkt sich der Browser eine **Spur**: Wer sich hier einmal
+   angemeldet hat, bekommt das SDK beim naechsten Besuch von selbst;
+   wer noch nie angemeldet war, klickt einmal auf „Anmelden“. Der
+   schlimmste Fall ist also ein zusaetzlicher Klick, und der trifft nur
+   den ersten Besuch.
+
+   Die Spur ist bewusst **kein Sicherheitsmerkmal**: Sie sagt nur „hier
+   wurde schon einmal angemeldet“. Wer wirklich angemeldet ist,
+   entscheidet allein Firebase. */
+const SPUR = 'aob.angemeldet';
+
+function spurSetzen(an) {
+  try {
+    if (an) localStorage.setItem(SPUR, '1');
+    else localStorage.removeItem(SPUR);
+  } catch (e) { /* privates Fenster */ }
+}
+
+function spurVorhanden() {
+  try { return localStorage.getItem(SPUR) === '1'; } catch (e) { return false; }
+}
+
+let horcherLaeuft = false;
+
+async function kontoHorchen() {
+  if (horcherLaeuft) return;
+  horcherLaeuft = true;
+  try {
+    await beiKontoWechsel((neuesKonto) => {
+      konto = neuesKonto;
+      spurSetzen(Boolean(neuesKonto));
+      kontoAnzeigen();
+      listenFuellen();
+    });
+  } catch (fehler) {
+    horcherLaeuft = false;
+    melde('<strong>Die Anmeldung ist gerade nicht erreichbar.</strong><br>'
+      + 'Öffentliche Wikis kannst du trotzdem lesen. <small>'
+      + sicher(fehler.message) + '</small>', 'warnung');
+  }
+}
+
+/* Nur wer schon einmal angemeldet war, bekommt das SDK ungefragt. */
+if (spurVorhanden()) kontoHorchen();
