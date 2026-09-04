@@ -84,7 +84,28 @@ function kachel(k) {
 
   /* Regeltext oder Merkmale */
   teile.push('<div class="karte-text">');
-  if (Array.isArray(k.merkmale) && k.merkmale.length) {
+
+  /* Unterklassen tragen ihre Merkmale nicht in `merkmale`, sondern in
+     drei Stufen: Foundation, Specialization, Mastery. Ohne diesen Fall
+     stuenden alle 18 Unterklassen als „Regeltext fehlt" da, obwohl die
+     Daten vollstaendig sind. */
+  const stufen = [
+    ['Foundation', k.merkmaleFoundation],
+    ['Specialization', k.merkmaleSpecialization],
+    ['Mastery', k.merkmaleMastery],
+  ].filter(([, liste]) => Array.isArray(liste) && liste.length);
+
+  if (stufen.length) {
+    for (const [stufenname, liste] of stufen) {
+      teile.push('<p class="karte-stufenname">' + sicher(stufenname) + '</p>');
+      for (const m of liste) {
+        teile.push('<div class="karte-merkmal">'
+          + '<span class="karte-merkmal-name">' + sicher(m.name) + '</span>'
+          + textAufbereiten(m.text)
+          + '</div>');
+      }
+    }
+  } else if (Array.isArray(k.merkmale) && k.merkmale.length) {
     for (const m of k.merkmale) {
       teile.push('<div class="karte-merkmal">'
         + '<span class="karte-merkmal-name">' + sicher(m.name) + '</span>'
@@ -165,7 +186,11 @@ suchfeld?.addEventListener('input', () => {
 
 (async () => {
   try {
-    const antwort = await fetch('daten/daggerheart-karten.json');
+    /* Der Pfad wird am Modul aufgeloest, nicht an der Seiten-URL. Ein
+       blosses 'daten/...' waere relativ zum Dokument und ginge nur
+       zufaellig gut, solange die Seite in der Wurzel liegt. */
+    const quelle = new URL('../daten/daggerheart-karten.json', import.meta.url);
+    const antwort = await fetch(quelle);
     if (!antwort.ok) throw new Error('HTTP ' + antwort.status);
     const daten = await antwort.json();
     alleKarten = Array.isArray(daten.karten) ? daten.karten : [];

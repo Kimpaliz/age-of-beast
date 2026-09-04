@@ -286,3 +286,17 @@ html[data-thema="hell"] .spielkarte[data-domaene="Valor"]    { --karte-hell: #61
 html[data-thema="hell"] .spielkarte[data-art="ancestry"]     { --karte-hell: #2b4a4f; }
 html[data-thema="hell"] .spielkarte[data-art="community"]    { --karte-hell: #48374f; }
 html[data-thema="hell"] .spielkarte[data-art="subclass"]     { --karte-hell: #3d3853; }
+
+/* Die Stufenüberschrift bei Unterklassen: Foundation, Specialization,
+   Mastery. Ohne sie stünden neun Merkmale ohne Gliederung untereinander. */
+.karte-stufenname {
+  margin: 0.7rem 0 0.3rem !important;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--karte-ton);
+  border-bottom: 1px solid color-mix(in srgb, var(--karte-ton) 30%, transparent);
+  padding-bottom: 0.15rem;
+}
+.karte-stufenname:first-child { margin-top: 0 !important; }

@@ -60,6 +60,7 @@ const FREIGEGEBENE_DATEIEN = new Set([
   'runtime/routing.js',
   'daten/welt.js',
   'daten/rahmen-felder.json',
+  'daten/daggerheart-karten.json',
   'werkzeuge/welt-dateien.mjs',
   'karte/karte-zeichnen.js',
   'karte/karten-zeigen.js',
