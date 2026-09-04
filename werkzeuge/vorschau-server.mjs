@@ -68,6 +68,7 @@ const FREIGEGEBENE_DATEIEN = new Set([
   'runtime/kontextmenue-wiki.js',
   'runtime/plattform.js',
   'runtime/wiki-kennung.js',
+  'runtime/wiki-rueckweg.js',
   'runtime/favoriten-liste.js',
   'runtime/datenindex.js',
   'runtime/ansichten.js',

@@ -300,6 +300,97 @@ Aufgefallen ist es nur, weil derselbe Befehl kurz darauf aus einem
 anderen Grund wirklich lief — F4 ist der Fall, den F2 beschreibt, in
 seiner gefährlichsten Form: **mit einer Quellenangabe daneben.**
 
+### C6 · `git checkout --` holte meinen eigenen, ungespeicherten Fix zurück
+
+**Was ich tat:** Für den Rot-Beweis eines frischen Wächters den alten
+Fehler absichtlich in `karten.html` und `bogen.html` zurückgebaut, den
+Wächter anschlagen sehen — und danach mit `git checkout -- <datei>`
+„aufgeräumt".
+**Was herauskam:** Beide Dateien standen wieder auf dem Stand **vor**
+meiner Reparatur. Der Wächter war grün, weil er die Dateien gar nicht
+mehr beanstanden konnte — er prüfte einen Zustand, den ich soeben
+selbst zerstört hatte.
+**Warum:** `git checkout -- <datei>` holt den Stand aus dem **Index**.
+Mein Fix lag nur im Arbeitsbaum, war also nie dort angekommen. Der
+Befehl tat genau das, was er soll — nur war das Ziel der falsche Stand.
+**Woran ich es früher merke:** Ein Rot-Beweis darf nie auf
+ungespeicherter Arbeit laufen. Entweder **vorher committen**, oder die
+Datei in den Scratchpad sichern und von dort zurückkopieren. Nach jedem
+Rot-Beweis gehört ein `cmp` gegen die Sicherung dazu; genau der hat den
+zweiten Durchgang belegt.
+
+### C1b · Backticks in einer doppelt gequoteten Shell-Zeichenkette
+
+**Was ich tat:** Einen Changelog-Eintrag über `node -e "…"` geschrieben
+und darin den Dateinamen ``wiki.html`` in Backticks gesetzt, wie es die
+Markdown-Auszeichnung verlangt.
+**Was herauskam:** `bash: wiki.html: Not a directory` — und im
+Changelog stand der Satz „Ich habe das Wiki nach ␣ gezogen". Der
+Dateiname war spurlos verschwunden, der Satz blieb grammatisch heil.
+**Warum:** Die Shell führt Backticks in `"…"` als Befehl aus und setzt
+dessen Ausgabe ein. Hier war sie leer. **Derselbe Fehler war am selben
+Tag schon in Scotophobia passiert** — dort landete die Konsolenausgabe
+eines Werkzeugs mitten in einem Quelltextkommentar.
+**Woran ich es früher merke:** Markdown-Text mit Backticks geht nie
+durch `node -e` oder ein Heredoc ohne Anführungszeichen, sondern immer
+als `.mjs`-Datei im Scratchpad. Klasse C1 hat damit ihren zweiten Fall
+— die Regel greift noch nicht.
+
+### D3 · Zwei Rot-Beweise blieben gruen — die Pruefung war blind
+
+**Was ich tat:** Einen frischen Waechter mit zwei Zusicherungen versehen,
+die auf Textmuster im Quelltext sahen: kommt `MENUE` vor? kommt
+`a[href]` vor? Danach den Rot-Beweis gefahren.
+**Was herauskam:** Beide blieben **gruen**, obwohl das geprueften
+Verhalten nachweislich kaputt war. Bei `MENUE` stand der Name noch an
+einer zweiten Stelle im Code; beim Selektor ignorierte meine
+DOM-Attrappe das Argument von `querySelectorAll` und gab immer alle
+Verweise zurueck — eine Verengung auf `a[href="wiki.html"]` fiel ihr
+deshalb nicht auf.
+**Warum:** Beide Zusicherungen lasen die **Schreibweise** statt das
+**Verhalten**. Ein Name kann an zwei Stellen stehen; eine Attrappe, die
+ihr Argument wegwirft, kann per Bauart nicht merken, dass es sich
+geaendert hat.
+**Woran ich es frueher merke:** Der Rot-Beweis ist die Messung, nicht
+die Formalie — eine Zusicherung, die dabei gruen bleibt, ist Zierde und
+gehoert ersetzt, nicht ergaenzt. Und eine Attrappe, die einen Parameter
+entgegennimmt und nicht auswertet, ist ein Verdacht gegen sich selbst;
+meine wirft jetzt bei einem Selektor, den sie nicht kennt.
+
+### D4 · Ein erdachter kaputter Wert wirft nicht
+
+**Was ich tat:** Pruefen wollen, dass ein `try/catch` um das Lesen der
+Adresse noetig ist — mit dem Testwert `?w=%E0%A4%A`, der wie eine
+kaputte Prozentkodierung aussieht.
+**Was herauskam:** Nichts warf. Die Pruefung blieb gruen, auch als ich
+das `try/catch` entfernte.
+**Warum:** `URLSearchParams` raeumt kaputte Kodierungen stillschweigend
+auf und wirft nie. Der Fall, den das `try/catch` wirklich abfaengt, ist
+ein anderer: In einem privaten Fenster **wirft der Zugriff selbst**.
+**Woran ich es frueher merke:** Wenn ein Schutz gegen einen Wurf
+geprueft wird, muss zuerst belegt sein, **dass** und **wo** etwas wirft.
+Der Test benutzt jetzt eine Umgebung, deren `search`-Getter wirft — also
+genau die Stelle, die der Kommentar nennt.
+
+### F5 · Die Wegweiser-Tabelle wuchs nicht mit
+
+**Was ich tat:** Nachgesehen, welche Pruefungen in der Kette laufen, und
+mit der Tabelle im Kopf von `pruefe-alles.mjs` verglichen.
+**Was herauskam:** **Sechs** laufende Pruefungen fehlten dort
+(`besucheransicht`, `bogenfarben`, `favoriten`, `karte`, `kartenpins`,
+`vorlagen`), und **eine** war aufgefuehrt, die es nicht mehr gibt
+(`pruefe-github.mjs`).
+**Warum:** Neue Pruefungen werden von der Kette **automatisch**
+eingesammelt — die Tabelle ist die einzige Stelle, die von Hand
+gepflegt werden muss. Was automatisch laeuft, erinnert niemanden daran.
+Die drei Codex-Pakete hatten ihre Zeilen nicht ergaenzt.
+**Woran ich es frueher merke:** Nichts wurde rot; die Landkarte wurde
+nur still falsch, und sie ist die Datei, die man **zuerst** oeffnet. Die
+Vollstaendigkeit wird jetzt in beide Richtungen geprueft
+(`pruefe-rueckweg.mjs`) — jede vorhandene Datei steht in der Tabelle,
+und jede genannte Datei existiert.
+
+
 ---
 
 ## Was daraus folgt

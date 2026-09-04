@@ -5,6 +5,34 @@ Dieselben Änderungen stehen in Entwicklersprache in [CHANGELOG-TECHNIK.md](CHAN
 
 Das Neueste steht immer oben.
 
+## Der Knopf »Zurück ins Wiki« geht wieder ins Wiki – 4. September 2026
+
+Seit das Hauptmenü die Startseite ist, führte der Knopf oben rechts auf
+den Unterseiten — Karten, Charakterbogen, Weltkarte, Favoriten, Vorlagen —
+**ins Hauptmenü** statt ins Wiki. Zehn Verweise auf fünf Seiten. Nichts
+ist dabei abgestürzt, es hat nur jedes Mal etwas anderes getan, als
+draufstand.
+
+Das ist mein Fehler von heute Nachmittag: Ich habe das Wiki auf eine
+eigene Seite gezogen und die Verweise nicht mitgenommen.
+
+Jetzt zeigen sie fest aufs Wiki. Und weil es später mehrere Wikis geben
+soll, wird beim Zurückgehen auch gemerkt, in **welchem** du warst.
+
+Damit das nicht wiederkommt, prüft eine neue Kontrolle jetzt etwas, das
+vorher niemand geprüft hat: **ob ein Verweis wirklich dorthin führt, wo
+sein Text es verspricht.** Sie liest die Beschriftung und vergleicht sie
+mit dem Ziel.
+
+Nebenbei ist dabei aufgefallen, dass die Übersicht aller Kontrollen nicht
+mehr stimmte: Sechs fehlten darin, und eine war aufgeführt, die es gar
+nicht mehr gibt. Beides korrigiert — und auch das wird jetzt geprüft.
+
+Und noch etwas beim Nachmessen auf dem Handy: Der Knopf war dort nur
+**32 Bildpunkte** hoch — zu wenig für einen Finger, üblich sind 44. Auf
+Geräten mit Touch ist er jetzt größer; am Rechner mit Maus bleibt alles
+wie es war.
+
 ## Aufräumen hinter der Reparatur – 4. September 2026
 
 Die Begründung, warum der Farbwächter auf dem Bauserver anders arbeitet,

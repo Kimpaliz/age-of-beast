@@ -63,3 +63,21 @@
      zu einem Ziel, das ein Finger trifft. */
   .suche input { font-size: 16px; height: 2.75rem; }
 }
+
+/* Wer mit dem Finger tippt, braucht mehr Flaeche als wer klickt.
+   Gemessen am 04.09.2026 auf 375 px: der Knopf war **32 px** hoch —
+   deutlich unter den 44 px, die als Mindestmass fuer ein Bedienziel
+   gelten. Und das Wiki ist laut Vorgabe „am ehesten fuer Handy und
+   Tablets".
+
+   Gefragt wird nach `pointer: coarse`, nicht nach der Breite: Ein
+   Tablet im Querformat ist breit und wird trotzdem mit dem Finger
+   bedient. */
+@media (pointer: coarse) {
+  .modul-knopf {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    padding-inline: 0.9rem;
+  }
+}

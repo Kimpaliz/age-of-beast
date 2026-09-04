@@ -10,605 +10,77 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ## [Unveröffentlicht]
 
-### Geändert
-
-- **`werkzeuge/browser-messen.mjs` aus `pruefe-bogenfarben.mjs`
-  herausgeloest** (175 Zeilen: Browsersuche, statischer Messserver,
-  CDP-Verbindung, Browserstart). Anlass war der Altlasten-Ratchet: Die
-  Begruendung der Umgebungsweiche hatte die Datei auf **504** Zeilen
-  gebracht. Jetzt **366**.
-  `hilfsseite`, `wurzel`, `dateien` und `typen` werden **uebergeben**,
-  nicht importiert — das Modul soll nichts ueber Bogenfarben wissen, und
-  ein Import von dort waere ein Ringbezug.
-  ⚠️ **Beim Schnitt dreimal nachgebessert**, jedes Mal von einem Lauf
-  gefunden: erst fehlten die Importe (`createServer is not defined`),
-  dann die Messseite (`hilfsseite is not defined`), dann die
-  Serverkonfiguration (`DATEIEN is not defined`). Ein Schnitt ist erst
-  fertig, wenn das Herausgeloeste **laeuft**, nicht wenn es uebersetzt.
-  **Nach dem Schnitt alle drei Wege erneut gefahren:** mit Browser gruen
-  und messend, ohne Browser am Arbeitsplatz rot, ohne Browser mit `CI=1`
-  gruen mit Hinweis.
-
 ### Behoben
 
-- **`pruefe-bogenfarben.mjs` blockierte die Veroeffentlichung.** Es misst
-  ueber das Fernsteuerungsprotokoll in Chrome/Edge/Brave; auf dem
-  GitHub-Runner gibt es keinen dieser Browser, also war es dort
-  dauerhaft rot. **Zwei Laeufe fehlgeschlagen** (`4c3b43c`, `a1029bf`);
-  die Live-Seite stand seit `ecfa45e` still — Bogenfarben **und** der
-  SDK-Fix waren nicht draussen.
-  Jetzt dieselbe Weiche wie in `pruefe-firestore-trennung.mjs`
-  (`process.env.CI || GITHUB_ACTIONS`): Auf dem Bauserver wird nur die
-  **Messung** uebersprungen und das in der Ausgabe genannt; am
-  Arbeitsplatz bleibt ein fehlender Browser ein Fehler.
-  **Drei Faelle einzeln gefahren:** Browser da → gruen mit Messung;
-  ohne Browser am Arbeitsplatz → rot; ohne Browser mit `CI=1` → gruen
-  **mit** Hinweis auf das Uebersprungene.
-  ⚠️ **Zweiter Fall derselben Klasse an einem Tag** (siehe den Eintrag
-  zu den Regelfunktionen): Ein Waechter mit Umgebungsweiche muss in
-  **beiden** Wegen gefahren werden. Ich habe wieder nur einen geprueft.
+- **Zehn Verweise „Zurück ins Wiki" führten ins Hauptmenü.** Mit der
+  Plattform-Umstellung wurde `index.html` zum Menü und das Wiki zog nach
+  `wiki.html`; die Kopfzeilen-Verweise der fünf Unterseiten (`bogen`,
+  `karten`, `karte`, `favoriten`, `vorlagen`) blieben auf `./`. Je Seite
+  zwei Stellen: Markenschriftzug und Modulknopf. Keine Prüfung schlug an,
+  die Kette war grün — der Verweis tat nur etwas anderes als sein Text.
+- **Die Wegweiser-Tabelle in `pruefe-alles.mjs` war unvollständig.** Sechs
+  laufende Prüfungen fehlten (`besucheransicht`, `bogenfarben`,
+  `favoriten`, `karte`, `kartenpins`, `vorlagen` — die drei Codex-Pakete
+  hatten ihre Zeilen nicht ergänzt), und `pruefe-github.mjs` stand darin,
+  obwohl es die Datei seit dem Abschalten des GitHub-Wegs nicht mehr gibt.
 
 ### Hinzugefügt
 
-- **`wiki_projekte/age-of-beast` angelegt** (Besitzer
-  `LCkD8Q7Ozsei1CV0IdtbWswglRW2` = kimpaliz1989@gmail.com, ueber die
-  Identity-Toolkit-Abfrage ermittelt), `oeffentlich: true`, Regelwerk
-  `daggerheart`. Genau 8 Felder, `mitgliederIds` und `rollen`
-  deckungsgleich — die Regel `wikiMitgliedschaftStimmig()` haelt das.
-  Dazu die 10 Weltmodule (488,8 KB) nach
-  `wiki_projekte/age-of-beast/welt` kopiert. **`wiki_welt` unberuehrt**;
-  beide Baeume laufen parallel, bis der Leser umgestellt ist.
-  Ueber die Admin-REST-Schnittstelle, weil sich nur Jannik selbst als
-  Besitzer eintragen koennte und dafuer im Browser angemeldet sein
-  muesste.
-- **`werkzeuge/pruefe-besucheransicht.mjs`** (20 Pruefungen, zweimal rot
-  bewiesen): keine Seite bindet ein fremdes Skript ein, der Kontohorcher
-  startet nur hinter der Spur, die Spur wird in `try/catch` gelesen, und
-  `oeffentlicheWikis()` kommt ohne `verbinden()` aus.
+- `runtime/wiki-rueckweg.js` (82 Zeilen) — trägt die Wiki-Kennung aus `?w=`
+  durch **beide** Richtungen. Der erste Entwurf hing sie nur an den Rückweg;
+  im Browser zeigte sich, dass sie schon beim **Hinausgehen** verloren geht:
+  Wer aus `wiki.html?w=…` auf „Karten" klickt, landet ohne sie, und dann
+  führt der Rückweg in ein kennungsloses Wiki. Jetzt bekommt jeder
+  seiteninterne `.html`-Verweis die Kennung; ausgenommen ist genau einer,
+  das Hauptmenü — es steht über allen Wikis und hat keine. Die Verweise
+  selbst sind statisch und wirken ohne JavaScript. Ohne Kennung kehrt das
+  Modul sofort um.
+- `werkzeuge/pruefe-rueckweg.mjs` (253 Zeilen) — **83 Prüfungen**, drei
+  Themen: (1) Jeder Verweis, dessen sichtbarer Text „Wiki" verspricht und
+  nicht „Hauptmenü" sagt, zeigt auf `wiki.html`; jede Seite mit
+  seiteninternen Verweisen lädt das Modul. (2) Das Modul wird **ausgeführt**,
+  gegen eine DOM-Attrappe, und sein Verhalten an sieben Zielen gemessen.
+  (3) Die Wegweiser-Tabelle nennt jede vorhandene Prüfung, und jede genannte
+  Datei existiert.
+
+  **Acht Rot-Beweise, jeder mit Rückgabewert 1**, nach jedem `cmp` gegen die
+  Sicherung: alter `./`-Verweis · Modul nicht geladen · `wiki.html` ohne
+  Modul · Tabellenzeile entfernt · erfundene Datei in der Tabelle ·
+  Hauptmenü-Ausnahme entfernt · Selektor auf `a[href="wiki.html"]` verengt ·
+  try/catch entfernt.
+
+  **Zwei der Rot-Beweise blieben zunächst grün und deckten Blindheit auf.**
+  Erst stand hier ein Textmuster (`code.includes('MENUE')`); es blieb grün,
+  obwohl das Hauptmenü nachweislich nicht mehr ausgenommen war — der Name
+  stand noch an zweiter Stelle. Und die erste DOM-Attrappe **ignorierte den
+  Selektor**, gab also immer alle Verweise zurück; eine Verengung auf
+  `a[href="wiki.html"]` fiel ihr nicht auf. Beides ersetzt: Die Attrappe
+  beachtet den Selektor jetzt und wirft bei einem unbekannten, und der
+  Wurf-Fall benutzt eine Umgebung, deren `location.search` wirklich wirft —
+  ein erdachter kaputter Wert genügt nicht, `URLSearchParams` räumt ihn
+  stillschweigend auf.
+
+- `styles/handy.css` — `.modul-knopf` auf **44 px** unter
+  `@media (pointer: coarse)`. Gemessen auf 375 px: vorher **32 px**, deutlich
+  unter dem Mindestmaß für ein Bedienziel, obwohl das Wiki laut Vorgabe „am
+  ehesten für Handy und Tablets" ist. Gefragt wird nach `pointer: coarse`
+  statt nach der Breite — ein Tablet im Querformat ist breit und wird
+  trotzdem mit dem Finger bedient. Desktop gegengeprüft: unverändert 32 px,
+  `coarse: false`.
+
+  **Erst in `styles/werkstatt.css` geschrieben — der Stilstruktur-Wächter hat
+  es zurückgewiesen**, und zu Recht: Die vier Ursprungsteile sind durch einen
+  SHA-256-Beweis gesichert, dass die Aufteilung nichts verloren hat. Neue
+  Gestaltung gehört in den Zusatz.
+
+### Im Browser nachgewiesen
+
+Nicht „der Knopf ist da", sondern **geklickt**: Hauptmenü → Wiki-Kachel →
+`wiki.html?w=age-of-beast` (119 Einträge) → Karten → „Zurück ins Wiki" →
+wieder im Wiki, Kennung erhalten, keine Konsolenmeldung. Alle fünf
+Unterseiten HTTP 200 mit und ohne `?w=`; auf 375 px Knopf 44 px, kein
+Querscrollen.
 
-### Behoben
-
-- **Das Hauptmenue lud das Firebase-SDK bei jedem Besuch.**
-  `beiKontoWechsel()` stand auf oberster Ebene und zog `firebase-app`,
-  `-auth` und `-firestore` von gstatic nach — fuer **jeden** Besucher.
-  Das bricht die Regel „Lesen ohne SDK", die die Leseansicht des Wikis
-  seit dem 02.09.2026 einhaelt.
-  ⚠️ **Keine Pruefung hat angeschlagen.** Aufgefallen ist es nur beim
-  Durchsehen der Netzwerkliste der veroeffentlichten Seite.
-  Jetzt entscheidet eine Spur in `localStorage` (`aob.angemeldet`), ob
-  der Horcher startet. Sie ist **kein Sicherheitsmerkmal** — sie sagt nur
-  „hier wurde schon einmal angemeldet"; wer wirklich angemeldet ist,
-  entscheidet allein Firebase.
-  **Gemessen, beide Richtungen:** ohne Spur **0** gstatic-Anfragen und
-  die Wikiliste trotzdem vorhanden; mit Spur die erwarteten **3**.
-  ⚠️ Die Groesse des SDK liess sich nicht messen — es kam aus dem
-  Zwischenspeicher (`transferSize: 0`). Das Kriterium ist deshalb die
-  **Anzahl der Anfragen**, nicht ihr Umfang.
-
-### Nachtrag des Organisators zum Paket „Bogenfarben"
-
-- **`MINDESTABSTAND = 0.05` stand ohne Begruendung da.** Das Projekt fuehrt
-  fuer Kategoriefarben laengst **0.08** (`pruefe-symbole.mjs`); die
-  gemessenen Klassenabstaende (0,069 dunkel / 0,054 hell) waeren daran
-  gescheitert. Eine still gesenkte Schwelle ist genau der Fehler, den ein
-  Waechter verhindern soll — deshalb steht die Begruendung jetzt an der
-  Konstante:
-  1. Die Farben sind **aus den Domaenen abgeleitet**, nicht frei gewaehlt.
-     Ranger (Bone + Sage) und Warrior (Blade + Bone) teilen sich eine
-     Domaene und koennen gar nicht weit auseinanderliegen.
-  2. **Man sieht immer nur einen Bogen** — seit dem 04.09.2026 zeigt
-     `bogen.html` eine Figur je Seite. Die neun Kategoriesymbole stehen
-     dagegen nebeneinander in einem Raster.
-  Dazu traegt jeder Bogen seine Klasse ausgeschrieben; die Farbe ist nie
-  der einzige Traeger einer Aussage.
-
-### Hinzugefügt
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-- **Hauptmenü** (`index.html`, `runtime/plattform.js`,
-  `styles/plattform.css`). Das bisherige Wiki liegt als `wiki.html`
-  (`git mv`, Historie erhalten) und bekam einen Menue-Knopf.
-  ⚠️ **`orderBy` neben dem Filter entfernt.** Die Abfrage
-  `where oeffentlich == true` + `orderBy name` antwortete mit HTTP 400
-  „The query requires an index" — ein zusammengesetzter Index waere eine
-  Infrastrukturaenderung, und genau die soll ein neues Wiki nicht
-  brauchen. Sortiert wird jetzt im Browser (hoechstens 100 Wikis).
-  `meineWikis()` laeuft ueber das SDK statt ueber REST: Wer angemeldet
-  ist, hat es ohnehin geladen, und es erneuert den Token von selbst.
-- **`runtime/kontextmenue.js`** (Rahmen, kennt nichts vom Wiki) und
-  **`runtime/kontextmenue-wiki.js`** (die Eintraege). Nur bei
-  `(hover: hover) and (pointer: fine)`; Umschalt+Rechtsklick laesst das
-  Browsermenue durch. Die Ziele werden an den Adressen `#/eintrag/<id>`
-  erkannt — dadurch braucht `runtime/ansichten.js` keine Zeile Aenderung.
-- **`styles/handy.css`** — zweizeilige Kopfzeile unter 48rem.
-
-### Geändert
-
-- **Umbruchschwelle der Modulleiste 78rem → 84rem.** Mit dem fuenften
-  Knopf („Menue") fehlten der Kopfzeile bei 1250 px **56 px**; sie
-  braucht rund 1306, 84rem sind 1344. Gemessen bei 1600/1400/1360/1300/
-  1250/900/390 px: kein Ueberlauf. Suchfeld 66 → 366 px, Hoehe 34 → 44.
-- **`pruefe-stilstruktur.mjs`: Stilanker nur noch in Spalte 0.** Zuvor
-  zaehlte `trimStart()` mit, wodurch eine **eingerueckte** Regel in einer
-  Media Query als zweiter Grundblock galt — damit haette keine
-  Zusatzdatei je etwas an der Kopfzeile anpassen duerfen, und die
-  Trennung in Ursprung und Zusatz waere sinnlos gewesen. Beide
-  Richtungen rot bewiesen.
-- **`werkzeuge/vorschau-server.mjs` / `heim-server.mjs`:** neue Dateien
-  in die Positivlisten.
-
-### Behoben
-
-- **Verirrtes `</a>` in der Kopfzeile** von `index.html` (jetzt
-  `wiki.html`), Rest eines frueheren Umbaus.
-- **Eintragsvorlagen ohne Schreibweg:** `werkzeuge/vorlagen.mjs` führt vier
-  reine Datenvorlagen, `runtime/vorlagen.js` baut daraus die klassische
-  Browser-Fassade `window.aobVorlagen`, `vorlagen.html` stellt sie bereit und
-  `styles/vorlagen.css` ergänzt die mobile Oberfläche mit den bestehenden
-  Tokens. Gemessen mit `Get-Content | Measure-Object -Line`: 4 Vorlagen mit
-  40 Feldern (NPC 9, Ort 7, POI 6, Gegenstand 18); die sechs neuen Dateien
-  liegen jeweils unter der 500-Zeilen-Grenze.
-- **Daggerheart-Gegenstandsabgleich:** `pruefe-vorlagen.mjs` liest
-  `daten/daggerheart-gegenstaende.json` bei jedem Lauf. Der Stand enthält 123
-  Einträge und 15 tatsächliche Wertfelder neben `id` und `name`; alle sind
-  durch die Gegenstandsvorlage abgedeckt. Auswahlwerte für `art`, `attribut`,
-  `reichweite` und `traglast` werden als Mengen mit den Rohdaten verglichen.
-  `rarity` bleibt ein optionales Wiki-Feld, weil es in den Rohdaten nicht
-  vorkommt.
-- **Wächter zuerst rot:** Vor dem grünen Lauf wurde `verbrauch` temporär aus
-  der Auswahl `art` entfernt. `node werkzeuge/pruefe-vorlagen.mjs` endete mit
-  Code 1 und „Auswahl „art“ stimmt nicht mit den Rohdaten überein.“; nach dem
-  Rückbau ist derselbe Lauf grün. Der Wächter lädt zusätzlich
-  `runtime/vorlagen.js` ohne DOM und gibt je Vorlage einen Testeintrag an
-  `welt-umwandeln.mjs` weiter.
-- **Lokale Freigabe:** Beide lokalen Server führen ausschließlich
-  `vorlagen.html`, `styles/vorlagen.css`, `runtime/vorlagen.js` und
-  `werkzeuge/vorlagen.mjs` zusätzlich in ihren Positivlisten.
-- **Browser-QA:** Lokal über `http://127.0.0.1:4174/vorlagen.html` im
-  Chrome-Tab geprüft: Gegenstand gewählt, dann die drei leeren Pflichtfelder
-  Name, Kurzbeschreibung und Art ausgelöst, Werte eingetragen und das Objekt
-  `items-prufungslanze` erzeugt. URL und Titel stimmen, die Konsole lieferte
-  0 Warnungen und 0 Fehler. Beim expliziten 375 × 812-Pixel-Viewport meldete
-  das Dokument `clientWidth` 360 und `scrollWidth` 360: kein waagerechter
-  Überlauf.
-=======
-- **Kartenpins über der Weltkarte:** fields.kartenpunkt mit x und y wird in
-  werkzeuge/welt-umwandeln.mjs wie spielwerte strukturiert nach
-  daten/welt.json und daten/welt.js durchgereicht. Das Maß ist ausdrücklich
-  das vorhandene Vorlagenraster aus welt-regionen.mjs: **1.247 × 1.088**
-  Rasterpunkte; das erzeugte Bild misst **480 × 419** Bildpunkte. Es gibt
-  **2** erzeugte Stecknadeln und **11** weiterhin unverknüpfte Stadtmarken.
-- **karte/welt-orte.mjs:** zentrale, DOM-freie Umrechnung Rasterpunkt →
-  Bildpunkt → Rasterpunkt, inklusive Ganzzahl- und Randprüfung. Die
-  Kartenansicht zeichnet die Pins als 44 × 44 CSS-Pixel große Anker über
-  dem Canvas, damit Zoom nur die Karte skaliert und nicht die Bedienfläche.
-  Leere Canvas-Klicks werden über dieselbe Rückrechnung als kopierbares
-  x/y-Paar ausgegeben.
-- **werkzeuge/pruefe-kartenpins.mjs:** prüft Rastergrenzen, einen Pin je
-  Eintrags-ID, die verlustfreie Umrechnung und das reale Ziel in Roh- und
-  erzeugten Weltdaten. Gemessen: **21** Prüfungen bei **2** Pins grün.
-  Die vorgeschaltete Rotprobe mutiert nur im Speicher den ersten Pin auf
-  x 1248; der Wächter meldete ihn außerhalb des 1.247 breiten Rasters mit
-  Exit-Code **1**.
-- **Serverfreigaben:** Nur karte/welt-orte.mjs wurde zu beiden lokalen
-  Positivlisten ergänzt. Gegen den gestarteten Vorschau-Server auf Port
-  4176: karte.html und das Modul jeweils HTTP **200**, ein nicht
-  freigegebenes Prüfwerkzeug HTTP **403**.
-- **Beispieldaten:** Der Rohstand enthält derzeit **0** Einträge in
-  elements.places. Daher zeigen die zwei technisch notwendigen Beispielpins
-  auf den settingnahen Kampagnen-Frame (780, 400) und die Maschinisten
-  (900, 560); sie behaupten keine neuen Orte.
->>>>>>> paket/kartenpins
-=======
-- **`favoriten.html`**, `runtime/favoriten-liste.js` und
-  `styles/favoriten.css`: gruppierte persönliche Liste für `eintrag`,
-  `karte` und `bogen`. Die Darstellung hängt sich ausschließlich an
-  `window.aobFavoriten.beiAenderung()` und zeichnet nach jeder lokalen
-  oder tabübergreifenden Änderung neu. Beschädigte oder unvollständige
-  Speicherobjekte werden vor dem Rendern verworfen; der Leerzustand
-  erklärt das Setzen eines Sterns.
-- **`werkzeuge/pruefe-favoriten.mjs`**: prüft den werfenden
-  `localStorage`-Pfad, reversibles Umschalten, Duplikatfreiheit und eine
-  beschädigte Favoritenliste sowie die sofortige Listenaktualisierung.
-  Rot bewiesen mit der absichtlich falschen Erwartung, zwei Umschaltungen
-  müssten zwei Einträge hinterlassen (tatsächlich 0 statt 2).
-- **`werkzeuge/pruefe-bogenfarben.mjs`**: misst den gerenderten Bogen im
-  lokalen Chromium. Vordergrund und jede transparente Hintergrundschicht
-  werden über eine 1×1-Canvasfläche aufgelöst, damit `color-mix(in oklab, …)`
-  nicht als Schwarz fehlinterpretiert wird. Beide Figuren und beide Schemata
-  werden geprüft. Rot bewiesen mit zwei absichtlich identischen Farben,
-  deren Abstand 0,000 unter der Schwelle 0,050 liegt.
-
-### Geändert
-
-- **Charakterbögen:** Das `data-klasse` entsteht aus dem sortierten
-  Domänenpaar der neun Daggerheart-Klassen. Wie in `kategorien.css`
-  überschreibt der Bogen nur lokale Akzentvariablen; die Quelltöne stammen
-  aus den Domänen. Ein schmales Doppelband zeigt beide Domänen. Herkunft
-  nutzt stattdessen die bestehende türkisfarbene Einordnungsfarbe.
-  Gemessen: engster OKLab-Abstand dunkel **0,067** (Ranger/Warrior), hell
-  **0,053** (Ranger/Warrior), jeweils bei Mindestabstand **0,050**.
-  Kleinster Textkontrast dunkel **6,62:1**, hell **4,72:1**; Normaltext
-  verlangt **4,5:1**, große fette Schrift **3,0:1**.
-- **Stern auf dem Bogen:** Der ungesetzte Stern verwendet `--schrift-matt`
-  statt `--schrift-leise`, weil er sonst als normal großer Text unter
-  4,5:1 lag.
-- **Lokale Server:** `favoriten.html`, `styles/favoriten.css` und
-  `runtime/favoriten-liste.js` wurden ausschließlich in die Positivlisten
-  von Vorschau- und Heimserver aufgenommen.
->>>>>>> paket/bogenfarben
-
-### Behoben
-
-- **Die Veroeffentlichung stand still**, weil `pruefe-firestore-trennung`
-  auf dem Bauserver rot war — lokal gruen. Ursache: Der Waechter ordnet
-  Funktionen **nach dem Namenspraefix** zu, wenn Scotophobias Repository
-  nicht danebenliegt. `darfWikiLesen`, `darfWikiSchreiben` und
-  `mitgliedschaftStimmig` fangen nicht mit `wiki` an und galten dort als
-  Scotophobia-Funktionen (6 Meldungen). Umbenannt zu `wikiDarfLesen`,
-  `wikiDarfSchreiben`, `wikiMitgliedschaftStimmig`.
-  ⚠️ **Der eigentliche Fehler war meiner:** Der Waechter hat zwei Wege,
-  und ich habe nur einen geprueft. Am Arbeitsplatz erkennt er
-  Scotophobias Funktionen an ihrem **Inhalt**, auf dem Bauserver nur am
-  **Namen** — er war also dort schwaecher, wo er mehr weiss.
-  **Neue Pruefung:** Jede Wiki-Funktion muss `wiki`/`istWiki` heissen,
-  auch im Vergleichsmodus. Damit decken sich beide Wege. Rot bewiesen:
-  Mit `darfWikiLesen` schlaegt der Waechter jetzt **am Arbeitsplatz** an,
-  wo er vorher durchliess.
-  Beide Wege einzeln nachgefahren (`CI=1` stellt den Bauserver nach).
-
-### Hinzugefügt
-
-- **`werkzeuge/gegenstaende-auslesen.mjs`** liest die Ausruestungs-
-  tabellen aus `docs/daggerheart/` und erzeugt
-  `daten/daggerheart-gegenstaende.json` — **123 Eintraege**
-  (67 Primaerwaffen, 24 Sekundaerwaffen, 27 Ruestungen, 2 Fundstuecke,
-  3 Verbrauchsgueter), 6 davon mit `unsicher`.
-  Die Recherchedateien sind die Quelle; nichts ist abgetippt.
-  Stichproben gegen die Tabellen: Longsword (Agility/Melee/d8+3 phy/
-  zweihaendig/Reliable), Dagger (Finesse/d8+1/Heavy), Gambeson (5/11,
-  Score 3, Flexible), Katana (vier Stufenwerte). 0 doppelte Namen.
-  ⚠️ Der erste Lauf brach ab: `### Rüstung` in den Grundregeln ist nur
-  ein **Verweis**, die Tabelle steht in Abschnitt 5. Der Ausleser hat das
-  gemeldet, statt die naechstbeste Tabelle zu nehmen — `tabelleNach()`
-  bricht am naechsten `#` ab.
-- **`karte/karten-daten.js`** — beide Datensaetze an einer Stelle, Suche
-  ueber einen normalisierten Namen („Gambeson" findet „Gambeson Armor").
-- **`karte/kartenblase.js`** — die Karte beim Ueberfahren. Eine einzige
-  Blase je Seite; `mouseenter`/`focus` am Rechner, `click` auf
-  Beruehrungsgeraeten, dort fest am unteren Rand (`hover: none` oder
-  Fenster < 640 px). Escape und Klick daneben schliessen.
-- **`runtime/favoriten.js`** — Sterne in `localStorage`
-  (`aob.favoriten.v1`). Klassisches Skript, damit alle drei Seiten
-  dasselbe benutzen. `lies()`/`schreibe()` sind die einzigen zwei
-  Stellen, die den Speicher kennen — ein spaeterer Abgleich je Konto
-  aendert sonst nichts. Beide in `try` gefangen: In einem privaten
-  Fenster **wirft** `localStorage`, es ist nicht bloss leer.
-
-### Geändert
-
-- **Charakterbogen: eine Figur je Seite**, Auswahl darueber, Zustand in
-  `?figur=`. 17 Kartenanker auf beiden Boegen zusammen.
-  `spielwerte.waffen[].regelname` und `ruestung.regelname` verbinden die
-  deutsche Anzeige mit dem englischen Regelnamen; steht dort `null`,
-  meldet die Blase ehrlich, dass es keine Karte gibt (Machete,
-  Kurzschwert).
-- **Kartenseite: 270 → 393 Kacheln**, eigene Kachelform fuer
-  Gegenstaende (Werte statt Regeltext), Filter in vier Gruppen, Suche
-  auch ueber Merkmal, Wirkung, Attribut und Reichweite.
-  Gemessen nach dem Umbau: **0 Ueberlaeufe** bei 393 Kacheln.
-
-### Hinzugefügt
-
-- **Plattformregeln** in `firestore.rules`: `wiki_projekte/{wikiId}` mit
-  Untersammlung `welt`. Mitgliedschaft als `mitgliederIds` (Liste, fuer
-  `array-contains`) **und** `rollen` (Map uid → Rolle); `mitgliedschaft-
-  Stimmig()` erzwingt, dass beide deckungsgleich bleiben.
-  **Warum auf dem Dokument und nicht in einer Untersammlung:** Ein
-  `get()` in einer Regel kostet einen Lesevorgang und ist auf zehn je
-  Anfrage begrenzt — und „meine Wikis" liesse sich ueber eine
-  Untersammlung gar nicht abfragen.
-  **Warum generisch:** Ein neues Wiki darf keinen Rules-Deploy ausloesen;
-  ein Deploy trifft auch Scotophobia (`docs/PROJEKTGRENZE.md`).
-  Eine ungefilterte Abfrage auf `wiki_projekte` wird abgewiesen — an der
-  laufenden Datenbank nachgemessen (HTTP 403), waehrend `wiki_welt`
-  weiter 200 liefert und Scotophobias vier Sammlungen 403 bleiben.
-  **Simulator: 25 von 25 Faellen**, davon 11 neue. Dafuer musste
-  `regeln-testen.mjs` `functionMocks` je Fall durchreichen — die
-  Plattformregeln schlagen das Wiki-Dokument mit `get()` nach, und ohne
-  Attrappe faellt jede davon aus dem falschen Grund durch.
-- **`werkzeuge/plattform-speicher.mjs`**: Wikis auflisten (REST, ohne
-  SDK), anlegen und uebernehmen (SDK). `verbinden()` ist dafuer aus
-  `firestore-speicher.mjs` exportiert.
-- **`docs/PLATTFORM.md`**: Entwurf, Rollen, Regelwerke als Daten, der
-  Migrationsweg und die neun Bauschritte.
-
-### Entfernt
-
-- **`werkzeuge/github-speicher.mjs` und `werkzeuge/pruefe-github.mjs`**
-  (Janniks Ansage: „weg von den GitHub-Code-Login, wir machen
-  Google-Login"). Sie lagen seit dem 02.09.2026 als toter Rueckweg da —
-  **kein** Browserpfad hat sie geladen (nachgezaehlt: nur die eigene
-  Pruefung und die Server-Positivlisten nannten sie).
-
-### Geändert
-
-- **`sammlungenLesen()` zaehlt nur oberste Sammlungen.** Die
-  Praefixregel `wiki_` gibt es, damit zwei Anwendungen sich nicht
-  denselben Namen greifen; eine Untersammlung liegt unter ihrem
-  Elterndokument und kann mit nichts kollidieren. Ohne die Aenderung
-  haette jede kuenftige Untersammlung `wiki_` heissen muessen.
-- **Selbsttest herausgeloest** nach `werkzeuge/firestore-selbsttest.mjs`
-  (50 Zeilen). `docs/ALTLASTEN.md` hatte genau diesen Schnitt
-  vorgesehen; der Ratchet hat ihn eingefordert, weil die Datei durch die
-  neue Zaehlung auf 617 Zeilen gewachsen war. Jetzt **571**.
-
-### Hinzugefügt
-
-- **Spielwerte fuer Brix Borin** (`character-aob-xeno-sc`). Quelle ist
-  die Werkstattfigur `werkstatt-figur-brix-borin` (Klasse, Unterklasse,
-  Abstammung, Gemeinschaft, Attribute, Ausweichen, Ausruestung, Karten);
-  die Klassenzahlen — Domaenen Midnight/Grace, HP 6, Basis-Ausweichen 12,
-  `Rogue's Dodge`, `Cloaked & Sneak Attack`, Zauberattribut Finesse —
-  aus `docs/daggerheart/REGELN-GRUNDLAGEN.md`, Zeile Rogue.
-  **Zwei Gegenproben gingen auf:** Ausweichen 13 = Rogue-Basis 12 + 1
-  durch das Gambeson-Merkmal *Flexible*; und die zwei Karten sind je eine
-  aus seinen zwei Domaenen, beide Stufe 1.
-- **Steckbrief und Verbindungen.** Neun Attributzeilen statt drei; neue
-  Verbindungen zum Baubogen, zu Lukas und zum Volk `species-dh-ribbet`.
-  Zwei Abschnitte aus dem Baubogen uebernommen (Erscheinung, Hintergrund).
-
-### Behoben
-
-- **`Spieler: Lukas` auf Xenos Figur** — Rest der urspruenglichen
-  Fehlzuordnung. Ebenso `Charaktername: Noch nicht festgelegt` und der
-  Abschnitt „Noch offene Angaben", der Volk, Gemeinschaft, Klasse und
-  Hintergrund als offen fuehrte, obwohl sie seit dem 01.09. vorlagen.
-- **Fuerwort durchgehend `sie` statt `er`** in Titel und Text des
-  Abschnitts „Was am Tisch ueber ihn bekannt ist".
-- **Schadensschwellen ohne Stufenbonus.** Die Regel lautet „Grundwert der
-  Ruestung **plus eigene Stufe**"; im Bogen standen die Grundwerte der
-  Ruestungstabelle. `spielwerte.ruestung` traegt jetzt `basisSchwer` /
-  `basisErnst`, der Bogen rechnet und schreibt die Herkunft darunter.
-  Lukas 6/13 → **7/14**, Brix 5/11 → **6/12**.
-  Neu im Bogen: `fuerwort`, `klassengegenstand`, `ruestung.merkmal` —
-  letzteres erklaert, warum das Ausweichen von der Klassenbasis abweicht;
-  ohne die Zeile saehe der Wert nach einem Tippfehler aus.
-
-### Bekannt
-
-- **Zwei Eintraege heissen „Brix Borin"** (Figur und Baubogen). Bewusst
-  nicht zusammengelegt: Der Werkstatteintrag entsteht beim naechsten
-  Import neu. Sie sind stattdessen ueber die Verbindung „Baubogen"
-  verknuepft. `Clank` ist aus demselben Grund doppelt.
-
-### Behoben
-
-- **Zweispaltiges Kartenraster unter 30rem.** `minmax(12rem, 1fr)` ergab
-  bei 470 px Fensterbreite zwei Spalten à 228 px; dort liefen **25 von
-  270** Karten ueber, obwohl `passendMachen()` bereits bis zur
-  Untergrenze 0,58rem (9,3 px) geschrumpft hatte. Jetzt `1fr`.
-  ⚠️ **Der Fall war in der ersten Pruefung unsichtbar**, weil ich
-  `main.style.width` gesetzt habe statt der Fensterbreite — Media
-  Queries folgen dem Viewport, die Regel loeste nie aus. Derselbe Fehler
-  war kurz zuvor schon bei der Kopfleiste passiert.
-  **Gemessen mit echten Viewports** (375/470/500/820/1100/1140/1420/
-  1600/1920): ueberall **0** Ueberlaeufe, kleinste Schrift durchgaengig
-  10,48 px — die Anpassung muss gar nicht mehr eingreifen. Schmalste
-  Karte real 270 px (bei 1140 und 1420, kurz bevor eine Spalte
-  dazukommt).
-  Nebenbefund: Eine emulierte Viewport-Aenderung loest **kein**
-  `resize`-Ereignis in der Seite aus. Eine Messung nach blossem
-  Umschalten der Groesse zeigt deshalb einen Ueberlauf, den ein frischer
-  Aufruf derselben Breite nicht hat.
-
-### Hinzugefügt
-
-- **Charakterbögen** (`bogen.html`, `karte/bogen-zeigen.js`,
-  `styles/charakterbogen.css`). Gezeichnet wird aus `eintrag.spielwerte`;
-  die Struktur liegt in `daten/quelle.json` unter `fields.spielwerte` und
-  wird von `welt-umwandeln.mjs` unveraendert durchgereicht. Fehlende
-  Angaben erscheinen als sichtbares „noch offen", nie als weggelassenes
-  Feld.
-  **Gemessen:** 23 Textstellen, beide Schemata, Mindestkontrast 6,07
-  (hell) und 6,17 (dunkel) gegen gefordert 4,5. Sieben Beschriftungen von
-  `--schrift-leise` (3,05–3,54) auf `--schrift-matt` gehoben.
-  ⚠️ Die Kontrastmessung ging dreimal daneben, bevor sie stimmte: erst
-  wurde der **eigene** durchsichtige Hintergrund eines `<span>` gemessen
-  (Ergebnis 1,52 und 11.837.750), dann scheiterte der Parser an
-  `oklab()`-Werten aus `color-mix` und las eine helle Flaeche als
-  Schwarz. Erst das Aufloesen ueber eine Zeichenflaeche misst wirklich.
-
-### Geändert
-
-- **`werkzeuge/welt-rahmen.mjs` aus `welt-umwandeln.mjs` herausgeloest**
-  (147 Zeilen: `angaben`, `rahmenPanelRoh`, `rahmenAlsElement`,
-  `mitRahmen`, `BILD_VORGABE`). Anlass war der Altlasten-Ratchet: Fuer
-  `spielwerte` musste die Datei um 7 Zeilen wachsen, und Regel 10
-  verlangt, dass ein fachlicher Eingriff ein Stueck der Abloesung zahlt.
-  **582 → 471 Zeilen**, damit unter 500 und aus `docs/ALTLASTEN.md`
-  gestrichen.
-  **Beweis:** `daten/welt.json` und `daten/welt.js` geloescht, neu
-  erzeugt, **bytegleich** (240.029 und 240.143 Bytes). `alsAbsaetze` wird
-  durchgereicht statt importiert (Ringbezug); die acht `rahmenPanel`-
-  Aufrufe blieben unangetastet, weil ein lokaler Kurzname die alte
-  Signatur behaelt — dadurch ist der Umbau an den Bytes nachweisbar.
-- **Umbruchschwelle der Modulleiste 68rem → 78rem.** Vier beschriftete
-  Knoepfe brauchen gemessen 1221 px (bei 1200 fehlten 21, bei 1260
-  passte es); die alte Schwelle lag bei 1088. Dazwischen lag ein Band, in
-  dem die Beschriftungen standen, aber nicht passten. Sechs Fensterbreiten
-  von 375 bis 1400 px geprueft: kein Ueberlauf, keine Ueberlappung.
-- **`pruefe-firestore-trennung.mjs`: Zuordnung folgt dem Praefix, nicht
-  der Datei.** Seit beide Repositorys dieselbe vollstaendige Regeldatei
-  fuehren, stehen die `wiki_`-Bloecke auch in Scotophobias Fassung — der
-  Waechter hielt sie daraufhin fuer Scotophobia-Sammlungen und meldete
-  die Trennung als verletzt. Betroffen waren die Zuordnung **und** die
-  Wahl des Selbsttest-Opfers.
-
-### Behoben
-
-- **Rollbalken auf einzelnen Spielkarten.** `data-enge` staffelt die
-  Schriftgroesse nach Textlaenge, war aber bei 306 px Kartenbreite
-  eingestellt. Das Raster (`minmax(16.5rem, 1fr)`) erzeugt als schmalste
-  Karte **264 px**; dort liefen 6 von 270 Karten ueber — `Syndicate`,
-  `Warden of the Elements` (Foundation und Mastery), `Book of Vagras`,
-  `Teleport`, `Forager`.
-
-  Eine feinere Staffelung traegt nicht: Bei 264 px gemessen braucht eine
-  Karte mit 601 Zeichen 0,659 rem, eine mit 627 Zeichen dagegen 0,687 —
-  die Zeichenzahl sagt den Platzbedarf nicht genau genug voraus, weil
-  Merkmalsueberschriften und Absaetze eigene Hoehe tragen.
-
-  `passendMachen()` in `karte/karten-zeigen.js` verkleinert deshalb nur,
-  was wirklich ueberlaeuft, in 0,015-rem-Schritten bis zu einer Untergrenze
-  von 0,58 rem. Vor dem Messen wird `style.fontSize` geleert, sonst bliebe
-  eine einmal geschrumpfte Karte nach dem Vergroessern des Fensters klein.
-  Laeuft nach jedem `zeichnen()` und 150 ms nach dem letzten `resize`.
-
-  **Gemessen:** 12 von 270 Karten angepasst, 279 Layoutschritte, **29 ms**
-  gesamt; kleinste Schrift 10 px. Bei zehn Fensterbreiten von 380 bis
-  1900 px je **0** Ueberlaeufe, und nach dem Zuruecksetzen ist die kleinste
-  Schrift wieder 10,48 px. Gegenprobe: ohne die Anpassung sind es bei
-  265 px Kartenbreite wieder genau 6.
-
-  Der Rollbalken (`overflow-y: auto`) bleibt als letzter Ausweg — Text
-  auszublenden waere die schlechtere Havarie.
-
-### Geändert
-
-- **`firestore.rules` wird jetzt auch von Scotophobia in voller Fassung
-  gefuehrt.** Das Projekt `kampagnenrahmen-jt` hat eine Datenbank und
-  damit eine Regeldatei; der Spark-Plan erlaubt keine zweite. Scotophobias
-  Teilfassung loeschte bei jedem Deploy die `wiki_`-Bloecke — am
-  04.09.2026 viermal, einmal 68 s nach einer Reparatur. Beide Repositorys
-  fuehren nun dieselbe Datei (18.823 Zeichen), und `pruefe-firestore-wiki.mjs`
-  dort sichert es spiegelbildlich zu `pruefe-firestore-trennung.mjs` hier.
-
-
-### Alpha-Code nachgerüstet – 2026-09-04
-
-Gerüst, Wächter und Karten der Alpha-Code-Methode. **Kein Verhalten
-geändert:** keine bestehende Quelldatei, kein Stylesheet, kein Datensatz,
-keine Regeldatei, kein Workflow angefasst. Belegt durch `git status`: acht
-geänderte Dateien, alle unter `docs/`, alle nur um einen Korrekturkasten
-ergänzt.
-
-#### Neu
-
-`CLAUDE.md` · `WORKCLAIM.md` · `alpha-code.json` · `docs/REGELN.md` ·
-`docs/WEGWEISER.md` · `docs/ALTLASTEN.md` · `docs/PROJEKTGRENZE.md` ·
-`docs/FEHLERBUCH.md` · `.claude/PROJEKTPROFIL.md` ·
-`werkzeuge/helfer.mjs` und acht Wächter, dazu `werkzeuge/pruefe-alles.mjs`
-als Einstieg.
-
-#### Messungen
-
-| Größe | Wert | Befehl |
-| --- | ---: | --- |
-| Quelldateien (`.js`/`.mjs`, ohne `daten/`) | 56 | `alpha-code.json` → `quellDateien()` |
-| davon ohne Kopfnotiz | 47 | `node werkzeuge/pruefe-tags.mjs` |
-| Wächter vorher / nachher | 15 / 23 | `ls werkzeuge/pruefe-*.mjs \| wc -l` |
-| Kette vorher, 15 Wächter nacheinander | 24,2 s, 15 grün / 0 rot | eigener Lauf |
-| Kette jetzt, 21 Wächter parallel + Syntax | **12,2 s, alles grün** | `node werkzeuge/pruefe-alles.mjs` |
-| syntaxgeprüfte Dateien | 57, davon 13 als ES-Modul über stdin | ebenda |
-| Textdateien in der Geheimnissuche | 330 | `node werkzeuge/pruefe-geheimnisse.mjs` |
-| Markdown-Verweise geprüft | 53 auf 19 Seiten | `node werkzeuge/pruefe-verweise.mjs` |
-| Git-Historie für `pruefe-freigabe.mjs` | 4.086.314 Zeichen in 148 ms | `git log --all -p --no-color` |
-| Altlasten über 500 Zeilen | 5 | `node werkzeuge/pruefe-altlasten.mjs` |
-| `daten/quelle.json` | 675.840 Bytes | `ls -l daten/quelle.json` |
-
-Alle Zahlen gelten auf dem Zweig `einrichtung/alpha-code`. Der parallele
-Zweig `welt/karte-und-figuren` bringt sieben weitere Quelldateien und
-einen sechzehnten Fachwächter mit — beim Zusammenführen ändern sich die
-ersten vier Zeilen.
-
-#### Drei Anpassungen an der Skill-Vorlage, jede begründet
-
-1. **`pruefe-geheimnisse.mjs` liest `geheimnisAusnahmen`** statt
-   `ausnahmen`. Die Vorlage teilt sich die Liste mit der
-   Quelldateiauswahl, in der hier `daten` und `docs` stehen — **251
-   Dateien wären nie durchsucht worden**. Die Prüfung meldet jetzt
-   zusätzlich, wie viele Dateien sie angesehen hat, und schlägt bei unter
-   hundert an. Fehlerbuch **E3**.
-2. **`pruefe-tags.mjs` bekommt einen Ratchet.** 47 Dateien ohne
-   Kopfnotiz lassen sich nicht anfassen, solange mehrere Sitzungen im
-   selben Checkout arbeiten. Sie stehen namentlich in
-   `docs/ALTLASTEN.md`; jede *andere* Datei muss ihren Tag tragen. Neu ist
-   außerdem eine Prüfung gegen Karteileichen in dieser Liste.
-3. **Die Syntaxprüfung in `pruefe-alles.mjs` läuft über die
-   Standardeingabe** (`node --input-type=module --check`) statt über
-   Dateien, und über **alle** `.js` statt nur über die Quellordner —
-   `daten/welt.js` wird vom Browser geladen, ein Tippfehler darin wäre
-   ein weißer Bildschirm.
-
-   Gemessen auf Node v24.16.0: `node --check bearbeiten.js` besteht,
-   weil die Modulerkennung seit Node 22.7 von selbst greift; mit
-   `--no-experimental-detect-module` fällt derselbe Aufruf durch
-   („Cannot use import statement outside a module"). Die Prüfung soll
-   nicht an einer Voreinstellung hängen. Die Workflows lösen dasselbe
-   mit temporären `.mjs`-Kopien — die wären hier eine Schreiboperation
-   im Repository, die `pruefe-arbeitsweise.mjs` als offene Änderung
-   sähe. Die stdin-Form steht so schon in `docs/RELEASE_RUNBOOK.md`.
-
-#### Rot-Beweis — 14 Beschädigungen, jede zurückgenommen
-
-Ein Wächter, der nie rot war, prüft womöglich nichts. Jede Zusicherung
-wurde einzeln gebrochen:
-
-| Wächter | Beschädigung | Meldung |
-| --- | --- | --- |
-| `pruefe-tags` | Tag aus `helfer.mjs` entfernt | „ohne Tag: werkzeuge/helfer.mjs" |
-| `pruefe-tags` | Tag auf `[Aufgabe: Quatsch]` gesetzt | „unbekannter Tag „Quatsch"" |
-| `pruefe-tags` | erfundene Datei auf die Nachrüstliste | „Nachrüstliste zeigt ins Leere: gibtesnicht.js" |
-| `pruefe-altlasten` | zwei Zeilen an `welt-umwandeln.mjs` angehängt | „Altlast gewachsen: … (582 → 584)" |
-| `pruefe-altlasten` | neue Datei mit 521 Zeilen | „über 500 Zeilen und nicht als Altlast geführt" |
-| `pruefe-verweise` | Verweis auf `docs/GIBT-ES-NICHT.md` | „tot: CLAUDE.md → docs/GIBT-ES-NICHT.md" |
-| `pruefe-workclaim` | Spalte „Seit" in „Wann" umbenannt | „die Anspruchstabelle hat die vier Spalten …" |
-| `pruefe-workclaim` | Anspruch ohne Besitzer, Ziel und Zeit | „unvollständig: \| werkzeuge/ \| \| \| \|" |
-| `pruefe-geheimnisse` | Token-Muster in eine Datei unter `docs/` | „GitHub-Token in docs/…" |
-| `pruefe-geheimnisse` | **alte gemeinsame Ausnahmeliste wiederhergestellt** | „77 Dateien — unter 100 heißt: eine Ausnahme greift zu weit" |
-| `pruefe-geheimnisse` | `probe.zip` angelegt | „verbotenes Format: probe.zip" |
-| `pruefe-arbeitsweise` | beide Changelogs zurückgesetzt | „26 Datei(en) geändert, CHANGELOG.md nicht darunter" |
-| `pruefe-arbeitsweise` | `hauptzweig` auf den Arbeitszweig gesetzt | „auf `einrichtung/alpha-code` wird nicht gearbeitet" |
-| `pruefe-freigabe` | `{{OFFENER_PLATZHALTER}}` in `REGELN.md` | „kein Vorlagen-Platzhalter mehr in der Doku · 1 offen" |
-| Syntax in `pruefe-alles` | `runtime/probe-kaputt.js` mit `const a = ;` | „SyntaxError: Unexpected token ';'" → `FEHLGESCHLAGEN Syntax` |
-
-Die zehnte Zeile ist die aufschlussreichste: Mit der ursprünglichen
-gemeinsamen Ausnahmeliste hätte die Prüfung den Token unter `docs/`
-**nicht gefunden** und trotzdem grün gemeldet. Gefangen hat ihn erst die
-neue Zusicherung „die Suche hat den Bestand wirklich gesehen".
-
-#### Acht Fehlbeschriftungen in der bestehenden Doku
-
-Alle acht Dokumente vom 01.09.2026 wurden Aussage für Aussage gegen den
-Code gehalten und tragen jetzt oben einen Korrekturkasten. Die drei
-folgenreichsten: Der Schreibweg geht nach **Firestore**, nicht nach
-GitHub (`bearbeiten.js` importiert `werkzeuge/firestore-speicher.mjs`);
-es sind **fünf** `runtime/`- und **fünf** `styles/`-Dateien, nicht je
-vier; und die Pakete A–H sind **veröffentlicht** (`main` = `origin/main`
-= `cde2533`, 25 Commits nach `v2.7.0`).
-
-#### Bewusst nicht geändert
-
-- **Keine Kopfnotizen eingesetzt** (Schritt 5 der Methode). Er berührt
-  alle 47 Dateien und kollidiert mit paralleler Arbeit. Vorbereitet:
-  Systemtabelle, Tags, namentliche Liste.
-- Keine der 15 bestehenden Fachprüfungen angefasst.
-- Kein Stylesheet, kein Datensatz, `firestore.rules` nicht, die beiden
-  Workflows nicht — obwohl `pruefe-alles.mjs` und `pruefe-freigabe.mjs`
-  dort mitgesammelt werden und die Kette in der CI dadurch zweimal läuft.
-  Das ist doppelte Arbeit, kein Fehler; es zu ändern wäre ein eigener
-  Auftrag.
-- Ein Selbstwiderspruch in `stil.css` bleibt stehen: Der Kommentar spricht
-  von „die vier Imports", darunter stehen fünf. Die Datei gehört nicht in
-  diesen Auftrag.
-
-#### Rückrollweg
-
-Der Zweig `einrichtung/alpha-code` enthält alles in einem Commit; `main`
-steht unverändert auf `cde2533`. Nichts gepusht, nichts deployt, keine
-Firebase-Regel und kein Datensatz berührt.
 
 ## [3.0.0] – 2026-09-02
 
