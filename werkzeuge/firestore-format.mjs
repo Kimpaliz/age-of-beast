@@ -6,11 +6,17 @@
 
    Warum die Welt aufgeteilt wird
 
-   `daten/quelle.json` ist 483 KB gross. Als ein Dokument abgelegt, wuerde
-   jede geaenderte Zeile die ganze Datei neu schreiben, und die Grenze von
-   1 MB je Dokument rueckte in Sicht. Aufgeteilt wird deshalb nach Modul:
-   Die Welt hat sieben (species, regeln, factions, ...), das groesste misst
-   260 KB.
+   Die Weltdaten sind ohne Einrueckung rund 490 KB gross — das ist die
+   Menge, die in Firestore landet. (Die Datei `daten/quelle.json` auf der
+   Platte ist mit ihrer Einrueckung deutlich groesser; diese Zahl waere
+   hier die falsche.) Als ein Dokument abgelegt, wuerde jede geaenderte
+   Zeile alles neu schreiben, und die Grenze von 1 MB je Dokument rueckte
+   in Sicht. Aufgeteilt wird deshalb nach Modul: Die Welt hat sieben
+   (species, regeln, factions, ...), das groesste misst rund 260 KB.
+
+   Die genauen Zahlen nennt `node werkzeuge/welt-hochladen.mjs --pruefen`;
+   sie stehen hier bewusst gerundet, damit sie nicht bei jeder Textaenderung
+   still falsch werden.
 
    Warum der Inhalt eine Zeichenkette ist
 

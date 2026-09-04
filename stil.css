@@ -2,7 +2,7 @@
    Age-of-Beast-Wiki – Gestaltungsfassade
    -------------------------------------------------------------------
    Die Regeln bleiben absichtlich in ihrer bisherigen Quellreihenfolge.
-   Diese Fassade hält den stabilen Einstieg `stil.css`; die vier Imports
+   Diese Fassade hält den stabilen Einstieg `stil.css`; die Imports
    müssen vor allen CSS-Regeln stehen und genau in dieser Reihenfolge
    geladen werden.
    =================================================================== */
