@@ -50,6 +50,7 @@ const FREIGEGEBENE_DATEIEN = new Set([
   'styles/kategorien.css',
   'styles/plattform.css',
   'styles/handy.css',
+  'styles/grundregeln.css',
   'styles/karte.css',
   'styles/spielkarten.css',
   'styles/charakterbogen.css',

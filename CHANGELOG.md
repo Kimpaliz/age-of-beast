@@ -5,6 +5,39 @@ Dieselben Änderungen stehen in Entwicklersprache in [CHANGELOG-TECHNIK.md](CHAN
 
 Das Neueste steht immer oben.
 
+## Die Kategorien filtern wieder, und die Karten stehen in Gruppen – 4. September 2026
+
+**Zwei Meldungen von dir, beide zutreffend.**
+
+### „Die Kategorien filtern nichts im Wiki"
+
+Stimmte — und der Grund war unsichtbar. Der Filter hat die ganze Zeit
+korrekt gearbeitet: Er hat jeder Kachel, die nicht passt, den Vermerk
+„nicht anzeigen" gegeben. Nur hat eine andere Gestaltungsregel diesen
+Vermerk übertönt. Gemessen nach einem Klick auf „Spezies": **35 Kacheln
+waren als versteckt markiert, und keine einzige davon war weg.**
+
+Es gab keine Fehlermeldung, nichts stürzte ab, und alle Prüfungen waren
+grün. Genau deshalb ist es so lange stehen geblieben.
+
+Jetzt gilt für die ganze Seite eine Grundregel, die sich von keiner
+anderen mehr übertönen lässt. Nachgemessen: Spezies zeigt 24 Einträge,
+Fraktionen 2, Regeln 26, „Alle" wieder alle 59.
+
+### „Die Karten sollen von Anfang an schon gruppiert sein"
+
+Auch richtig, und ich hatte es verwechselt: Die **Filterleiste** war
+nach Gruppen sortiert, die **Karten** darunter nicht. Dort standen
+**393 Karten in einer einzigen Wand**, davon 189 Domänenkarten am Stück.
+
+Jetzt stehen sie in **17 Blöcken** mit Überschrift: erst die neun
+Domänen mit je 21 Karten, dann Abstammungen, Gemeinschaften und
+Unterklassen, dann die Ausrüstung. Die Überschrift bleibt beim Blättern
+oben stehen, damit du immer weißt, wo du gerade bist.
+
+Filterst du auf eine einzelne Art, fällt die Überschrift weg — der
+gedrückte Knopf sagt es dann schon.
+
 ## Der Knopf »Zurück ins Wiki« geht wieder ins Wiki – 4. September 2026
 
 Seit das Hauptmenü die Startseite ist, führte der Knopf oben rechts auf

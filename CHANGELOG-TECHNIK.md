@@ -12,6 +12,56 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ### Behoben
 
+- **Der Kategoriefilter versteckte nichts.** `runtime/interaktion.js` setzt
+  `kachel.hidden = true`; das wirkt allein über die eingebaute Browserregel
+  `[hidden] { display: none }` — die schwächste Regel überhaupt.
+  `styles/wiki.css:277` setzt `.kachel { display: flex }`, eine
+  Klassenregel, und die schlägt sie. **Gemessen: 35 Kacheln mit `hidden`,
+  0 davon unsichtbar.** Behoben mit einer globalen Grundregel.
+
+  ⚠️ **Die Falle beim Messen:** Meine erste Prüfung zählte `k.hidden` und
+  meldete ein einwandfreies Ergebnis. Wer das Attribut zählt statt der
+  Sichtbarkeit, macht den Fehler mit.
+
+- **Die Karten standen als flache Wand.** 393 Kacheln in einem Raster,
+  189 Domänenkarten am Stück. Die Filterleiste war gruppiert, das Raster
+  nicht — meine Verwechslung.
+
+### Hinzugefügt
+
+- `styles/grundregeln.css` — `[hidden] { display: none !important }` für
+  die ganze Seite, als letzter Import geladen. `!important` ist hier keine
+  Bequemlichkeit: `hidden` heißt „gehört gerade nicht ins Dokument", und
+  diese Aussage darf keine Gestaltungsregel überstimmen können.
+- **Kartenblöcke** in `karte/karten-zeigen.js` (`inBloecken`,
+  `inBloeckenZeichnen`): erste Ebene Art in der Reihenfolge von `GRUPPEN`,
+  zweite Ebene Domäne innerhalb der Domänenkarten — ohne sie bliebe der
+  größte Block bei 189. Ergebnis **17 Blöcke**, größter 67. Ein Kopf
+  erscheint nur bei mehr als einem Block; sonst wiederholte er den
+  gedrückten Filterknopf. Kopf `position: sticky`.
+- `werkzeuge/pruefe-filter.mjs` — **23 Prüfungen**, davon der Kern im
+  Browser: `offsetParent` und `display` statt des Attributs. Drei
+  Rot-Beweise mit Rückgabewert 1, danach `cmp` bytegleich:
+  `!important` entfernt · eine Regel `.kachel[hidden] { display: flex }`
+  nachgeschoben (statisch unauffällig, nur die Messung fängt sie) ·
+  Gruppierung ausgebaut.
+
+### Geändert
+
+- **`werkzeuge/browser-messen.mjs` ist jetzt wirklich wiederverwendbar.**
+  Sein Kopf versprach, „die nächste Messung" könne ihn nutzen — dabei
+  waren die Adresse der Messseite (`/__aob-bogenfarben.html`) und die
+  Ergebnis-ID fest verdrahtet. Die erste Wiederverwendung lief stumm ins
+  404: Der Server lieferte die Seite nicht aus, der Browser fand die ID
+  nie, und die einzige Meldung war „kein Messergebnis". Beide sind jetzt
+  Parameter mit den alten Werten als Standard; `pruefe-bogenfarben.mjs`
+  bleibt unverändert.
+- Die Messseite meldet jetzt, **wo** sie hängt (Schrittmarken,
+  `error`- und `unhandledrejection`-Fänger, 12-Sekunden-Notausgabe).
+  Ohne das sagt ein Fehlschlag nur „kein Ergebnis", und man rät.
+
+### Behoben
+
 - **Zehn Verweise „Zurück ins Wiki" führten ins Hauptmenü.** Mit der
   Plattform-Umstellung wurde `index.html` zum Menü und das Wiki zog nach
   `wiki.html`; die Kopfzeilen-Verweise der fünf Unterseiten (`bogen`,

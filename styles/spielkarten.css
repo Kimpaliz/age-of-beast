@@ -272,6 +272,50 @@
   margin-top: 1rem;
 }
 
+/* ------------------------------------------------------------------ *
+   Bloecke statt einer Wand
+
+   Janniks Meldung vom 04.09.2026: „Die Karten sollen aber von Anfang an
+   schon gruppiert sein." Vorher standen **393 Kacheln in einem einzigen
+   Raster**, davon 189 Domaenenkarten am Stueck.
+
+   Der Kopf klebt beim Blaettern oben fest — bei einem Block von 21
+   Karten ist man sonst nach dem dritten Bildschirm im Ungewissen,
+   welche Domaene man gerade ansieht.
+   ------------------------------------------------------------------ */
+
+.karten-block { margin-top: 1.6rem; }
+.karten-block:first-child { margin-top: 0.6rem; }
+
+.karten-block-kopf {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0.5rem 0 0.42rem;
+  font-size: 0.94rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--gedaempft, #9a9a92);
+  background: var(--grund);
+  border-bottom: 1px solid var(--rand);
+}
+
+.karten-block-kopf small {
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  opacity: 0.75;
+}
+
+/* Das Raster im Block braucht seinen eigenen Abstand nicht noch einmal
+   — den setzt bereits der Blockkopf darueber. */
+.karten-block .spielkarten-raster { margin-top: 0.7rem; }
+
 @media (max-width: 30rem) {
   /* Nur **eine** Spalte. Mit `minmax(12rem, 1fr)` entstanden bei 470 px
      Fensterbreite zwei Spalten von 228 px — und dort liefen 25 Karten

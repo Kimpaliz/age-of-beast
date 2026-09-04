@@ -34,6 +34,7 @@ const STIL_TEILE = [
 const STIL_ZUSATZ = [
   'styles/kategorien.css',
   'styles/handy.css',
+  'styles/grundregeln.css',
 ];
 
 const STIL_ALLE = [...STIL_TEILE, ...STIL_ZUSATZ];

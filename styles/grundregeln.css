@@ -1,0 +1,35 @@
+/* ===================================================================
+   Age of Beast — Grundregeln, die über allem stehen
+   [Aufgabe: Gestaltung]
+
+   -------------------------------------------------------------------
+   Zusatzstil, kein Teil der ursprünglichen Aufteilung. `wiki.css`,
+   `tokens.css`, `bearbeiten.css` und `werkstatt.css` sind per Prüfsumme
+   eingefroren; Neues kommt deshalb hierher.
+
+   ⚠️ **Warum es diese Datei gibt.** Am 04.09.2026 meldete Jannik: „Die
+   Kategorien filtern nichts im Wiki." Er hatte recht, und die Ursache
+   war unsichtbar:
+
+   Der Filter setzt `kachel.hidden = true`. Das Attribut wirkt aber nur
+   über die eingebaute Browserregel `[hidden] { display: none }` — und
+   die ist die **schwächste** Regel überhaupt. `wiki.css` setzt
+   `.kachel { display: flex }`, eine Klassenregel, und die schlägt sie.
+
+   Gemessen nach einem Klick auf „Spezies": **35 Kacheln trugen
+   `hidden`, 0 davon waren wirklich unsichtbar.** Der Filter hat also
+   die ganze Zeit korrekt gearbeitet — man sah es nur nicht.
+
+   **Die Lehre, die über diesen Fall hinausgeht:** `element.hidden` ist
+   in jedem Stylesheet, das irgendwo `display` setzt, eine stille
+   Falle. Deshalb steht die Regel hier ein einziges Mal für die ganze
+   Seite, statt an jeder Stelle einzeln nachgezogen zu werden.
+
+   `!important` ist hier richtig und nicht Bequemlichkeit: `hidden`
+   heißt „das gehört gerade nicht ins Dokument". Diese Aussage darf
+   keine Gestaltungsregel überstimmen können.
+   =================================================================== */
+
+[hidden] {
+  display: none !important;
+}

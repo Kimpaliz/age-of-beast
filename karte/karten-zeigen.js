@@ -277,6 +277,70 @@ function passendMachen() {
   }
 }
 
+/* ------------------------------------------------------------------ *
+ * Die Karten stehen in Bloecken, nicht als Wand
+ * ------------------------------------------------------------------ *
+ *
+ * ⚠️ Janniks Meldung vom 04.09.2026: „Die Karten sollen aber von Anfang
+ * an schon gruppiert sein."
+ *
+ * Er hatte recht, und die Verwechslung lag bei mir: Die **Filterleiste**
+ * war nach Gruppen geordnet, die **Karten** darunter nicht. Gemessen
+ * standen dort **393 Kacheln in einem einzigen Raster** — darunter 189
+ * Domaenenkarten am Stueck. Wer nichts filtert, sieht eine Wand.
+ *
+ * Zwei Ebenen, beide aus dem Spiel selbst:
+ *
+ *   1. **Art** in der Reihenfolge von `GRUPPEN` — Domaenenkarten,
+ *      Abstammungen, Gemeinschaften, Unterklassen, dann Ausruestung.
+ *   2. **Domaene** innerhalb der Domaenenkarten. Ohne sie waere der
+ *      groesste Block mit 189 Karten fast so unuebersichtlich wie
+ *      vorher; mit ihr sind es neun Blöcke zu je rund 21.
+ *
+ * Ein Kopf erscheint nur, wenn es **mehr als einen** Block gibt. Steht
+ * ohnehin nur eine Art da, sagt die gedrueckte Filtertaste das bereits —
+ * eine Ueberschrift, die den Knopf darueber wiederholt, ist Laerm.
+ */
+function inBloecken(karten) {
+  const bloecke = [];
+  const holen = (name) => {
+    let b = bloecke.find((x) => x.name === name);
+    if (!b) { b = { name, karten: [] }; bloecke.push(b); }
+    return b;
+  };
+
+  /* Reihenfolge kommt aus GRUPPEN, nicht aus der Datei — sonst haenge
+     die Anordnung an der zufaelligen Sortierung von `daten/*.json`. */
+  const reihenfolge = [];
+  for (const [, arten] of GRUPPEN) reihenfolge.push(...arten);
+  const rang = (k) => {
+    const i = reihenfolge.indexOf(k.art);
+    return i === -1 ? reihenfolge.length : i;
+  };
+
+  for (const k of [...karten].sort((a, b) => rang(a) - rang(b))) {
+    if (k.art === 'domain' && k.domaene) holen(k.domaene).karten.push(k);
+    else holen(ARTNAMEN[k.art] || k.art).karten.push(k);
+  }
+  return bloecke;
+}
+
+function inBloeckenZeichnen(gezeigt) {
+  const kachelnVon = (liste) => liste.map((k) =>
+    (k.quelleTyp === 'gegenstand' ? gegenstandKachel(k) : kachel(k))).join('');
+
+  const bloecke = inBloecken(gezeigt);
+  if (bloecke.length <= 1) {
+    return '<div class="spielkarten-raster">' + kachelnVon(gezeigt) + '</div>';
+  }
+  return bloecke.map((b) =>
+    '<section class="karten-block">'
+    + '<h2 class="karten-block-kopf">' + sicher(b.name)
+    + ' <small>' + b.karten.length + '</small></h2>'
+    + '<div class="spielkarten-raster">' + kachelnVon(b.karten) + '</div>'
+    + '</section>').join('');
+}
+
 function zeichnen() {
   const suchtext = suche.trim().toLowerCase();
   const gezeigt = alleKarten.filter((k) => {
@@ -292,8 +356,7 @@ function zeichnen() {
     return heuhaufen.toLowerCase().includes(suchtext);
   });
 
-  raster.innerHTML = gezeigt.map((k) =>
-    (k.quelleTyp === 'gegenstand' ? gegenstandKachel(k) : kachel(k))).join('');
+  raster.innerHTML = inBloeckenZeichnen(gezeigt);
 
   /* Erst nach dem Zeichnen: Vorher gibt es die Plaetze nicht. */
   const fav = window.aobFavoriten;
