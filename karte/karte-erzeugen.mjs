@@ -1,5 +1,7 @@
 /* ===================================================================
    Age of Beast — aus der gemalten Vorlage eine Pixelkarte machen
+   [Aufgabe: Karte]
+
    -------------------------------------------------------------------
    Janniks Zeichnung hat harte Kanten und fuenf Farben. Eine Landkarte
    lebt aber von weichem Uebergang: Straende am Wasser, Wiesen dahinter,
@@ -24,7 +26,6 @@
    Saat ergibt dieselbe Karte — sonst waere jede Pruefung wertlos und
    jeder Vergleich zweier Laeufe Zufall.
 
-   [Aufgabe: Karte]
    =================================================================== */
 
 import {

@@ -60,6 +60,58 @@ Lauf, wie viele Dateien sie tatsächlich durchsucht hat.
 
 ---
 
+## Fassung 3.1.0 – 4. September 2026
+
+**Die Welt hat jetzt eine Karte, und die Regeln stehen im Wiki.**
+
+### Die Weltkarte
+
+Deine gezeichnete Karte ist der sichtbare Teil der Spielwelt geworden.
+Sie hat eine eigene Seite und wird bei jedem Aufruf neu gerechnet — in
+etwa einer Fünftelsekunde.
+
+Deine Umrisse geben die Form vor. Strände, Wiesen, Wälder, Hügel und
+Bergketten entstehen daraus: aus dem Abstand zur Küste, einer daraus
+abgeleiteten Höhe und der Feuchtigkeit. Die elf Kreuze sind Siedlungen,
+ihre Strichstärke bestimmt die Größe — von einem Dorf bis zur Metropole
+am Wüstenrand. Ein Knopf würfelt Wälder und Gebirge neu; deine Umrisse
+und die Städte bleiben, wo sie sind.
+
+Der Sumpf trägt deine Warnung: **gefährlich**.
+
+### Die Spielkarten
+
+Alle Karten als Kacheln — ohne die offiziellen Illustrationen, dafür
+mit Zierrahmen, Eckmarken und dem Wappen dort, wo sonst das Bild wäre.
+Stufe und Rückholkosten sitzen als Medaillons in den Ecken, Domäne und
+Kartentyp im Titelband.
+
+Was noch fehlt, sind die Regeltexte. Sie liegen **nicht** in der
+Daggerheart-Werkstatt: Dort steht genau eine Karte, und die besteht
+fast vollständig aus einem eingebetteten Bild.
+
+### Die Regeln
+
+Zwei Nachschlagewerke auf Deutsch: die Grundregeln aus dem offiziellen
+Regelwerk und die Erweiterung *Hope & Fear*, für die alle 204 Seiten
+gelesen wurden. Jede Angabe dort trägt ihre Seitenzahl.
+
+**Ein Befund, der Arbeit spart:** *Hope & Fear* ändert keine einzige
+Grundregel. Es kommt nur etwas dazu.
+
+### Die Spielfiguren
+
+Lukas' Figur ist eingetragen — Faun, Seeborne, Waldläufer und Wegfinder,
+mit allen Werten, Erfahrungen und Fähigkeitskarten. Dazu, was am Tisch
+gilt: der Wettstreit um die schrecklichste Spezialität, die Frage nach
+dem Beutel, die Warnung vor der Goldenen Garde, und dass er nicht in
+die Berge geht.
+
+**Richtiggestellt:** Die bereits vorhandene Figur war als Lukas'
+angelegt. Sie gehört Xeno.
+
+---
+
 ## Fassung 3.0.0 – 2. September 2026
 
 **Anmelden geht jetzt mit dem Google-Konto.** Ein Klick, das gewohnte

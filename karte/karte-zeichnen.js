@@ -1,5 +1,7 @@
 /* ===================================================================
    Age of Beast — die Weltkarte auf einer Zeichenflaeche
+   [Aufgabe: Karte]
+
    -------------------------------------------------------------------
    Der einzige Teil der Karte, der den Browser kennt. Alles Rechnen
    steckt in `karte-erzeugen.mjs` und `palette.mjs` und laeuft dort
@@ -10,7 +12,6 @@
    Saat wechseln und eine andere Welt sehen, und die Staedte bleiben als
    Koordinaten bekannt, statt in einem Bild zu verschwinden.
 
-   [Aufgabe: Karte]
    =================================================================== */
 
 import { karteErzeugen, BIOM, BIOM_NAMEN, STANDARD } from './karte-erzeugen.mjs';

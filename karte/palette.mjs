@@ -1,5 +1,7 @@
 /* ===================================================================
    Age of Beast — die Farben der Karte
+   [Aufgabe: Karte]
+
    -------------------------------------------------------------------
    Eine Pixelkarte lebt von wenigen, klar getrennten Farben. Jedes Biom
    bekommt deshalb genau zwei Toene: einen Grundton und eine leichte
@@ -13,7 +15,6 @@
    — deren reines Blau und Gruen sind Markierungsfarben, keine
    Landschaft.
 
-   [Aufgabe: Karte]
    =================================================================== */
 
 import { BIOM } from './karte-erzeugen.mjs';

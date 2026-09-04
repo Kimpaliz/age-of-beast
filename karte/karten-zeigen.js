@@ -1,5 +1,7 @@
 /* ===================================================================
    Age of Beast — die Spielkarten als Kacheln
+   [Aufgabe: Karte]
+
    -------------------------------------------------------------------
    Liest `daten/daggerheart-karten.json` und baut daraus die Kacheln.
 
@@ -14,7 +16,6 @@
    eine Karte korrigieren will, aendert die JSON; hier ist nichts
    nachzupflegen.
 
-   [Aufgabe: Bilder]
    =================================================================== */
 
 const raster = document.getElementById('kartenraster');

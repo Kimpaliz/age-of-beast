@@ -1,5 +1,7 @@
 /**
  * Erzeugt die Weltkarte als PNG zum Ansehen.
+   [Aufgabe: Karte]
+
  *
  * Aufruf:
  *   node werkzeuge/karte-malen.mjs [--breite 480] [--saat 20260904] [--zoom 3]
@@ -10,7 +12,6 @@
  * kommt ohne Abhaengigkeiten aus, und diese Regel ist mehr wert als die
  * Bequemlichkeit.
  *
- * [Aufgabe: Karte]
  */
 import { writeFileSync } from 'node:fs';
 import { deflateSync } from 'node:zlib';

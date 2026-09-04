@@ -1,5 +1,7 @@
 /* ===================================================================
    Age of Beast — Janniks gemalte Weltkarte als Daten
+   [Aufgabe: Karte]
+
    -------------------------------------------------------------------
    Das ist die Vorlage, nicht das Ergebnis: Jannik hat die Welt von Hand
    gemalt — blaues Meer, gruenes Land, ein hellgruener Sumpf, eine gelbe
@@ -20,7 +22,6 @@
    Alle Koordinaten beziehen sich auf Janniks Zeichnung in ihrer
    urspruenglichen Groesse. Der Erzeuger rechnet sie selbst um.
 
-   [Aufgabe: Karte]
    =================================================================== */
 
 /** Groesse der Vorlage, auf die sich alle Punkte beziehen. */
