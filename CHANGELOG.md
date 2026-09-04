@@ -7,6 +7,22 @@ Das Neueste steht immer oben.
 
 ---
 
+## Farben für die Bögen und eine Favoritenliste – 4. September 2026
+
+Jeder Charakterbogen trägt jetzt eine **eigene, zurückhaltende Farbe**,
+die aus den beiden Domänen seiner Klasse kommt. Sie sitzt nur an der
+Kopfleiste, der Stufe, starken Werten und Domänenmarken. Der Lesetext
+bleibt auf seiner ruhigen Fläche. Abstammung und Gemeinschaft bekommen
+als unabhängige Kennzeichnung einen kleinen türkisfarbenen Punkt statt
+einer zweiten Farbleiste.
+
+Neu gibt es **Meine Favoriten**: Ein Stern bei einem Eintrag, einer Karte
+oder einem Bogen legt ihn dort ab. Die Liste trennt Einträge, Karten und
+Bögen, führt zurück zur jeweiligen Ansicht und lässt Sterne direkt wieder
+entfernen. Sie bleibt nur in deinem Browser und braucht keine Anmeldung.
+
+---
+
 ## Nachtrag: die Veröffentlichung stand still – 4. September 2026
 
 Der Bau der Seite ist fehlgeschlagen — bei mir lief alles grün. Ursache

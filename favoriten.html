@@ -1,0 +1,43 @@
+<!doctype html>
+<!-- [Aufgabe: Leseruntime] Favoriten bleiben im Browser und brauchen keine Anmeldung. -->
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Favoriten – Age of Beast</title>
+<meta name="description" content="Deine persönlich markierten Einträge, Karten und Charakterbögen.">
+<meta name="color-scheme" content="dark light">
+<link rel="stylesheet" href="stil.css">
+<link rel="stylesheet" href="styles/favoriten.css">
+</head>
+<body class="favoritenseite">
+
+<a class="zum-inhalt" href="#inhalt">Direkt zum Inhalt</a>
+
+<header class="kopf">
+  <a class="marke" href="./">
+    <strong>Age of Beast</strong>
+    <span class="teiler" aria-hidden="true">|</span>
+    <small>Favoriten</small>
+  </a>
+  <div class="kopf-rechts">
+    <a class="modul-knopf" href="karten.html">Karten</a>
+    <a class="modul-knopf" href="bogen.html">Bögen</a>
+    <a class="modul-knopf" href="./">&lsaquo; Zurück ins Wiki</a>
+  </div>
+</header>
+
+<main id="inhalt" class="favoriten-inhalt" tabindex="-1">
+  <div class="seitenkopf">
+    <span class="mikro">Für mich</span>
+    <h1>Meine Favoriten</h1>
+    <p class="einleitung">Alles, was du mit einem Stern markierst, liegt hier griffbereit.</p>
+  </div>
+
+  <div id="favoritenliste" class="favoriten-liste" aria-live="polite"></div>
+</main>
+
+<script src="runtime/favoriten.js"></script>
+<script src="runtime/favoriten-liste.js"></script>
+</body>
+</html>

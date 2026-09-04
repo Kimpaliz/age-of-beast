@@ -8,8 +8,9 @@
    festes Seitenverhältnis wie bei den Spielkarten — dort geht es ums
    Vergleichen, hier ums Nachschlagen.
 
-   Alle Farben kommen aus `styles/tokens.css`. Damit stimmt der Bogen in
-   beiden Schemata, ohne dass hier ein zweiter Satz gepflegt wird.
+   Der Grund bleibt aus `styles/tokens.css`. Der kleine Farbrahmen liest
+   seine Töne dagegen aus den zwei Domänen jeder Klasse: So kennzeichnet
+   er den Bogen, ohne seinen Lesetext einzufärben.
    =================================================================== */
 
 .bogen-inhalt {
@@ -27,11 +28,154 @@
 }
 
 .bogen {
+  /* Die neun Quelltöne sind dieselben wie auf den Domänenkarten. Für
+     die Klasse kommt kein zehnter Fantasieton hinzu: Jede Regel unten
+     wählt oder mischt ausschließlich ihr eigenes Domänenpaar. */
+  --bogen-domäne-arcana: #755391;
+  --bogen-domäne-blade: #a34843;
+  --bogen-domäne-bone: #5a6f7b;
+  --bogen-domäne-codex: #94723f;
+  --bogen-domäne-grace: #a35479;
+  --bogen-domäne-midnight: #41476f;
+  --bogen-domäne-sage: #4c7650;
+  --bogen-domäne-splendor: #b38f2c;
+  --bogen-domäne-valor: #9a5d3f;
+  --bogen-domäne-hell-arcana: #c9b3dd;
+  --bogen-domäne-hell-blade: #e3aca8;
+  --bogen-domäne-hell-bone: #b6c8d2;
+  --bogen-domäne-hell-codex: #dcc396;
+  --bogen-domäne-hell-grace: #e2b0c8;
+  --bogen-domäne-hell-midnight: #a9aed0;
+  --bogen-domäne-hell-sage: #a8ccab;
+  --bogen-domäne-hell-splendor: #ecd58a;
+  --bogen-domäne-hell-valor: #ddb094;
+  --bogen-erste-domäne: var(--bogen-domäne-arcana);
+  --bogen-zweite-domäne: var(--bogen-domäne-arcana);
+  --bogen-akzent: #9184d9;
+  --bogen-akzent-hell: #d2cefd;
+  --bogen-domänenband: linear-gradient(90deg, var(--bogen-erste-domäne), var(--bogen-zweite-domäne));
+  --akzent: var(--bogen-akzent);
+  --akzent-hell: var(--bogen-akzent-hell);
+  --akzent-schleier: color-mix(in oklab, var(--bogen-akzent) 16%, transparent);
+  --akzent-rand: color-mix(in oklab, var(--bogen-akzent) 46%, transparent);
+  --schein: color-mix(in oklab, var(--bogen-akzent) 30%, transparent);
+  --verweis: var(--bogen-akzent-hell);
+  --verweis-aktiv: var(--bogen-akzent-hell);
+  position: relative;
   background: var(--flaeche);
   border: 1px solid var(--rand);
   border-radius: var(--radius);
   padding: 1.25rem;
   box-shadow: var(--schatten-klein);
+}
+
+/* Die Gewichte sind keine Geschmackswerte: Alle neun Paare wurden in
+   beiden Schemata gegeneinander gemessen. Reine Domänentöne bleiben wo
+   möglich erhalten; Guardian und Warrior mischen nur so weit, dass die
+   engsten zwei Klassen auch auf hellem Grund getrennt bleiben. Das Band
+   zeigt stets beide Domänen, auch wenn der Leitton an einem Ende liegt. */
+.bogen[data-klasse="bard"] {
+  --bogen-erste-domäne: var(--bogen-domäne-grace);
+  --bogen-zweite-domäne: var(--bogen-domäne-codex);
+  --bogen-akzent: var(--bogen-domäne-grace);
+  --bogen-akzent-hell: var(--bogen-domäne-hell-grace);
+}
+
+.bogen[data-klasse="druid"] {
+  --bogen-erste-domäne: var(--bogen-domäne-arcana);
+  --bogen-zweite-domäne: var(--bogen-domäne-sage);
+  --bogen-akzent: var(--bogen-domäne-sage);
+  --bogen-akzent-hell: var(--bogen-domäne-hell-sage);
+}
+
+.bogen[data-klasse="guardian"] {
+  --bogen-erste-domäne: var(--bogen-domäne-valor);
+  --bogen-zweite-domäne: var(--bogen-domäne-blade);
+  --bogen-akzent: color-mix(in oklab, var(--bogen-domäne-valor) 33%, var(--bogen-domäne-blade));
+  --bogen-akzent-hell: color-mix(in oklab, var(--bogen-domäne-hell-valor) 33%, var(--bogen-domäne-hell-blade));
+}
+
+.bogen[data-klasse="ranger"] {
+  --bogen-erste-domäne: var(--bogen-domäne-bone);
+  --bogen-zweite-domäne: var(--bogen-domäne-sage);
+  --bogen-akzent: var(--bogen-domäne-bone);
+  --bogen-akzent-hell: var(--bogen-domäne-hell-bone);
+}
+
+.bogen[data-klasse="rogue"] {
+  --bogen-erste-domäne: var(--bogen-domäne-midnight);
+  --bogen-zweite-domäne: var(--bogen-domäne-grace);
+  --bogen-akzent: var(--bogen-domäne-midnight);
+  --bogen-akzent-hell: var(--bogen-domäne-hell-midnight);
+}
+
+.bogen[data-klasse="seraph"] {
+  --bogen-erste-domäne: var(--bogen-domäne-splendor);
+  --bogen-zweite-domäne: var(--bogen-domäne-valor);
+  --bogen-akzent: var(--bogen-domäne-splendor);
+  --bogen-akzent-hell: var(--bogen-domäne-hell-splendor);
+}
+
+.bogen[data-klasse="sorcerer"] {
+  --bogen-erste-domäne: var(--bogen-domäne-arcana);
+  --bogen-zweite-domäne: var(--bogen-domäne-midnight);
+  --bogen-akzent: var(--bogen-domäne-arcana);
+  --bogen-akzent-hell: var(--bogen-domäne-hell-arcana);
+}
+
+.bogen[data-klasse="warrior"] {
+  --bogen-erste-domäne: var(--bogen-domäne-blade);
+  --bogen-zweite-domäne: var(--bogen-domäne-bone);
+  --bogen-akzent: color-mix(in oklab, var(--bogen-domäne-blade) 46%, var(--bogen-domäne-bone));
+  --bogen-akzent-hell: color-mix(in oklab, var(--bogen-domäne-hell-blade) 46%, var(--bogen-domäne-hell-bone));
+}
+
+.bogen[data-klasse="wizard"] {
+  --bogen-erste-domäne: var(--bogen-domäne-codex);
+  --bogen-zweite-domäne: var(--bogen-domäne-splendor);
+  --bogen-akzent: var(--bogen-domäne-codex);
+  --bogen-akzent-hell: var(--bogen-domäne-hell-codex);
+}
+
+html[data-thema="hell"] .bogen {
+  --bogen-domäne-arcana: #4a3260;
+  --bogen-domäne-blade: #6e2a26;
+  --bogen-domäne-bone: #35434c;
+  --bogen-domäne-codex: #5d4622;
+  --bogen-domäne-grace: #6b3049;
+  --bogen-domäne-midnight: #262a45;
+  --bogen-domäne-sage: #2c4830;
+  --bogen-domäne-splendor: #6d5615;
+  --bogen-domäne-valor: #613424;
+  --bogen-domäne-hell-arcana: #4a3260;
+  --bogen-domäne-hell-blade: #6e2a26;
+  --bogen-domäne-hell-bone: #35434c;
+  --bogen-domäne-hell-codex: #5d4622;
+  --bogen-domäne-hell-grace: #6b3049;
+  --bogen-domäne-hell-midnight: #262a45;
+  --bogen-domäne-hell-sage: #2c4830;
+  --bogen-domäne-hell-splendor: #6d5615;
+  --bogen-domäne-hell-valor: #613424;
+}
+
+html[data-thema="hell"] .bogen:not([data-klasse]) {
+  --bogen-akzent: #5d5294;
+  --bogen-akzent-hell: #423a6a;
+}
+
+/* Ein dünnes Doppelband reicht als Schmuck. Der Inhalt bleibt auf der
+   ruhigen Fläche – die Klasse soll ihn markieren, nicht übermalen. */
+.bogen::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 1.1rem;
+  right: 1.1rem;
+  height: 0.2rem;
+  border-radius: 0 0 999px 999px;
+  background: var(--bogen-domänenband);
+  opacity: 0.9;
+  pointer-events: none;
 }
 
 /* ── Kopf ───────────────────────────────────────────────────────── */
@@ -55,10 +199,25 @@
 
 .bogen-herkunft {
   margin: 0.25rem 0 0;
-  color: var(--akzent-hell);
+  display: flex;
+  align-items: center;
+  gap: 0.38rem;
+  color: var(--tuerkis);
   font-size: 0.86rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+}
+
+/* Herkunft bleibt bewusst ein feiner Punkt statt einer zweiten Leiste:
+   Abstammung und Gemeinschaft sollen die Klassenfarbe nicht übertönen. */
+.bogen-herkunft::before {
+  content: "";
+  flex: none;
+  width: 0.4rem;
+  height: 0.4rem;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--tuerkis) 18%, transparent);
 }
 
 .bogen-beruf {
@@ -600,10 +759,12 @@ a.karte-anker { cursor: pointer; }
 /* ── Stern ─────────────────────────────────────────────────────────── */
 
 .stern {
+  /* Der ruhige Textton bleibt ein sichtbarer Schalter. `--schrift-leise`
+     würde bei einem normalen Stern die 4,5:1-Grenze unterschreiten. */
   background: none;
   border: 1px solid transparent;
   border-radius: var(--radius-klein);
-  color: var(--schrift-leise);
+  color: var(--schrift-matt);
   font-size: 1.35rem;
   line-height: 1;
   cursor: pointer;
@@ -620,4 +781,4 @@ a.karte-anker { cursor: pointer; }
   outline: none;
 }
 
-.stern[aria-pressed="true"] { color: var(--akzent); }
+.stern[aria-pressed="true"] { color: var(--bogen-akzent-hell); }
