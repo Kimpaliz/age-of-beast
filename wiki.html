@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Age of Beast – Weltwiki</title>
+<meta name="description" content="Wiki zur Daggerheart-Welt Age of Beast: Kampagne, Fraktionen, Spezies, Figuren und Gegenstände.">
+<meta name="color-scheme" content="dark light">
+<link rel="stylesheet" href="stil.css">
+<link rel="stylesheet" href="styles/plattform.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23161815'/><text x='16' y='23' font-size='18' text-anchor='middle' fill='%23d2cefd'>&#9670;</text></svg>">
+</head>
+<body>
+
+<a class="zum-inhalt" href="#inhalt">Direkt zum Inhalt</a>
+
+<header class="kopf">
+  <button class="leiste-schalter" id="leiste-schalter" aria-expanded="true" aria-controls="navigation">
+    <span class="symbol" aria-hidden="true">▤</span>
+    <span class="beschriftung">Kategorien</span>
+    <span class="pfeil" aria-hidden="true">▾</span>
+  </button>
+
+  <a class="marke" href="#/">
+    <strong id="welt-titel">Age of Beast</strong>
+    <span class="teiler" aria-hidden="true">|</span>
+    <small id="welt-untertitel"></small>
+  </a>
+
+  <div class="suche">
+    <span class="lupe" aria-hidden="true">⌕</span>
+    <label class="visuell-versteckt" for="suchfeld">Im Wiki suchen</label>
+    <input type="search" id="suchfeld" placeholder="Einträge durchsuchen …" autocomplete="off" spellcheck="false">
+    <button type="button" class="suche-leeren" id="suche-leeren" aria-label="Suche leeren" hidden>&times;</button>
+    <div class="such-treffer" id="such-treffer" role="listbox" aria-label="Suchergebnisse" hidden></div>
+  </div>
+  <nav class="modul-leiste" aria-label="Bereiche">
+    <a class="werkstatt-knopf" href="./" id="menue-knopf" title="Zum Hauptmenü">
+      <span class="symbol" aria-hidden="true">⌂</span>
+      <span class="beschriftung">Menü</span>
+    </a>
+    <a class="werkstatt-knopf" href="#/werkstatt" id="werkstatt-knopf">
+      <span class="symbol" aria-hidden="true">⚒</span>
+      <span class="beschriftung">Werkstatt</span>
+    </a>
+    <a class="werkstatt-knopf" href="karten.html" id="karten-knopf">
+      <span class="symbol" aria-hidden="true">▣</span>
+      <span class="beschriftung">Karten</span>
+    </a>
+    <a class="werkstatt-knopf" href="karte.html" id="karte-knopf">
+      <span class="symbol" aria-hidden="true">◈</span>
+      <span class="beschriftung">Karte</span>
+    </a>
+    <a class="werkstatt-knopf" href="bogen.html" id="bogen-knopf">
+      <span class="symbol" aria-hidden="true">▤</span>
+      <span class="beschriftung">Bögen</span>
+    </a>
+  </nav>
+
+  <div class="kopf-rechts">
+    <span class="leise" id="kopf-quelle">gespeicherter Stand</span>
+    <span class="stand-chip" id="kopf-stand"></span>
+    <span class="anmelde-status" id="anmelde-status" role="status" hidden></span>
+    <button class="bearbeiten-knopf" id="bearbeiten-knopf" type="button" aria-pressed="false" hidden>Bearbeiten</button>
+    <button class="anmelde-knopf" id="anmelde-knopf" type="button" hidden>Anmelden</button>
+    <button class="thema-knopf" id="thema-knopf" aria-label="Zwischen hell und dunkel wechseln" title="Hell / dunkel">
+      <span aria-hidden="true">☾</span>
+    </button>
+  </div>
+</header>
+
+<div class="rahmen" id="rahmen">
+  <nav class="navigation" id="navigation" aria-label="Alle Einträge">
+    <!-- wird von wiki.js gefüllt -->
+  </nav>
+
+  <main id="inhalt" class="inhalt" tabindex="-1">
+    <!-- wird von wiki.js gefüllt -->
+  </main>
+</div>
+
+<div class="vorschau" id="vorschau" role="dialog" aria-label="Kurzvorschau" hidden></div>
+
+<script src="daten/welt.js"></script>
+<script src="runtime/symbole.js"></script>
+<script src="runtime/datenindex.js"></script>
+<script src="runtime/ansichten.js"></script>
+<script src="runtime/interaktion.js"></script>
+<script src="runtime/routing.js"></script>
+<script src="runtime/favoriten.js"></script>
+<script src="runtime/kontextmenue.js"></script>
+<script src="wiki.js"></script>
+<script src="runtime/kontextmenue-wiki.js"></script>
+<script type="module" src="bearbeiten.js"></script>
+</body>
+</html>

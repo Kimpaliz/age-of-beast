@@ -36,6 +36,7 @@ const TYPEN = {
 
 const FREIGEGEBENE_DATEIEN = new Set([
   'index.html',
+  'wiki.html',
   'karte.html',
   'karten.html',
   'bogen.html',
@@ -45,6 +46,8 @@ const FREIGEGEBENE_DATEIEN = new Set([
   'styles/bearbeiten.css',
   'styles/werkstatt.css',
   'styles/kategorien.css',
+  'styles/plattform.css',
+  'styles/handy.css',
   'styles/karte.css',
   'styles/spielkarten.css',
   'styles/charakterbogen.css',
@@ -57,6 +60,9 @@ const FREIGEGEBENE_DATEIEN = new Set([
   'rahmen-assistent.js',
   'runtime/symbole.js',
   'runtime/favoriten.js',
+  'runtime/kontextmenue.js',
+  'runtime/kontextmenue-wiki.js',
+  'runtime/plattform.js',
   'runtime/datenindex.js',
   'runtime/ansichten.js',
   'runtime/interaktion.js',

@@ -10,6 +10,45 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ## [Unveröffentlicht]
 
+### Hinzugefügt
+
+- **Hauptmenü** (`index.html`, `runtime/plattform.js`,
+  `styles/plattform.css`). Das bisherige Wiki liegt als `wiki.html`
+  (`git mv`, Historie erhalten) und bekam einen Menue-Knopf.
+  ⚠️ **`orderBy` neben dem Filter entfernt.** Die Abfrage
+  `where oeffentlich == true` + `orderBy name` antwortete mit HTTP 400
+  „The query requires an index" — ein zusammengesetzter Index waere eine
+  Infrastrukturaenderung, und genau die soll ein neues Wiki nicht
+  brauchen. Sortiert wird jetzt im Browser (hoechstens 100 Wikis).
+  `meineWikis()` laeuft ueber das SDK statt ueber REST: Wer angemeldet
+  ist, hat es ohnehin geladen, und es erneuert den Token von selbst.
+- **`runtime/kontextmenue.js`** (Rahmen, kennt nichts vom Wiki) und
+  **`runtime/kontextmenue-wiki.js`** (die Eintraege). Nur bei
+  `(hover: hover) and (pointer: fine)`; Umschalt+Rechtsklick laesst das
+  Browsermenue durch. Die Ziele werden an den Adressen `#/eintrag/<id>`
+  erkannt — dadurch braucht `runtime/ansichten.js` keine Zeile Aenderung.
+- **`styles/handy.css`** — zweizeilige Kopfzeile unter 48rem.
+
+### Geändert
+
+- **Umbruchschwelle der Modulleiste 78rem → 84rem.** Mit dem fuenften
+  Knopf („Menue") fehlten der Kopfzeile bei 1250 px **56 px**; sie
+  braucht rund 1306, 84rem sind 1344. Gemessen bei 1600/1400/1360/1300/
+  1250/900/390 px: kein Ueberlauf. Suchfeld 66 → 366 px, Hoehe 34 → 44.
+- **`pruefe-stilstruktur.mjs`: Stilanker nur noch in Spalte 0.** Zuvor
+  zaehlte `trimStart()` mit, wodurch eine **eingerueckte** Regel in einer
+  Media Query als zweiter Grundblock galt — damit haette keine
+  Zusatzdatei je etwas an der Kopfzeile anpassen duerfen, und die
+  Trennung in Ursprung und Zusatz waere sinnlos gewesen. Beide
+  Richtungen rot bewiesen.
+- **`werkzeuge/vorschau-server.mjs` / `heim-server.mjs`:** neue Dateien
+  in die Positivlisten.
+
+### Behoben
+
+- **Verirrtes `</a>` in der Kopfzeile** von `index.html` (jetzt
+  `wiki.html`), Rest eines frueheren Umbaus.
+
 ### Behoben
 
 - **Die Veroeffentlichung stand still**, weil `pruefe-firestore-trennung`

@@ -1,0 +1,310 @@
+/* ===================================================================
+   Age of Beast — Hauptmenü
+   [Aufgabe: Gestaltung]
+
+   -------------------------------------------------------------------
+   Die erste Seite, die man sieht. Sie hat eine einzige Aufgabe: in ein
+   Wiki hinein. Deshalb grosse Kacheln statt einer Liste, und das
+   Anlegen darunter statt daneben — auf dem Handy stünde ein Formular
+   neben den Kacheln ohnehin untereinander.
+
+   Alle Farben kommen aus `styles/tokens.css`.
+   =================================================================== */
+
+.menue-inhalt {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 4rem;
+}
+
+.menueseite .kopf { justify-content: space-between; }
+
+.wiki-abschnitt { margin-top: 2rem; }
+
+.wiki-abschnitt h2 {
+  margin: 0 0 0.75rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--schrift-matt);
+  font-weight: 600;
+}
+
+.wiki-liste {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+}
+
+/* Die ganze Kachel ist der Verweis. Ein kleiner „Öffnen"-Knopf in der
+   Ecke waere auf dem Handy das schwerste Ziel der Seite. */
+.wiki-kachel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1rem;
+  min-height: 5.5rem;
+  background: var(--flaeche);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius);
+  color: var(--schrift);
+  text-decoration: none;
+}
+
+.wiki-kachel:hover,
+.wiki-kachel:focus-visible {
+  border-color: var(--akzent-rand);
+  background: var(--flaeche-hoch);
+  outline: none;
+}
+
+.wiki-kachel-kopf {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.wiki-kachel-name {
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.wiki-kachel-text {
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--schrift-matt);
+}
+
+.wiki-rolle,
+.wiki-marke,
+.regelwerk-marke {
+  font-size: 0.62rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  border: 1px solid var(--rand-hell);
+  color: var(--schrift-matt);
+}
+
+.wiki-marke.offen {
+  border-color: var(--akzent-rand);
+  background: var(--akzent-schleier);
+  color: var(--akzent-hell);
+}
+
+.wiki-regelwerke { display: flex; gap: 0.3rem; flex-wrap: wrap; margin-top: 0.15rem; }
+
+.liste-leer {
+  margin: 0;
+  padding: 1rem;
+  font-size: 0.88rem;
+  color: var(--schrift-matt);
+  background: var(--grund);
+  border: 1px dashed var(--rand-hell);
+  border-radius: var(--radius);
+}
+
+/* ── Formular ──────────────────────────────────────────────────────── */
+
+.wiki-form {
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: var(--flaeche);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius);
+  max-width: 34rem;
+}
+
+.feld { display: grid; gap: 0.3rem; border: 0; padding: 0; margin: 0; }
+
+.feld-name {
+  font-size: 0.7rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--schrift-matt);
+}
+
+.feld-name small { text-transform: none; letter-spacing: 0; }
+
+.feld-hilfe { font-size: 0.78rem; color: var(--schrift-matt); line-height: 1.4; }
+
+.wiki-form input[type="text"],
+.wiki-form textarea {
+  width: 100%;
+  /* 44 px ist die Mindestgroesse fuer einen Finger; ein Textfeld daneben
+     waere das einzige Ziel, das man nicht trifft. */
+  min-height: 2.75rem;
+  padding: 0.55rem 0.7rem;
+  background: var(--grund);
+  border: 1px solid var(--rand-hell);
+  border-radius: var(--radius-klein);
+  color: var(--schrift);
+  font: inherit;
+}
+
+.wiki-form textarea { min-height: 4rem; resize: vertical; }
+
+.wiki-form input:focus-visible,
+.wiki-form textarea:focus-visible {
+  border-color: var(--akzent);
+  outline: none;
+}
+
+.regelwerk-wahl { display: grid; gap: 0.45rem; }
+
+.regelwerk-feld,
+.feld-schalter {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.6rem 0.7rem;
+  background: var(--grund);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+  cursor: pointer;
+  min-height: 2.75rem;
+}
+
+.regelwerk-feld:has(input:checked),
+.feld-schalter:has(input:checked) {
+  border-color: var(--akzent-rand);
+  background: var(--akzent-schleier);
+}
+
+.regelwerk-feld input,
+.feld-schalter input {
+  /* 1.15rem statt der Vorgabe: Ein Kaestchen in Schriftgroesse ist auf
+     dem Handy kaum zu treffen. */
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-top: 0.15rem;
+  accent-color: var(--akzent);
+  flex: none;
+}
+
+.regelwerk-feld span,
+.feld-schalter > span { display: grid; gap: 0.1rem; }
+
+.regelwerk-name { font-weight: 600; font-size: 0.92rem; }
+.regelwerk-feld small { font-size: 0.78rem; color: var(--schrift-matt); }
+
+.form-fuss { display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
+
+.knopf-haupt {
+  min-height: 2.75rem;
+  padding: 0 1.2rem;
+  background: var(--akzent);
+  border: 1px solid var(--akzent);
+  border-radius: var(--radius-klein);
+  color: var(--grund);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.knopf-haupt:hover:not(:disabled) { background: var(--akzent-hell); border-color: var(--akzent-hell); }
+.knopf-haupt:disabled { opacity: 0.55; cursor: default; }
+
+.form-meldung { font-size: 0.85rem; color: var(--schrift-matt); }
+
+/* ── Meldung oben ──────────────────────────────────────────────────── */
+
+.hinweis.warnung {
+  border-left: 3px solid var(--akzent);
+  background: var(--akzent-schleier);
+}
+
+/* ── Schmale Geräte ────────────────────────────────────────────────── */
+
+@media (max-width: 40rem) {
+  .menue-inhalt { padding: 1rem 0.75rem 3rem; }
+  .wiki-liste { grid-template-columns: 1fr; }
+  .wiki-form { padding: 1rem; }
+}
+
+/* ===================================================================
+   Rechtsklickmenü
+   -------------------------------------------------------------------
+   Es ersetzt das Browsermenü nur am Rechner und nur dort, wo es etwas
+   Besseres zu bieten hat. Mit Umschalttaste kommt das gewohnte Menü.
+   =================================================================== */
+
+.kontextmenue {
+  position: absolute;
+  z-index: 80;
+  min-width: 13rem;
+  padding: 0.3rem;
+  background: var(--flaeche-hoch);
+  border: 1px solid var(--akzent-rand);
+  border-radius: var(--radius-klein);
+  box-shadow: var(--schatten);
+}
+
+.kontextmenue-eintrag {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+  padding: 0.4rem 0.55rem;
+  background: none;
+  border: 0;
+  border-radius: 0.35rem;
+  color: var(--schrift);
+  font: inherit;
+  font-size: 0.88rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.kontextmenue-eintrag:hover,
+.kontextmenue-eintrag:focus-visible {
+  background: var(--akzent-schleier);
+  color: var(--akzent-hell);
+  outline: none;
+}
+
+.kontextmenue-symbol {
+  width: 1.1rem;
+  text-align: center;
+  color: var(--schrift-matt);
+  flex: none;
+}
+
+.kontextmenue-eintrag:hover .kontextmenue-symbol,
+.kontextmenue-eintrag:focus-visible .kontextmenue-symbol { color: var(--akzent-hell); }
+
+.kontextmenue-kurz {
+  margin-left: auto;
+  font-size: 0.72rem;
+  color: var(--schrift-matt);
+  border: 1px solid var(--rand-hell);
+  border-radius: 0.25rem;
+  padding: 0 0.3rem;
+}
+
+.kontextmenue-teiler {
+  margin: 0.3rem 0.2rem;
+  border: 0;
+  border-top: 1px solid var(--rand);
+}
+
+/* Ein Kopiervorgang ohne sichtbare Wirkung sieht aus, als sei nichts
+   passiert. */
+.menue-hinweis {
+  position: fixed;
+  z-index: 90;
+  left: 50%;
+  bottom: 1.5rem;
+  transform: translateX(-50%);
+  padding: 0.5rem 0.9rem;
+  background: var(--flaeche-hoch);
+  border: 1px solid var(--akzent-rand);
+  border-radius: 999px;
+  box-shadow: var(--schatten-klein);
+  font-size: 0.85rem;
+  max-width: calc(100vw - 2rem);
+}
