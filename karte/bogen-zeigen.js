@@ -80,7 +80,7 @@ function bogen(e) {
   t.push('<div class="bogen-kopf-text">');
   t.push('<h2 class="bogen-name">' + sicher(e.name) + '</h2>');
 
-  const herkunft = [w.abstammung, w.gemeinschaft].filter(Boolean).join(' · ');
+  const herkunft = [w.abstammung, w.gemeinschaft, w.fuerwort].filter(Boolean).join(' · ');
   t.push('<p class="bogen-herkunft">' + (herkunft ? sicher(herkunft) : OFFEN) + '</p>');
 
   let beruf = OFFEN;
@@ -126,10 +126,16 @@ function bogen(e) {
   /* Die Schwellen schlägt man am Tisch am häufigsten nach — deshalb als
      Balken mit den drei Bereichen statt als zwei nackte Zahlen. Unter
      der schweren Schwelle kostet ein Treffer 1 Lebenspunkt, dazwischen
-     2, ab der ernsten 3. */
-  if (w.ruestung && w.ruestung.schwelleSchwer) {
-    const a = w.ruestung.schwelleSchwer;
-    const b = w.ruestung.schwelleErnst;
+     2, ab der ernsten 3.
+
+     **Gerechnet, nicht abgeschrieben:** Die Regel lautet „Grundwert der
+     Rüstung **plus eigene Stufe**". Auf der Rüstungskarte steht nur der
+     Grundwert — wer ihn direkt überträgt, spielt auf jeder Stufe mit zu
+     niedrigen Schwellen. Deshalb steht hier der Grundwert in den Daten
+     und die Stufe kommt sichtbar dazu. */
+  if (w.ruestung && w.ruestung.basisSchwer && w.stufe) {
+    const a = w.ruestung.basisSchwer + w.stufe;
+    const b = w.ruestung.basisErnst + w.stufe;
     t.push('<div class="schwellen">');
     t.push('<div class="schwelle-bereich s1"><strong>1</strong><small>unter ' + a + '</small></div>');
     t.push('<div class="schwelle-marke">' + a + '</div>');
@@ -137,7 +143,9 @@ function bogen(e) {
     t.push('<div class="schwelle-marke">' + b + '</div>');
     t.push('<div class="schwelle-bereich s3"><strong>3</strong><small>ab ' + b + '</small></div>');
     t.push('</div>');
-    t.push('<p class="schwellen-hinweis">Lebenspunkte je Treffer</p>');
+    t.push('<p class="schwellen-hinweis">Lebenspunkte je Treffer'
+      + ' &middot; ' + sicher(w.ruestung.name) + ' ' + w.ruestung.basisSchwer + '/'
+      + w.ruestung.basisErnst + ' + Stufe ' + w.stufe + '</p>');
   } else {
     t.push('<p class="bogen-luecke">Schadensschwellen ' + OFFEN + '</p>');
   }
@@ -182,8 +190,17 @@ function bogen(e) {
   }
   if (w.ruestung && w.ruestung.name) {
     etwas = true;
+    /* Ein Rüstungsmerkmal wie „Flexible: +1 Ausweichen" erklärt, warum
+       das Ausweichen oben von der Klassenbasis abweicht. Ohne diese
+       Zeile sähe der Wert nach einem Tippfehler aus. */
+    const merkmal = w.ruestung.merkmal ? ' · ' + sicher(w.ruestung.merkmal) : '';
     t.push('<li><span class="mikro">Rüstung</span>' + sicher(w.ruestung.name)
-      + ' <small>Score ' + w.ruestung.score + '</small></li>');
+      + ' <small>Score ' + w.ruestung.score + merkmal + '</small></li>');
+  }
+  if (w.klassengegenstand) {
+    etwas = true;
+    t.push('<li><span class="mikro">Klassengegenstand</span>'
+      + sicher(w.klassengegenstand) + '</li>');
   }
   if (!etwas) t.push('<li class="bogen-luecke">' + OFFEN + '</li>');
   t.push('</ul></section>');

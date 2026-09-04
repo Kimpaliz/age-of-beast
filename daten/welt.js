@@ -1756,10 +1756,10 @@ window.AGE_OF_BEAST_WELT = {
     },
     {
       "id": "character-aob-xeno-sc",
-      "name": "Xeno",
+      "name": "Brix Borin",
       "kategorie": "characters",
       "unterart": "Spielfigur",
-      "kurz": "Xenos bereits bestehende Spielfigur. „Xeno“ ist ein Platzhalter — der Name der Figur steht noch aus.",
+      "kurz": "Xenos Spielfigur: ein diebischer Ribbet aus dem Underborne, Schurke und Nachtwandler. Traegt immer einen Piratenhut — und einen Beutel, dessen Inhalt niemand wissen darf.",
       "aliase": [],
       "quelle": "",
       "attribute": [
@@ -1769,9 +1769,40 @@ window.AGE_OF_BEAST_WELT = {
           "wert": "sc"
         },
         {
-          "schluessel": "gender",
-          "beschriftung": "Geschlecht",
-          "wert": "unbekannt"
+          "schluessel": "species",
+          "beschriftung": "Volk / Spezies",
+          "wert": "Ribbet",
+          "ziel": "species-dh-ribbet"
+        },
+        {
+          "schluessel": "community",
+          "beschriftung": "Gemeinschaft",
+          "wert": "Underborne"
+        },
+        {
+          "schluessel": "class",
+          "beschriftung": "Klasse",
+          "wert": "Rogue (Schurke)"
+        },
+        {
+          "schluessel": "subclass",
+          "beschriftung": "Unterklasse",
+          "wert": "Nightwalker (Nachtwandler)"
+        },
+        {
+          "schluessel": "evasion",
+          "beschriftung": "Ausweichen (Evasion)",
+          "wert": "13"
+        },
+        {
+          "schluessel": "armor",
+          "beschriftung": "Rüstung",
+          "wert": "Gambeson, Score 3 — Grundschwellen 5 / 11, Flexible: +1 Ausweichen"
+        },
+        {
+          "schluessel": "weapon",
+          "beschriftung": "Waffe",
+          "wert": "Dolch und Kurzschwert"
         },
         {
           "schluessel": "status",
@@ -1781,8 +1812,8 @@ window.AGE_OF_BEAST_WELT = {
       ],
       "abschnitte": [
         {
-          "titel": "Noch offene Angaben",
-          "html": "<p>Der Charakter existiert bereits, besitzt aber aktuell noch keinen Namen.</p><p><strong>Noch offen:</strong> Spezies, Gemeinschaft, Klasse, Hintergrund und Motivation. Ob dieser Charakter Begleiter für die Artefaktsuche sucht, ist ebenfalls noch nicht festgelegt.</p>",
+          "titel": "Noch offen",
+          "html": "<p>Zwei Erfahrungen mit je +2 fehlen — sie gehören zu einer Figur der Stufe 1 dazu. Ebenso offen: Alter, Gold und was genau im Beutel steckt.</p>",
           "herkunft": {
             "art": "panel",
             "panel": 1,
@@ -1791,12 +1822,30 @@ window.AGE_OF_BEAST_WELT = {
           }
         },
         {
-          "titel": "Was am Tisch über sie bekannt ist",
-          "html": "<p>Sie trägt einen <strong>Beutel</strong>, dessen Inhalt bisher niemand kennt — Lukas’ Figur hat ausdrücklich danach gefragt: „Was ist in deinen… Beutel?“</p><p>Sie hat Lukas’ Figur darum gebeten, sie zu <strong>warnen, sobald die Goldene Garde auftaucht</strong>. In der Gossensprache heißen die Gardisten herablassend <em>Gelbröcke</em>.</p><p>Mit Lukas’ Figur verbindet sie ein freundlicher Wettstreit: Wer findet und isst die <strong>schrecklichste örtliche Spezialität</strong>?</p>",
+          "titel": "Was am Tisch über ihn bekannt ist",
+          "html": "<p>Er trägt einen <strong>Beutel</strong>, dessen Inhalt niemand wissen darf — Lukas’ Figur hat ausdrücklich danach gefragt: „Was ist in deinen… Beutel?“ Auf seinem eigenen Bogen steht dazu nur: <em>„Mein Gedöns“</em>.</p><p>Er hat Lukas’ Figur darum gebeten, ihn zu <strong>warnen, sobald die Goldene Garde auftaucht</strong>. In der Gossensprache heißen die Gardisten herablassend <em>Gelbröcke</em>.</p><p>Mit Lukas’ Figur verbinden ihn zwei Wetten. Die eine: Wer findet und isst die <strong>schrecklichste örtliche Spezialität</strong>? Die andere: Verliert Lukas, trägt er einen Tag lang <strong>Brix’ Piratenhut</strong>; verliert Brix, muss er Lukas einen Tag lang <strong>„Chef“</strong> nennen und sein persönlicher Assistent sein.</p>",
           "herkunft": {
             "art": "panel",
             "panel": 2,
             "panelId": "panel-xeno-sc-bekannt"
+          }
+        },
+        {
+          "titel": "Erscheinung",
+          "html": "<p>Ein diebischer <strong>Ribbet</strong> — und er trägt <strong>immer</strong> einen Piratenhut.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 3,
+            "panelId": "panel-brix-erscheinung"
+          }
+        },
+        {
+          "titel": "Hintergrund",
+          "html": "<p>Er stammt aus einem Dorf, das er bestohlen hat — und zwar so, dass die Dorfbewohner überrumpelt wurden. Zurückgelassen hat er dabei seine Familie.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 4,
+            "panelId": "panel-brix-hintergrund"
           }
         },
         {
@@ -1821,43 +1870,85 @@ window.AGE_OF_BEAST_WELT = {
       "verbindungen": [
         {
           "art": "Gehört zur Kampagne",
-          "text": "Bestehende Spielfigur von Xeno; Name noch offen",
+          "text": "Spielfigur von Xeno",
           "ziel": "wiki-sturmwende-kampagnenframe"
+        },
+        {
+          "art": "Baubogen",
+          "text": "Derselbe Charakter im Figurenbaukasten",
+          "ziel": "werkstatt-figur-brix-borin"
+        },
+        {
+          "art": "Reisegefährte",
+          "text": "Wette um den Piratenhut",
+          "ziel": "character-aob-lukas-sc"
+        },
+        {
+          "art": "Gehört zum Volk",
+          "text": "Ribbet",
+          "ziel": "species-dh-ribbet"
         }
       ],
       "bild": "",
       "spielwerte": {
         "system": "Daggerheart",
-        "stufe": null,
-        "abstammung": null,
-        "gemeinschaft": null,
-        "klasse": null,
-        "klasseDe": null,
-        "unterklasse": null,
-        "unterklasseDe": null,
-        "domaenen": [],
-        "zauberattribut": null,
-        "evasion": null,
-        "ruestung": null,
-        "hp": null,
-        "stress": null,
-        "hoffnung": null,
-        "attribute": null,
-        "waffen": [],
+        "stufe": 1,
+        "fuerwort": "Er",
+        "abstammung": "Ribbet",
+        "gemeinschaft": "Underborne",
+        "klasse": "Rogue",
+        "klasseDe": "Schurke",
+        "unterklasse": "Nightwalker",
+        "unterklasseDe": "Nachtwandler",
+        "domaenen": [
+          "Midnight",
+          "Grace"
+        ],
+        "zauberattribut": "Finesse",
+        "evasion": 13,
+        "ruestung": {
+          "name": "Gambeson",
+          "score": 3,
+          "basisSchwer": 5,
+          "basisErnst": 11,
+          "merkmal": "Flexible: +1 Ausweichen"
+        },
+        "hp": 6,
+        "stress": 6,
+        "hoffnung": {
+          "start": 2,
+          "max": 6
+        },
+        "attribute": {
+          "agility": 1,
+          "strength": -1,
+          "finesse": 2,
+          "instinct": 1,
+          "presence": 0,
+          "knowledge": 0
+        },
+        "waffen": [
+          {
+            "name": "Dolch",
+            "hand": "primär"
+          },
+          {
+            "name": "Kurzschwert",
+            "hand": "sekundär"
+          }
+        ],
+        "klassengegenstand": "Fälscherwerkzeug",
         "erfahrungen": [],
-        "karten": [],
-        "klassenfertigkeit": null,
-        "hoffnungsfertigkeit": null,
+        "karten": [
+          "Pick and Pull",
+          "Deft Deceiver"
+        ],
+        "klassenfertigkeit": "Cloaked & Sneak Attack",
+        "hoffnungsfertigkeit": "Rogue's Dodge",
         "offen": [
-          "Name der Figur",
-          "Volk und Gemeinschaft",
-          "Klasse und Unterklasse",
-          "Attribute",
-          "Ausweichen und Rüstung",
-          "Erfahrungen",
-          "Fähigkeitskarten",
-          "Hintergrund",
-          "Inhalt des Beutels"
+          "Zwei Erfahrungen mit je +2",
+          "Alter",
+          "Gold"
         ]
       },
       "geaendert": "2026-09-04T13:07:33.097Z"
@@ -1905,7 +1996,7 @@ window.AGE_OF_BEAST_WELT = {
         {
           "schluessel": "armor",
           "beschriftung": "Rüstung",
-          "wert": "Lederrüstung, Score 3 — Schwellen 6 / 13"
+          "wert": "Lederrüstung, Score 3 — Grundschwellen 6 / 13"
         },
         {
           "schluessel": "weapon",
@@ -1991,12 +2082,12 @@ window.AGE_OF_BEAST_WELT = {
         },
         {
           "art": "Reisegefährte",
-          "text": "Freundlicher Wettstreit um die schrecklichste Spezialität",
+          "text": "Freundlicher Wettstreit mit Brix Borin um die schrecklichste Spezialität",
           "ziel": "character-aob-xeno-sc"
         },
         {
           "art": "Hält Ausschau nach",
-          "text": "Soll Xenos Figur warnen, sobald die Garde auftaucht",
+          "text": "Soll Brix Borin warnen, sobald die Garde auftaucht",
           "ziel": "faction-sturmwende-gelbroecke-provisorisch"
         },
         {
@@ -2024,8 +2115,8 @@ window.AGE_OF_BEAST_WELT = {
         "ruestung": {
           "name": "Lederrüstung",
           "score": 3,
-          "schwelleSchwer": 6,
-          "schwelleErnst": 13
+          "basisSchwer": 6,
+          "basisErnst": 13
         },
         "hp": 6,
         "stress": 6,
@@ -5687,9 +5778,8 @@ window.AGE_OF_BEAST_WELT = {
     "gezeitenkind": "species-dh-tidekin",
     "zwerg": "species-dh-zwerg",
     "dwarf": "species-dh-zwerg",
-    "xeno": "character-aob-xeno-sc",
+    "brix borin": "character-aob-xeno-sc",
     "lukas": "character-aob-lukas-sc",
-    "brix borin": "werkstatt-figur-brix-borin",
     "spielfluss und spotlight": "regel-spielfluss-spotlight",
     "aktionswurf": "regel-aktionswurf",
     "die fünf wurfergebnisse": "regel-wurf-ergebnisse",

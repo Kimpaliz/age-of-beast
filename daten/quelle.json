@@ -5,24 +5,9 @@
       "character-aob-xeno-sc": {
         "attributeRows": [
           {
-            "id": "attribute-xeno-sc-character-type",
+            "id": "attribute-xeno-sc-characterType",
             "key": "characterType",
             "label": "Rolle"
-          },
-          {
-            "id": "attribute-xeno-sc-title",
-            "key": "title",
-            "label": "Titel"
-          },
-          {
-            "id": "attribute-xeno-sc-gender",
-            "key": "gender",
-            "label": "Geschlecht"
-          },
-          {
-            "id": "attribute-xeno-sc-age",
-            "key": "age",
-            "label": "Alter"
           },
           {
             "id": "attribute-xeno-sc-species",
@@ -30,24 +15,39 @@
             "label": "Volk / Spezies"
           },
           {
-            "id": "attribute-xeno-sc-occupation",
-            "key": "occupation",
-            "label": "Beruf / Aufgabe"
+            "id": "attribute-xeno-sc-community",
+            "key": "community",
+            "label": "Gemeinschaft"
+          },
+          {
+            "id": "attribute-xeno-sc-class",
+            "key": "class",
+            "label": "Klasse"
+          },
+          {
+            "id": "attribute-xeno-sc-subclass",
+            "key": "subclass",
+            "label": "Unterklasse"
+          },
+          {
+            "id": "attribute-xeno-sc-evasion",
+            "key": "evasion",
+            "label": "Ausweichen (Evasion)"
+          },
+          {
+            "id": "attribute-xeno-sc-armor",
+            "key": "armor",
+            "label": "Rüstung"
+          },
+          {
+            "id": "attribute-xeno-sc-weapon",
+            "key": "weapon",
+            "label": "Waffe"
           },
           {
             "id": "attribute-xeno-sc-status",
             "key": "status",
             "label": "Status"
-          },
-          {
-            "id": "attribute-xeno-sc-residence",
-            "key": "residencePlaceId",
-            "label": "Heimatort"
-          },
-          {
-            "id": "attribute-xeno-sc-faction",
-            "key": "factionId",
-            "label": "Fraktion"
           }
         ],
         "createdAt": "2026-07-30T23:51:27.695Z",
@@ -57,17 +57,17 @@
               {
                 "id": "custom-attribute-lukas-sc-player",
                 "label": "Spieler",
-                "value": "Lukas"
+                "value": "Xeno"
               },
               {
                 "id": "custom-attribute-lukas-sc-name",
                 "label": "Charaktername",
-                "value": "Noch nicht festgelegt"
+                "value": "Brix Borin"
               },
               {
                 "id": "custom-attribute-lukas-sc-existence",
                 "label": "Charakterstatus",
-                "value": "Existiert bereits"
+                "value": "Werte vollständig, Stufe 1"
               },
               {
                 "id": "custom-attribute-lukas-sc-type",
@@ -102,23 +102,55 @@
               "zoom": 100
             },
             "kind": "text",
-            "text": "Der Charakter existiert bereits, besitzt aber aktuell noch keinen Namen. Spezies, Gemeinschaft, Klasse, Hintergrund und Motivation sind noch nicht festgelegt. Ob dieser Charakter Begleiter für die Artefaktsuche sucht, ist ebenfalls noch offen.",
+            "text": "Zwei Erfahrungen mit je +2 fehlen — sie gehören zu einer Figur der Stufe 1 dazu. Ebenso offen: Alter, Gold und was genau im Beutel steckt.",
             "textFields": [
               {
-                "html": "<p>Der Charakter existiert bereits, besitzt aber aktuell noch keinen Namen.</p><p><strong>Noch offen:</strong> Spezies, Gemeinschaft, Klasse, Hintergrund und Motivation. Ob dieser Charakter Begleiter für die Artefaktsuche sucht, ist ebenfalls noch nicht festgelegt.</p>",
+                "html": "<p>Zwei Erfahrungen mit je +2 fehlen — sie gehören zu einer Figur der Stufe 1 dazu. Ebenso offen: Alter, Gold und was genau im Beutel steckt.</p>",
                 "id": "text-lukas-sc-offen",
                 "label": "Text",
-                "text": "Der Charakter existiert bereits, besitzt aber aktuell noch keinen Namen.\nNoch offen: Spezies, Gemeinschaft, Klasse, Hintergrund und Motivation. Ob dieser Charakter Begleiter für die Artefaktsuche sucht, ist ebenfalls noch nicht festgelegt."
+                "text": "Zwei Erfahrungen mit je +2 fehlen — sie gehören zu einer Figur der Stufe 1 dazu. Ebenso offen: Alter, Gold und was genau im Beutel steckt."
               }
             ],
             "textLayout": "single",
-            "title": "Noch offene Angaben"
+            "title": "Noch offen"
           },
           {
             "id": "panel-xeno-sc-bekannt",
             "kind": "text",
-            "title": "Was am Tisch über sie bekannt ist",
-            "text": "<p>Sie trägt einen <strong>Beutel</strong>, dessen Inhalt bisher niemand kennt — Lukas’ Figur hat ausdrücklich danach gefragt: „Was ist in deinen… Beutel?“</p><p>Sie hat Lukas’ Figur darum gebeten, sie zu <strong>warnen, sobald die Goldene Garde auftaucht</strong>. In der Gossensprache heißen die Gardisten herablassend <em>Gelbröcke</em>.</p><p>Mit Lukas’ Figur verbindet sie ein freundlicher Wettstreit: Wer findet und isst die <strong>schrecklichste örtliche Spezialität</strong>?</p>",
+            "title": "Was am Tisch über ihn bekannt ist",
+            "text": "<p>Er trägt einen <strong>Beutel</strong>, dessen Inhalt niemand wissen darf — Lukas’ Figur hat ausdrücklich danach gefragt: „Was ist in deinen… Beutel?“ Auf seinem eigenen Bogen steht dazu nur: <em>„Mein Gedöns“</em>.</p><p>Er hat Lukas’ Figur darum gebeten, ihn zu <strong>warnen, sobald die Goldene Garde auftaucht</strong>. In der Gossensprache heißen die Gardisten herablassend <em>Gelbröcke</em>.</p><p>Mit Lukas’ Figur verbinden ihn zwei Wetten. Die eine: Wer findet und isst die <strong>schrecklichste örtliche Spezialität</strong>? Die andere: Verliert Lukas, trägt er einen Tag lang <strong>Brix’ Piratenhut</strong>; verliert Brix, muss er Lukas einen Tag lang <strong>„Chef“</strong> nennen und sein persönlicher Assistent sein.</p>",
+            "textLayout": "single",
+            "image": "",
+            "imageSettings": {
+              "color": "gold",
+              "fit": "contain",
+              "frame": "simple",
+              "positionX": 50,
+              "positionY": 50,
+              "zoom": 100
+            }
+          },
+          {
+            "id": "panel-brix-erscheinung",
+            "kind": "text",
+            "title": "Erscheinung",
+            "text": "<p>Ein diebischer <strong>Ribbet</strong> — und er trägt <strong>immer</strong> einen Piratenhut.</p>",
+            "textLayout": "single",
+            "image": "",
+            "imageSettings": {
+              "color": "gold",
+              "fit": "contain",
+              "frame": "simple",
+              "positionX": 50,
+              "positionY": 50,
+              "zoom": 100
+            }
+          },
+          {
+            "id": "panel-brix-hintergrund",
+            "kind": "text",
+            "title": "Hintergrund",
+            "text": "<p>Er stammt aus einem Dorf, das er bestohlen hat — und zwar so, dass die Dorfbewohner überrumpelt wurden. Zurückgelassen hat er dabei seine Familie.</p>",
             "textLayout": "single",
             "image": "",
             "imageSettings": {
@@ -131,7 +163,7 @@
             }
           }
         ],
-        "description": "Xenos bereits bestehende Spielfigur. „Xeno“ ist ein Platzhalter — der Name der Figur steht noch aus.",
+        "description": "Xenos Spielfigur: ein diebischer Ribbet aus dem Underborne, Schurke und Nachtwandler. Traegt immer einen Piratenhut — und einen Beutel, dessen Inhalt niemand wissen darf.",
         "descriptionPanelIds": [
           "panel-xeno-sc-stand",
           "panel-xeno-sc-offen"
@@ -143,12 +175,30 @@
             {
               "id": "connection-xeno-sc-sturmwende-frame",
               "kind": "Gehört zur Kampagne",
-              "label": "Bestehende Spielfigur von Xeno; Name noch offen",
+              "label": "Spielfigur von Xeno",
               "targetId": "wiki-sturmwende-kampagnenframe"
+            },
+            {
+              "id": "connection-brix-werkstatt",
+              "kind": "Baubogen",
+              "label": "Derselbe Charakter im Figurenbaukasten",
+              "targetId": "werkstatt-figur-brix-borin"
+            },
+            {
+              "id": "connection-brix-lukas",
+              "kind": "Reisegefährte",
+              "label": "Wette um den Piratenhut",
+              "targetId": "character-aob-lukas-sc"
+            },
+            {
+              "id": "connection-brix-ribbet",
+              "kind": "Gehört zum Volk",
+              "label": "Ribbet",
+              "targetId": "species-dh-ribbet"
             }
           ],
           "factionId": "",
-          "gender": "unbekannt",
+          "gender": "männlich",
           "info": "Die Figur heißt vorläufig nach ihrem Spieler. Ihr eigener Name steht noch aus.",
           "motive": "",
           "occupation": "",
@@ -156,44 +206,77 @@
           "reaction": "",
           "residencePlaceId": "",
           "role": "Spielfigur von Xeno",
-          "species": "",
+          "species": "species-dh-ribbet",
           "status": "aktiv",
           "title": "",
           "traits": "",
           "spielwerte": {
             "system": "Daggerheart",
-            "stufe": null,
-            "abstammung": null,
-            "gemeinschaft": null,
-            "klasse": null,
-            "klasseDe": null,
-            "unterklasse": null,
-            "unterklasseDe": null,
-            "domaenen": [],
-            "zauberattribut": null,
-            "evasion": null,
-            "ruestung": null,
-            "hp": null,
-            "stress": null,
-            "hoffnung": null,
-            "attribute": null,
-            "waffen": [],
+            "stufe": 1,
+            "fuerwort": "Er",
+            "abstammung": "Ribbet",
+            "gemeinschaft": "Underborne",
+            "klasse": "Rogue",
+            "klasseDe": "Schurke",
+            "unterklasse": "Nightwalker",
+            "unterklasseDe": "Nachtwandler",
+            "domaenen": [
+              "Midnight",
+              "Grace"
+            ],
+            "zauberattribut": "Finesse",
+            "evasion": 13,
+            "ruestung": {
+              "name": "Gambeson",
+              "score": 3,
+              "basisSchwer": 5,
+              "basisErnst": 11,
+              "merkmal": "Flexible: +1 Ausweichen"
+            },
+            "hp": 6,
+            "stress": 6,
+            "hoffnung": {
+              "start": 2,
+              "max": 6
+            },
+            "attribute": {
+              "agility": 1,
+              "strength": -1,
+              "finesse": 2,
+              "instinct": 1,
+              "presence": 0,
+              "knowledge": 0
+            },
+            "waffen": [
+              {
+                "name": "Dolch",
+                "hand": "primär"
+              },
+              {
+                "name": "Kurzschwert",
+                "hand": "sekundär"
+              }
+            ],
+            "klassengegenstand": "Fälscherwerkzeug",
             "erfahrungen": [],
-            "karten": [],
-            "klassenfertigkeit": null,
-            "hoffnungsfertigkeit": null,
+            "karten": [
+              "Pick and Pull",
+              "Deft Deceiver"
+            ],
+            "klassenfertigkeit": "Cloaked & Sneak Attack",
+            "hoffnungsfertigkeit": "Rogue's Dodge",
             "offen": [
-              "Name der Figur",
-              "Volk und Gemeinschaft",
-              "Klasse und Unterklasse",
-              "Attribute",
-              "Ausweichen und Rüstung",
-              "Erfahrungen",
-              "Fähigkeitskarten",
-              "Hintergrund",
-              "Inhalt des Beutels"
+              "Zwei Erfahrungen mit je +2",
+              "Alter",
+              "Gold"
             ]
-          }
+          },
+          "community": "Underborne",
+          "class": "Rogue (Schurke)",
+          "subclass": "Nightwalker (Nachtwandler)",
+          "evasion": "13",
+          "armor": "Gambeson, Score 3 — Grundschwellen 5 / 11, Flexible: +1 Ausweichen",
+          "weapon": "Dolch und Kurzschwert"
         },
         "id": "character-aob-xeno-sc",
         "image": "",
@@ -206,7 +289,7 @@
           "zoom": 100
         },
         "module": "characters",
-        "name": "Xeno",
+        "name": "Brix Borin",
         "panelHeights": {
           "panel-xeno-sc-offen": 3,
           "panel-xeno-sc-stand": 3
@@ -216,7 +299,9 @@
           "references",
           "panel-xeno-sc-stand",
           "panel-xeno-sc-offen",
-          "panel-xeno-sc-bekannt"
+          "panel-xeno-sc-bekannt",
+          "panel-brix-erscheinung",
+          "panel-brix-hintergrund"
         ],
         "panelWidths": {
           "panel-xeno-sc-offen": "wide",
@@ -312,7 +397,7 @@
           "class": "Ranger (Waldläufer)",
           "subclass": "Wayfinder (Wegfinder)",
           "evasion": "12",
-          "armor": "Lederrüstung, Score 3 — Schwellen 6 / 13",
+          "armor": "Lederrüstung, Score 3 — Grundschwellen 6 / 13",
           "weapon": "Machete",
           "status": "aktiv",
           "role": "Spielfigur von Lukas",
@@ -337,13 +422,13 @@
             {
               "id": "connection-lukas-sc-xeno",
               "kind": "Reisegefährte",
-              "label": "Freundlicher Wettstreit um die schrecklichste Spezialität",
+              "label": "Freundlicher Wettstreit mit Brix Borin um die schrecklichste Spezialität",
               "targetId": "character-aob-xeno-sc"
             },
             {
               "id": "connection-lukas-sc-garde",
               "kind": "Hält Ausschau nach",
-              "label": "Soll Xenos Figur warnen, sobald die Garde auftaucht",
+              "label": "Soll Brix Borin warnen, sobald die Garde auftaucht",
               "targetId": "faction-sturmwende-gelbroecke-provisorisch"
             },
             {
@@ -371,8 +456,8 @@
             "ruestung": {
               "name": "Lederrüstung",
               "score": 3,
-              "schwelleSchwer": 6,
-              "schwelleErnst": 13
+              "basisSchwer": 6,
+              "basisErnst": 13
             },
             "hp": 6,
             "stress": 6,

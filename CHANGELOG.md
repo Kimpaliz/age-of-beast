@@ -7,6 +7,39 @@ Das Neueste steht immer oben.
 
 ---
 
+## Xenos Figur heißt Brix Borin – 4. September 2026
+
+Der Name war der Schlüssel: **Die Werte lagen längst im Wiki**, als
+Werkstattfigur `Brix Borin`, seit dem 1. September. Der Charakterbogen
+war leer, weil niemand die beiden Einträge verbunden hatte.
+
+**Brix Borin, Stufe 1:** ein diebischer Ribbet aus dem Underborne,
+Schurke und Nachtwandler. Beweglichkeit +1, Stärke −1, Fingerfertigkeit
++2, Instinkt +1. Dolch und Kurzschwert, Gambeson, Fälscherwerkzeug.
+
+**Zwei Zahlen bestätigen sich gegenseitig:** Sein Ausweichen 13 liegt
+über der Schurken-Basis von 12 — genau um den einen Punkt, den das
+Gambeson mit seinem Merkmal *„Flexible"* gibt. Und seine beiden Karten
+*Pick and Pull* und *Deft Deceiver* sind je eine aus seinen zwei Domänen
+Midnight und Grace, beide Stufe 1. Dasselbe stimmige Bild wie bei Lukas.
+
+**Ein Fehler in den Daten behoben:** Auf Xenos Figur stand im Steckbrief
+„Spieler: Lukas" — ein Rest aus der ursprünglichen Verwechslung. Ebenso
+sprachen alle Abschnitte von „sie", obwohl auf seinem Bogen „Er" steht.
+
+**Und ein Rechenfehler, der beide Figuren betraf:** Die Schadensschwellen
+standen als 6 / 13 im Bogen. Das sind aber die *Grundwerte* der
+Rüstungskarte — die Regel verlangt, die eigene Stufe dazuzuzählen. Der
+Bogen rechnet das jetzt selbst und schreibt die Herkunft darunter:
+„Lederrüstung 6/13 + Stufe 1". Lukas hat damit **7 / 14** statt 6 / 13,
+Brix **6 / 12**.
+
+Dazu aus seinem Baubogen übernommen: Erscheinung (der Piratenhut),
+Hintergrund (er hat sein eigenes Dorf bestohlen) — und die zweite Wette
+mit Lukas, von der bisher nur eine Hälfte im Wiki stand.
+
+---
+
 ## Karten auf schmalen Bildschirmen – 4. September 2026
 
 Nachtrag zum Rollbalken. Auf der veröffentlichten Seite bei 470 Pixeln
