@@ -319,6 +319,15 @@ Datei in den Scratchpad sichern und von dort zurückkopieren. Nach jedem
 Rot-Beweis gehört ein `cmp` gegen die Sicherung dazu; genau der hat den
 zweiten Durchgang belegt.
 
+**Zweiter Vorfall am selben Tag, 04.09.2026.** Beim Rot-Beweis des
+Doku-Status-Wächters habe ich `docs/geschichte/INVENTAR.md` mit
+`git checkout --` zurückgesetzt — und damit die Verweis-Reparatur
+mitgenommen, die zehn Minuten vorher entstanden und nie committet war.
+Gefangen hat es `pruefe-verweise` in der Gesamtkette, drei tote
+Verweise. **Die Regel greift also nicht nur für die geprüfte Datei,
+sondern für jede, die der Rot-Beweis anfasst.** Sicherung im
+Scratchpad statt `git checkout`, ausnahmslos.
+
 ### C1b · Backticks in einer doppelt gequoteten Shell-Zeichenkette
 
 **Was ich tat:** Einen Changelog-Eintrag über `node -e "…"` geschrieben

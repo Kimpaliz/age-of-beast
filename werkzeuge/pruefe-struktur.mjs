@@ -1,4 +1,5 @@
 /**
+ * [Aufgabe: Prüfwesen]
  * Prüft die Strukturänderungen an allen echten Einträgen.
  *
  * Geprüft wird jeweils an einer Kopie des Weltstands, nie an der Quelle.

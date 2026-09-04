@@ -1,4 +1,5 @@
 /* ===================================================================
+   [Aufgabe: Bearbeiten]
    Age-of-Beast-Wiki – Aufbau bearbeiten
    -------------------------------------------------------------------
    Ergänzt den Bearbeitungsmodus um alles, was ein Stift am Text nicht

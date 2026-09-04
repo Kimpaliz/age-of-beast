@@ -1,4 +1,5 @@
 /**
+ * [Aufgabe: Prüfwesen]
  * Prueft, dass das Bearbeiten keinen Text beschaedigt.
  *
  * Hintergrund: Im Bearbeitungsfeld sieht Jannik nicht das HTML der

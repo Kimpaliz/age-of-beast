@@ -38,7 +38,9 @@ steht in [WEGWEISER.md](WEGWEISER.md).
 | Speicher und Anmeldung | `Speicher` | `speicher/…` | `firebase-konfig.js`, `firestore.rules`, `werkzeuge/firestore-*.mjs` |
 | Plattform (mehrere Wikis) | `Rahmen` | `plattform/…` | `werkzeuge/plattform-speicher.mjs`, `runtime/plattform.js`, `docs/PLATTFORM.md` |
 | Kartenwappen | `Bilder` | `bilder/…` | `werkzeuge/kartenbilder-erzeugen.mjs`, `daten/kartenbilder/` (234 SVG) |
-| Weltkarte | `Karte` | `karte/…` | `karte/`, `werkzeuge/karte-malen.mjs` |
+| Weltkarte | `Karte` | `karte/…` | `karte.html`, `karte/karte-zeichnen.js`, `karte/karte-erzeugen.mjs`, `karte/palette.mjs`, `karte/welt-regionen.mjs`, `karte/welt-orte.mjs`, `werkzeuge/karte-malen.mjs` |
+| Spielkarten | `Spielkarten` | `spielkarten/…` | `karten.html`, `karte/karten-zeigen.js`, `karte/karten-daten.js`, `karte/kartenblase.js`, `daten/daggerheart-*.json` |
+| Charakterbogen | `Charakterbogen` | `bogen/…` | `bogen.html`, `karte/bogen-zeigen.js`, `werkzeuge/werte-rechnen.mjs`, `styles/charakterbogen.css` |
 | Betrieb und Auslieferung | `Betrieb` | `betrieb/…` | `werkzeuge/vorschau-server.mjs`, `werkzeuge/heim-server.mjs`, `werkzeuge/versioniere-browser-ressourcen.mjs`, `.github/workflows/` |
 | Prüfwesen | `Prüfwesen` | `pruefung/…` | `werkzeuge/pruefe-*.mjs`, `werkzeuge/helfer.mjs` |
 | Dokumentation | `Doku` | `doku/…` | `docs/`, `README.md`, `CHANGELOG.md`, `CHANGELOG-TECHNIK.md` |

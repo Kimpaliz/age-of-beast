@@ -1,6 +1,6 @@
 /* ===================================================================
    Age of Beast — die Kartendaten an einer Stelle
-   [Aufgabe: Karte]
+   [Aufgabe: Spielkarten]
 
    -------------------------------------------------------------------
    Lädt die Spielkarten (Domänen, Abstammungen, Gemeinschaften,

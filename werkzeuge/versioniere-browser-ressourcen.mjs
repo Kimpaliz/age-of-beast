@@ -1,4 +1,5 @@
 /**
+ * [Aufgabe: Betrieb]
  * Versioniert die veränderlichen Browser-Abhängigkeiten eines Pages-Artefakts.
  *
  * Das Werkzeug arbeitet ausschließlich in dem mit --artefakt übergebenen

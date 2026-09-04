@@ -1,4 +1,5 @@
 /**
+ * [Aufgabe: Prüfwesen]
  * Vertragstest für die klassische Leseruntime. Kein Browser, kein Netzwerk.
  */
 import { readFileSync } from 'node:fs';

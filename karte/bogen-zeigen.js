@@ -1,6 +1,6 @@
 /* ===================================================================
    Age of Beast — die Spielfiguren als Daggerheart-Charakterbögen
-   [Aufgabe: Karte]
+   [Aufgabe: Charakterbogen]
 
    -------------------------------------------------------------------
    Zeichnet aus `eintrag.spielwerte` einen vollständigen Bogen.

@@ -23,7 +23,7 @@
 > sind entfernt. Sie lagen seit dem Umstieg auf Firebase (02.09.2026) als
 > Rückweg da, den kein Browserpfad mehr benutzte; Janniks Entscheidung
 > vom 04.09. („weg von den GitHub-Code-Login, wir machen Google-Login")
-> hat den Rückweg endgültig erledigt. Der Weg über GitHub war ohnehin nur
+> nahm ihm den letzten Zweck. Der Weg über GitHub war ohnehin nur
 > ein Notbehelf: Ein Browser kann eine GitHub-Anmeldung gar nicht
 > abschließen, weil deren Endpunkt keine `Access-Control`-Kopfzeilen
 > sendet — gemessen am 25.08.2026.

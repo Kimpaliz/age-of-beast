@@ -1,4 +1,5 @@
 /**
+ * [Aufgabe: Betrieb]
  * Liefert das Wiki im eigenen NetBird-Netz aus.
  *
  * Damit ist das Wiki von Janniks Handy und anderen eingetragenen Geräten

@@ -33,12 +33,27 @@ Obergrenze fest. Fällt eine Datei unter 500 Zeilen, meldet der Wächter
 Gemessen mit derselben Zählung wie der Wächter (Anzahl `\n`), über die
 60 Quelldateien aus `alpha-code.json`:
 
+> **Anhebung um je +1 am 04.09.2026, begründet.** Drei geführte Dateien
+> sind um genau eine Zeile gewachsen: `pruefe-datenvertrag` 852 → 853,
+> `pruefe-rahmen-routen` 645 → 646, `versioniere-browser-ressourcen`
+> 615 → 616. Es ist in allen drei Fällen dieselbe Zeile — das
+> `[Aufgabe: …]`, das `werkzeuge/pruefe-tags.mjs` **verlangt**.
+>
+> Damit standen zwei Wächter gegeneinander: einer fordert die Zeile,
+> der andere verbietet das Wachstum. Aufgelöst zugunsten des Tags, weil
+> die Zeile ein Kommentar ist und keine Anweisung — der Ratchet schützt
+> vor wachsendem *Code*.
+>
+> ⚠️ **Kein Präzedenzfall.** Diese Ausnahme galt einmalig für die
+> Nachrüstung. Jede weitere Anhebung braucht ihre eigene Begründung, und
+> die Regel bleibt: Wer eine Altlast anfasst, löst zuerst den berührten
+> Teil heraus.
+
 | Datei | Zeilen | Zielbereich beim Herauslösen |
 | --- | ---: | --- |
-| `werkzeuge/pruefe-datenvertrag.mjs` | 852 | Die sieben Legacy-v0-Regeln aus `DATENVERTRAG.md` sind sieben Prüfblöcke plus 18 Mutationsproben. Die Proben können in eine eigene Datei neben die Regeln. |
-| `werkzeuge/pruefe-rahmen-routen.mjs` | 645 | Die DOM- und `location`-Attrappe ist der größere Teil; sie gehört in ein eigenes Modul, das auch `pruefe-leseruntime.mjs` benutzen könnte. |
-| `werkzeuge/versioniere-browser-ressourcen.mjs` | 615 | Der Abhängigkeitsläufer (HTML, JavaScript-Importe, CSS-Importe, `url()`) ist von der Umschreiberei trennbar; `pruefe-cache-graph.mjs` bräuchte denselben Läufer. |
-| `werkzeuge/pruefe-firestore-trennung.mjs` | 459 | Beschädigungen und Blockleser sind am 04.09.2026 herausgelöst (`firestore-selbsttest.mjs`, `regeln-lesen.mjs`). Damit unter 500 — bleibt in der Liste, bis der nächste Eingriff das bestätigt. |
+| `werkzeuge/pruefe-datenvertrag.mjs` | 853 | Die sieben Legacy-v0-Regeln aus `DATENVERTRAG.md` sind sieben Prüfblöcke plus 18 Mutationsproben. Die Proben können in eine eigene Datei neben die Regeln. |
+| `werkzeuge/pruefe-rahmen-routen.mjs` | 646 | Die DOM- und `location`-Attrappe ist der größere Teil; sie gehört in ein eigenes Modul, das auch `pruefe-leseruntime.mjs` benutzen könnte. |
+| `werkzeuge/versioniere-browser-ressourcen.mjs` | 616 | Der Abhängigkeitsläufer (HTML, JavaScript-Importe, CSS-Importe, `url()`) ist von der Umschreiberei trennbar; `pruefe-cache-graph.mjs` bräuchte denselben Läufer. |
 
 Am nächsten dran, aber noch darunter (nur zur Warnung, nicht geführt):
 `werkzeuge/werkstatt-uebernehmen.mjs` 426 · `karte/karte-erzeugen.mjs`
@@ -63,75 +78,38 @@ Altlasten statt fünf. Genau das ist beim ersten Anlauf passiert.
 
 ---
 
-## Ohne Kopfnotiz (Regel 6)
+## Ohne Aufgaben-Tag (Regel 6)
 
 `werkzeuge/pruefe-tags.mjs` liest diesen Abschnitt. Eine hier geführte
 Datei darf (noch) kein `[Aufgabe: …]` in den ersten zwölf Zeilen tragen;
 **jede andere Quelldatei muss eines haben**. Bekommt eine geführte Datei
 ihren Tag, meldet der Wächter „kann aus der Nachrüstliste".
 
-**Warum das offen ist:** Die Kopfnotizen sind Schritt 5 der
-Alpha-Code-Methode. Er berührt jede einzelne dieser Dateien und hätte am
-04.09.2026 die parallel arbeitenden Sitzungen im selben Checkout zerlegt
-(`karte/`, `docs/daggerheart/`). Der Schnitt und die Tags stehen in
-[REGELN.md](REGELN.md); es fehlt nur das Eintragen.
+**Am 04.09.2026 abgearbeitet — die Liste ist leer.**
 
-Stand 04.09.2026 auf dem Zweig `einrichtung/alpha-code`: **47 von 56**
-Quelldateien. Die Spalte „Tag" sagt, was beim Nachrüsten hineingehört —
-sie ist aus der Systemtabelle abgeleitet, nicht neu erfunden.
+Zwei Befunde aus dem Abarbeiten, beide gemessen:
 
-```bash
-# beide Zahlen nachrechnen
-node -e "const f=require('fs');const A=new Set(['node_modules','.git','.entwurf','daten']);let a=0,b=0;(function g(d){for(const n of f.readdirSync(d)){if(A.has(n))continue;const r=d==='.'?n:d+'/'+n;if(f.statSync(r).isDirectory()){g(r);continue}if(!/\.m?js$/.test(n))continue;a++;if(!/\[Aufgabe:/.test(f.readFileSync(r,'utf8').split(/\r?\n/).slice(0,12).join('\n')))b++}})('.');console.log(b+' von '+a)"
-```
+1. **Der Abschnitt hieß „Ohne Kopfnotiz" und war fehlbeschriftet.** Alle
+   45 geführten Dateien hatten längst eine brauchbare Kopfnotiz mit Was
+   und Warum — es fehlte in jeder nur die eine Zeile `[Aufgabe: …]`.
+   Der Wächter prüft den **Tag**, nicht die Notiz; die Überschrift
+   versprach mehr Arbeit, als übrig war, und hat sie deshalb länger
+   liegen lassen als nötig.
+
+2. **Der Tag `Karte` fasste drei Systeme zusammen.** Der Ordner `karte/`
+   trägt die Weltkarte, die Daggerheart-Spielkarten und den
+   Charakterbogen. Belegt an den Importen: drei Seiten
+   (`karte.html`, `karten.html`, `bogen.html`), drei geschlossene
+   Gruppen, **null Importe zwischen Weltkarte und den beiden anderen**;
+   geteilt ist einzig `kartenblase.js` zwischen Spielkarten und Bogen.
+   `docs/REGELN.md` führt sie jetzt getrennt.
+
+Bleibt die Liste leer, ist das der Normalfall — eine neue Datei ohne Tag
+ist sofort rot. Sie wieder zu füllen wäre eine sichtbare Änderung an
+dieser Datei und braucht eine Begründung.
 
 | Datei | Tag |
 | --- | --- |
-| `bearbeiten-kontext.js` | `Bearbeiten` |
-| `bearbeiten.js` | `Bearbeiten` |
-| `firebase-konfig.js` | `Speicher` |
-| `rahmen-assistent.js` | `Werkstatt` |
-| `runtime/ansichten.js` | `Leseruntime` |
-| `runtime/datenindex.js` | `Leseruntime` |
-| `runtime/interaktion.js` | `Leseruntime` |
-| `runtime/routing.js` | `Leseruntime` |
-| `runtime/symbole.js` | `Leseruntime` |
-| `struktur-bedienung.js` | `Bearbeiten` |
-| `texte-bearbeiten.js` | `Bearbeiten` |
-| `wiki.js` | `Leseruntime` |
-| `werkzeuge/bearbeiten-stellen.mjs` | `Bearbeiten` |
-| `werkzeuge/firestore-format.mjs` | `Speicher` |
-| `werkzeuge/firestore-speicher.mjs` | `Speicher` |
-| `werkzeuge/heim-server.mjs` | `Betrieb` |
-| `werkzeuge/kartenbilder-erzeugen.mjs` | `Bilder` |
-| `werkzeuge/pruefe-bearbeiten.mjs` | `Prüfwesen` |
-| `werkzeuge/pruefe-bearbeitungskontext.mjs` | `Prüfwesen` |
-| `werkzeuge/pruefe-cache-graph.mjs` | `Prüfwesen` |
-| `werkzeuge/pruefe-datenvertrag.mjs` | `Prüfwesen` |
-| `werkzeuge/pruefe-firestore-format.mjs` | `Prüfwesen` |
-| `werkzeuge/pruefe-firestore-trennung.mjs` | `Prüfwesen` |
-| `werkzeuge/pruefe-gleichstand.mjs` | `Prüfwesen` |
-| `werkzeuge/pruefe-leseruntime.mjs` | `Prüfwesen` |
-| `werkzeuge/pruefe-rahmen-routen.mjs` | `Prüfwesen` |
-| `werkzeuge/pruefe-schreibweise.mjs` | `Prüfwesen` |
-| `werkzeuge/pruefe-server-sicherheit.mjs` | `Prüfwesen` |
-| `werkzeuge/pruefe-stilstruktur.mjs` | `Prüfwesen` |
-| `werkzeuge/pruefe-struktur.mjs` | `Prüfwesen` |
-| `werkzeuge/pruefe-symbole.mjs` | `Prüfwesen` |
-| `werkzeuge/rahmen-felder-lesen.mjs` | `Werkstatt` |
-| `werkzeuge/rahmen-uebernehmen.mjs` | `Werkstatt` |
-| `werkzeuge/regeln-testen.mjs` | `Werkstatt` |
-| `werkzeuge/regeln-uebernehmen.mjs` | `Werkstatt` |
-| `werkzeuge/struktur-bearbeiten.mjs` | `Bearbeiten` |
-| `werkzeuge/text-schreibweise.mjs` | `Bearbeiten` |
-| `werkzeuge/versioniere-browser-ressourcen.mjs` | `Betrieb` |
-| `werkzeuge/vorschau-server.mjs` | `Betrieb` |
-| `werkzeuge/welt-aufbereiten.mjs` | `Weltdaten` |
-| `werkzeuge/welt-dateien.mjs` | `Weltdaten` |
-| `werkzeuge/welt-hochladen.mjs` | `Weltdaten` |
-| `werkzeuge/welt-holen.mjs` | `Weltdaten` |
-| `werkzeuge/welt-umwandeln.mjs` | `Weltdaten` |
-| `werkzeuge/werkstatt-uebernehmen.mjs` | `Werkstatt` |
 
 ## Beim Zusammenführen des Zweigs `welt/karte-und-figuren` nachtragen
 

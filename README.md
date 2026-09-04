@@ -199,12 +199,12 @@ er zuerst nur nach, ob sich etwas geändert hat — ein Abruf statt zehn.
 
 Die technische Grundlage für sichere Upgrades ist dokumentiert:
 
-- [Projektinventar](docs/INVENTAR.md)
-- [Architekturkarte](docs/ARCHITEKTUR.md)
+- [Projektinventar](docs/geschichte/INVENTAR.md)
+- [Architekturkarte](docs/geschichte/ARCHITEKTUR.md)
 - [Datenvertrag](docs/DATENVERTRAG.md)
 - [QA-Matrix](docs/QA_MATRIX.md)
 - [Release-Runbook](docs/RELEASE_RUNBOOK.md)
-- [Upgrade-Fahrplan](docs/UPGRADE_ROADMAP.md)
+- [Upgrade-Fahrplan](docs/geschichte/UPGRADE_ROADMAP.md)
 
 ---
 

@@ -1,4 +1,5 @@
 /**
+ * [Aufgabe: Prüfwesen]
  * Prüft die beiden reinen Lese-Server des Wikis.
  *
  * Der Heim-Server wird nur für diesen lokalen Test mit --alle gestartet und

@@ -1,4 +1,5 @@
 /**
+ * [Aufgabe: Prüfwesen]
  * Prüft den lesenden Datenvertrag des Age-of-Beast-Wikis.
  *
  * Der Prüfer liest ausschließlich die kanonische Legacy-v0-Quelle und den

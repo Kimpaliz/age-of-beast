@@ -1,4 +1,5 @@
 /**
+ * [Aufgabe: Werkstatt]
  * Liest die Feldbeschreibungen des Kampagnenrahmen-Assistenten aus der
  * Daggerheart-Werkstatt und legt sie als reine Daten ab.
  *

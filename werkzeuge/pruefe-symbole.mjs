@@ -1,4 +1,5 @@
 /**
+ * [Aufgabe: Prüfwesen]
  * Prueft die Kategoriesymbole und die Kategoriefarben.
  *
  * Warum es diese Pruefung gibt: Ein Symbol, das eine Kategorie nicht kennt,

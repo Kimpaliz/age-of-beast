@@ -1,4 +1,5 @@
 /* ===================================================================
+   [Aufgabe: Bearbeiten]
    Age-of-Beast-Wiki – Weltdaten, Anmeldung und Speichern (Fassung 3.0.0)
    -------------------------------------------------------------------
    Die Welt liegt in Firestore, im Firebase-Projekt `kampagnenrahmen-jt`.

@@ -130,6 +130,11 @@ betroffenen Datei. Die drei größten:
    (`ALTE_SCHLUESSEL_ABLAGE`), nicht mehr angelegt.
 2. **Es sind fünf `runtime/`-Dateien und fünf `styles/`-Dateien**, nicht
    je vier.
-3. **Die Pakete A–H sind veröffentlicht.** `main` und `origin/main`
-   stehen beide auf `cde2533`, 25 Commits nach dem Etikett `v2.7.0`, und
-   jeder Push auf `main` veröffentlicht.
+3. **Wo der Ausbaustand steht: nicht hier.** An dieser Stelle stand
+   bis zum 04.09.2026 ein Satz, der Ausbaupakete für veröffentlicht
+   erklärte und dazu einen Commit nannte. Beim Aufräumen war er bereits
+   falsch — der Hauptzweig war weitergewandert, das Dokument nicht.
+   Genau dafür gibt es Regel 14.
+
+   Was gebaut wurde, sagt [CHANGELOG-TECHNIK.md](../CHANGELOG-TECHNIK.md).
+   Wo der Hauptzweig steht, sagt `git rev-parse main origin/main`.

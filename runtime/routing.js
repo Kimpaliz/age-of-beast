@@ -1,4 +1,15 @@
-/* Age-of-Beast – Routing, Rendergeneration und öffentliche Kompatibilitätsfassade. */
+/* Age of Beast — Routing und Rendergeneration.
+   [Aufgabe: Leseruntime]
+
+   Was: Uebersetzt die Adresse (`#/eintrag/…`, `#/kategorie/…`) in einen
+   Zeichenauftrag und haelt die Fassade `window.ageOfBeast` bereit.
+
+   Warum eine Generationszahl: Ein spaeter eintreffender Zeichenauftrag
+   duerfte die inzwischen andere Seite nicht ueberschreiben. Jeder Auftrag
+   traegt seine Generation und verwirft sich selbst, wenn sie ueberholt ist.
+
+   Arbeitet zusammen mit: allen drei anderen Bausteinen; `wiki.js` startet
+   es, `werkzeuge/pruefe-rahmen-routen.mjs` prueft die Deep Links. */
 (function () {
 
   'use strict';

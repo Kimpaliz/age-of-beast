@@ -1,4 +1,5 @@
 /**
+ * [Aufgabe: Bearbeiten]
  * Ändert den Aufbau eines Eintrags: Abschnitte und Steckbriefzeilen
  * anlegen, löschen und umsortieren.
  *

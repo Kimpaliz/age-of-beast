@@ -1,4 +1,5 @@
 /* ===================================================================
+   [Aufgabe: Bearbeiten]
    Age-of-Beast-Wiki – Texte bearbeiten
    -------------------------------------------------------------------
    Angemeldet erscheint im Kopf der Knopf „Bearbeiten". Ist er gedrückt,

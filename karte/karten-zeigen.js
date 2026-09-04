@@ -1,6 +1,6 @@
 /* ===================================================================
    Age of Beast — die Spielkarten als Kacheln
-   [Aufgabe: Karte]
+   [Aufgabe: Spielkarten]
 
    -------------------------------------------------------------------
    Liest `daten/daggerheart-karten.json` und baut daraus die Kacheln.

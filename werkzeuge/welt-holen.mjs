@@ -1,4 +1,5 @@
 /**
+ * [Aufgabe: Weltdaten]
  * ACHTUNG – NICHT MEHR IM BETRIEB (seit Fassung 2.0.0, 25.08.2026)
  * ================================================================
  *

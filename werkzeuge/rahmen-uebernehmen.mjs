@@ -1,4 +1,5 @@
 /**
+ * [Aufgabe: Werkstatt]
  * Übernimmt die Kampagnenrahmen der Werkstatt als eigene Quelle.
  *
  * Wichtig ist der Unterschied zur ersten Übernahme (Fassung 2.2.0): Damals

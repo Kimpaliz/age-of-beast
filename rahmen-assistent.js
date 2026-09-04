@@ -1,4 +1,5 @@
 /* ===================================================================
+   [Aufgabe: Werkstatt]
    Age-of-Beast-Wiki – Kampagnenrahmen-Assistent
    -------------------------------------------------------------------
    Der Assistent der Daggerheart-Werkstatt, übersetzt ins Wiki. Neun

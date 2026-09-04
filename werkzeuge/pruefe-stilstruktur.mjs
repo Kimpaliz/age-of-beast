@@ -1,4 +1,5 @@
 /**
+ * [Aufgabe: Prüfwesen]
  * Prüft die CSS-Aufteilung, ohne Browser, Netzwerk oder Quelldateien zu
  * verändern. Der Referenzwert sichert den bisherigen Stil als vollständige
  * Zeichenfolge: Bei späteren beabsichtigten Stiländerungen muss er bewusst

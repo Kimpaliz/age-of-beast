@@ -1,4 +1,5 @@
 /**
+ * [Aufgabe: Bilder]
  * Erzeugt Kartengrafiken als SVG.
  *
  * Warum überhaupt: Die Bilder der Werkstatt sind offizielle Illustrationen

@@ -1,4 +1,5 @@
 /**
+ * [Aufgabe: Prüfwesen]
  * Prueft werkzeuge/firestore-format.mjs — die Zerlegung der Weltdaten in
  * Firestore-Dokumente und ihr Wiederzusammensetzen.
  *

@@ -1,4 +1,5 @@
 /**
+ * [Aufgabe: Betrieb]
  * Kleiner Vorschau-Server, um das Wiki lokal anzusehen.
  *
  * Aufruf:

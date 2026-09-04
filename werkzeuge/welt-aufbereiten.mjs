@@ -1,4 +1,5 @@
 /**
+ * [Aufgabe: Weltdaten]
  * Erzeugt aus den Rohdaten der Weltenschmiede die Dateien unter `daten/`.
  *
  * Ergebnis:

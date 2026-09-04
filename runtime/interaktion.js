@@ -1,4 +1,16 @@
-/* Age-of-Beast – Vorschau, Suche, Leiste, Theme und lokale Filterbedienung. */
+/* Age of Beast — Vorschaublase, Suche, Leiste, Farbschema, Filter.
+   [Aufgabe: Leseruntime]
+
+   Was: Alles, was auf eine Eingabe reagiert, ohne die Seite zu wechseln.
+
+   ⚠️ Der Filter setzt `kachel.hidden`. Dass das wirkt, haengt an
+   `styles/grundregeln.css` — eine Klassenregel mit `display` schlaegt
+   das Attribut sonst, und am 04.09.2026 tat sie das auch: 35 Kacheln
+   trugen `hidden`, keine war unsichtbar.
+
+   Arbeitet zusammen mit: `datenindex.js` und `ansichten.js` (bekommt
+   beide hereingereicht), `werkzeuge/pruefe-filter.mjs` (misst im
+   Browser, dass der Filter wirklich versteckt). */
 (function () {
 
   'use strict';

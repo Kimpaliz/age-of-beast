@@ -1,5 +1,12 @@
 # Upgrade-Analyse: Age of Beast ab v2.7.0
 
+> **Beleg, kein Sollstand.** Diese Datei liegt in `docs/geschichte/`,
+> weil ihr Inhalt abgeschlossen ist. Sie darf Zustandsaussagen tragen —
+> sie behauptet nicht mehr, die Gegenwart zu beschreiben (Regel 13/14).
+>
+> **Maßgeblich ist heute:** [REGELN.md](../REGELN.md) und [WEGWEISER.md](../WEGWEISER.md).
+
+
 > ## ⚠️ Nachtrag vom 04.09.2026 — abgeschlossen, Beleg statt Sollstand
 >
 > Dieses Dokument ist der **Arbeitsplan** für die Analyse vom
@@ -17,8 +24,8 @@
 > Arbeitsverzeichnisse unter `_codex-worktrees/` belegen
 > (`git branch -a` · `git worktree list`).
 >
-> Die aktuelle Landkarte steht in [WEGWEISER.md](WEGWEISER.md), die
-> aktuellen offenen Punkte in [ALTLASTEN.md](ALTLASTEN.md).
+> Die aktuelle Landkarte steht in [WEGWEISER.md](../WEGWEISER.md), die
+> aktuellen offenen Punkte in [ALTLASTEN.md](../ALTLASTEN.md).
 
 ## Auftrag
 

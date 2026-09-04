@@ -10,6 +10,59 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ## [Unveröffentlicht]
 
+### Aufgeräumt nach Alpha-Code (Modus B)
+
+**Kein Verhalten geändert** — bewiesen: `daten/welt.json` und
+`daten/welt.js` gelöscht und neu erzeugt, beide **bytegleich** (md5).
+Der Diff der 45 Quelldateien enthält ausschließlich Kommentarzeilen;
+16 Leerzeilen stammen sämtlich aus den sechs selbst geschriebenen
+Kopfnotizen unter `runtime/`.
+
+- **Nachrüstliste abgearbeitet: 45 → 0.** 88 Quelldateien tragen jetzt
+  ihr `[Aufgabe: …]`. **Der Abschnitt war fehlbeschriftet:** Er hieß
+  „Ohne Kopfnotiz", alle 45 hatten aber längst eine mit Was und Warum —
+  der Wächter prüft den **Tag**. Jetzt „Ohne Aufgaben-Tag".
+- **Der Tag `Karte` fasste drei Systeme zusammen.** Belegt an den
+  Importen: `karte.html` → `karte-zeichnen.js` → vier Module;
+  `karten.html` → `karten-zeigen.js` → `kartenblase.js` →
+  `karten-daten.js`; `bogen.html` → `bogen-zeigen.js`. **Null Importe
+  zwischen Weltkarte und den beiden anderen**, geteilt ist nur
+  `kartenblase.js`. `docs/REGELN.md` führt jetzt `Karte`,
+  `Spielkarten` und `Charakterbogen` getrennt; vier Dateien umgetragen.
+- **Fünf Dokumente nach `docs/geschichte/`** — `ARCHITEKTUR.md`,
+  `INVENTAR.md`, `SUBAGENT_PROFILE.md`, `UPGRADE_ANALYSE_PLAN.md`,
+  `UPGRADE_ROADMAP.md`. Jedes trägt oben, was stattdessen maßgeblich
+  ist. `ARCHITEKTUR.md` war eine **zweite Karte neben `WEGWEISER.md`**
+  und beschrieb 4 statt 13 `runtime/`-Dateien, 4 statt 13 Stile und eine
+  Seite statt sieben. Zwei Karten für dasselbe laufen auseinander.
+- **`werkzeuge/pruefe-doku-status.mjs` aus dem Skill übernommen** (der
+  siebte Kernwächter, er fehlte hier). Er fand sofort eine Aussage in
+  `WEGWEISER.md`, die **zum Zeitpunkt des Aufräumens bereits falsch
+  war** — sie nannte einen Commit als aktuellen Stand. Ersetzt durch
+  den Verweis auf `git rev-parse`.
+  - Erweitert: `FEHLERBUCH.md` und die Changelogs zählen wie
+    `docs/geschichte/` als **datierte Historie**. Ohne das fiel die
+    Prüfung über das Fehlerbuch, dessen Vier-Felder-Muster solche Sätze
+    verlangt (Fall B4).
+  - **Drei Rot-Beweise, in beide Richtungen:** Zustandssatz ohne Datum
+    → rot (Rückgabewert 1); derselbe Satz **mit** Datum → grün;
+    derselbe Satz in `docs/geschichte/` → grün. Danach bytegleich.
+- **Altlasten 4 → 3.** `pruefe-firestore-trennung.mjs` ist mit 459
+  Zeilen unter die Grenze gefallen und aus der Liste genommen. Drei
+  Baselines um **je genau +1** angehoben — die vom Tag-Wächter
+  erzwungene Zeile; der Zielkonflikt zwischen den zwei Wächtern ist in
+  `docs/ALTLASTEN.md` festgehalten und ausdrücklich **kein
+  Präzedenzfall**.
+- Zwei Zustandsbehauptungen entschärft (`WORKCLAIM.md`,
+  `docs/DATENVERTRAG.md`); 60 Markdown-Verweise nach dem Verschieben
+  nachgezogen, alle heil.
+
+**Eigener Fehler, Fehlerbuch C6 zum zweiten Mal am selben Tag:** Ein
+`git checkout --` beim Rot-Beweis nahm die zehn Minuten alte,
+ungespeicherte Verweis-Reparatur mit. Gefangen hat es `pruefe-verweise`
+in der Gesamtkette — drei tote Verweise. Die Regel gilt nicht nur für
+die geprüfte Datei, sondern für jede, die der Rot-Beweis anfasst.
+
 ### Behoben
 
 - **Der Kategoriefilter versteckte nichts.** `runtime/interaktion.js` setzt

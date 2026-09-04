@@ -1,4 +1,5 @@
 /* ===================================================================
+   [Aufgabe: Speicher]
    Age-of-Beast-Wiki – Weltdaten aus Firestore lesen und schreiben
    -------------------------------------------------------------------
    Zwei getrennte Wege, mit Absicht:
