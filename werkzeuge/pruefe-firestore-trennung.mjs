@@ -25,6 +25,10 @@ import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { probenBauen } from './firestore-selbsttest.mjs';
+import {
+  maskiere, blockLesen, funktionMuster, sammlungMuster,
+  sammlungenLesen, funktionsnamenLesen, normalisiere, ruftAuf,
+} from './regeln-lesen.mjs';
 
 const WURZEL = join(dirname(fileURLToPath(import.meta.url)), '..');
 const REGELDATEI = join(WURZEL, 'firestore.rules');
@@ -51,137 +55,6 @@ function pruefe(wert, text) {
   if (!wert) fehler.push(text);
 }
 
-/* ------------------------------------------------------------------ *
-   Werkzeug: Bloecke aus einer Regeldatei schneiden
-
-   Geklammert wird auch in Pfaden (match /zugriffsanfragen/{konto}) und in
-   Kommentaren. Deshalb wird der Text zuerst maskiert: Kommentar- und
-   Zeichenketteninhalte werden durch Leerzeichen ersetzt, jede Position
-   bleibt erhalten. Gezaehlt wird auf der Maske, geschnitten wird aus dem
-   Original — so bleiben Kommentare im Ergebnis erhalten.
-   ------------------------------------------------------------------ */
-
-function maskiere(text) {
-  const aus = text.split('');
-  let i = 0;
-  while (i < text.length) {
-    const zwei = text.slice(i, i + 2);
-    if (zwei === '/*') {
-      const ende = text.indexOf('*/', i + 2);
-      const bis = ende === -1 ? text.length : ende + 2;
-      for (let k = i; k < bis; k += 1) if (aus[k] !== '\n') aus[k] = ' ';
-      i = bis;
-      continue;
-    }
-    if (zwei === '//') {
-      let ende = text.indexOf('\n', i);
-      if (ende === -1) ende = text.length;
-      for (let k = i; k < ende; k += 1) aus[k] = ' ';
-      i = ende;
-      continue;
-    }
-    const c = text[i];
-    if (c === "'" || c === '"') {
-      let k = i + 1;
-      while (k < text.length && text[k] !== c) {
-        if (text[k] === '\\') k += 1;
-        k += 1;
-      }
-      for (let m = i; m <= Math.min(k, text.length - 1); m += 1) if (aus[m] !== '\n') aus[m] = ' ';
-      i = k + 1;
-      continue;
-    }
-    i += 1;
-  }
-  return aus.join('');
-}
-
-/* Schneidet den Block, dessen Kopf auf `muster` passt. Das Muster muss mit
-   der oeffnenden Klammer des Rumpfes enden — dadurch zaehlen Klammern im
-   Kopf wie {konto} nicht mit. */
-function blockLesen(text, maske, muster) {
-  const t = new RegExp(muster.source, 'u').exec(maske);
-  if (!t) return null;
-  const oeffnung = t.index + t[0].length - 1;
-  let tiefe = 0;
-  for (let i = oeffnung; i < maske.length; i += 1) {
-    if (maske[i] === '{') tiefe += 1;
-    else if (maske[i] === '}') {
-      tiefe -= 1;
-      if (tiefe === 0) return { start: t.index, ende: i + 1, text: text.slice(t.index, i + 1) };
-    }
-  }
-  return null;
-}
-
-function funktionMuster(name) {
-  return new RegExp('function\\s+' + name + '\\s*\\([^)]*\\)\\s*\\{', 'u');
-}
-
-function sammlungMuster(name) {
-  return new RegExp('match\\s+/' + name + '/\\{[A-Za-z0-9_]+\\}\\s*\\{', 'u');
-}
-
-/* Namen aller Sammlungen, auf die die Datei Regeln legt. Der Datenbankpfad
-   selbst und der Riegel /{document=**} sind keine Sammlungen. */
-/**
- * Die Namen der Sammlungen auf **oberster** Ebene.
- *
- * Untersammlungen bleiben aussen vor, und zwar aus dem Grund, aus dem es
- * die Praefixregel ueberhaupt gibt: Sie soll verhindern, dass zwei
- * Anwendungen sich denselben Namen greifen. Eine Untersammlung liegt
- * unter ihrem Elterndokument und kann mit nichts kollidieren —
- * `wiki_projekte/{id}/welt` ist eindeutig, auch ohne Praefix am `welt`.
- * Wuerde man sie mitzaehlen, muesste jede kuenftige Untersammlung
- * `wiki_` heissen, was die Pfade nur laenger und nicht sicherer macht.
- *
- * Gezaehlt wird ueber die Klammertiefe innerhalb des `match /databases`-
- * Blocks: Tiefe 1 ist oberste Ebene.
- */
-function sammlungenLesen(maske) {
-  const namen = [];
-  const muster = /match\s+\/([A-Za-z0-9_-]+)\/\{/gu;
-  let t;
-  while ((t = muster.exec(maske)) !== null) {
-    if (t[1] === 'databases') continue;
-    /* Wie viele offene `match`-Bloecke stehen vor dieser Stelle? Der
-       Block `match /databases/...` zaehlt dabei nicht mit. */
-    const davor = maske.slice(0, t.index);
-    let tiefe = 0;
-    for (const zeichen of davor) {
-      if (zeichen === '{') tiefe += 1;
-      else if (zeichen === '}') tiefe -= 1;
-    }
-    /* service{ + match /databases{ = 2 offene Klammern auf oberster
-       Sammlungsebene. Alles darueber ist eine Untersammlung. */
-    if (tiefe <= 2) namen.push(t[1]);
-  }
-  return namen;
-}
-
-function funktionsnamenLesen(maske) {
-  const namen = [];
-  const muster = /function\s+([A-Za-z0-9_]+)\s*\(/gu;
-  let t;
-  while ((t = muster.exec(maske)) !== null) namen.push(t[1]);
-  return namen;
-}
-
-/* Zeilenenden und reine Einrueckung duerfen sich unterscheiden — das ist
-   Formatierung. Alles andere muss zeichengleich sein. */
-function normalisiere(text) {
-  return text
-    .replace(/\r\n/gu, '\n')
-    .split('\n')
-    .map((z) => z.replace(/[ \t]+$/u, '').replace(/^[ \t]+/u, ''))
-    .join('\n');
-}
-
-/* Ruft dieser Text die genannte Funktion auf? Die Klammer davor verhindert,
-   dass istAdmin in istWikiAdmin gefunden wird. */
-function ruftAuf(text, name) {
-  return new RegExp('(?<![A-Za-z0-9_])' + name + '\\s*\\(', 'u').test(text);
-}
 
 /* ------------------------------------------------------------------ *
    Die eigentliche Pruefung
@@ -288,6 +161,21 @@ function pruefeRegeln(regeltext, scotoText) {
   const alleFunktionen = funktionsnamenLesen(maske);
   const wikiFunktionen = alleFunktionen.filter((n) => !scotoFunktionen.includes(n));
   p(wikiFunktionen.length > 0, 'Das Wiki hat keine eigenen Hilfsfunktionen. Dann benutzt es zwangslaeufig die von Scotophobia.');
+
+  /* **Jede Wiki-Funktion muss `wiki` oder `istWiki` heissen.**
+     Ohne diese Pruefung waere der Waechter dort schwaecher, wo er mehr
+     weiss: Liegt Scotophobias Datei daneben, erkennt er ihre Funktionen
+     an ihrem Inhalt; auf dem Bauserver bleibt ihm nur das Praefix. Wer
+     eine Wiki-Funktion `darfWikiLesen` nennt, kommt am Arbeitsplatz
+     durch und faellt auf dem Bauserver durch — genau so ist am
+     04.09.2026 eine Veroeffentlichung stehen geblieben. Diese Zeile
+     bringt beide Wege wieder zur Deckung. */
+  for (const name of wikiFunktionen) {
+    p(/^(?:wiki|istWiki)/u.test(name),
+      'Die Wiki-Funktion ' + name + '() traegt kein wiki-Praefix. Auf dem Bauserver, '
+      + 'wo Scotophobias Datei fehlt, wird sie deshalb Scotophobia zugerechnet — '
+      + 'und die Trennung faelschlich als verletzt gemeldet.');
+  }
 
   /* Der Wiki-Bereich ist mehr als seine match-Bloecke: Auch die
      Hilfsfunktionen des Wikis duerfen nicht auf Scotophobia zurueckgreifen,

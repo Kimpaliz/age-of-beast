@@ -427,9 +427,16 @@ service cloud.firestore {
        **`rollen` ist eine Map uid → Rolle.** Sie steht neben
        `mitgliederIds`, weil eine Map sich nicht abfragen und ein Array
        sich nicht nach Rollen auswerten lässt. Beide müssen zueinander
-       passen; das erzwingt `mitgliedschaftStimmig()`.
+       passen; das erzwingt `wikiMitgliedschaftStimmig()`.
        ══════════════════════════════════════════════════════════════ */
 
+    /* ⚠️ **Jede Funktion des Wikis faengt mit `wiki` oder `istWiki` an.**
+       Das ist keine Kosmetik: `pruefe-firestore-trennung.mjs` ordnet
+       Funktionen nach genau diesem Praefix zu, wenn Scotophobias Repo
+       nicht danebenliegt — auf dem Bauserver ist das immer so. Hiessen
+       sie `darfWikiLesen`, haelt der Waechter sie fuer Scotophobias
+       Funktionen und meldet die Trennung als verletzt. Genau das ist am
+       04.09.2026 passiert und hat die Veroeffentlichung angehalten. */
     function wikiDoku(wikiId) {
       return get(/databases/$(database)/documents/wiki_projekte/$(wikiId)).data;
     }
@@ -440,12 +447,12 @@ service cloud.firestore {
         : '';
     }
 
-    function darfWikiLesen(wikiId) {
+    function wikiDarfLesen(wikiId) {
       return wikiDoku(wikiId).oeffentlich == true
         || wikiRolle(wikiId) in ['besitzer', 'schreiber', 'leser'];
     }
 
-    function darfWikiSchreiben(wikiId) {
+    function wikiDarfSchreiben(wikiId) {
       return wikiRolle(wikiId) in ['besitzer', 'schreiber'];
     }
 
@@ -457,7 +464,7 @@ service cloud.firestore {
        steht, aber nicht in `mitgliederIds`, hätte Rechte, die niemand
        findet — und umgekehrt stünde jemand in der Liste, dessen Rolle
        leer ist. */
-    function mitgliedschaftStimmig(d) {
+    function wikiMitgliedschaftStimmig(d) {
       return d.mitgliederIds is list
         && d.rollen is map
         && d.mitgliederIds.size() == d.rollen.keys().size()
@@ -480,7 +487,7 @@ service cloud.firestore {
         && d.beschreibung is string && d.beschreibung.size() <= 600
         && d.oeffentlich is bool
         && d.regelwerke is list && d.regelwerke.size() <= 20
-        && mitgliedschaftStimmig(d);
+        && wikiMitgliedschaftStimmig(d);
     }
 
     match /wiki_projekte/{wikiId} {
@@ -516,9 +523,9 @@ service cloud.firestore {
 
       /* ── Die Welt dieses Wikis ── */
       match /welt/{teil} {
-        allow read: if darfWikiLesen(wikiId);
+        allow read: if wikiDarfLesen(wikiId);
 
-        allow create, update: if darfWikiSchreiben(wikiId)
+        allow create, update: if wikiDarfSchreiben(wikiId)
           && request.resource.data.keys().hasOnly([
             'inhalt', 'stand', 'geaendertAm', 'geaendertVon'
           ])
