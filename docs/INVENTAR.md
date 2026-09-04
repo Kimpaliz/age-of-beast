@@ -1,5 +1,26 @@
 # Age of Beast – Projektinventar
 
+> ## ⚠️ Nachtrag vom 04.09.2026 — drei Angaben sind überholt
+>
+> **Die Zahlen im Abschnitt „Inhaltlicher Datenstand" stimmen alle** —
+> nachgezählt: 57 Roh-Einträge, 58 angezeigte, 7 Kategorien, 347
+> Abschnitte, 72 Wörterbuch-Verweise, 234 SVG, Rohdatenversion 42.
+> Überholt ist der Rahmen darum:
+>
+> | Steht unten | Gemessen am 04.09.2026 | Befehl |
+> | --- | --- | --- |
+> | „Veröffentlichter Referenzstand: v2.7.0" und „Pakete A–H … noch nicht veröffentlicht" | **v2.7.0 ist zwar das neueste Etikett, aber nicht der veröffentlichte Stand.** Die Live-Seite steht auf `cde2533`, **25 Commits** danach; `main` und `origin/main` sind gleich | `git tag --sort=-v:refname \| head -1` · `git log --oneline v2.7.0..HEAD \| wc -l` |
+> | „Der angemeldete Bearbeitungsmodus schreibt … über die GitHub-Git-Data-API" | **Firestore** (Fassung 3.0.0, Commit `56ec0ee`). Siehe [DATENVERTRAG.md](DATENVERTRAG.md), Nachtrag | `grep -n firestore-speicher bearbeiten.js` |
+> | „`werkzeuge` … zwölf Prüfscripts" | **fünfzehn** vor der Alpha-Code-Einrichtung; seither mehr | `ls werkzeuge/pruefe-*.mjs \| wc -l` |
+>
+> Nicht mehr vollständig sind außerdem die **Schichten**: `runtime/`
+> hat fünf Dateien (`symbole.js` fehlt unten), `styles/` ebenfalls
+> (`kategorien.css` fehlt), und dazugekommen sind die
+> Firestore-Anbindung (`firebase-konfig.js`, `firestore.rules`,
+> `werkzeuge/firestore-*.mjs`) sowie die Weltkarte (`karte/`).
+> Die vollständige Systemtabelle steht in
+> [WEGWEISER.md](WEGWEISER.md) und [REGELN.md](REGELN.md).
+
 **Veröffentlichter Referenzstand:** Git-Tag v2.7.0, Commit 815a808c29375a5e4597b9fb64bb2742193807e5
 **Lokaler Ausbau:** Pakete A–H sind zusätzlich umgesetzt und geprüft, aber
 noch nicht veröffentlicht.

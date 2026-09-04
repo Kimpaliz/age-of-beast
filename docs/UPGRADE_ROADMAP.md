@@ -1,5 +1,29 @@
 # Age of Beast – Upgrade-Fahrplan
 
+> ## ⚠️ Nachtrag vom 04.09.2026 — A bis H sind fertig und veröffentlicht
+>
+> Jedes der acht Pakete trägt unten den Status „Lokal umgesetzt und
+> geprüft, **noch nicht veröffentlicht**". Das gilt nicht mehr: `main`
+> und `origin/main` stehen beide auf `cde2533`, 25 Commits nach `v2.7.0`,
+> und jeder Push auf `main` veröffentlicht über `pages.yml`.
+> (`git rev-parse main origin/main` · `git log --oneline v2.7.0..HEAD | wc -l`)
+>
+> **Paket D ist zusätzlich inhaltlich überholt.** Seine Entscheidung
+> („Der Schlüssel gilt nur für die aktuelle Browser-Sitzung, er liegt in
+> `sessionStorage`") beschreibt den GitHub-Weg. Seit Fassung 3.0.0 gibt
+> es **keinen Schlüssel mehr**: Angemeldet wird mit dem Google-Konto,
+> und wer schreiben darf, entscheidet `firestore.rules`. Der
+> Konfliktschutz ist von einem SHA-Vergleich zu einer
+> Firestore-Transaktion geworden.
+>
+> **Die „Leistungsgrenze" am Ende gilt unverändert** und ist der Grund,
+> warum in `CLAUDE.md` unter „Ausdrücklich nicht gefordert" keine
+> Performance-Umschreibung steht.
+>
+> Was jetzt ansteht, steht nicht mehr hier, sondern in
+> [ALTLASTEN.md](ALTLASTEN.md): fünf Großdateien und 51 fehlende
+> Kopfnotizen, beide als Ratchet geführt.
+
 **Ausgangspunkt:** v2.7.0 ist der veröffentlichte Anker. Die Pakete A–H sind
 auf dem lokalen Upgrade-Branch umgesetzt und geprüft, aber nicht gepusht oder
 veröffentlicht. Die Reihenfolge schützt Daten, Links und Bearbeitung, bevor

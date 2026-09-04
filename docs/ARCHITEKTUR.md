@@ -1,5 +1,23 @@
 # Age of Beast – Architekturkarte
 
+> ## ⚠️ Nachtrag vom 04.09.2026 — vier Aussagen sind überholt
+>
+> Dieses Dokument stammt vom 01.09.2026, also **vor** dem Umzug nach
+> Firestore (Fassung 3.0.0, Commit `56ec0ee`) und vor den
+> Kategoriesymbolen. Alles Übrige stimmt und ist am Code nachgeprüft.
+>
+> | Steht unten | Gemessen am 04.09.2026 | Befehl |
+> | --- | --- | --- |
+> | „noch nicht veröffentlicht" | **Veröffentlicht.** `main` und `origin/main` stehen beide auf `cde2533`, 25 Commits nach `v2.7.0`; jeder Push auf `main` löst `pages.yml` aus | `git rev-parse main origin/main` |
+> | „`bearbeiten.js` … GitHub-Speicher und Sitzungsschlüssel" | **Firestore.** `bearbeiten.js` importiert `werkzeuge/firestore-speicher.mjs`; der Fine-grained-Token wird nur noch **aufgeräumt** (`ALTE_SCHLUESSEL_ABLAGE`), nicht mehr angelegt | `grep -n "firestore-speicher\|ALTE_SCHLUESSEL" bearbeiten.js` |
+> | „Die vier Reader-Dateien" / „die vier Runtime-Dateien" | **Fünf.** `runtime/symbole.js` kam mit den Kategoriesymbolen dazu und fehlt im Baum unten | `ls runtime/` · `grep -c 'runtime/' index.html` |
+> | „die vier Styles" / „die vier Feature-Dateien" | **Fünf.** `styles/kategorien.css` kam dazu; `stil.css` hat fünf `@import`-Zeilen — der Kommentar in `stil.css` selbst sagt weiterhin „die vier Imports" | `ls styles/` · `grep -c '@import' stil.css` |
+>
+> Der Rest ist geprüft: Die Vorschau bindet wirklich nur an `127.0.0.1`
+> (`vorschau-server.mjs:222`), und beide Server führen wirklich eine
+> ausdrückliche Dateiliste — dort stehen **fünf** Styles und **fünf**
+> Runtime-Dateien, der Code war also nie falsch, nur die Beschreibung.
+
 **Ist-Stand:** lokaler Upgrade-Stand nach den Paketen A–H. Er ist geprüft,
 aber noch nicht veröffentlicht.
 

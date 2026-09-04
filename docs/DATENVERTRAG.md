@@ -1,5 +1,26 @@
 # Age of Beast – Datenvertrag
 
+> ## ⚠️ Nachtrag vom 04.09.2026 — der Speicherweg unten ist der alte
+>
+> Die Abschnitte **„Bearbeiten und GitHub-Persistenz"** und **„Regeln
+> für den Speicheradapter"** beschreiben den Weg bis Fassung 2.x. Seit
+> Fassung 3.0.0 (Commit `56ec0ee`) speichert das Wiki **nach Firestore**,
+> nicht nach GitHub.
+>
+> | Steht unten | Gilt seit 3.0.0 |
+> | --- | --- |
+> | Browser lädt `quelle.json` + Blob-SHA von GitHub | Browser liest `wiki_welt` aus Firestore (ohne Anmeldung, über REST); `daten/welt.js` bleibt der sofort verfügbare Startstand |
+> | Git-Data-API legt drei Blobs, Baum und Commit an | Eine Firestore-**Transaktion** schreibt die betroffenen Moduldokumente; sie liest sie erneut und bricht ab, wenn ihr Stand nicht mehr der ist, auf dem die Änderung beruht |
+> | „Der Fine-grained-Token liegt ausschließlich in `sessionStorage`" | **Es gibt keinen Token mehr.** `bearbeiten.js` räumt eine frühere Ablage nur noch weg (`ALTE_SCHLUESSEL_ABLAGE`, `localStorage` *und* `sessionStorage`). Angemeldet wird mit dem Google-Konto; wer schreiben darf, entscheidet `firestore.rules` |
+> | Aufteilung der Welt | Firestore teilt nach Modul, weil `daten/quelle.json` **675.840 Bytes** groß ist und ein Dokument bei 1 MB endet. Der Kommentar in `werkzeuge/firestore-format.mjs` nennt dafür noch **483 KB** — das war der Stand beim Schreiben, nicht der heutige (`ls -l daten/quelle.json`) |
+>
+> **Was unverändert gilt** und der wichtigste Teil dieses Dokuments ist:
+> `daten/quelle.json` bleibt die eine kanonische Quelle, `welt.json` und
+> `welt.js` bleiben Ableitungen, und die sieben Legacy-v0-Regeln stehen
+> unverändert in `werkzeuge/pruefe-datenvertrag.mjs`. `github-speicher.mjs`
+> bleibt als belegter Rückweg liegen — kein Browserpfad führt mehr dorthin
+> (nachgeprüft: nur `pruefe-github.mjs` importiert ihn).
+
 **Gültig für den aktuellen Bestand:** Legacy-v0. Der Vertrag ist umgesetzt in
 `werkzeuge/pruefe-datenvertrag.mjs`, rein lesend und ohne Netz oder temporäre
 Dateien. Eine `datenvertragVersion` wird weder verlangt noch geschrieben.

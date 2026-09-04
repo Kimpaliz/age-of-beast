@@ -1,5 +1,24 @@
 # Subagenten-Profil: Age of Beast
 
+> ## ⚠️ Nachtrag vom 04.09.2026 — ersetzt durch `.claude/PROJEKTPROFIL.md`
+>
+> Dieses Profil bleibt als Beleg stehen; **maßgeblich ist seit der
+> Alpha-Code-Einrichtung `.claude/PROJEKTPROFIL.md`**. Vier Angaben hier
+> sind überholt:
+>
+> | Steht unten | Gemessen am 04.09.2026 |
+> | --- | --- |
+> | „Arbeitsbranch-Schema `codex/<thema>`" | **`<system>/<kurz>`** aus der Systemtabelle in [REGELN.md](REGELN.md), Regel 2 |
+> | „Wächtertests … derzeit zwölf Dateien" | **fünfzehn** vor der Einrichtung, seither mehr (`ls werkzeuge/pruefe-*.mjs \| wc -l`) |
+> | „Die Reader-Reihenfolge lautet `daten/welt.js` → `datenindex` → …" | **`runtime/symbole.js` fehlt.** Es sind fünf `runtime/`-Dateien, und `symbole.js` wird als erste geladen (`grep -n 'runtime/' index.html`) |
+> | „Der GitHub-Speicherweg ist ein browserseitiger Git-Data-API-Client" · „Der Fine-grained-Token … nur sitzungsweise im Browser" | **Es gibt keinen Token mehr.** Gespeichert wird nach Firestore; `github-speicher.mjs` bleibt als Rückweg liegen, kein Browserpfad führt dorthin |
+>
+> **Was unverändert gilt und weiterhin wichtig ist:** kein Paketmanager ·
+> nur die beauftragte Fläche ändern · Daten nur in `daten/quelle.json` ·
+> jede Bestandsbehauptung nennt den Rohbefehl · `welt-holen.mjs
+> --wirklich` bleibt außerhalb jedes Auftrags · keine fremden
+> Illustrationen · nicht deployen, nicht pushen ohne Janniks Ja.
+
 | Feld | Wert |
 | --- | --- |
 | Standardbranch | `main` |

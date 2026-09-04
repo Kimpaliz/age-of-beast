@@ -1,5 +1,24 @@
 # Age of Beast – Release- und Betriebsablauf
 
+> ## ⚠️ Nachtrag vom 04.09.2026
+>
+> | Steht unten | Gilt heute |
+> | --- | --- |
+> | „Die Pakete A–H sind lokal umgesetzt … keine Veröffentlichung" (letzter Absatz) | **Veröffentlicht.** `main` = `origin/main` = `cde2533`, 25 Commits nach `v2.7.0` |
+> | „v2.7.0 ist der bekannte veröffentlichte Release-Anker" (Rücksprung) | Das Etikett ist noch das neueste, aber **nicht** der Live-Stand. Ein Rücksprung auf `v2.7.0` würde 25 Commits verwerfen, darunter den ganzen Firestore-Umzug. Der belastbare Rücksprungpunkt ist der letzte grüne Commit auf `main` |
+> | „Für Daten- oder Speicheränderungen bleibt ein echter GitHub-Schreibtest gesperrt, bis Token und Freigabe vorliegen" | Der Schreibweg geht nach **Firestore**. Ein echter Schreibvorgang braucht Janniks Google-Anmeldung im Browser — kein Agent meldet sich in seinem Konto an |
+>
+> **Neu und in dieser Liste noch nicht enthalten:**
+>
+> - Der lokale Einstieg ist `node werkzeuge/pruefe-alles.mjs` (die
+>   Einzelaufrufe unten funktionieren weiterhin).
+> - Vor einer Veröffentlichung zusätzlich
+>   `node werkzeuge/pruefe-freigabe.mjs` — sie durchsucht auch die
+>   **gesamte Git-Historie** nach Geheimnismustern.
+> - **Ein Deploy der Firestore-Regeln ist kein Hosting-Deploy.** Er
+>   berührt das Nachbarprojekt Scotophobia und hat seinen eigenen
+>   Ablauf: [PROJEKTGRENZE.md](PROJEKTGRENZE.md).
+
 ## Grundsatz
 
 Ein lokaler Commit, eine lokale Browserprüfung oder ein grüner lokaler Test

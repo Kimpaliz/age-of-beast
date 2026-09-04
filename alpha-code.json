@@ -1,0 +1,23 @@
+{
+  "hauptzweig": "main",
+  "quellordner": [
+    "."
+  ],
+  "endungen": [
+    ".js",
+    ".mjs"
+  ],
+  "ausnahmen": [
+    "node_modules",
+    ".git",
+    ".entwurf",
+    "daten"
+  ],
+  "geheimnisAusnahmen": [
+    "node_modules",
+    ".git"
+  ],
+  "altlasten": "docs/ALTLASTEN.md",
+  "_warum_daten_ausgenommen": "daten/ traegt nur erzeugte Weltdaten und 234 SVG-Wappen. daten/welt.js (5462 Zeilen) wird von welt-aufbereiten.mjs geschrieben; eine Kopfnotiz dort waere beim naechsten Erzeugen wieder weg. Erzeugtes ist keine Altlast.",
+  "_warum_zwei_ausnahmelisten": "ausnahmen gilt fuer die Quelldateiliste (Tags, Altlasten). geheimnisAusnahmen gilt fuer die Geheimnissuche und ist absichtlich viel enger: Ein Ordner, den man nicht als Quelle fuehrt, muss trotzdem auf Geheimnisse geprueft werden. Mit der gemeinsamen Liste blieben docs/ und daten/ ungeprueft (Alpha-Code-Fehlerbuch E3)."
+}

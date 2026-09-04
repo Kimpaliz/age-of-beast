@@ -1,5 +1,25 @@
 # Upgrade-Analyse: Age of Beast ab v2.7.0
 
+> ## ⚠️ Nachtrag vom 04.09.2026 — abgeschlossen, Beleg statt Sollstand
+>
+> Dieses Dokument ist der **Arbeitsplan** für die Analyse vom
+> 01.09.2026, nicht deren Ergebnis. Der Auftrag ist erledigt: Alle fünf
+> „Zielartefakte" existieren, und die Pakete A–H sind gebaut,
+> veröffentlicht und in [UPGRADE_ROADMAP.md](UPGRADE_ROADMAP.md)
+> abgehakt. Es bleibt als Beleg stehen, wie die Analyse geschnitten war
+> — **es ist kein Auftrag mehr.**
+>
+> Zwei Angaben sind nur noch historisch: Der Basiscommit `815a808…`
+> (`v2.7.0`) liegt 25 Commits hinter dem heutigen Stand, und der
+> Integrationsbranch `codex/age-of-beast-upgrade-structure` liegt zwar
+> noch da, ist aber seit dem Merge nach `main` ohne Aufgabe — wie die
+> vierzehn weiteren `codex/aob-*`-Zweige, von denen elf noch eigene
+> Arbeitsverzeichnisse unter `_codex-worktrees/` belegen
+> (`git branch -a` · `git worktree list`).
+>
+> Die aktuelle Landkarte steht in [WEGWEISER.md](WEGWEISER.md), die
+> aktuellen offenen Punkte in [ALTLASTEN.md](ALTLASTEN.md).
+
 ## Auftrag
 
 Die umfangreiche Übernahme von Daggerheart-Werkstatt, Regelwiki,

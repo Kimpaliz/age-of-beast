@@ -1,5 +1,27 @@
 # Age of Beast – QA-Matrix
 
+> ## ⚠️ Nachtrag vom 04.09.2026 — die Tabelle ist unvollständig
+>
+> Die Tabelle „Automatische lokale Wächter" nennt **zwölf** Prüfungen.
+> Es waren am 04.09.2026 **fünfzehn** (`ls werkzeuge/pruefe-*.mjs | wc -l`).
+> Drei fehlen — darunter ausgerechnet die wichtigste:
+>
+> | Fehlt unten | Geschützter Vertrag | Bewusste Lücke |
+> | --- | --- | --- |
+> | `pruefe-firestore-trennung.mjs` | Die geteilte Regeldatei enthält Scotophobias Blöcke wortgleich. **Ein Deploy der falschen Fassung schaltet das Nachbarprojekt ab** — siehe [PROJEKTGRENZE.md](PROJEKTGRENZE.md) | Prüft die Datei, nicht die Wirklichkeit: Nach einem Deploy muss ein Mensch nachsehen |
+> | `pruefe-firestore-format.mjs` | Welt ⇄ Firestore-Dokumente, samt Schlüsselreihenfolge | Kein echter Firestore-Schreibvorgang |
+> | `pruefe-symbole.mjs` | Jede Kategorie hat eigenes Symbol, eigenen Farbton und ausreichenden Kontrast in hell und dunkel | Keine subjektive Designbewertung |
+>
+> Seit der Alpha-Code-Einrichtung kommen die Wächter der Arbeitsweise
+> hinzu (Tags, Verweise, Workclaim, Geheimnisse, Altlasten, Freigabe).
+> **Die eine gültige Liste steht seither als Tabelle im Kopf von
+> `werkzeuge/pruefe-alles.mjs`** — mit der Spalte, die hier fehlt: *welcher
+> Fehler käme ohne diese Prüfung still durch?*
+>
+> Ebenfalls überholt: Der PowerShell-Einzeiler unten startet die Wächter
+> einzeln. Der Einstieg ist jetzt `node werkzeuge/pruefe-alles.mjs`; die
+> beiden GitHub-Abläufe sammeln weiterhin jede `pruefe-*.mjs` selbst ein.
+
 Die Matrix trennt lokale, automatisierte Beweise von Browser- und
 Veröffentlichungsabnahmen. Alle lokalen Prüfer sind rein lesend; sie erzeugen
 keinen Commit und verwenden keine Zugangsdaten.

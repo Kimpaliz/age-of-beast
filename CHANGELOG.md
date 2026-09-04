@@ -7,6 +7,59 @@ Das Neueste steht immer oben.
 
 ---
 
+## Ordnung im Projekt – 4. September 2026
+
+**Am Wiki selbst ändert sich nichts.** Keine Seite sieht anders aus, kein
+Knopf tut etwas anderes, kein einziger Text in der Welt ist angefasst
+worden. Diese Änderung betrifft nur, wie am Projekt gearbeitet wird.
+
+### Worum es geht
+
+Das Wiki ist in wenigen Wochen von einer Leseseite zu einer Anwendung mit
+Anmeldung, Bearbeitung, Assistent und eigenen Bildern gewachsen. Wer neu
+dazukommt — Mensch oder Agent — musste sich das bisher zusammensuchen.
+Jetzt gibt es einen festen Einstieg: eine Datei, die sagt, was das Projekt
+ist und welche Regeln gelten, eine Karte, die zeigt, was mit was
+zusammenhängt, und eine Liste, wo man für einen bestimmten Wunsch anfasst.
+
+### Was dabei aufgefallen ist
+
+Beim Nachprüfen der älteren Unterlagen stellte sich heraus, dass **acht
+Dokumente veraltet waren**. Sie stammen vom 1. September, also von *vor*
+dem Umzug zu Google und Firebase, und behaupteten noch, gespeichert werde
+über GitHub und es brauche dafür einen selbst erzeugten Schlüssel. Auch
+„noch nicht veröffentlicht" stand darin, obwohl längst alles online ist.
+Jedes dieser Dokumente hat jetzt oben einen Kasten, der sagt, was daran
+überholt ist — mit dem Befehl zum Nachrechnen daneben.
+
+Das ist die wertvollste Sorte Fund: Eine Anleitung, die etwas anderes
+behauptet als das Programm tut, wird geglaubt.
+
+### Die wichtigste Sicherung
+
+Das Wiki teilt sich seine Zugriffsregeln mit dem Spiel *Scotophobia* —
+zwangsläufig, denn eine Datenbank hat bei Google genau eine Regeldatei.
+**Am 4. September ist genau das schiefgegangen, in beide Richtungen:**
+Erst wurden die Wiki-Regeln überschrieben, danach hätte umgekehrt das
+Spiel Schaden genommen. Der zweite Fall wurde von einer Prüfung
+abgefangen. Beides steht jetzt ausführlich in einem eigenen Dokument, das
+man liest, **bevor** man an dieser Datei etwas ändert.
+
+### Neue Prüfungen
+
+Acht Stück, die auf die Arbeitsweise achten statt auf das Wiki: dass keine
+Änderung ohne Eintrag hier bleibt, dass niemand versehentlich direkt auf
+dem Hauptzweig arbeitet, dass keine Zugangsdaten im Projekt landen — auch
+nicht in der Versionsgeschichte, die man später nicht mehr säubern kann.
+Jede einzelne wurde vorher absichtlich zum Anschlagen gebracht, damit
+sicher ist, dass sie überhaupt etwas prüft.
+
+Dabei kam heraus, dass die Suche nach Zugangsdaten **den halben Bestand
+nie angesehen hatte** — 251 Dateien. Behoben; sie sagt jetzt bei jedem
+Lauf, wie viele Dateien sie tatsächlich durchsucht hat.
+
+---
+
 ## Fassung 3.0.0 – 2. September 2026
 
 **Anmelden geht jetzt mit dem Google-Konto.** Ein Klick, das gewohnte

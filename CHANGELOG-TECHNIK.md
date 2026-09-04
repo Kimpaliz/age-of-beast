@@ -10,6 +10,130 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ## [Unveröffentlicht]
 
+### Alpha-Code nachgerüstet – 2026-09-04
+
+Gerüst, Wächter und Karten der Alpha-Code-Methode. **Kein Verhalten
+geändert:** keine bestehende Quelldatei, kein Stylesheet, kein Datensatz,
+keine Regeldatei, kein Workflow angefasst. Belegt durch `git status`: acht
+geänderte Dateien, alle unter `docs/`, alle nur um einen Korrekturkasten
+ergänzt.
+
+#### Neu
+
+`CLAUDE.md` · `WORKCLAIM.md` · `alpha-code.json` · `docs/REGELN.md` ·
+`docs/WEGWEISER.md` · `docs/ALTLASTEN.md` · `docs/PROJEKTGRENZE.md` ·
+`docs/FEHLERBUCH.md` · `.claude/PROJEKTPROFIL.md` ·
+`werkzeuge/helfer.mjs` und acht Wächter, dazu `werkzeuge/pruefe-alles.mjs`
+als Einstieg.
+
+#### Messungen
+
+| Größe | Wert | Befehl |
+| --- | ---: | --- |
+| Quelldateien (`.js`/`.mjs`, ohne `daten/`) | 56 | `alpha-code.json` → `quellDateien()` |
+| davon ohne Kopfnotiz | 47 | `node werkzeuge/pruefe-tags.mjs` |
+| Wächter vorher / nachher | 15 / 23 | `ls werkzeuge/pruefe-*.mjs \| wc -l` |
+| Kette vorher, 15 Wächter nacheinander | 24,2 s, 15 grün / 0 rot | eigener Lauf |
+| Kette jetzt, 21 Wächter parallel + Syntax | **12,2 s, alles grün** | `node werkzeuge/pruefe-alles.mjs` |
+| syntaxgeprüfte Dateien | 57, davon 13 als ES-Modul über stdin | ebenda |
+| Textdateien in der Geheimnissuche | 330 | `node werkzeuge/pruefe-geheimnisse.mjs` |
+| Markdown-Verweise geprüft | 53 auf 19 Seiten | `node werkzeuge/pruefe-verweise.mjs` |
+| Git-Historie für `pruefe-freigabe.mjs` | 4.086.314 Zeichen in 148 ms | `git log --all -p --no-color` |
+| Altlasten über 500 Zeilen | 5 | `node werkzeuge/pruefe-altlasten.mjs` |
+| `daten/quelle.json` | 675.840 Bytes | `ls -l daten/quelle.json` |
+
+Alle Zahlen gelten auf dem Zweig `einrichtung/alpha-code`. Der parallele
+Zweig `welt/karte-und-figuren` bringt sieben weitere Quelldateien und
+einen sechzehnten Fachwächter mit — beim Zusammenführen ändern sich die
+ersten vier Zeilen.
+
+#### Drei Anpassungen an der Skill-Vorlage, jede begründet
+
+1. **`pruefe-geheimnisse.mjs` liest `geheimnisAusnahmen`** statt
+   `ausnahmen`. Die Vorlage teilt sich die Liste mit der
+   Quelldateiauswahl, in der hier `daten` und `docs` stehen — **251
+   Dateien wären nie durchsucht worden**. Die Prüfung meldet jetzt
+   zusätzlich, wie viele Dateien sie angesehen hat, und schlägt bei unter
+   hundert an. Fehlerbuch **E3**.
+2. **`pruefe-tags.mjs` bekommt einen Ratchet.** 47 Dateien ohne
+   Kopfnotiz lassen sich nicht anfassen, solange mehrere Sitzungen im
+   selben Checkout arbeiten. Sie stehen namentlich in
+   `docs/ALTLASTEN.md`; jede *andere* Datei muss ihren Tag tragen. Neu ist
+   außerdem eine Prüfung gegen Karteileichen in dieser Liste.
+3. **Die Syntaxprüfung in `pruefe-alles.mjs` läuft über die
+   Standardeingabe** (`node --input-type=module --check`) statt über
+   Dateien, und über **alle** `.js` statt nur über die Quellordner —
+   `daten/welt.js` wird vom Browser geladen, ein Tippfehler darin wäre
+   ein weißer Bildschirm.
+
+   Gemessen auf Node v24.16.0: `node --check bearbeiten.js` besteht,
+   weil die Modulerkennung seit Node 22.7 von selbst greift; mit
+   `--no-experimental-detect-module` fällt derselbe Aufruf durch
+   („Cannot use import statement outside a module"). Die Prüfung soll
+   nicht an einer Voreinstellung hängen. Die Workflows lösen dasselbe
+   mit temporären `.mjs`-Kopien — die wären hier eine Schreiboperation
+   im Repository, die `pruefe-arbeitsweise.mjs` als offene Änderung
+   sähe. Die stdin-Form steht so schon in `docs/RELEASE_RUNBOOK.md`.
+
+#### Rot-Beweis — 14 Beschädigungen, jede zurückgenommen
+
+Ein Wächter, der nie rot war, prüft womöglich nichts. Jede Zusicherung
+wurde einzeln gebrochen:
+
+| Wächter | Beschädigung | Meldung |
+| --- | --- | --- |
+| `pruefe-tags` | Tag aus `helfer.mjs` entfernt | „ohne Tag: werkzeuge/helfer.mjs" |
+| `pruefe-tags` | Tag auf `[Aufgabe: Quatsch]` gesetzt | „unbekannter Tag „Quatsch"" |
+| `pruefe-tags` | erfundene Datei auf die Nachrüstliste | „Nachrüstliste zeigt ins Leere: gibtesnicht.js" |
+| `pruefe-altlasten` | zwei Zeilen an `welt-umwandeln.mjs` angehängt | „Altlast gewachsen: … (582 → 584)" |
+| `pruefe-altlasten` | neue Datei mit 521 Zeilen | „über 500 Zeilen und nicht als Altlast geführt" |
+| `pruefe-verweise` | Verweis auf `docs/GIBT-ES-NICHT.md` | „tot: CLAUDE.md → docs/GIBT-ES-NICHT.md" |
+| `pruefe-workclaim` | Spalte „Seit" in „Wann" umbenannt | „die Anspruchstabelle hat die vier Spalten …" |
+| `pruefe-workclaim` | Anspruch ohne Besitzer, Ziel und Zeit | „unvollständig: \| werkzeuge/ \| \| \| \|" |
+| `pruefe-geheimnisse` | Token-Muster in eine Datei unter `docs/` | „GitHub-Token in docs/…" |
+| `pruefe-geheimnisse` | **alte gemeinsame Ausnahmeliste wiederhergestellt** | „77 Dateien — unter 100 heißt: eine Ausnahme greift zu weit" |
+| `pruefe-geheimnisse` | `probe.zip` angelegt | „verbotenes Format: probe.zip" |
+| `pruefe-arbeitsweise` | beide Changelogs zurückgesetzt | „26 Datei(en) geändert, CHANGELOG.md nicht darunter" |
+| `pruefe-arbeitsweise` | `hauptzweig` auf den Arbeitszweig gesetzt | „auf `einrichtung/alpha-code` wird nicht gearbeitet" |
+| `pruefe-freigabe` | `{{OFFENER_PLATZHALTER}}` in `REGELN.md` | „kein Vorlagen-Platzhalter mehr in der Doku · 1 offen" |
+| Syntax in `pruefe-alles` | `runtime/probe-kaputt.js` mit `const a = ;` | „SyntaxError: Unexpected token ';'" → `FEHLGESCHLAGEN Syntax` |
+
+Die zehnte Zeile ist die aufschlussreichste: Mit der ursprünglichen
+gemeinsamen Ausnahmeliste hätte die Prüfung den Token unter `docs/`
+**nicht gefunden** und trotzdem grün gemeldet. Gefangen hat ihn erst die
+neue Zusicherung „die Suche hat den Bestand wirklich gesehen".
+
+#### Acht Fehlbeschriftungen in der bestehenden Doku
+
+Alle acht Dokumente vom 01.09.2026 wurden Aussage für Aussage gegen den
+Code gehalten und tragen jetzt oben einen Korrekturkasten. Die drei
+folgenreichsten: Der Schreibweg geht nach **Firestore**, nicht nach
+GitHub (`bearbeiten.js` importiert `werkzeuge/firestore-speicher.mjs`);
+es sind **fünf** `runtime/`- und **fünf** `styles/`-Dateien, nicht je
+vier; und die Pakete A–H sind **veröffentlicht** (`main` = `origin/main`
+= `cde2533`, 25 Commits nach `v2.7.0`).
+
+#### Bewusst nicht geändert
+
+- **Keine Kopfnotizen eingesetzt** (Schritt 5 der Methode). Er berührt
+  alle 47 Dateien und kollidiert mit paralleler Arbeit. Vorbereitet:
+  Systemtabelle, Tags, namentliche Liste.
+- Keine der 15 bestehenden Fachprüfungen angefasst.
+- Kein Stylesheet, kein Datensatz, `firestore.rules` nicht, die beiden
+  Workflows nicht — obwohl `pruefe-alles.mjs` und `pruefe-freigabe.mjs`
+  dort mitgesammelt werden und die Kette in der CI dadurch zweimal läuft.
+  Das ist doppelte Arbeit, kein Fehler; es zu ändern wäre ein eigener
+  Auftrag.
+- Ein Selbstwiderspruch in `stil.css` bleibt stehen: Der Kommentar spricht
+  von „die vier Imports", darunter stehen fünf. Die Datei gehört nicht in
+  diesen Auftrag.
+
+#### Rückrollweg
+
+Der Zweig `einrichtung/alpha-code` enthält alles in einem Commit; `main`
+steht unverändert auf `cde2533`. Nichts gepusht, nichts deployt, keine
+Firebase-Regel und kein Datensatz berührt.
+
 ## [3.0.0] – 2026-09-02
 
 Weltdaten in Firestore, Anmeldung über Google. Der GitHub-Schlüssel als
