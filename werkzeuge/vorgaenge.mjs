@@ -273,7 +273,18 @@ async function befehlBericht() {
 async function befehlStand() {
   const offen = await alleSeiten(`/repos/${repo}/issues?state=open`, verbinden());
   const echte = offen.filter((v) => !v.pull_request);
-  const nach = (label) => echte.filter((v) => v.labels.some((l) => l.name === label));
+  /* Ein Wunsch traegt `wunsch` **und** `track` — sonst haette er keine
+     Fortschrittsanzeige. In der Uebersicht darf er deshalb nicht in
+     beiden Listen stehen: Am 04.09.2026 erschien #11 zweimal, und wer
+     zaehlt, kaeme auf einen Vorgang zu viel. Wuensche werden zuerst
+     ausgegeben und danach von den Phasen abgezogen. */
+  const schonGenannt = new Set();
+  const nach = (label) => echte.filter((v) => {
+    if (!v.labels.some((l) => l.name === label)) return false;
+    if (schonGenannt.has(v.number)) return false;
+    schonGenannt.add(v.number);
+    return true;
+  });
   console.log(`\n  ${echte.length} offene(r) Vorgang/Vorgänge in ${repo}\n`);
   for (const [name, label] of [["Wünsche", LABEL.wunsch], ["Phasen", LABEL.phase],
     ["Schritte", LABEL.schritt], ["Fehler", LABEL.fehler],
