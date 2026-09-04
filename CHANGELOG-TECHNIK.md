@@ -10,6 +10,25 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ## [Unveröffentlicht]
 
+### Behoben
+
+- **`pruefe-bogenfarben.mjs` blockierte die Veroeffentlichung.** Es misst
+  ueber das Fernsteuerungsprotokoll in Chrome/Edge/Brave; auf dem
+  GitHub-Runner gibt es keinen dieser Browser, also war es dort
+  dauerhaft rot. **Zwei Laeufe fehlgeschlagen** (`4c3b43c`, `a1029bf`);
+  die Live-Seite stand seit `ecfa45e` still — Bogenfarben **und** der
+  SDK-Fix waren nicht draussen.
+  Jetzt dieselbe Weiche wie in `pruefe-firestore-trennung.mjs`
+  (`process.env.CI || GITHUB_ACTIONS`): Auf dem Bauserver wird nur die
+  **Messung** uebersprungen und das in der Ausgabe genannt; am
+  Arbeitsplatz bleibt ein fehlender Browser ein Fehler.
+  **Drei Faelle einzeln gefahren:** Browser da → gruen mit Messung;
+  ohne Browser am Arbeitsplatz → rot; ohne Browser mit `CI=1` → gruen
+  **mit** Hinweis auf das Uebersprungene.
+  ⚠️ **Zweiter Fall derselben Klasse an einem Tag** (siehe den Eintrag
+  zu den Regelfunktionen): Ein Waechter mit Umgebungsweiche muss in
+  **beiden** Wegen gefahren werden. Ich habe wieder nur einen geprueft.
+
 ### Hinzugefügt
 
 - **`wiki_projekte/age-of-beast` angelegt** (Besitzer

@@ -64,6 +64,7 @@ const DATEIEN = new Set([
 const TYPEN = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.json': 'application/json; charset=utf-8' };
 let pruefungen = 0;
 const fehler = [];
+let uebersprungen = null;
 
 function pruefe(wert, text) {
   pruefungen += 1;
@@ -468,10 +469,36 @@ try {
     }
   }
 } catch (grund) {
-  fehler.push('Die Browsermessung konnte nicht laufen: ' + (grund?.message || String(grund)));
+  /* ⚠️ **Ohne Browser kann diese Pruefung nicht messen — und das ist
+     nicht ueberall ein Fehler.**
+
+     Auf einem Arbeitsplatz ist ein fehlender Browser ein Fehler: Dort
+     werden die Farben bearbeitet, dort muss gemessen werden. Ein
+     stilles Gruen taeuschte genau die Sicherheit vor, um derentwillen
+     es diese Pruefung gibt.
+
+     Auf dem Bauserver gibt es weder Chrome noch Edge. Dort waere sie
+     dauerhaft rot und blockierte jede Veroeffentlichung — genau das ist
+     am 04.09.2026 passiert, zweimal hintereinander, und die Seite stand
+     seither still.
+
+     Deshalb wird dort nur die **Messung** uebersprungen, nicht die
+     Pruefung. Was fehlt, steht in der Ausgabe: Ein uebersprungener Teil
+     wird genannt, nicht verschwiegen. Dieselbe Weiche benutzt
+     `pruefe-firestore-trennung.mjs`. */
+  const aufBauserver = Boolean(process.env.CI || process.env.GITHUB_ACTIONS);
+  if (aufBauserver && /Weder Chrome noch Edge/.test(grund?.message || '')) {
+    uebersprungen = 'Browsermessung (kein Browser auf dem Bauserver): '
+      + 'Farbabstaende und Textkontraste wurden hier NICHT gemessen.';
+  } else {
+    fehler.push('Die Browsermessung konnte nicht laufen: ' + (grund?.message || String(grund)));
+  }
 }
 
 if (fehler.length) {
   console.error('Bogenfarbenprüfung fehlgeschlagen:\n- ' + fehler.join('\n- '));
   process.exitCode = 1;
+} else if (uebersprungen) {
+  console.log('!!  Uebersprungen: ' + uebersprungen);
+  console.log('Ergebnis: nur der Quelltext geprueft, die Farben nicht gemessen.');
 }

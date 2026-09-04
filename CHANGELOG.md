@@ -5,6 +5,26 @@ Dieselben Änderungen stehen in Entwicklersprache in [CHANGELOG-TECHNIK.md](CHAN
 
 Das Neueste steht immer oben.
 
+## Die Veröffentlichung stand zweimal still – 4. September 2026
+
+Seit dem Nachmittag ist nichts mehr live gegangen, und ich habe es erst
+beim Nachsehen gemerkt: Zwei Bauläufe sind fehlgeschlagen, die Seite
+zeigte noch den Stand von 17:44 Uhr.
+
+**Der Grund:** Die neue Prüfung der Bogenfarben misst in einem echten
+Browser. Auf meinem Rechner gibt es einen — auf dem Bauserver nicht.
+Dort war sie deshalb dauerhaft rot und blockierte jede Veröffentlichung.
+
+**Das ist heute schon zum zweiten Mal passiert**, mit einer anderen
+Prüfung und derselben Ursache: Ein Wächter verhält sich je nach Umgebung
+anders, und ich habe nur einen der beiden Wege ausprobiert.
+
+Jetzt überspringt der Bauserver nur die **Messung**, nicht die Prüfung —
+und sagt in der Ausgabe ausdrücklich, dass die Farben dort nicht gemessen
+wurden. Auf meinem Rechner bleibt ein fehlender Browser weiterhin ein
+Fehler, sonst wäre die Prüfung wertlos. Alle drei Fälle ausprobiert.
+
+
 ## Das bestehende Wiki ist eingetragen – 4. September 2026
 
 **„Age of Beast" steht jetzt im Hauptmenü** und lässt sich anklicken —
