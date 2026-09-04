@@ -1,0 +1,35 @@
+name: Entscheidung
+description: Eine offene Frage, die nur Jannik beantworten kann.
+title: "[Entscheidung] "
+labels: ["entscheidung"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ⚠️ Eine Entscheidung hängt an **keiner** Phase. Sie hat eine
+        andere Lebensdauer als die Arbeit, die auf sie wartet, und
+        überlebt sie oft — als Absatz in einem Phasen-Vorgang wäre sie
+        mit dessen Abschluss verschwunden, ohne beantwortet zu sein.
+  - type: textarea
+    id: frage
+    attributes:
+      label: Die Frage
+    validations:
+      required: true
+  - type: textarea
+    id: optionen
+    attributes:
+      label: Die Möglichkeiten, mit ihrem Preis
+      description: Was jede kostet — an Aufwand, an Festlegung, an Rückweg.
+  - type: textarea
+    id: empfehlung
+    attributes:
+      label: Empfehlung
+      description: >
+        Eine Empfehlung, nicht ein Katalog. Wer eine Frage stellt, hat
+        meist schon eine Meinung — sie gehört dazu.
+  - type: input
+    id: blockiert
+    attributes:
+      label: Was darauf wartet (freiwillig)
+      placeholder: "#4, #6"

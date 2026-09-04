@@ -62,7 +62,15 @@ export const GEHEIMNIS_MUSTER = [
   ["GitHub-PAT", new RegExp("github" + "_pat_[A-Za-z0-9_]{30,}")],
   ["GitLab-Token", new RegExp("glpat" + "-[A-Za-z0-9_-]{20,}")],
   ["AWS-Schlüssel", new RegExp("AKIA" + "[A-Z0-9]{16}")],
-  ["hartes Passwort", new RegExp("(?:PASSWORD|PASSWORT|SECRET)\\s*=\\s*[\"'][^\"']{4,}[\"']", "i")]
+  /* ⚠️ Lookbehind und Zeilengrenze am 04.09.2026 aus der
+     Skill-Fassung nachgezogen. Ohne sie meldete dieser Wächter
+     `github-zugang.mjs` — dort steht der **Feldname** des
+     Git-Anmeldeprotokolls, dessen schließendes Anführungszeichen
+     als öffnendes des vermeintlichen Werts gelesen wurde.
+
+     Der Fall selbst wird hier **beschrieben, nicht hingeschrieben**:
+     Ein Muster, das seine eigene Begründung liest, meldet sie. */
+  ["hartes Passwort", new RegExp("(?<![\"'])(?:PASSWORD|PASSWORT|SECRET)\\s*=\\s*[\"'][^\"'\\n\\r]{4,}[\"']", "i")]
 ];
 
 /* `pruefe-freigabe.mjs` importiert nur die Muster — der Lauf selbst

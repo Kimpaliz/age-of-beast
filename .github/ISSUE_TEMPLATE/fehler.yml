@@ -1,0 +1,35 @@
+name: Fehler
+description: Etwas ist kaputt oder tut nicht, was es soll.
+title: "[Fehler] "
+labels: ["fehler"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Vier Felder genügen. Sie sind dasselbe Muster wie im
+        `docs/FEHLERBUCH.md` — nach der Behebung wandert die Lehre
+        dorthin, der Stand bleibt hier.
+  - type: textarea
+    id: was
+    attributes:
+      label: Was ist kaputt
+      description: Was du getan hast, und was dabei herauskam.
+      placeholder: "Ich habe auf „Spezies" geklickt — es hat sich nichts geändert."
+    validations:
+      required: true
+  - type: input
+    id: wo
+    attributes:
+      label: Wo
+      description: Seite, Gerät, Browser — soweit du es weißt.
+      placeholder: "wiki.html auf dem Handy"
+  - type: textarea
+    id: erwartet
+    attributes:
+      label: Was du erwartet hättest
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        *Ursache, Messung und Behebung kommen als Kommentare darunter.
+        **Nicht raten:** Erst messen, dann behaupten.*

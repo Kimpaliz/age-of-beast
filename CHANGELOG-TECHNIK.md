@@ -10,6 +10,64 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ## [Unveröffentlicht]
 
+### Vorgangs-Infrastruktur eingerichtet (Regel 16)
+
+Auf Janniks Ansage: *„fest in das github projekt integrieren. Issue
+infrastruktur. mit main issues die aufgeteilt werden in sub issues. für
+Roadmap features, wünsche und fehler und bugs."*
+
+- **Fünf Label** angelegt: `track`, `wunsch`, `schritt`, `fehler`,
+  `entscheidung`. GitHub begrenzt Beschreibungen auf 100 Zeichen — die
+  erste Fassung lief in ein 422.
+- **`werkzeuge/vorgaenge.mjs` um die Form „Wunsch" erweitert.** Ein
+  Wunsch trägt **beide** Label: `wunsch` sagt, woher er kommt, `track`
+  macht ihn zum Sammelvorgang mit Fortschrittsanzeige. Sein Wortlaut
+  wird zitiert, die Analyse steht getrennt darunter — sonst lässt sich
+  später nicht mehr nachsehen, ob die Auslegung stimmte.
+- **`docs/ROADMAP.md`** mit drei Phasen und sechs Schritten, jeder mit
+  genau einem Fertig-Kriterium.
+- **`.github/ISSUE_TEMPLATE/`** — drei Formulare (Wunsch, Fehler,
+  Entscheidung) plus `config.yml`. Damit entstehen die Formen auch über
+  die GitHub-Oberfläche richtig, nicht nur über das Werkzeug.
+- **Regeln 13 bis 16** in `docs/REGELN.md`; die Prüfungstabelle nennt
+  jetzt auch `pruefe-doku-status` und `pruefe-vorgaenge`.
+
+**Angelegt und nachgeprüft:** #1 bis #9 aus dem Fahrplan, #10 der
+behobene Filter-Fehler (mit Abschlussbericht geschlossen), #11 Janniks
+Charakterbogen-Wunsch. Die **echten** Sub-Issues funktionieren: #1 hat
+2, #4 hat 5 — dazu die Aufgabenliste im Rumpf, also beide Richtungen.
+
+### Zwei echte Funde beim Einrichten
+
+1. **Der Fahrplan-Parser las Anleitung als Arbeit.** Der erste
+   Trockenlauf hätte „Das Format, das die Werkzeuge lesen" und „Was
+   nicht hierher gehört" als Phasen angelegt — Anleitungstexte als
+   Arbeitspakete, mit Benachrichtigung an alle Beteiligten. Behoben mit
+   der ausdrücklichen Marke `<!-- keine-phase -->`; eine Regel wie
+   „alles vor dem ersten Trenner zählt nicht" wäre unsichtbar gewesen
+   und gebrochen, sobald jemand einen Absatz verschiebt.
+2. **Zwei Werkzeuge lesen dasselbe Format.** Nach dem Einbau sah
+   `vorgaenge.mjs` 3 Phasen und `pruefe-vorgaenge.mjs` weiterhin 6. Die
+   Marke musste in beide; der Parser gehört langfristig in **eine**
+   Datei, und das steht jetzt als Hinweis in beiden.
+
+### Nachgezogen aus der Skill-Fassung
+
+`pruefe-geheimnisse.mjs` meldete `github-zugang.mjs` als „hartes
+Passwort" — dort steht der **Feldname** des Git-Anmeldeprotokolls,
+dessen schließendes Anführungszeichen als öffnendes des vermeintlichen
+Werts gelesen wurde. Lookbehind und Zeilengrenze aus der Skill-Fassung
+übernommen. **Gegengeprüft, dass das Muster scharf bleibt:** ein echtes
+`const PASSWORD = "…"` schlägt weiterhin an (Rückgabewert 1), der
+Feldname allein nicht.
+
+### Rot-Beweise
+
+`pruefe-vorgaenge` dreimal: Nummer entfernt · Nummer doppelt vergeben ·
+Stand in den Fahrplan geschrieben — je Rückgabewert 1, danach bytegleich.
+Die Marke `keine-phase` zweimal: entfernt → Anleitung wird wieder Phase;
+und die Gegenprobe, dass sie **nur für einen** Abschnitt gilt.
+
 ### Aufgeräumt nach Alpha-Code (Modus B)
 
 **Kein Verhalten geändert** — bewiesen: `daten/welt.json` und

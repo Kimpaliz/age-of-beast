@@ -132,6 +132,86 @@ erlaubte Verbindung ein **versionierter, lesender Vertrag** ist — nie
 kopierter Quelltext, nie geteilte Tokens. Geteilte Ressourcen (etwa
 eine gemeinsame Regeldatei) bekommen einen eigenen Wächter.
 
+## 13 · Begründung und Stand sind zwei Dinge
+
+Die häufigste Art, wie ein Repository unehrlich wird, ist kein Fehler im
+Code: Es ist ein Dokument, das seit vier Monaten „noch offen" sagt.
+
+| | gehört hin |
+| --- | --- |
+| **Begründung** — Zielbild, Messungen, verworfene Wege | `docs/` |
+| **Stand** — „läuft", „blockiert durch #14" | der Vorgang auf GitHub |
+| **Verlauf** — was wann geändert wurde | `CHANGELOG.md` |
+| **Abgeschlossenes** — dort *darf* Status stehen | `docs/geschichte/` |
+
+## 14 · Kein Dokument behauptet einen Zustand
+
+„ist live", „erledigt", „nächster Schritt" veralten **lautlos**: Nichts
+wird rot, niemand merkt es, und das Dokument wird trotzdem geglaubt.
+
+**Ein datierter Vermerk ist die Ausnahme und bleibt.** „Gemessen am
+12.03.2026" behauptet nichts über jetzt — das Datum legt ihn trocken.
+Wer eine Zustandsaussage braucht, schreibt sie datiert: dann ist sie in
+einem Jahr nicht falsch, sondern alt.
+
+Am 04.09.2026 fand der Wächter beim ersten Lauf eine Stelle in
+[WEGWEISER.md](WEGWEISER.md), die einen bestimmten Commit als aktuellen
+Stand nannte — und die zu diesem Zeitpunkt **schon falsch war**.
+
+## 15 · Deutsch mit richtigen Umlauten
+
+Kommentare, Doku, Nutzertexte und Commit-Betreffs auf Deutsch, mit
+echten ä, ö, ü und ß. Bezeichner im Code dürfen englisch sein, wo das
+Umfeld es vorgibt (`hidden`, `display`).
+
+## 16 · Fahrplan, Wünsche und Fehler leben als Vorgänge
+
+Drei Dinge werden Issues und bleiben nicht Absätze in Dokumenten: der
+**Fahrplan**, jeder **Wunsch**, jeder **Fehler** — dazu jede offene
+**Entscheidung**.
+
+| Form | Label | Eltern | trägt |
+| --- | --- | --- | --- |
+| **Phase** | `track` | keins | das Abnahmekriterium aus [ROADMAP.md](ROADMAP.md) |
+| **Wunsch** | `wunsch` + `track` | keins | Janniks Wortlaut, darunter die Analyse |
+| **Schritt** | `schritt` | Phase oder Wunsch | **ein** Fertig-Kriterium |
+| **Fehler** | `fehler` | frei | das Vier-Felder-Muster |
+| **Entscheidung** | `entscheidung` | **keins** | Frage, Möglichkeiten, Empfehlung |
+
+**Große Vorgänge werden geteilt.** Eine Phase enthält selbst keine
+Arbeit — die Arbeit sind ihre Schritte. Lassen sich für einen Schritt
+zwei Fertig-Kriterien nennen, sind es zwei Schritte: sonst gibt es
+keinen Zeitpunkt, an dem man ihn guten Gewissens schließt.
+
+**Zwei Grenzen, die man leicht übersieht:**
+
+- Eine **Entscheidung hängt an keiner Phase.** Sie hat eine andere
+  Lebensdauer als die Arbeit, die auf sie wartet, und überlebt sie oft.
+- Ein **Fehler geht durch beide Bücher, nacheinander:** erst der Vorgang
+  (was ist kaputt, seit wann, woran erkannt), nach der Behebung der Fall
+  im [FEHLERBUCH.md](FEHLERBUCH.md) (woran ich es früher merke). Wer nur
+  eines führt, verliert entweder den Stand oder die Lehre.
+
+**Jede Verbindung wird zweimal geschrieben**, sonst ist sie von einer
+Seite unsichtbar: `Teil von #12` im Kind, `- [ ] #13` in der
+Aufgabenliste des Elternteils (daraus rechnet GitHub den Fortschritt),
+dazu die echte Unter-Vorgangs-Verknüpfung, `Vorgang: #12` im Dokument
+und `(#13)` am Ende des Commit-Betreffs.
+
+```bash
+node werkzeuge/vorgaenge.mjs roadmap              # zeigt, was fehlt
+node werkzeuge/vorgaenge.mjs roadmap --wirklich   # legt an und verkettet
+node werkzeuge/vorgaenge.mjs wunsch "Titel" --datei wunsch.md
+node werkzeuge/vorgaenge.mjs fehler "Titel" --datei bericht.md
+node werkzeuge/vorgaenge.mjs stand                # die Übersicht als Abfrage
+```
+
+**Ohne `--wirklich` läuft alles trocken.** Vorgänge anzulegen erzeugt
+Benachrichtigungen und lässt sich nicht spurlos zurücknehmen.
+
+**Eine Übersicht wird abgefragt, nicht gepflegt.** Eine Tabelle im
+Dokument wäre selbst wieder Doku, die veraltet.
+
 ## Was davon die Maschine prüft
 
 | Regel | Wächter |
@@ -144,7 +224,9 @@ eine gemeinsame Regeldatei) bekommen einen eigenen Wächter.
 | Verweise in der Doku | `werkzeuge/pruefe-verweise.mjs` |
 | vor jeder Veröffentlichung zusätzlich | `werkzeuge/pruefe-freigabe.mjs` (samt Git-Historie; hier läuft sie außerdem in beiden GitHub-Abläufen mit) |
 | 12 (die gemeinsame Firestore-Regeldatei) | `werkzeuge/pruefe-firestore-trennung.mjs` |
-| 2, 3, 7, 8, 9 | kann nur ein Mensch beurteilen |
+| 14 (kein Zustand in der Doku) | `werkzeuge/pruefe-doku-status.mjs` |
+| 16 (Form und Verweise der Vorgänge) | `werkzeuge/pruefe-vorgaenge.mjs` — ohne Netz; `--online` fragt GitHub |
+| 2, 3, 7, 8, 9, 13, 15 | kann nur ein Mensch beurteilen |
 
 Dazu die **fünfzehn Fachprüfungen**, die dieses Projekt schon vor der
 Alpha-Code-Einrichtung hatte. Was jede einzelne festhält und welcher
