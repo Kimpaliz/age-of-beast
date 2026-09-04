@@ -335,3 +335,68 @@ html[data-thema="hell"] .spielkarte[data-art="subclass"]     { --karte-hell: #3d
   padding-bottom: 0.15rem;
 }
 .karte-stufenname:first-child { margin-top: 0 !important; }
+
+/* ── Gegenstände ────────────────────────────────────────────────────
+
+   Eine Waffe hat Werte statt Regeltext. Sie stehen als Paare, damit man
+   „d8+1 phy" nicht aus einem Satz herauslesen muss. */
+
+.gegenstand-werte {
+  margin: 0 0 0.5rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.1rem 0.5rem;
+  font-size: 0.78rem;
+}
+
+.gegenstand-werte > div { display: contents; }
+
+.gegenstand-werte dt {
+  color: var(--schrift-matt);
+  font-size: 0.64rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  align-self: center;
+}
+
+.gegenstand-werte dd { margin: 0; font-variant-numeric: tabular-nums; }
+
+/* Was die Recherche selbst als unsicher kennzeichnet, sieht auch so aus. */
+.karte-unsicher {
+  margin: 0.4rem 0 0;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.72rem;
+  line-height: 1.35;
+  color: var(--schrift-matt);
+  background: var(--grund);
+  border-left: 2px solid var(--akzent-rand);
+  border-radius: 0 var(--radius-klein) var(--radius-klein) 0;
+}
+
+/* ── Filter in Gruppen ──────────────────────────────────────────────
+
+   Mit den Gegenständen sind es neun Arten plus neun Domänen. Als eine
+   Reihe wäre das auf dem Handy eine endlose Rutschbahn. */
+
+.karten-gruppe {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+  padding: 0.15rem 0;
+}
+
+.karten-gruppe-name {
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--schrift-matt);
+  margin-right: 0.2rem;
+  flex: 0 0 auto;
+}
+
+.karten-werkzeuge { flex-direction: column; align-items: stretch; }
+
+/* Der Stern sitzt oben rechts in der Karte. */
+.spielkarte .stern-platz { margin-left: auto; }
+.spielkarte .stern { font-size: 1.1rem; min-width: 2rem; min-height: 2rem; padding: 0.1rem 0.2rem; }

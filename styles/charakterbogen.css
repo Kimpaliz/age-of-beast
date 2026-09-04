@@ -410,3 +410,214 @@
   .attribute { grid-template-columns: repeat(2, 1fr); }
   .kaestchen { width: 1.2rem; height: 1.2rem; }
 }
+
+/* ── Kartenanker und die Blase ──────────────────────────────────────
+
+   Ein Anker ist ein Name, hinter dem eine Karte steckt. Er wird
+   **zurückhaltend** markiert: eine gepunktete Unterlinie, kein Knopf.
+   Auf einem Bogen sind zehn davon; als Knöpfe gestaltet sähe er aus wie
+   ein Formular. */
+
+.karte-anker {
+  cursor: help;
+  border-bottom: 1px dotted var(--akzent-rand);
+  text-underline-offset: 2px;
+}
+
+.karte-anker:hover,
+.karte-anker:focus-visible {
+  color: var(--akzent-hell);
+  border-bottom-color: var(--akzent);
+  outline: none;
+}
+
+a.karte-anker { cursor: pointer; }
+
+/* Auf Zeigegeräten ohne Überfahren ist die gepunktete Linie der einzige
+   Hinweis, dass da etwas zu holen ist — deshalb dort etwas kräftiger. */
+@media (hover: none) {
+  .karte-anker { border-bottom-style: dashed; border-bottom-color: var(--akzent); }
+}
+
+.kartenblase {
+  position: absolute;
+  z-index: 60;
+  width: min(22rem, calc(100vw - 2rem));
+  pointer-events: none;
+}
+
+/* Am Handy klebt sie unten am Rand: Ein Kästchen neben dem Finger läge
+   unter der Hand. */
+.kartenblase.unten {
+  position: fixed;
+  left: 0.5rem;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  top: auto;
+  width: auto;
+  max-height: 60vh;
+  overflow-y: auto;
+  pointer-events: auto;
+}
+
+.kartenblase-karte {
+  background: var(--flaeche-hoch);
+  border: 1px solid var(--akzent-rand);
+  border-radius: var(--radius);
+  box-shadow: var(--schatten);
+  padding: 0.85rem 0.95rem 0.8rem;
+}
+
+.blase-kopf { border-bottom: 1px solid var(--rand); padding-bottom: 0.45rem; }
+
+.blase-kopf h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.2;
+}
+
+.blase-unterzeile {
+  margin: 0.15rem 0 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--akzent-hell);
+}
+
+.blase-werte {
+  margin: 0.6rem 0 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.15rem 0.6rem;
+  font-size: 0.82rem;
+}
+
+.blase-wert { display: contents; }
+
+.blase-wert dt {
+  color: var(--schrift-matt);
+  font-size: 0.68rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  align-self: center;
+}
+
+.blase-wert dd { margin: 0; font-variant-numeric: tabular-nums; }
+
+.blase-text {
+  margin-top: 0.6rem;
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.blase-text p { margin: 0 0 0.45rem; }
+.blase-text p:last-child { margin-bottom: 0; }
+
+.blase-merkmal { margin-bottom: 0.4rem; }
+.blase-merkmal:last-child { margin-bottom: 0; }
+
+.blase-merkmal-name {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--akzent-hell);
+}
+
+/* Was die Recherche selbst als unsicher kennzeichnet, sieht auch so
+   aus — und was es gar nicht gibt, ebenso. */
+.blase-unsicher {
+  margin: 0.55rem 0 0;
+  padding: 0.4rem 0.55rem;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--schrift-matt);
+  background: var(--grund);
+  border-left: 2px solid var(--akzent-rand);
+  border-radius: 0 var(--radius-klein) var(--radius-klein) 0;
+}
+
+.blase-fuss {
+  margin-top: 0.6rem;
+  padding-top: 0.45rem;
+  border-top: 1px solid var(--rand);
+  font-size: 0.68rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--schrift-matt);
+}
+
+/* ── Figurenwahl ────────────────────────────────────────────────────
+
+   Ein Bogen je Seite. Zwei nebeneinander sahen auf dem Rechner noch
+   ordentlich aus, auf dem Handy standen sie untereinander und man
+   scrollte an einem ganzen Bogen vorbei, um den zweiten zu sehen. */
+
+.bogenwahl {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1.25rem;
+}
+
+.bogenwahl-knopf {
+  flex: 1 1 10rem;
+  text-align: left;
+  padding: 0.55rem 0.8rem;
+  background: var(--flaeche);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+  color: var(--schrift);
+  font: inherit;
+  cursor: pointer;
+  min-height: 3rem;
+}
+
+.bogenwahl-knopf[aria-pressed="true"] {
+  border-color: var(--akzent-rand);
+  background: var(--akzent-schleier);
+}
+
+.bogenwahl-name { display: block; font-weight: 600; }
+
+.bogenwahl-unter {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--schrift-matt);
+  margin-top: 0.1rem;
+}
+
+/* Es wird immer genau einer gezeigt — die Spalte darf breit werden. */
+.boegen { grid-template-columns: minmax(0, 44rem); justify-content: center; }
+
+.bogen-kopf-rechts {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ── Stern ─────────────────────────────────────────────────────────── */
+
+.stern {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius-klein);
+  color: var(--schrift-leise);
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0.25rem 0.35rem;
+  /* 44 px ist die Mindestgroesse fuer einen Finger. */
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+}
+
+.stern:hover,
+.stern:focus-visible {
+  color: var(--akzent-hell);
+  border-color: var(--akzent-rand);
+  outline: none;
+}
+
+.stern[aria-pressed="true"] { color: var(--akzent); }

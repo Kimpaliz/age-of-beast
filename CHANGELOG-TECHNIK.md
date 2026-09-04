@@ -12,6 +12,47 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ### Hinzugefügt
 
+- **`werkzeuge/gegenstaende-auslesen.mjs`** liest die Ausruestungs-
+  tabellen aus `docs/daggerheart/` und erzeugt
+  `daten/daggerheart-gegenstaende.json` — **123 Eintraege**
+  (67 Primaerwaffen, 24 Sekundaerwaffen, 27 Ruestungen, 2 Fundstuecke,
+  3 Verbrauchsgueter), 6 davon mit `unsicher`.
+  Die Recherchedateien sind die Quelle; nichts ist abgetippt.
+  Stichproben gegen die Tabellen: Longsword (Agility/Melee/d8+3 phy/
+  zweihaendig/Reliable), Dagger (Finesse/d8+1/Heavy), Gambeson (5/11,
+  Score 3, Flexible), Katana (vier Stufenwerte). 0 doppelte Namen.
+  ⚠️ Der erste Lauf brach ab: `### Rüstung` in den Grundregeln ist nur
+  ein **Verweis**, die Tabelle steht in Abschnitt 5. Der Ausleser hat das
+  gemeldet, statt die naechstbeste Tabelle zu nehmen — `tabelleNach()`
+  bricht am naechsten `#` ab.
+- **`karte/karten-daten.js`** — beide Datensaetze an einer Stelle, Suche
+  ueber einen normalisierten Namen („Gambeson" findet „Gambeson Armor").
+- **`karte/kartenblase.js`** — die Karte beim Ueberfahren. Eine einzige
+  Blase je Seite; `mouseenter`/`focus` am Rechner, `click` auf
+  Beruehrungsgeraeten, dort fest am unteren Rand (`hover: none` oder
+  Fenster < 640 px). Escape und Klick daneben schliessen.
+- **`runtime/favoriten.js`** — Sterne in `localStorage`
+  (`aob.favoriten.v1`). Klassisches Skript, damit alle drei Seiten
+  dasselbe benutzen. `lies()`/`schreibe()` sind die einzigen zwei
+  Stellen, die den Speicher kennen — ein spaeterer Abgleich je Konto
+  aendert sonst nichts. Beide in `try` gefangen: In einem privaten
+  Fenster **wirft** `localStorage`, es ist nicht bloss leer.
+
+### Geändert
+
+- **Charakterbogen: eine Figur je Seite**, Auswahl darueber, Zustand in
+  `?figur=`. 17 Kartenanker auf beiden Boegen zusammen.
+  `spielwerte.waffen[].regelname` und `ruestung.regelname` verbinden die
+  deutsche Anzeige mit dem englischen Regelnamen; steht dort `null`,
+  meldet die Blase ehrlich, dass es keine Karte gibt (Machete,
+  Kurzschwert).
+- **Kartenseite: 270 → 393 Kacheln**, eigene Kachelform fuer
+  Gegenstaende (Werte statt Regeltext), Filter in vier Gruppen, Suche
+  auch ueber Merkmal, Wirkung, Attribut und Reichweite.
+  Gemessen nach dem Umbau: **0 Ueberlaeufe** bei 393 Kacheln.
+
+### Hinzugefügt
+
 - **Plattformregeln** in `firestore.rules`: `wiki_projekte/{wikiId}` mit
   Untersammlung `welt`. Mitgliedschaft als `mitgliederIds` (Liste, fuer
   `array-contains`) **und** `rollen` (Map uid → Rolle); `mitgliedschaft-

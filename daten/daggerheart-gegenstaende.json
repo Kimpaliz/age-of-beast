@@ -1,0 +1,2229 @@
+{
+ "hinweis": "Erzeugt von werkzeuge/gegenstaende-auslesen.mjs aus docs/daggerheart/. Nicht von Hand ändern — die Recherchedateien sind die Quelle.",
+ "gegenstaende": [
+  {
+   "id": "primaerwaffe-broadsword-1",
+   "name": "Broadsword",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Agility",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d8"
+    ],
+    "text": "d8 phy"
+   },
+   "traglast": "Einhändig",
+   "merkmal": null,
+   "wirkung": null,
+   "quelle": "SRD 1.0",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-longsword-2",
+   "name": "Longsword",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Agility",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d8+3"
+    ],
+    "text": "d8+3 phy"
+   },
+   "traglast": "Zweihändig",
+   "merkmal": "Reliable",
+   "wirkung": "+1 auf Angriffswürfe",
+   "quelle": "SRD 1.0",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-battleaxe-3",
+   "name": "Battleaxe",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Strength",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d10+3"
+    ],
+    "text": "d10+3 phy"
+   },
+   "traglast": "Zweihändig",
+   "merkmal": null,
+   "wirkung": null,
+   "quelle": "SRD 1.0",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-greatsword-4",
+   "name": "Greatsword",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Strength",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d10+3"
+    ],
+    "text": "d10+3 phy"
+   },
+   "traglast": "Zweihändig",
+   "merkmal": null,
+   "wirkung": null,
+   "quelle": "SRD 1.0",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-mace-5",
+   "name": "Mace",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Strength",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d8+1"
+    ],
+    "text": "d8+1 phy"
+   },
+   "traglast": "Einhändig",
+   "merkmal": "Massive",
+   "wirkung": "−1 Evasion; zusätzlicher Schadenswürfel, niedrigster wird verworfen",
+   "quelle": "SRD 1.0",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-warhammer-6",
+   "name": "Warhammer",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Strength",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d12+3"
+    ],
+    "text": "d12+3 phy"
+   },
+   "traglast": "Zweihändig",
+   "merkmal": null,
+   "wirkung": null,
+   "quelle": "SRD 1.0",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-dagger-7",
+   "name": "Dagger",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Finesse",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d8+1"
+    ],
+    "text": "d8+1 phy"
+   },
+   "traglast": "Einhändig",
+   "merkmal": "Heavy",
+   "wirkung": "−1 Evasion",
+   "quelle": "SRD 1.0",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-quarterstaff-8",
+   "name": "Quarterstaff",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Instinct",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d10+3"
+    ],
+    "text": "d10+3 phy"
+   },
+   "traglast": "Zweihändig",
+   "merkmal": null,
+   "wirkung": null,
+   "quelle": "SRD 1.0",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-cutlass-9",
+   "name": "Cutlass",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Presence",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d8+1"
+    ],
+    "text": "d8+1 phy"
+   },
+   "traglast": "Einhändig",
+   "merkmal": null,
+   "wirkung": null,
+   "quelle": "SRD 1.0",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-rapier-10",
+   "name": "Rapier",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Presence",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d8"
+    ],
+    "text": "d8 phy"
+   },
+   "traglast": "Einhändig",
+   "merkmal": null,
+   "wirkung": null,
+   "quelle": "SRD 1.0",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-halberd-11",
+   "name": "Halberd",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Strength",
+   "reichweite": "Very Close",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d10+2"
+    ],
+    "text": "d10+2 phy"
+   },
+   "traglast": "Zweihändig",
+   "merkmal": "Quick",
+   "wirkung": "1 Stress markieren, um ein weiteres Ziel in Reichweite anzugreifen",
+   "quelle": "SRD 1.0",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-spear-12",
+   "name": "Spear",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Finesse",
+   "reichweite": "Very Close",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d10+2"
+    ],
+    "text": "d10+2 phy"
+   },
+   "traglast": "Zweihändig",
+   "merkmal": "Cumbersome",
+   "wirkung": "−1 Finesse",
+   "quelle": "SRD 1.0",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-shortbow-13",
+   "name": "Shortbow",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Agility",
+   "reichweite": "Far",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d6+3"
+    ],
+    "text": "d6+3 phy"
+   },
+   "traglast": "Zweihändig",
+   "merkmal": "Cumbersome",
+   "wirkung": "−1 Finesse",
+   "quelle": "SRD 1.0",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-crossbow-14",
+   "name": "Crossbow",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Finesse",
+   "reichweite": "Far",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d6+1"
+    ],
+    "text": "d6+1 phy"
+   },
+   "traglast": "Einhändig",
+   "merkmal": null,
+   "wirkung": null,
+   "quelle": "SRD 1.0",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-longbow-15",
+   "name": "Longbow",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Agility",
+   "reichweite": "Very Far",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d8+3"
+    ],
+    "text": "d8+3 phy"
+   },
+   "traglast": "Zweihändig",
+   "merkmal": "Cumbersome",
+   "wirkung": "−1 Finesse",
+   "quelle": "SRD 1.0",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-arcane-gauntlets-16",
+   "name": "Arcane Gauntlets",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Strength",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d10+3 mag",
+     "d8+1"
+    ],
+    "text": "d10+3 mag / d8+1 mag"
+   },
+   "traglast": "Zwei-/Einhändig",
+   "merkmal": null,
+   "wirkung": null,
+   "quelle": "SRD 1.0",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-hallowed-axe-17",
+   "name": "Hallowed Axe",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Agility",
+   "reichweite": "Very Close",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d10+1"
+    ],
+    "text": "d10+1 mag"
+   },
+   "traglast": "Zweihändig",
+   "merkmal": null,
+   "wirkung": null,
+   "quelle": "SRD 1.0",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-glowing-rings-18",
+   "name": "Glowing Rings",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Instinct",
+   "reichweite": "Very Close",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d10"
+    ],
+    "text": "d10 mag"
+   },
+   "traglast": "Einhändig",
+   "merkmal": null,
+   "wirkung": null,
+   "quelle": "SRD 1.0",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-hand-runes-19",
+   "name": "Hand Runes",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Finesse",
+   "reichweite": "Close",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d8"
+    ],
+    "text": "d8 mag"
+   },
+   "traglast": "Einhändig",
+   "merkmal": null,
+   "wirkung": null,
+   "quelle": "SRD 1.0",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-returning-blade-20",
+   "name": "Returning Blade",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": null,
+   "reichweite": null,
+   "schaden": null,
+   "traglast": "Ein-/Zweihändig",
+   "merkmal": "Returning",
+   "wirkung": "kehrt nach dem Wurf sofort in die Hand zurück",
+   "quelle": "SRD 1.0",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-shortstaff-21",
+   "name": "Shortstaff",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Instinct",
+   "reichweite": "Close",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d8+1"
+    ],
+    "text": "d8+1 mag"
+   },
+   "traglast": "Zweihändig",
+   "merkmal": null,
+   "wirkung": null,
+   "quelle": "SRD 1.0",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-dualstaff-22",
+   "name": "Dualstaff",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Instinct",
+   "reichweite": "Far",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d6+3"
+    ],
+    "text": "d6+3 mag"
+   },
+   "traglast": null,
+   "merkmal": null,
+   "wirkung": null,
+   "quelle": "SRD 1.0",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-scepter-23",
+   "name": "Scepter",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Presence",
+   "reichweite": "Far",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d6"
+    ],
+    "text": "d6 mag"
+   },
+   "traglast": "Ein-/Zweihändig",
+   "merkmal": "Versatile",
+   "wirkung": "alternativ Presence/Melee/d8 nutzbar",
+   "quelle": "SRD 1.0",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-wand-24",
+   "name": "Wand",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Knowledge",
+   "reichweite": "Far",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d6+1"
+    ],
+    "text": "d6+1 mag"
+   },
+   "traglast": null,
+   "merkmal": null,
+   "wirkung": null,
+   "quelle": "SRD 1.0",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-greatstaff-25",
+   "name": "Greatstaff",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Knowledge",
+   "reichweite": "Very Far",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d6"
+    ],
+    "text": "d6 mag"
+   },
+   "traglast": null,
+   "merkmal": "Powerful",
+   "wirkung": "zusätzlicher Schadenswürfel, niedrigster wird verworfen",
+   "quelle": "SRD 1.0",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-katana-26",
+   "name": "Katana",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Agility",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d10+3",
+     "d10+6",
+     "d10+9",
+     "d10+12"
+    ],
+    "text": "d10+3 / d10+6 / d10+9 / d10+12 phy"
+   },
+   "traglast": "zweihändig",
+   "merkmal": "Quick",
+   "wirkung": "Stress markieren, zusätzliches Ziel in Reichweite treffen",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-brass-knuckles-27",
+   "name": "Brass Knuckles",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Strength",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d8+1",
+     "d8+4",
+     "d8+7",
+     "d8+10"
+    ],
+    "text": "d8+1 / d8+4 / d8+7 / d8+10 phy"
+   },
+   "traglast": "einhändig",
+   "merkmal": null,
+   "wirkung": null,
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-scimitar-28",
+   "name": "Scimitar",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Presence",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d8+1",
+     "d8+4",
+     "d8+7",
+     "d8+10"
+    ],
+    "text": "d8+1 / d8+4 / d8+7 / d8+10 phy"
+   },
+   "traglast": "einhändig",
+   "merkmal": null,
+   "wirkung": null,
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-twisted-dagger-29",
+   "name": "Twisted Dagger",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Knowledge",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d8",
+     "d8+3",
+     "d8+6",
+     "d8+9"
+    ],
+    "text": "d8 / d8+3 / d8+6 / d8+9 phy"
+   },
+   "traglast": "einhändig",
+   "merkmal": "Piercing",
+   "wirkung": "−2 auf Major-Schadensschwelle des Ziels",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-whipsword-30",
+   "name": "Whipsword",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Finesse",
+   "reichweite": "Very Close",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d8",
+     "d8+3",
+     "d8+6",
+     "d8+9"
+    ],
+    "text": "d8 / d8+3 / d8+6 / d8+9 phy"
+   },
+   "traglast": "einhändig",
+   "merkmal": "Versatile",
+   "wirkung": "alternativ Finesse/Melee/d10(+Stufenbonus)",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-rope-dart-31",
+   "name": "Rope Dart",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Instinct",
+   "reichweite": "Close",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d6+1",
+     "d6+4",
+     "d6+7",
+     "d6+10"
+    ],
+    "text": "d6+1 / d6+4 / d6+7 / d6+10 phy"
+   },
+   "traglast": "zweihändig",
+   "merkmal": null,
+   "wirkung": null,
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-war-pick-32",
+   "name": "War Pick",
+   "art": "primaerwaffe",
+   "abStufe": 2,
+   "attribut": "Strength",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d8+3"
+    ],
+    "text": "d8+3 phy"
+   },
+   "traglast": "einhändig",
+   "merkmal": "Deadly",
+   "wirkung": "bei Severe-Schaden zusätzlicher Trefferpunkt",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-cane-sword-33",
+   "name": "Cane Sword",
+   "art": "primaerwaffe",
+   "abStufe": 2,
+   "attribut": "Finesse",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d8+4"
+    ],
+    "text": "d8+4 phy"
+   },
+   "traglast": "einhändig",
+   "merkmal": "Retractable",
+   "wirkung": "Klinge im Stock verborgen",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-bladed-fan-34",
+   "name": "Bladed Fan",
+   "art": "primaerwaffe",
+   "abStufe": 2,
+   "attribut": "Presence",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d8+3"
+    ],
+    "text": "d8+3 phy"
+   },
+   "traglast": "einhändig",
+   "merkmal": "Parry",
+   "wirkung": "bei Angriff auf einen selbst eigene Schadenswürfel würfeln, gleiche Werte werden vom Angreiferschaden abgezogen",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-cyrurgien-s-scalpel-35",
+   "name": "Cyrurgien's Scalpel",
+   "art": "primaerwaffe",
+   "abStufe": 2,
+   "attribut": "Knowledge",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d8+3"
+    ],
+    "text": "d8+3 phy"
+   },
+   "traglast": "einhändig",
+   "merkmal": "Scary",
+   "wirkung": "Ziel muss bei Erfolg Stress markieren",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-lance-36",
+   "name": "Lance",
+   "art": "primaerwaffe",
+   "abStufe": 2,
+   "attribut": "Instinct",
+   "reichweite": "Very Close",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d10+5"
+    ],
+    "text": "d10+5 phy"
+   },
+   "traglast": "zweihändig",
+   "merkmal": "Cumbersome",
+   "wirkung": "−1 Finesse",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-javelins-37",
+   "name": "Javelins",
+   "art": "primaerwaffe",
+   "abStufe": 2,
+   "attribut": "Agility",
+   "reichweite": "Very Close",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d6+6"
+    ],
+    "text": "d6+6 phy"
+   },
+   "traglast": "einhändig",
+   "merkmal": "Stockpiled",
+   "wirkung": "Wurfangriff bis Far ohne Rückholen",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-blitz-hammer-38",
+   "name": "Blitz Hammer",
+   "art": "primaerwaffe",
+   "abStufe": 3,
+   "attribut": "Strength",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d10+7"
+    ],
+    "text": "d10+7 phy"
+   },
+   "traglast": "zweihändig",
+   "merkmal": "Accelerator",
+   "wirkung": "1×/Szene Stress markieren, zu Far bewegen und Angriff mit +1 Proficiency",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-platinum-estoc-39",
+   "name": "Platinum Estoc",
+   "art": "primaerwaffe",
+   "abStufe": 3,
+   "attribut": "Finesse",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d8+7"
+    ],
+    "text": "d8+7 phy"
+   },
+   "traglast": "einhändig",
+   "merkmal": "Piercing",
+   "wirkung": null,
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-soldier-s-pike-40",
+   "name": "Soldier's Pike",
+   "art": "primaerwaffe",
+   "abStufe": 3,
+   "attribut": "Agility",
+   "reichweite": "Very Close",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d10+5"
+    ],
+    "text": "d10+5 phy"
+   },
+   "traglast": "zweihändig",
+   "merkmal": "Braced",
+   "wirkung": "bei Gegnerschaden 2 Stress markieren, Angreifer markiert Trefferpunkt",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-chained-scythe-41",
+   "name": "Chained Scythe",
+   "art": "primaerwaffe",
+   "abStufe": 3,
+   "attribut": "Instinct",
+   "reichweite": "Very Close",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d10+5"
+    ],
+    "text": "d10+5 phy"
+   },
+   "traglast": "zweihändig",
+   "merkmal": "Quick",
+   "wirkung": null,
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-singing-sword-42",
+   "name": "Singing Sword",
+   "art": "primaerwaffe",
+   "abStufe": 3,
+   "attribut": "Presence",
+   "reichweite": "Very Close",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d8+5"
+    ],
+    "text": "d8+5 phy"
+   },
+   "traglast": "einhändig",
+   "merkmal": "Bolstering",
+   "wirkung": "bei kritischem Erfolg alle PCs in Close erhalten Hoffnung",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-bladed-star-43",
+   "name": "Bladed Star",
+   "art": "primaerwaffe",
+   "abStufe": 3,
+   "attribut": "Knowledge",
+   "reichweite": "Close",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d8+7"
+    ],
+    "text": "d8+7 phy"
+   },
+   "traglast": "einhändig",
+   "merkmal": "Rebounding",
+   "wirkung": "kehrt zurück; bei Fehlschlag Neuwurf mit Nachteil",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-severed-dragon-claw-44",
+   "name": "Severed Dragon Claw",
+   "art": "primaerwaffe",
+   "abStufe": 4,
+   "attribut": "Instinct",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d10+11"
+    ],
+    "text": "d10+11 phy"
+   },
+   "traglast": "einhändig",
+   "merkmal": "Destructive",
+   "wirkung": "−1 Agility; bei Erfolg müssen alle Gegner in Very Close Stress markieren",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-infinite-staff-45",
+   "name": "Infinite Staff",
+   "art": "primaerwaffe",
+   "abStufe": 4,
+   "attribut": "Presence",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d10+9"
+    ],
+    "text": "d10+9 phy"
+   },
+   "traglast": "zweihändig",
+   "merkmal": "Extending",
+   "wirkung": "Reichweite bis Very Far erhöhbar, −1 Angriff je Stufe",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-bec-de-corbin-46",
+   "name": "Bec de Corbin",
+   "art": "primaerwaffe",
+   "abStufe": 4,
+   "attribut": "Agility",
+   "reichweite": "Very Close",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d10+9"
+    ],
+    "text": "d10+9 phy"
+   },
+   "traglast": "zweihändig",
+   "merkmal": "Devastating",
+   "wirkung": "Stress markieren, d20 als Schadenswürfel",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-black-powder-serpentine-47",
+   "name": "Black Powder Serpentine",
+   "art": "primaerwaffe",
+   "abStufe": 4,
+   "attribut": "Strength",
+   "reichweite": "Far",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d8+12"
+    ],
+    "text": "d8+12 phy"
+   },
+   "traglast": "zweihändig",
+   "merkmal": "Incendiary",
+   "wirkung": "−1 Agility; alle Kreaturen in Very Close um Ziel markieren Trefferpunkt",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-clockwork-crossbow-48",
+   "name": "Clockwork Crossbow",
+   "art": "primaerwaffe",
+   "abStufe": 4,
+   "attribut": "Finesse",
+   "reichweite": "Far",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d6+11"
+    ],
+    "text": "d6+11 phy"
+   },
+   "traglast": "einhändig",
+   "merkmal": "Quick",
+   "wirkung": null,
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-arquebus-49",
+   "name": "Arquebus",
+   "art": "primaerwaffe",
+   "abStufe": 4,
+   "attribut": "Knowledge",
+   "reichweite": "Far",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d8+10"
+    ],
+    "text": "d8+10 phy"
+   },
+   "traglast": "zweihändig",
+   "merkmal": "Reloading",
+   "wirkung": "nach Angriff d6, bei 1 Stress markieren zum Nachladen",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-brightsword-50",
+   "name": "Brightsword",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Strength",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d10+3",
+     "+6",
+     "+9",
+     "+12"
+    ],
+    "text": "d10+3/+6/+9/+12 mag"
+   },
+   "traglast": "zweihändig",
+   "merkmal": null,
+   "wirkung": null,
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-shadowblade-51",
+   "name": "Shadowblade",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Presence",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d8",
+     "d8+3",
+     "d8+6",
+     "d8+9 phy"
+    ],
+    "text": "d8/d8+3/d8+6/d8+9 phy/mag"
+   },
+   "traglast": "einhändig",
+   "merkmal": "Otherworldly",
+   "wirkung": "wahlweise physisch oder magisch",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-enchanted-chakram-52",
+   "name": "Enchanted Chakram",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Finesse",
+   "reichweite": "Close",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d6+1",
+     "+4",
+     "+7",
+     "+10"
+    ],
+    "text": "d6+1/+4/+7/+10 mag"
+   },
+   "traglast": "einhändig",
+   "merkmal": "Ricochet",
+   "wirkung": "kehrt zurück; Stress für Zweitziel in Very Close",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-casting-dagger-53",
+   "name": "Casting Dagger",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Instinct",
+   "reichweite": "Close",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d6",
+     "d6+3",
+     "d6+6",
+     "d6+9"
+    ],
+    "text": "d6/d6+3/d6+6/d6+9 mag"
+   },
+   "traglast": "einhändig",
+   "merkmal": "Versatile",
+   "wirkung": null,
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-runelock-pistol-54",
+   "name": "Runelock Pistol",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Knowledge",
+   "reichweite": "Far",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d6+3",
+     "+6",
+     "+9",
+     "+12"
+    ],
+    "text": "d6+3/+6/+9/+12 mag"
+   },
+   "traglast": "einhändig",
+   "merkmal": "Reloading",
+   "wirkung": null,
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-arcane-rifle-55",
+   "name": "Arcane Rifle",
+   "art": "primaerwaffe",
+   "abStufe": 1,
+   "attribut": "Agility",
+   "reichweite": "Very Far",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d10+3",
+     "+6",
+     "+9",
+     "+12"
+    ],
+    "text": "d10+3/+6/+9/+12 mag"
+   },
+   "traglast": "zweihändig",
+   "merkmal": "Aimed",
+   "wirkung": "Nachteil bei Zielen in Very Close/Melee-Nähe eines Verbündeten, aufhebbar durch Stress",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-rocket-maul-56",
+   "name": "Rocket Maul",
+   "art": "primaerwaffe",
+   "abStufe": 2,
+   "attribut": "Strength",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d10+7"
+    ],
+    "text": "d10+7 mag"
+   },
+   "traglast": "zweihändig",
+   "merkmal": "Concussive",
+   "wirkung": "Hoffnung, Ziel bis Far zurückstoßen",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-crystal-spear-57",
+   "name": "Crystal Spear",
+   "art": "primaerwaffe",
+   "abStufe": 2,
+   "attribut": "Finesse",
+   "reichweite": "Very Close",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d10+6"
+    ],
+    "text": "d10+6 mag"
+   },
+   "traglast": "einhändig",
+   "merkmal": "Piercing",
+   "wirkung": null,
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-arc-wand-58",
+   "name": "Arc Wand",
+   "art": "primaerwaffe",
+   "abStufe": 2,
+   "attribut": "Presence",
+   "reichweite": "Close",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d8+6"
+    ],
+    "text": "d8+6 mag"
+   },
+   "traglast": "einhändig",
+   "merkmal": "Bouncing",
+   "wirkung": "Stress für weitere Ziele in Reichweite",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-rime-scepter-59",
+   "name": "Rime Scepter",
+   "art": "primaerwaffe",
+   "abStufe": 2,
+   "attribut": "Knowledge",
+   "reichweite": "Close",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d8+6"
+    ],
+    "text": "d8+6 mag"
+   },
+   "traglast": "einhändig",
+   "merkmal": "Freezing",
+   "wirkung": "bei ≥2 KP-Verlust Ziel vorübergehend gefesselt",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-gunblade-60",
+   "name": "Gunblade",
+   "art": "primaerwaffe",
+   "abStufe": 2,
+   "attribut": "Agility",
+   "reichweite": "Far",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d6+6"
+    ],
+    "text": "d6+6 mag"
+   },
+   "traglast": "einhändig",
+   "merkmal": "Versatile",
+   "wirkung": "alt. Agility/Melee/d8+6 phy",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-staff-of-augma-61",
+   "name": "Staff of Augma",
+   "art": "primaerwaffe",
+   "abStufe": 2,
+   "attribut": "Instinct",
+   "reichweite": "Far",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d6+7"
+    ],
+    "text": "d6+7 mag"
+   },
+   "traglast": "einhändig",
+   "merkmal": "Catalytic",
+   "wirkung": "Stress, Verbündeter in Close +3 auf nächsten Angriff",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-starmetal-blade-62",
+   "name": "Starmetal Blade",
+   "art": "primaerwaffe",
+   "abStufe": 4,
+   "attribut": "Agility",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d8+10"
+    ],
+    "text": "d8+10 mag"
+   },
+   "traglast": "einhändig",
+   "merkmal": "Serrated",
+   "wirkung": "Ergebnis „1\" zählt als 8",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-adder-s-fang-63",
+   "name": "Adder's Fang",
+   "art": "primaerwaffe",
+   "abStufe": 4,
+   "attribut": "Finesse",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d8+9"
+    ],
+    "text": "d8+9 mag"
+   },
+   "traglast": "einhändig",
+   "merkmal": "Venomous",
+   "wirkung": "ab Major-Schaden Ziel vorübergehend Verwundbar",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-demon-s-edge-64",
+   "name": "Demon's Edge",
+   "art": "primaerwaffe",
+   "abStufe": 4,
+   "attribut": "Presence",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d8+10"
+    ],
+    "text": "d8+10 mag"
+   },
+   "traglast": "einhändig",
+   "merkmal": "Disturbing",
+   "wirkung": "bei Kill müssen Gegner in Close Stress markieren",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-storm-god-s-greataxe-65",
+   "name": "Storm God's Greataxe",
+   "art": "primaerwaffe",
+   "abStufe": 4,
+   "attribut": "Strength",
+   "reichweite": "Very Close",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d10+9"
+    ],
+    "text": "d10+9 mag"
+   },
+   "traglast": "zweihändig",
+   "merkmal": "Bouncing",
+   "wirkung": null,
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-ethereal-zweih-nder-66",
+   "name": "Ethereal Zweihänder",
+   "art": "primaerwaffe",
+   "abStufe": 4,
+   "attribut": "Instinct",
+   "reichweite": "Very Close",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d10+9"
+    ],
+    "text": "d10+9 mag"
+   },
+   "traglast": "zweihändig",
+   "merkmal": "Ethereal",
+   "wirkung": "Stress zum Beschwören, hält bis Szenenende",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "primaerwaffe-gravity-arbalest-67",
+   "name": "Gravity Arbalest",
+   "art": "primaerwaffe",
+   "abStufe": 4,
+   "attribut": "Knowledge",
+   "reichweite": "Far",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d8+6"
+    ],
+    "text": "d8+6 mag"
+   },
+   "traglast": "zweihändig",
+   "merkmal": "Magnetic",
+   "wirkung": "Hoffnung, Gegner um Ziel müssen Reaktionswurf (16) bestehen oder werden zu Melee gezogen und markieren Stress",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "sekundaerwaffe-hatchet-68",
+   "name": "Hatchet",
+   "art": "sekundaerwaffe",
+   "abStufe": 1,
+   "attribut": "Agility",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d8",
+     "d8+2",
+     "d8+4",
+     "d8+6"
+    ],
+    "text": "d8/d8+2/d8+4/d8+6 phy"
+   },
+   "traglast": null,
+   "merkmal": "Follow-Up",
+   "wirkung": "Stress für +1 Proficiency nach Primärwaffen-Treffer",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "sekundaerwaffe-offhand-brass-knuckles-69",
+   "name": "Offhand Brass Knuckles",
+   "art": "sekundaerwaffe",
+   "abStufe": 1,
+   "attribut": "Strength",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d8",
+     "d8+2",
+     "d8+4",
+     "d8+6"
+    ],
+    "text": "d8/d8+2/d8+4/d8+6 phy"
+   },
+   "traglast": null,
+   "merkmal": "Paired",
+   "wirkung": "+2/+3/+4/+5 auf Primärwaffenschaden in Melee",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "sekundaerwaffe-throwing-knives-70",
+   "name": "Throwing Knives",
+   "art": "sekundaerwaffe",
+   "abStufe": 1,
+   "attribut": "Finesse",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d8",
+     "d8+2",
+     "d8+4",
+     "d8+6"
+    ],
+    "text": "d8/d8+2/d8+4/d8+6 phy"
+   },
+   "traglast": null,
+   "merkmal": "Stockpiled",
+   "wirkung": "Wurf bis Close ohne Rückholen",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "sekundaerwaffe-fighting-cloak-71",
+   "name": "Fighting Cloak",
+   "art": "sekundaerwaffe",
+   "abStufe": 1,
+   "attribut": "Presence",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d4",
+     "d4+2",
+     "d4+4",
+     "d4+6"
+    ],
+    "text": "d4/d4+2/d4+4/d4+6 phy"
+   },
+   "traglast": null,
+   "merkmal": "Padded",
+   "wirkung": "+2/+3/+4/+5 Schadensschwellen",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "sekundaerwaffe-rune-shield-72",
+   "name": "Rune Shield",
+   "art": "sekundaerwaffe",
+   "abStufe": 1,
+   "attribut": "Knowledge",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d4",
+     "d4+2",
+     "d4+4",
+     "d4+6"
+    ],
+    "text": "d4/d4+2/d4+4/d4+6 mag"
+   },
+   "traglast": null,
+   "merkmal": "Protective",
+   "wirkung": "+1/+2/+3/+4 Rüstungswert",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "sekundaerwaffe-focus-runes-73",
+   "name": "Focus Runes",
+   "art": "sekundaerwaffe",
+   "abStufe": 1,
+   "attribut": "Instinct",
+   "reichweite": "Very Close",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d6",
+     "d6+2",
+     "d6+4",
+     "d6+6"
+    ],
+    "text": "d6/d6+2/d6+4/d6+6 mag"
+   },
+   "traglast": null,
+   "merkmal": "Focused",
+   "wirkung": "+1 Primärwaffenschaden in Very Close",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "sekundaerwaffe-collapsible-baton-74",
+   "name": "Collapsible Baton",
+   "art": "sekundaerwaffe",
+   "abStufe": 2,
+   "attribut": "Strength",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d8"
+    ],
+    "text": "d8 phy"
+   },
+   "traglast": null,
+   "merkmal": "Nonlethal",
+   "wirkung": "KP-Schaden wird zu gleich viel Stress",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "sekundaerwaffe-eldritch-vambrace-75",
+   "name": "Eldritch Vambrace",
+   "art": "sekundaerwaffe",
+   "abStufe": 2,
+   "attribut": "Instinct",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d8"
+    ],
+    "text": "d8 mag"
+   },
+   "traglast": null,
+   "merkmal": "Deflecting",
+   "wirkung": "Rüstungsfeld markieren für +Ausweichen = Rüstungswert",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "sekundaerwaffe-segmented-staff-76",
+   "name": "Segmented Staff",
+   "art": "sekundaerwaffe",
+   "abStufe": 2,
+   "attribut": "Agility",
+   "reichweite": "Very Close",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d6+4"
+    ],
+    "text": "d6+4 phy"
+   },
+   "traglast": null,
+   "merkmal": "Double Duty",
+   "wirkung": "+1 Rüstungswert, +1 Primärwaffenschaden Melee",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "sekundaerwaffe-razor-wire-77",
+   "name": "Razor Wire",
+   "art": "sekundaerwaffe",
+   "abStufe": 2,
+   "attribut": "Finesse",
+   "reichweite": "Very Close",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d6+3"
+    ],
+    "text": "d6+3 phy"
+   },
+   "traglast": null,
+   "merkmal": "Entangling",
+   "wirkung": "Hoffnung, Ziel wird verwundbar",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "sekundaerwaffe-tinker-s-hammer-78",
+   "name": "Tinker's Hammer",
+   "art": "sekundaerwaffe",
+   "abStufe": 3,
+   "attribut": "Strength",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d8+4"
+    ],
+    "text": "d8+4 phy"
+   },
+   "traglast": null,
+   "merkmal": "Trusty",
+   "wirkung": "+1 auf Primärwaffen-Angriffswürfe",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "sekundaerwaffe-vorpal-shard-79",
+   "name": "Vorpal Shard",
+   "art": "sekundaerwaffe",
+   "abStufe": 3,
+   "attribut": "Knowledge",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d4"
+    ],
+    "text": "d4 mag"
+   },
+   "traglast": null,
+   "merkmal": "Targeted",
+   "wirkung": "Hoffnung nach Fehlschlag für Erfolg beim nächsten Waffenangriff",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "sekundaerwaffe-soul-chain-80",
+   "name": "Soul Chain",
+   "art": "sekundaerwaffe",
+   "abStufe": 3,
+   "attribut": "Presence",
+   "reichweite": "Very Close",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d6+5"
+    ],
+    "text": "d6+5 mag"
+   },
+   "traglast": null,
+   "merkmal": "Draining",
+   "wirkung": "Hoffnung, Ziel markiert Stress, man selbst löscht Stress",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "sekundaerwaffe-war-dart-81",
+   "name": "War Dart",
+   "art": "sekundaerwaffe",
+   "abStufe": 3,
+   "attribut": "Agility",
+   "reichweite": "Far",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d6+5"
+    ],
+    "text": "d6+5 phy"
+   },
+   "traglast": null,
+   "merkmal": "Versatile",
+   "wirkung": null,
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "sekundaerwaffe-void-needle-82",
+   "name": "Void Needle",
+   "art": "sekundaerwaffe",
+   "abStufe": 4,
+   "attribut": "Finesse",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "physisch",
+    "stufen": [
+     "d4+6"
+    ],
+    "text": "d4+6 phy"
+   },
+   "traglast": null,
+   "merkmal": "Inverted",
+   "wirkung": "Waffenangriff mit Furcht gibt Hoffnung",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "sekundaerwaffe-echo-blade-83",
+   "name": "Echo Blade",
+   "art": "sekundaerwaffe",
+   "abStufe": 4,
+   "attribut": "Presence",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d4+6"
+    ],
+    "text": "d4+6 mag"
+   },
+   "traglast": null,
+   "merkmal": "Doubled Up",
+   "wirkung": "bei Primärwaffen-Erfolg Zweitschaden an weiteres Ziel in Melee",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "sekundaerwaffe-m-bius-orb-84",
+   "name": "Möbius Orb",
+   "art": "sekundaerwaffe",
+   "abStufe": 4,
+   "attribut": "Knowledge",
+   "reichweite": "Melee",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d8+6"
+    ],
+    "text": "d8+6 mag"
+   },
+   "traglast": null,
+   "merkmal": "Recursive",
+   "wirkung": "bei Höchstwert weiteren Schadenswürfel würfeln (wiederholbar)",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "sekundaerwaffe-blackblood-tendril-85",
+   "name": "Blackblood Tendril",
+   "art": "sekundaerwaffe",
+   "abStufe": 4,
+   "attribut": "Instinct",
+   "reichweite": "Close",
+   "schaden": {
+    "art": "magisch",
+    "stufen": [
+     "d6+8"
+    ],
+    "text": "d6+8 mag"
+   },
+   "traglast": null,
+   "merkmal": "Poisonous",
+   "wirkung": "bei Furcht-Treffer markiert Ziel gleich viel Stress",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "ruestung-gambeson-armor-86",
+   "name": "Gambeson Armor",
+   "art": "ruestung",
+   "abStufe": 1,
+   "schwellen": {
+    "schwer": 5,
+    "ernst": 11
+   },
+   "score": 3,
+   "merkmal": "Flexible",
+   "wirkung": "+1 auf Evasion",
+   "quelle": "SRD 1.0",
+   "unsicher": null
+  },
+  {
+   "id": "ruestung-leather-armor-87",
+   "name": "Leather Armor",
+   "art": "ruestung",
+   "abStufe": 1,
+   "schwellen": {
+    "schwer": 6,
+    "ernst": 13
+   },
+   "score": 3,
+   "merkmal": null,
+   "wirkung": null,
+   "quelle": "SRD 1.0",
+   "unsicher": null
+  },
+  {
+   "id": "ruestung-chainmail-armor-88",
+   "name": "Chainmail Armor",
+   "art": "ruestung",
+   "abStufe": 1,
+   "schwellen": {
+    "schwer": 7,
+    "ernst": 15
+   },
+   "score": 4,
+   "merkmal": "Heavy",
+   "wirkung": "−1 auf Evasion",
+   "quelle": "SRD 1.0",
+   "unsicher": null
+  },
+  {
+   "id": "ruestung-full-plate-armor-89",
+   "name": "Full Plate Armor",
+   "art": "ruestung",
+   "abStufe": 1,
+   "schwellen": {
+    "schwer": 8,
+    "ernst": 17
+   },
+   "score": 4,
+   "merkmal": "Very Heavy",
+   "wirkung": "−2 auf Evasion, −1 auf Agility",
+   "quelle": "SRD 1.0",
+   "unsicher": null
+  },
+  {
+   "id": "ruestung-mage-robes-90",
+   "name": "Mage Robes",
+   "art": "ruestung",
+   "abStufe": 1,
+   "schwellenStufen": "4/10 · 6/15 · 8/22 · 10/31",
+   "scoreStufen": "2·3·4·5",
+   "merkmal": "Enchanted",
+   "wirkung": "+Schadensschwellen = Spellcast-Wert",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "ruestung-brigandine-armor-91",
+   "name": "Brigandine Armor",
+   "art": "ruestung",
+   "abStufe": 1,
+   "schwellenStufen": "6/12 · 9/19 · 11/26 · 13/35",
+   "scoreStufen": "3·4·5·6",
+   "merkmal": "Lined",
+   "wirkung": "Stress negiert Minor-Schaden",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "ruestung-scale-mail-armor-92",
+   "name": "Scale Mail Armor",
+   "art": "ruestung",
+   "abStufe": 1,
+   "schwellenStufen": "7/14 · 11/23 · 13/30 · 15/39",
+   "scoreStufen": "3·4·5·6",
+   "merkmal": "Cumbersome",
+   "wirkung": "−1 Finesse",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "ruestung-banded-armor-93",
+   "name": "Banded Armor",
+   "art": "ruestung",
+   "abStufe": 1,
+   "schwellenStufen": "8/16 · 13/27 · 15/34 · 17/43",
+   "scoreStufen": "4·5·6·7",
+   "merkmal": "Bulky",
+   "wirkung": "−1 Ausweichen; bei Severe-Schaden Stress markieren",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "ruestung-enchanter-s-robes-94",
+   "name": "Enchanter's Robes",
+   "art": "ruestung",
+   "abStufe": 2,
+   "schwellenStufen": "9/20",
+   "scoreStufen": "4",
+   "merkmal": "Mnemonic",
+   "wirkung": "1×/Szene Domänenkarte ohne Recall-Kosten zurückholen",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "ruestung-hawkguard-s-mantle-95",
+   "name": "Hawkguard's Mantle",
+   "art": "ruestung",
+   "abStufe": 2,
+   "schwellenStufen": "9/20",
+   "scoreStufen": "4",
+   "merkmal": "Gliding",
+   "wirkung": "Gleitflug bis Far, immun gegen Fallschaden",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "ruestung-spidersilk-tunic-96",
+   "name": "Spidersilk Tunic",
+   "art": "ruestung",
+   "abStufe": 2,
+   "schwellenStufen": "9/20",
+   "scoreStufen": "4",
+   "merkmal": "Wall-Crawling",
+   "wirkung": "+1 Ausweichen, Wände erklimmbar",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "ruestung-stormthread-habit-97",
+   "name": "Stormthread Habit",
+   "art": "ruestung",
+   "abStufe": 2,
+   "schwellenStufen": "9/20",
+   "scoreStufen": "4",
+   "merkmal": "Absorbing",
+   "wirkung": "bei Magieschaden 1×/Szene Rüstungsfeld statt Markierung",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "ruestung-wyrdwood-splint-armor-98",
+   "name": "Wyrdwood Splint Armor",
+   "art": "ruestung",
+   "abStufe": 2,
+   "schwellenStufen": "10/21",
+   "scoreStufen": "5",
+   "merkmal": "Quick-Striding",
+   "wirkung": "nicht fesselbar, Bewegung bis Far als Teil eines Wurfs",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "ruestung-trollhide-cuirass-99",
+   "name": "Trollhide Cuirass",
+   "art": "ruestung",
+   "abStufe": 2,
+   "schwellenStufen": "11/23",
+   "scoreStufen": "5",
+   "merkmal": "Self-Healing",
+   "wirkung": "bei Rast Rüstungsfeld löschen",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "ruestung-gilded-sunplate-100",
+   "name": "Gilded Sunplate",
+   "art": "ruestung",
+   "abStufe": 2,
+   "schwellenStufen": "12/26",
+   "scoreStufen": "5",
+   "merkmal": "Resplendent",
+   "wirkung": "1×/Szene bei Hoffnungsausgabe Rüstungsfeld löschen",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "ruestung-granminster-s-finery-101",
+   "name": "Granminster's Finery",
+   "art": "ruestung",
+   "abStufe": 3,
+   "schwellenStufen": "11/27",
+   "scoreStufen": "2",
+   "merkmal": "Magnificent",
+   "wirkung": "+Rüstungswert = Presence",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "ruestung-astral-raiment-102",
+   "name": "Astral Raiment",
+   "art": "ruestung",
+   "abStufe": 3,
+   "schwellenStufen": "11/27",
+   "scoreStufen": "5",
+   "merkmal": "Stellar",
+   "wirkung": "Stress für Vorteil auf Spellcast-Wurf",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "ruestung-cloverweave-cloak-103",
+   "name": "Cloverweave Cloak",
+   "art": "ruestung",
+   "abStufe": 3,
+   "schwellenStufen": "11/27",
+   "scoreStufen": "5",
+   "merkmal": "Fortune-Favored",
+   "wirkung": "1×/Szene Fehlschlag mit Hoffnung → Erfolg mit Furcht",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "ruestung-skywarden-s-lamellar-104",
+   "name": "Skywarden's Lamellar",
+   "art": "ruestung",
+   "abStufe": 3,
+   "schwellenStufen": "11/27",
+   "scoreStufen": "5",
+   "merkmal": "Vigilant",
+   "wirkung": "+2 Ausweichen",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "ruestung-bloodstone-plate-armor-105",
+   "name": "Bloodstone Plate Armor",
+   "art": "ruestung",
+   "abStufe": 3,
+   "schwellenStufen": "13/35",
+   "scoreStufen": "6",
+   "merkmal": "Bloodthirsty",
+   "wirkung": "bei krit. Nahkampferfolg Trefferpunkt löschen",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "ruestung-deep-forged-coral-armor-106",
+   "name": "Deep-Forged Coral Armor",
+   "art": "ruestung",
+   "abStufe": 3,
+   "schwellenStufen": "13/35",
+   "scoreStufen": "6",
+   "merkmal": "Aquatic",
+   "wirkung": "Wasseratmung, Vorteil bei Agility unter Wasser",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "ruestung-darkweave-shroud-107",
+   "name": "Darkweave Shroud",
+   "art": "ruestung",
+   "abStufe": 4,
+   "schwellenStufen": "13/36",
+   "scoreStufen": "5",
+   "merkmal": "Ghostwalker",
+   "wirkung": "1×/Rast Stress, durch feste Objekte bis Close",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "ruestung-godbound-laminar-108",
+   "name": "Godbound Laminar",
+   "art": "ruestung",
+   "abStufe": 4,
+   "schwellenStufen": "13/36",
+   "scoreStufen": "6",
+   "merkmal": "Divine",
+   "wirkung": "bei Rüstungsfeld-Markierung Hoffnung",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "ruestung-circle-forged-dreadplate-109",
+   "name": "Circle-Forged Dreadplate",
+   "art": "ruestung",
+   "abStufe": 4,
+   "schwellenStufen": "14/38",
+   "scoreStufen": "6",
+   "merkmal": "Accursed",
+   "wirkung": "bei KP-Verlust d4, bei 4 Angreifer markiert gleich viel Stress",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "ruestung-rune-forged-exosuit-110",
+   "name": "Rune-Forged Exosuit",
+   "art": "ruestung",
+   "abStufe": 4,
+   "schwellenStufen": "12/39",
+   "scoreStufen": "7",
+   "merkmal": "Attuned",
+   "wirkung": "max. Loadout −1 Domänenkarte, dafür +Schadensschwellen = eigene Stufe",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "ruestung-hallowed-heroplate-111",
+   "name": "Hallowed Heroplate",
+   "art": "ruestung",
+   "abStufe": 4,
+   "schwellenStufen": "13/35",
+   "scoreStufen": "7",
+   "merkmal": "Blessed",
+   "wirkung": "1×/lange Rast vor „Risk It All\": Hoffnung ausgeben für +Bonus auf Hoffnungswürfel",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "ruestung-resonant-harness-112",
+   "name": "Resonant Harness",
+   "art": "ruestung",
+   "abStufe": 4,
+   "schwellenStufen": "15/40",
+   "scoreStufen": "7",
+   "merkmal": "Vitreous",
+   "wirkung": "bei Severe+-Schaden 2 Rüstungsfelder markieren, um Schaden zu negieren, dafür −5 Schadensschwellen bis Reparatur",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "sekundaerwaffe-round-shield-113",
+   "name": "Round Shield",
+   "art": "sekundaerwaffe",
+   "abStufe": 1,
+   "attribut": "Strength",
+   "reichweite": "Melee",
+   "schaden": null,
+   "traglast": null,
+   "merkmal": "Protective",
+   "wirkung": "+1 Rüstungswert",
+   "quelle": "SRD 1.0",
+   "unsicher": "Schadenswürfel nicht belegt — die Recherche konnte ihn aus der Tabellenstruktur nicht zweifelsfrei zuordnen."
+  },
+  {
+   "id": "sekundaerwaffe-tower-shield-114",
+   "name": "Tower Shield",
+   "art": "sekundaerwaffe",
+   "abStufe": 1,
+   "attribut": "Strength",
+   "reichweite": "Melee",
+   "schaden": null,
+   "traglast": null,
+   "merkmal": null,
+   "wirkung": null,
+   "quelle": "SRD 1.0",
+   "unsicher": "Schadenswürfel nicht belegt — die Recherche konnte ihn aus der Tabellenstruktur nicht zweifelsfrei zuordnen."
+  },
+  {
+   "id": "sekundaerwaffe-small-dagger-115",
+   "name": "Small Dagger",
+   "art": "sekundaerwaffe",
+   "abStufe": 1,
+   "attribut": "Finesse",
+   "reichweite": "Melee",
+   "schaden": null,
+   "traglast": null,
+   "merkmal": "Barrier",
+   "wirkung": "+2 Rüstungswert, aber −1 Ausweichen",
+   "quelle": "SRD 1.0",
+   "unsicher": "Schadenswürfel nicht belegt — die Recherche konnte ihn aus der Tabellenstruktur nicht zweifelsfrei zuordnen."
+  },
+  {
+   "id": "sekundaerwaffe-whip-116",
+   "name": "Whip",
+   "art": "sekundaerwaffe",
+   "abStufe": 1,
+   "attribut": "Presence",
+   "reichweite": "Very Close",
+   "schaden": null,
+   "traglast": null,
+   "merkmal": null,
+   "wirkung": null,
+   "quelle": "SRD 1.0",
+   "unsicher": "Schadenswürfel nicht belegt — die Recherche konnte ihn aus der Tabellenstruktur nicht zweifelsfrei zuordnen."
+  },
+  {
+   "id": "sekundaerwaffe-grappler-117",
+   "name": "Grappler",
+   "art": "sekundaerwaffe",
+   "abStufe": 1,
+   "attribut": "Finesse",
+   "reichweite": "Close",
+   "schaden": null,
+   "traglast": null,
+   "merkmal": "Startling",
+   "wirkung": "1 Stress markieren, um alle Gegner in Melee Range nach Close Range zurückzudrängen",
+   "quelle": "SRD 1.0",
+   "unsicher": "Schadenswürfel nicht belegt — die Recherche konnte ihn aus der Tabellenstruktur nicht zweifelsfrei zuordnen."
+  },
+  {
+   "id": "sekundaerwaffe-hand-crossbow-118",
+   "name": "Hand Crossbow",
+   "art": "sekundaerwaffe",
+   "abStufe": 1,
+   "attribut": "Finesse",
+   "reichweite": "Far",
+   "schaden": null,
+   "traglast": null,
+   "merkmal": "Hooked",
+   "wirkung": "zieht das Ziel bei Erfolg in Melee Range",
+   "quelle": "SRD 1.0",
+   "unsicher": "Schadenswürfel nicht belegt — die Recherche konnte ihn aus der Tabellenstruktur nicht zweifelsfrei zuordnen."
+  },
+  {
+   "id": "gegenstand-returning-ring-119",
+   "name": "Returning Ring",
+   "art": "gegenstand",
+   "abStufe": 1,
+   "wurf": 20,
+   "merkmal": null,
+   "wirkung": "Eine geworfene Primärwaffe erscheint nach dem Angriff sofort wieder in der Hand.",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "gegenstand-reliquary-of-the-sightless-saint-120",
+   "name": "Reliquary of the Sightless Saint",
+   "art": "gegenstand",
+   "abStufe": 1,
+   "wurf": 30,
+   "merkmal": null,
+   "wirkung": "+1 auf den Hoffnungswürfel beim „Risk It All\"-Todeswurf.",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "verbrauch-godling-s-pomelo-121",
+   "name": "Godling’s Pomelo",
+   "art": "verbrauch",
+   "abStufe": 1,
+   "wurf": 50,
+   "merkmal": null,
+   "wirkung": "Löscht alle Lebenspunkte und allen Stress.",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "verbrauch-tears-of-the-undying-hero-122",
+   "name": "Tears of the Undying Hero",
+   "art": "verbrauch",
+   "abStufe": 1,
+   "wurf": 59,
+   "merkmal": null,
+   "wirkung": "Bis zur nächsten langen Rast unsterblich: Beim letzten Lebenspunkt statt eines Todeswurfs ein letzter Aktionswurf, danach traumloser Schlaf, bis ein Verbündeter „Tend to Wounds\" wählt.",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  },
+  {
+   "id": "verbrauch-gambler-s-fallacy-123",
+   "name": "Gambler’s Fallacy",
+   "art": "verbrauch",
+   "abStufe": 1,
+   "wurf": 57,
+   "merkmal": null,
+   "wirkung": "Goldhände einwerfen; wirft man den Krug, entsteht 1d20 Magieschaden je eingeworfener Goldhand für alle Kreaturen in Close-Reichweite.",
+   "quelle": "Hope & Fear",
+   "unsicher": null
+  }
+ ]
+}

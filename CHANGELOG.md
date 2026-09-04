@@ -7,6 +7,46 @@ Das Neueste steht immer oben.
 
 ---
 
+## Karten beim Überfahren, alle Gegenstände, Sterne – 4. September 2026
+
+**Fahr auf dem Charakterbogen über „Ribbet", „Gambeson" oder „Pick and
+Pull"** — die Karte erscheint daneben, mit allen Werten. Auf dem Handy
+gibt es kein Überfahren, dort **tippst** du darauf, und die Karte legt
+sich unten an den Rand statt unter deinen Finger.
+
+**Alle Gegenstände aus den Regelwerken sind jetzt Karten.** 123 Stück:
+67 Primärwaffen, 24 Sekundärwaffen, 27 Rüstungen und die Fundstücke —
+je mit Attribut, Reichweite, Schaden, Traglast und Merkmal. Zusammen mit
+den bisherigen sind es **393 Karten**.
+
+Sie sind nicht abgetippt, sondern **aus der Regelrecherche ausgelesen**.
+Wer einen Wert korrigieren will, ändert die Recherchedatei und lässt das
+Werkzeug neu laufen. Nachgeprüft an Stichproben: Longsword d8+3 mit
+„Reliable", Gambeson 5/11 und Rüstungswert 3 — genau die Zahlen, mit
+denen Brix' Bogen rechnet.
+
+**Zwei ehrliche Lücken:** „Machete" und „Shortsword" stehen auf euren
+Bögen, gibt es in Daggerheart aber nicht — weder in den Grundregeln noch
+in Hope & Fear. Die Karte sagt das jetzt, statt so zu tun, als wäre
+nichts. Sechs Sekundärwaffen tragen einen Hinweis, weil die Recherche
+ihren Schadenswürfel selbst als unsicher gekennzeichnet hat.
+
+**Die Filter sind gruppiert:** Karten · Ausrüstung · Fundstücke ·
+Domänen. Neun Arten und neun Domänen in einer Reihe wären auf dem Handy
+eine endlose Rutschbahn gewesen.
+
+**Ein Bogen je Seite**, mit einer Auswahl darüber. Zwei nebeneinander
+sahen auf dem Rechner ordentlich aus — auf dem Handy scrollte man an
+einem ganzen Bogen vorbei, um den zweiten zu sehen. Jeder Bogen hat
+jetzt eine eigene Adresse und lässt sich verlinken.
+
+**Sterne** an jeder Karte und jedem Bogen. Sie liegen im Browser, nicht
+in der Datenbank: Favoriten sind persönlich, und niemand soll sehen
+müssen, was der andere sich merkt. Der Preis ist ehrlich — wer an zwei
+Geräten spielt, hat zwei Listen.
+
+---
+
 ## Grundlage für mehrere Wikis – 4. September 2026
 
 Der erste Schritt zur Plattform, die du beschrieben hast. Sichtbar

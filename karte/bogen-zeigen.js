@@ -24,6 +24,8 @@
 
    =================================================================== */
 
+import { blasenAnbinden } from './kartenblase.js';
+
 const ziel = document.getElementById('boegen');
 const meldung = document.getElementById('bogenmeldung');
 
@@ -46,6 +48,19 @@ function sicher(text) {
 }
 
 const OFFEN = '<span class="offen">noch offen</span>';
+
+/**
+ * Ein Name, hinter dem eine Karte steckt. `data-karte` traegt den
+ * **Regelnamen** — auf dem Bogen steht „Dolch", in den Regeln „Dagger".
+ * Ohne diese Trennung fände die Blase nichts, und der Bogen müsste
+ * englisch beschriftet werden.
+ */
+function mitKarte(anzeige, regelname) {
+  const gesucht = regelname || anzeige;
+  if (!gesucht) return sicher(anzeige);
+  return '<span class="karte-anker" data-karte="' + sicher(gesucht) + '">'
+    + sicher(anzeige) + '</span>';
+}
 
 /* Ein Modifikator wird immer mit Vorzeichen geschrieben — „+2" und „−1"
    lesen sich am Tisch schneller als „2" und „-1". Das Minus ist ein
@@ -80,22 +95,33 @@ function bogen(e) {
   t.push('<div class="bogen-kopf-text">');
   t.push('<h2 class="bogen-name">' + sicher(e.name) + '</h2>');
 
-  const herkunft = [w.abstammung, w.gemeinschaft, w.fuerwort].filter(Boolean).join(' · ');
-  t.push('<p class="bogen-herkunft">' + (herkunft ? sicher(herkunft) : OFFEN) + '</p>');
+  /* Abstammung und Gemeinschaft sind eigene Karten — deshalb einzeln
+     verlinkt statt als eine zusammengesetzte Zeile. Das Fuerwort ist
+     keine Karte. */
+  const herkunftTeile = [];
+  if (w.abstammung) herkunftTeile.push(mitKarte(w.abstammung));
+  if (w.gemeinschaft) herkunftTeile.push(mitKarte(w.gemeinschaft));
+  if (w.fuerwort) herkunftTeile.push(sicher(w.fuerwort));
+  t.push('<p class="bogen-herkunft">'
+    + (herkunftTeile.length ? herkunftTeile.join(' · ') : OFFEN) + '</p>');
 
   let beruf = OFFEN;
   if (w.klasse) {
-    beruf = sicher(w.klasse);
+    beruf = mitKarte(w.klasse);
     if (w.klasseDe) beruf += ' <span class="fremd">(' + sicher(w.klasseDe) + ')</span>';
     if (w.unterklasse) {
-      beruf += ' — ' + sicher(w.unterklasse);
+      beruf += ' — ' + mitKarte(w.unterklasse);
       if (w.unterklasseDe) beruf += ' <span class="fremd">(' + sicher(w.unterklasseDe) + ')</span>';
     }
   }
   t.push('<p class="bogen-beruf">' + beruf + '</p>');
   t.push('</div>');
+  t.push('<div class="bogen-kopf-rechts">');
+  t.push('<span class="stern-platz" data-fav-typ="bogen" data-fav-id="' + sicher(e.id)
+    + '" data-fav-name="' + sicher(e.name) + '"></span>');
   t.push('<div class="bogen-stufe"><span class="mikro">Stufe</span><strong>'
     + (w.stufe === null || w.stufe === undefined ? '?' : w.stufe) + '</strong></div>');
+  t.push('</div>');
   t.push('</header>');
 
   if (e.kurz) t.push('<p class="bogen-kurz">' + sicher(e.kurz) + '</p>');
@@ -185,7 +211,7 @@ function bogen(e) {
     for (const x of w.waffen) {
       etwas = true;
       t.push('<li><span class="mikro">' + sicher(x.hand || 'Waffe') + '</span>'
-        + sicher(x.name) + '</li>');
+        + mitKarte(x.name, x.regelname) + '</li>');
     }
   }
   if (w.ruestung && w.ruestung.name) {
@@ -194,7 +220,8 @@ function bogen(e) {
        das Ausweichen oben von der Klassenbasis abweicht. Ohne diese
        Zeile sähe der Wert nach einem Tippfehler aus. */
     const merkmal = w.ruestung.merkmal ? ' · ' + sicher(w.ruestung.merkmal) : '';
-    t.push('<li><span class="mikro">Rüstung</span>' + sicher(w.ruestung.name)
+    t.push('<li><span class="mikro">Rüstung</span>'
+      + mitKarte(w.ruestung.name, w.ruestung.regelname)
       + ' <small>Score ' + w.ruestung.score + merkmal + '</small></li>');
   }
   if (w.klassengegenstand) {
@@ -218,7 +245,8 @@ function bogen(e) {
        Karte landet statt in 270 Kacheln zu suchen. */
     t.push('<ul class="kartenliste">');
     for (const k of w.karten) {
-      t.push('<li><a href="karten.html?karte=' + encodeURIComponent(k) + '">'
+      t.push('<li><a href="karten.html?karte=' + encodeURIComponent(k) + '"'
+        + ' class="karte-anker" data-karte="' + sicher(k) + '">'
         + sicher(k) + '</a></li>');
     }
     t.push('</ul>');
@@ -271,6 +299,64 @@ if (!figuren.length) {
 } else {
   /* Wer schon Werte hat, steht vorn — ein leerer Bogen ist der
      uninteressantere Einstieg. */
+  /* Wer schon Werte hat, steht vorn — ein leerer Bogen ist der
+     uninteressantere Einstieg. */
   figuren.sort((a, b) => (b.spielwerte.stufe ? 1 : 0) - (a.spielwerte.stufe ? 1 : 0));
-  ziel.innerHTML = figuren.map(bogen).join('');
+
+  const leiste = document.getElementById('bogenwahl');
+
+  /* Welche Figur gezeigt wird, steht in der Adresse. Damit ist ein
+     einzelner Bogen verlinkbar — sonst landete jeder Verweis immer bei
+     derselben Figur. */
+  function gewaehlt() {
+    const ausAdresse = new URLSearchParams(location.search).get('figur')
+      || location.hash.replace(/^#/, '');
+    const treffer = figuren.find((f) => f.id === ausAdresse);
+    return treffer || figuren[0];
+  }
+
+  function leisteZeichnen(aktiv) {
+    if (!leiste) return;
+    leiste.innerHTML = figuren.map((f) => {
+      const an = f.id === aktiv.id;
+      const w = f.spielwerte || {};
+      const unter = [w.klasse, w.abstammung].filter(Boolean).join(' · ');
+      return '<button type="button" class="bogenwahl-knopf" data-figur="'
+        + sicher(f.id) + '"' + (an ? ' aria-pressed="true"' : ' aria-pressed="false"') + '>'
+        + '<span class="bogenwahl-name">' + sicher(f.name) + '</span>'
+        + (unter ? '<span class="bogenwahl-unter">' + sicher(unter) + '</span>' : '')
+        + '</button>';
+    }).join('');
+    for (const b of leiste.querySelectorAll('button')) {
+      b.addEventListener('click', () => zeigen(b.dataset.figur, true));
+    }
+  }
+
+  function sterneSetzen(bereich) {
+    const fav = window.aobFavoriten;
+    if (!fav) return;
+    for (const platz of bereich.querySelectorAll('.stern-platz:empty')) {
+      platz.appendChild(fav.knopf(platz.dataset.favTyp, platz.dataset.favId,
+        platz.dataset.favName));
+    }
+  }
+
+  function zeigen(id, adresseSetzen) {
+    const figur = figuren.find((f) => f.id === id) || figuren[0];
+    ziel.innerHTML = bogen(figur);
+    /* Erst nach dem Zeichnen: Vorher gibt es die Ausloeser noch nicht. */
+    blasenAnbinden(ziel);
+    sterneSetzen(ziel);
+    leisteZeichnen(figur);
+    document.title = figur.name + ' – Charakterbogen – Age of Beast';
+    if (adresseSetzen) {
+      const u = new URL(location.href);
+      u.searchParams.set('figur', figur.id);
+      u.hash = '';
+      history.replaceState(null, '', u);
+    }
+  }
+
+  zeigen(gewaehlt().id, false);
+  window.addEventListener('popstate', () => zeigen(gewaehlt().id, false));
 }
