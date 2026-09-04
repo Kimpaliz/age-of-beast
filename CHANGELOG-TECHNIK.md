@@ -10,6 +10,39 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ## [Unveröffentlicht]
 
+### Hinzugefügt
+
+- **Eintragsvorlagen ohne Schreibweg:** `werkzeuge/vorlagen.mjs` führt vier
+  reine Datenvorlagen, `runtime/vorlagen.js` baut daraus die klassische
+  Browser-Fassade `window.aobVorlagen`, `vorlagen.html` stellt sie bereit und
+  `styles/vorlagen.css` ergänzt die mobile Oberfläche mit den bestehenden
+  Tokens. Gemessen mit `Get-Content | Measure-Object -Line`: 4 Vorlagen mit
+  40 Feldern (NPC 9, Ort 7, POI 6, Gegenstand 18); die sechs neuen Dateien
+  liegen jeweils unter der 500-Zeilen-Grenze.
+- **Daggerheart-Gegenstandsabgleich:** `pruefe-vorlagen.mjs` liest
+  `daten/daggerheart-gegenstaende.json` bei jedem Lauf. Der Stand enthält 123
+  Einträge und 15 tatsächliche Wertfelder neben `id` und `name`; alle sind
+  durch die Gegenstandsvorlage abgedeckt. Auswahlwerte für `art`, `attribut`,
+  `reichweite` und `traglast` werden als Mengen mit den Rohdaten verglichen.
+  `rarity` bleibt ein optionales Wiki-Feld, weil es in den Rohdaten nicht
+  vorkommt.
+- **Wächter zuerst rot:** Vor dem grünen Lauf wurde `verbrauch` temporär aus
+  der Auswahl `art` entfernt. `node werkzeuge/pruefe-vorlagen.mjs` endete mit
+  Code 1 und „Auswahl „art“ stimmt nicht mit den Rohdaten überein.“; nach dem
+  Rückbau ist derselbe Lauf grün. Der Wächter lädt zusätzlich
+  `runtime/vorlagen.js` ohne DOM und gibt je Vorlage einen Testeintrag an
+  `welt-umwandeln.mjs` weiter.
+- **Lokale Freigabe:** Beide lokalen Server führen ausschließlich
+  `vorlagen.html`, `styles/vorlagen.css`, `runtime/vorlagen.js` und
+  `werkzeuge/vorlagen.mjs` zusätzlich in ihren Positivlisten.
+- **Browser-QA:** Lokal über `http://127.0.0.1:4174/vorlagen.html` im
+  Chrome-Tab geprüft: Gegenstand gewählt, dann die drei leeren Pflichtfelder
+  Name, Kurzbeschreibung und Art ausgelöst, Werte eingetragen und das Objekt
+  `items-prufungslanze` erzeugt. URL und Titel stimmen, die Konsole lieferte
+  0 Warnungen und 0 Fehler. Beim expliziten 375 × 812-Pixel-Viewport meldete
+  das Dokument `clientWidth` 360 und `scrollWidth` 360: kein waagerechter
+  Überlauf.
+
 ### Behoben
 
 - **Die Veroeffentlichung stand still**, weil `pruefe-firestore-trennung`

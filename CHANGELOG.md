@@ -7,6 +7,26 @@ Das Neueste steht immer oben.
 
 ---
 
+## Neue Vorlagen für Wiki-Einträge – 4. September 2026
+
+Du kannst jetzt einen **NPC**, einen **Ort**, einen **POI** oder einen
+**Gegenstand** Schritt für Schritt vorbereiten. Die neue Seite fragt nur die
+passenden Angaben ab, zeigt fehlende Pflichtfelder direkt am Feld und gibt am
+Ende einen fertigen Entwurf zum Kopieren aus.
+
+Der Gegenstand-Ersteller kennt die Werte, die schon bei euren Daggerheart-
+Gegenständen vorkommen: Waffenart, Attribut, Reichweite, Schaden, Traglast,
+Merkmal, Wirkung, Rüstungswert, Schwellen, Stufenwerte und Beutewurf. Eine
+Seltenheit kannst du zusätzlich für euer Wiki eintragen; sie wird in den
+vorhandenen Daggerheart-Daten nicht behauptet.
+
+Wichtig: Die Seite schreibt **nichts** in die Welt und meldet niemanden an.
+Sie erzeugt nur den Entwurf. Der spätere Weg vom kopierten Entwurf zu einem
+gespeicherten Wiki-Eintrag ist bewusst noch offen.
+
+Die Vorlagen lassen sich über den lokalen Vorschau-Server auch auf der neuen
+Seite `vorlagen.html` ausprobieren.
+
 ## Nachtrag: die Veröffentlichung stand still – 4. September 2026
 
 Der Bau der Seite ist fehlgeschlagen — bei mir lief alles grün. Ursache
