@@ -1,4 +1,6 @@
-/* Age-of-Beast – Kategoriesymbole.
+/* Age of Beast — Kategoriesymbole.
+   [Aufgabe: Leseruntime]
+
 
    Warum es diese Datei gibt: Bis hierher unterschied nur ein Wort und bei
    zwei von zehn Kategorien eine Farbe, worum es auf einer Kachel geht. Wer

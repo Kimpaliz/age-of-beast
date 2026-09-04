@@ -1,4 +1,5 @@
 /**
+ * [Aufgabe: Werkstatt]
  * Übernimmt die Inhalte der Daggerheart-Werkstatt in das Wiki.
  *
  * Die Werkstatt lag bisher in der Firebase-Datenbank unter

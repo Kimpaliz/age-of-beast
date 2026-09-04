@@ -1,4 +1,5 @@
 /**
+ * [Aufgabe: Weltdaten]
  * Wandelt die Rohdaten der Weltenschmiede in das schlanke Wiki-Format um.
  *
  * Dieses Modul enthaelt ausschliesslich reine Logik: kein Dateizugriff, keine

@@ -1,4 +1,5 @@
 /**
+ * [Aufgabe: Bearbeiten]
  * Uebersetzt zwischen dem HTML der Weltenschmiede und einer einfachen,
  * gut lesbaren Schreibweise fuer das Bearbeitungsfeld.
  *

@@ -1,4 +1,5 @@
 /* ===================================================================
+   [Aufgabe: Speicher]
    Age-of-Beast-Wiki – Zugangsdaten des Firebase-Projekts
    -------------------------------------------------------------------
    Diese Werte sind **keine Geheimnisse**. Der Browser muss sie kennen,

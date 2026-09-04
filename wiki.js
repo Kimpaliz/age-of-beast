@@ -1,4 +1,16 @@
-/* Age-of-Beast-Wiki – klassische Kompatibilitätsfassade und Bootstrap. */
+/* Age of Beast — der Startschuss der Leseoberflaeche.
+   [Aufgabe: Leseruntime]
+
+   Was: Setzt die vier Bausteine aus `window.__aobLeserBausteine`
+   zusammen und startet das Routing. Faellt einer aus, steht hier die
+   einzige Fehlermeldung, die ein Besucher zu sehen bekaeme.
+
+   Warum so klein: Die Datei ist die **Reihenfolge**, nicht die Logik.
+   Wer etwas aendern will, aendert einen Baustein.
+
+   Arbeitet zusammen mit: `runtime/*.js` (die Bausteine),
+   `werkzeuge/pruefe-leseruntime.mjs` (prueft Ladereihenfolge und
+   Fassade vor dem ersten Zeichnen). */
 (function () {
   'use strict';
   const bausteine = window.__aobLeserBausteine;

@@ -1,6 +1,6 @@
 /* ===================================================================
    Age of Beast — die Karte, die beim Überfahren erscheint
-   [Aufgabe: Karte]
+   [Aufgabe: Spielkarten]
 
    -------------------------------------------------------------------
    Auf dem Charakterbogen stehen Namen: „Ribbet", „Gambeson", „Pick and

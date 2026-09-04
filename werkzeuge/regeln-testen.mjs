@@ -1,4 +1,5 @@
 /**
+ * [Aufgabe: Werkstatt]
  * Testet `firestore.rules` mit dem offiziellen Simulator der Firebase
  * Rules API.
  *

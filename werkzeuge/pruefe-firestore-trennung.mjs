@@ -1,4 +1,5 @@
 /**
+ * [Aufgabe: Prüfwesen]
  * Prueft, dass firestore.rules beide Anwendungen traegt und getrennt haelt.
  *
  * Warum es diese Pruefung gibt: Das Firebase-Projekt kampagnenrahmen-jt hat

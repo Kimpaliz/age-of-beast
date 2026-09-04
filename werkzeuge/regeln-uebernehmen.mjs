@@ -1,4 +1,5 @@
 /**
+ * [Aufgabe: Werkstatt]
  * Übernimmt das Regelwiki der Daggerheart-Werkstatt in das Wiki.
  *
  * Erster Schritt der vollständigen Übernahme: Das Regelwiki ist reine

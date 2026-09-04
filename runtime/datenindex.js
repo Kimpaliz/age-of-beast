@@ -1,4 +1,17 @@
-/* Age-of-Beast – Daten, Indizes, Volltext und Verweislogik. */
+/* Age of Beast — Daten, Indizes, Volltext und Verweislogik.
+   [Aufgabe: Leseruntime]
+
+   Was: Nimmt die rohe Welt (`daten/welt.js`) entgegen und baut daraus
+   die Nachschlagewerke, die jede Ansicht braucht — Eintrag nach Kennung,
+   Eintraege nach Kategorie, Volltextindex, und die Aufloesung der
+   Verweise zwischen Eintraegen.
+
+   Warum getrennt: Ein Index wird einmal gebaut und oft gefragt. Laege
+   er in den Ansichten, entstuende er bei jedem Seitenwechsel neu.
+
+   Arbeitet zusammen mit: `runtime/ansichten.js` und
+   `runtime/interaktion.js` bekommen ihn hereingereicht;
+   `runtime/routing.js` setzt die drei zusammen. */
 (function () {
 
   'use strict';

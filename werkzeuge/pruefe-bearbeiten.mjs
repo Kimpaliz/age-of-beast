@@ -1,4 +1,5 @@
 /**
+ * [Aufgabe: Prüfwesen]
  * Prueft das Bearbeiten von Ende zu Ende – an allen echten Texten.
  *
  * Fuer jedes bearbeitbare Feld jedes Eintrags wird durchgespielt, was

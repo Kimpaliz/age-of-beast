@@ -1,4 +1,5 @@
 /* ===================================================================
+   [Aufgabe: Bearbeiten]
    Age-of-Beast-Wiki – Bearbeitungskontext
    -------------------------------------------------------------------
    Die drei Bearbeitungsmodule erhalten keine Browser-Globals und keine

@@ -1,4 +1,5 @@
 /* ===================================================================
+   [Aufgabe: Speicher]
    Age-of-Beast-Wiki – Weltdaten als Firestore-Dokumente
    -------------------------------------------------------------------
    Reine Logik: kein DOM, kein Netz, keine Node-Bausteine. Dieselbe Datei

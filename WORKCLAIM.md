@@ -10,9 +10,10 @@ im Checkout einer ersten einen Merge gestartet — sieben Dateien voller
 Konfliktmarker. Chatverläufe sind nicht geteilt; diese Datei ist die
 einzige Stelle, an der sich zwei Sitzungen sehen.
 
-**Am 04.09.2026 arbeiten drei Sitzungen im selben Checkout.** Das ist
+Am 04.09.2026 arbeiteten zeitweise drei Sitzungen im selben Checkout —
 genau die Lage, für die diese Datei gebaut ist. Wer hinzukommt, trägt
-sich ein, bevor er schreibt.
+sich ein, bevor er schreibt; wie viele es gerade sind, sagt die Tabelle
+unten und nicht dieser Absatz.
 
 | Bereich | Besitzer | Ziel | Seit |
 | --- | --- | --- | --- |

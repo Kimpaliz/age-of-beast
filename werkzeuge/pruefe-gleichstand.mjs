@@ -1,4 +1,5 @@
 /**
+ * [Aufgabe: Prüfwesen]
  * Prueft, dass die abgelegte Kopie unter `daten/` wirklich aus den Rohdaten
  * im Repository stammt.
  *

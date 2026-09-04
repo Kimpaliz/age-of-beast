@@ -1,4 +1,17 @@
-/* Age-of-Beast – Navigation sowie Start-, Kategorie-, Eintrags- und Werkstattansichten. */
+/* Age of Beast — Navigation und die vier Ansichten.
+   [Aufgabe: Leseruntime]
+
+   Was: Zeichnet Startseite, Kategorieseite, Eintragsseite und Werkstatt
+   in `#inhalt`, dazu die Kategorienleiste.
+
+   Warum als Baustein und nicht als Modul: Die Leseseite laedt bewusst
+   ohne Bausystem und ohne `type="module"` — sie soll sich auch aus einer
+   Datei heraus oeffnen lassen. Deshalb sammeln sich die Teile in
+   `window.__aobLeserBausteine`.
+
+   Arbeitet zusammen mit: `datenindex.js` (bekommt es hereingereicht),
+   `symbole.js` (Kategoriesymbole), `interaktion.js` (Filter und Suche
+   greifen auf das Gezeichnete zu), `routing.js` (ruft die Ansichten). */
 (function () {
 
   'use strict';

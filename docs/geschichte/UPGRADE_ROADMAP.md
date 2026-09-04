@@ -1,5 +1,12 @@
 # Age of Beast – Upgrade-Fahrplan
 
+> **Beleg, kein Sollstand.** Diese Datei liegt in `docs/geschichte/`,
+> weil ihr Inhalt abgeschlossen ist. Sie darf Zustandsaussagen tragen —
+> sie behauptet nicht mehr, die Gegenwart zu beschreiben (Regel 13/14).
+>
+> **Maßgeblich ist heute:** [CHANGELOG-TECHNIK.md](../../CHANGELOG-TECHNIK.md) — dort steht, was wirklich gebaut wurde.
+
+
 > ## ⚠️ Nachtrag vom 04.09.2026 — A bis H sind fertig und veröffentlicht
 >
 > Jedes der acht Pakete trägt unten den Status „Lokal umgesetzt und
@@ -21,7 +28,7 @@
 > Performance-Umschreibung steht.
 >
 > Was jetzt ansteht, steht nicht mehr hier, sondern in
-> [ALTLASTEN.md](ALTLASTEN.md): fünf Großdateien und 51 fehlende
+> [ALTLASTEN.md](../ALTLASTEN.md): fünf Großdateien und 51 fehlende
 > Kopfnotizen, beide als Ratchet geführt.
 
 **Ausgangspunkt:** v2.7.0 ist der veröffentlichte Anker. Die Pakete A–H sind

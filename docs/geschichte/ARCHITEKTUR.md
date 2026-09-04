@@ -1,5 +1,12 @@
 # Age of Beast – Architekturkarte
 
+> **Beleg, kein Sollstand.** Diese Datei liegt in `docs/geschichte/`,
+> weil ihr Inhalt abgeschlossen ist. Sie darf Zustandsaussagen tragen —
+> sie behauptet nicht mehr, die Gegenwart zu beschreiben (Regel 13/14).
+>
+> **Maßgeblich ist heute:** [WEGWEISER.md](../WEGWEISER.md) — die gepflegte Karte, am Code belegt.
+
+
 > ## ⚠️ Nachtrag vom 04.09.2026 — vier Aussagen sind überholt
 >
 > Dieses Dokument stammt vom 01.09.2026, also **vor** dem Umzug nach

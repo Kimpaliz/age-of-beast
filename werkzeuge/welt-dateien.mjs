@@ -1,4 +1,5 @@
 /**
+ * [Aufgabe: Weltdaten]
  * Erzeugt den Inhalt aller Dateien unter `daten/` aus dem Weltstand.
  *
  * Warum als eigenes Modul: Diese Dateien entstehen an zwei Orten.

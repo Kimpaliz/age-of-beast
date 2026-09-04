@@ -1,4 +1,5 @@
 /**
+ * [Aufgabe: Weltdaten]
  * Legt die Weltdaten aus `daten/quelle.json` in Firestore ab.
  *
  * Gebraucht wird das genau einmal: beim Umzug von der Datei in die

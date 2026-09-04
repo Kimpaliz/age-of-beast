@@ -1,4 +1,5 @@
 /**
+ * [Aufgabe: Prüfwesen]
  * Regressionstest für Paket B: Routing und Kampagnenrahmen-Assistent.
  *
  * Der Wiki-Client läuft im Browser, dieser Test bewusst nicht: Er verwendet

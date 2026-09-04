@@ -5,6 +5,33 @@ Dieselben Änderungen stehen in Entwicklersprache in [CHANGELOG-TECHNIK.md](CHAN
 
 Das Neueste steht immer oben.
 
+## Aufgeräumt – 4. September 2026
+
+Kein neues Können, nichts sieht anders aus. Aber das Projekt erklärt
+sich jetzt selbst, und drei Stellen, an denen es sich stillschweigend
+selbst widersprochen hat, sind weg.
+
+**Jede Datei sagt jetzt, wozu sie gehört.** 45 Programmdateien hatten
+das nicht. Beim Nachsehen stellte sich heraus: Sie hatten alle längst
+eine Erklärung im Kopf — es fehlte nur die eine Zeile, die sie einem
+Bereich zuordnet. Die Überschrift der Rückstandsliste sagte „ohne
+Erklärung" und versprach damit viel mehr Arbeit, als übrig war.
+
+**Ein Sammelbegriff hat drei Dinge zusammengeworfen.** Der Bereich
+„Karte" enthielt die Weltkarte, die Daggerheart-Spielkarten und die
+Charakterbögen — drei Sachen, die nichts miteinander zu tun haben und
+nur zufällig im selben Ordner liegen. Sie sind jetzt getrennt.
+
+**Fünf Dokumente beschrieben eine Vergangenheit als Gegenwart.** Sie
+liegen jetzt in einem Ordner „geschichte" und tragen oben, was
+stattdessen gilt. Eins von ihnen behauptete, der Stand sei ein
+bestimmter — und war zum Zeitpunkt des Aufräumens schon überholt.
+
+**Neu ist eine Kontrolle dagegen.** Sie schlägt an, sobald ein Dokument
+etwas über das Jetzt behauptet („ist live", „noch offen"). Mit Datum
+davor ist es erlaubt — dann ist es ein Nachweis und wird nicht falsch,
+sondern alt.
+
 ## Die Kategorien filtern wieder, und die Karten stehen in Gruppen – 4. September 2026
 
 **Zwei Meldungen von dir, beide zutreffend.**

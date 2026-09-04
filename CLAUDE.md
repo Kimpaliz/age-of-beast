@@ -50,7 +50,7 @@ Anforderungen einpreisen, die niemand gestellt hat.)*
   eine Nebenwirkung.
 - **Keine Performance-Umschreibung.** Bei dieser Datenmenge gibt es
   keinen Anlass; die Beobachtungspunkte stehen in
-  [docs/UPGRADE_ROADMAP.md](docs/UPGRADE_ROADMAP.md).
+  [docs/geschichte/UPGRADE_ROADMAP.md](docs/geschichte/UPGRADE_ROADMAP.md).
 - **Keine fremden Illustrationen.** Die Kartenbilder sind bewusst eigene
   SVG-Wappen, weil die offiziellen Bilder von Darrington Press stammen.
 - **Keine Datenmigration auf eine neue Vertragsversion** nebenbei. Der
@@ -108,13 +108,13 @@ sich wiederholen, und woran man sie erkennt, **bevor** man hineinläuft.
 ### Ältere Fachdokumente
 
 Acht Dokumente vom 01.09.2026 beschreiben Architektur, Datenvertrag,
-Inventar, QA und Release im Detail: [ARCHITEKTUR.md](docs/ARCHITEKTUR.md),
-[DATENVERTRAG.md](docs/DATENVERTRAG.md), [INVENTAR.md](docs/INVENTAR.md),
+Inventar, QA und Release im Detail: [ARCHITEKTUR.md](docs/geschichte/ARCHITEKTUR.md),
+[DATENVERTRAG.md](docs/DATENVERTRAG.md), [INVENTAR.md](docs/geschichte/INVENTAR.md),
 [QA_MATRIX.md](docs/QA_MATRIX.md),
 [RELEASE_RUNBOOK.md](docs/RELEASE_RUNBOOK.md),
-[SUBAGENT_PROFILE.md](docs/SUBAGENT_PROFILE.md),
-[UPGRADE_ANALYSE_PLAN.md](docs/UPGRADE_ANALYSE_PLAN.md),
-[UPGRADE_ROADMAP.md](docs/UPGRADE_ROADMAP.md).
+[SUBAGENT_PROFILE.md](docs/geschichte/SUBAGENT_PROFILE.md),
+[UPGRADE_ANALYSE_PLAN.md](docs/geschichte/UPGRADE_ANALYSE_PLAN.md),
+[UPGRADE_ROADMAP.md](docs/geschichte/UPGRADE_ROADMAP.md).
 
 ⚠️ Sie stammen von **vor** dem Umzug nach Firestore. Am 04.09.2026 wurde
 jede Aussage darin gegen den Code gehalten; wo etwas überholt ist, steht
