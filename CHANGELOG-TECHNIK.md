@@ -10,6 +10,43 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ## [Unveröffentlicht]
 
+### Hinzugefügt
+
+- **`wiki_projekte/age-of-beast` angelegt** (Besitzer
+  `LCkD8Q7Ozsei1CV0IdtbWswglRW2` = kimpaliz1989@gmail.com, ueber die
+  Identity-Toolkit-Abfrage ermittelt), `oeffentlich: true`, Regelwerk
+  `daggerheart`. Genau 8 Felder, `mitgliederIds` und `rollen`
+  deckungsgleich — die Regel `wikiMitgliedschaftStimmig()` haelt das.
+  Dazu die 10 Weltmodule (488,8 KB) nach
+  `wiki_projekte/age-of-beast/welt` kopiert. **`wiki_welt` unberuehrt**;
+  beide Baeume laufen parallel, bis der Leser umgestellt ist.
+  Ueber die Admin-REST-Schnittstelle, weil sich nur Jannik selbst als
+  Besitzer eintragen koennte und dafuer im Browser angemeldet sein
+  muesste.
+- **`werkzeuge/pruefe-besucheransicht.mjs`** (20 Pruefungen, zweimal rot
+  bewiesen): keine Seite bindet ein fremdes Skript ein, der Kontohorcher
+  startet nur hinter der Spur, die Spur wird in `try/catch` gelesen, und
+  `oeffentlicheWikis()` kommt ohne `verbinden()` aus.
+
+### Behoben
+
+- **Das Hauptmenue lud das Firebase-SDK bei jedem Besuch.**
+  `beiKontoWechsel()` stand auf oberster Ebene und zog `firebase-app`,
+  `-auth` und `-firestore` von gstatic nach — fuer **jeden** Besucher.
+  Das bricht die Regel „Lesen ohne SDK", die die Leseansicht des Wikis
+  seit dem 02.09.2026 einhaelt.
+  ⚠️ **Keine Pruefung hat angeschlagen.** Aufgefallen ist es nur beim
+  Durchsehen der Netzwerkliste der veroeffentlichten Seite.
+  Jetzt entscheidet eine Spur in `localStorage` (`aob.angemeldet`), ob
+  der Horcher startet. Sie ist **kein Sicherheitsmerkmal** — sie sagt nur
+  „hier wurde schon einmal angemeldet"; wer wirklich angemeldet ist,
+  entscheidet allein Firebase.
+  **Gemessen, beide Richtungen:** ohne Spur **0** gstatic-Anfragen und
+  die Wikiliste trotzdem vorhanden; mit Spur die erwarteten **3**.
+  ⚠️ Die Groesse des SDK liess sich nicht messen — es kam aus dem
+  Zwischenspeicher (`transferSize: 0`). Das Kriterium ist deshalb die
+  **Anzahl der Anfragen**, nicht ihr Umfang.
+
 ### Nachtrag des Organisators zum Paket „Bogenfarben"
 
 - **`MINDESTABSTAND = 0.05` stand ohne Begruendung da.** Das Projekt fuehrt
