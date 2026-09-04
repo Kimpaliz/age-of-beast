@@ -66,6 +66,24 @@ gespeicherten Wiki-Eintrag ist bewusst noch offen.
 Die Vorlagen lassen sich über den lokalen Vorschau-Server auch auf der neuen
 Seite `vorlagen.html` ausprobieren.
 
+## Vorlagen in der Leiste, Handy-Kopfzeile dreizeilig – 4. September 2026
+
+Die Vorlagenseite ist jetzt über die Leiste oben erreichbar. Damit sind es
+sechs Knöpfe, und das hat zwei Messungen ausgelöst.
+
+**Am Rechner:** Sechs beschriftete Knöpfe brauchen **1409 Pixel**. Das ist
+mehr, als die meisten Notebooks haben — die Beschriftungen erscheinen also
+nur noch auf breiten Bildschirmen. **Hier endet dieser Weg:** Ein siebter
+Knopf braucht keine neue Schwelle, sondern eine andere Bauart. Das steht so
+im Code, damit es niemand übersieht.
+
+**Auf dem Handy** scrollte mit sechs Knöpfen die ganze Kopfzeile — die Marke
+wäre aus dem Bild gewandert. Jetzt hat die Leiste eine eigene Zeile: drei
+Reihen, alle sechs Knöpfe sichtbar, Suchfeld 351 Pixel breit, und nichts
+rutscht mehr.
+
+---
+
 ## Stecknadeln auf der Weltkarte – 4. September 2026
 
 Auf der Weltkarte können Orte jetzt mit einer roten Stecknadel auf ihren
