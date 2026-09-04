@@ -37,6 +37,7 @@ const TYPEN = {
 const FREIGEGEBENE_DATEIEN = new Set([
   'index.html',
   'karte.html',
+  'karten.html',
   'stil.css',
   'styles/tokens.css',
   'styles/wiki.css',
@@ -44,6 +45,7 @@ const FREIGEGEBENE_DATEIEN = new Set([
   'styles/werkstatt.css',
   'styles/kategorien.css',
   'styles/karte.css',
+  'styles/spielkarten.css',
   'wiki.js',
   'bearbeiten.js',
   'firebase-konfig.js',
@@ -60,6 +62,7 @@ const FREIGEGEBENE_DATEIEN = new Set([
   'daten/rahmen-felder.json',
   'werkzeuge/welt-dateien.mjs',
   'karte/karte-zeichnen.js',
+  'karte/karten-zeigen.js',
   'karte/karte-erzeugen.mjs',
   'karte/palette.mjs',
   'karte/welt-regionen.mjs',
