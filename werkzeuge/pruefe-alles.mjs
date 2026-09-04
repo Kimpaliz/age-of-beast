@@ -14,14 +14,19 @@
    | Syntax (hier) | jede `.js`/`.mjs` lässt sich laden | ein Tippfehler in einer Datei, die keine andere importiert |
    | `pruefe-bearbeiten.mjs` | jedes bearbeitbare Feld übersteht Öffnen und Speichern zeichengleich | ein Stift, der beim Speichern in das falsche Feld schreibt |
    | `pruefe-bearbeitungskontext.mjs` | der eingefrorene Kontext, seine Delegation und Fehlerpfade | ein Bearbeitungsmodul, das sich still an eine globale Variable hängt |
+   | `pruefe-besucheransicht.mjs` | wer nur liest, lädt kein fremdes Skript | drei gstatic-Skripte für **jeden** Besucher, auch ohne Anmeldung |
+   | `pruefe-bogenfarben.mjs` | jede Klasse hat eigene Bogenfarben mit belegtem Abstand | zwei Charakterbögen, die auf dem Bildschirm gleich aussehen |
    | `pruefe-cache-graph.mjs` | jede veränderliche Browser-Abhängigkeit trägt im Artefakt ihre SHA | ein Besucher mit neuem HTML und altem JavaScript aus dem Zwischenspeicher |
    | `pruefe-datenvertrag.mjs` | IDs, Kategorien, Panels, Verweise, Rahmen, Bildpfade (Legacy-v0) | der Verweis auf einen Eintrag, den es nicht gibt |
+   | `pruefe-favoriten.mjs` | Sterne halten, ohne Anmeldung und über Seitenwechsel | der gesetzte Stern, der beim nächsten Aufruf weg ist |
    | `pruefe-firestore-format.mjs` | Welt ⇄ Firestore-Dokumente, samt Schlüsselreihenfolge | ein Speichern, das `quelle.json` komplett umsortiert |
    | `pruefe-firestore-trennung.mjs` | die Regeldatei enthält Scotophobias Blöcke wortgleich | **ein Deploy, der das Nachbarprojekt abschaltet** — siehe `docs/PROJEKTGRENZE.md` |
-   | `pruefe-github.mjs` | Drei-Dateien-Transaktion, Base64-Umlauf, Konfliktvertrag (Altweg) | ein halb geschriebenes Repository nach einem Speicherabbruch |
    | `pruefe-gleichstand.mjs` | `welt.json` passt zu den Rohdaten | eine Anzeige, die etwas anderes zeigt als die Quelle sagt |
+   | `pruefe-karte.mjs` | die Weltkarte zeichnet Regionen und Orte vollständig | ein Ort, den die Daten kennen und die Karte nicht zeigt |
+   | `pruefe-kartenpins.mjs` | jede Stecknadel trifft ihren Eintrag | die Nadel, die auf einen gelöschten Eintrag zeigt |
    | `pruefe-leseruntime.mjs` | Bausteine, Ladereihenfolge, Fassade vor dem ersten Render | ein Deep Link, der beim harten Aufruf ins Leere läuft |
    | `pruefe-rahmen-routen.mjs` | Fassade, Deep Links, Render-Generation, späte Rahmen-Renderer | ein verspäteter Assistent, der die inzwischen andere Seite überschreibt |
+   | `pruefe-rueckweg.mjs` | ein Verweis führt dahin, wo sein Text es verspricht | „Zurück ins Wiki", das seit dem Hauptmenü ins **Menü** führt |
    | `pruefe-schreibweise.mjs` | sichtbarer Text übersteht die Umwandlung | ein Absatz, der beim Speichern zu HTML-Text zerfällt |
    | `pruefe-server-sicherheit.mjs` | Freigabelisten, Methoden, Loopback der lokalen Server | die `.env`, die der Vorschau-Server ins Netz stellt |
    | `pruefe-stilstruktur.mjs` | die Stildateien ergeben zusammen den bisherigen Inhalt | eine Regel, die beim Aufteilen verlorengegangen ist |
@@ -29,6 +34,7 @@
    | `pruefe-symbole.mjs` | jede Kategorie hat eigenes Symbol, Farbton und Kontrast | zwei Kategorien, die auf dem Bildschirm gleich aussehen |
    | `pruefe-tags.mjs` | jede Quelldatei trägt ihr `[Aufgabe: …]` aus der Systemtabelle | die Datei, von der niemand mehr weiß, wozu sie da ist |
    | `pruefe-verweise.mjs` | kein Markdown-Verweis zeigt ins Leere | ein Wegweiser auf eine Datei, die es nicht mehr gibt — er wird geglaubt |
+   | `pruefe-vorlagen.mjs` | NPC, Ort, POI und Gegenstände haben vollständige Vorlagen | ein Vorlagenfeld, das beim Anlegen still verlorengeht |
    | `pruefe-workclaim.mjs` | WORKCLAIM.md ist da, lesbar, jeder Anspruch vollständig | zwei Sitzungen im selben Checkout, Konfliktmarker in sieben Dateien |
    | `pruefe-geheimnisse.mjs` | kein verbotenes Format, kein Geheimnismuster im Arbeitsstand | der Schlüssel, der „nur kurz zum Testen" eingetragen wurde |
    | `pruefe-altlasten.mjs` | neue Dateien < 500 Zeilen; geführte Altlasten wachsen nie | die Altlast, die „nur diesmal" um dreißig Zeilen wächst |
