@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weltkarte – Age of Beast</title>
+<meta name="description" content="Die bekannte Welt von Age of Beast: Festland, Inseln, der Sumpf, die Wüste und das unbekannte Gebiet im ewigen Sturm.">
+<meta name="color-scheme" content="dark light">
+<link rel="stylesheet" href="stil.css">
+<link rel="stylesheet" href="styles/karte.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23161815'/><text x='16' y='23' font-size='18' text-anchor='middle' fill='%23d2cefd'>&#9670;</text></svg>">
+</head>
+<body class="kartenseite">
+
+<a class="zum-inhalt" href="#inhalt">Direkt zum Inhalt</a>
+
+<header class="kopf">
+  <a class="marke" href="./">
+    <strong>Age of Beast</strong>
+    <span class="teiler" aria-hidden="true">|</span>
+    <small>Die bekannte Welt</small>
+  </a>
+  <div class="kopf-rechts">
+    <a class="modul-knopf" href="./">&lsaquo; Zurück ins Wiki</a>
+  </div>
+</header>
+
+<main id="inhalt" class="karten-inhalt" tabindex="-1">
+
+  <div class="seitenkopf">
+    <span class="mikro">Weltkarte</span>
+    <h1>Die bekannte Welt</h1>
+    <p class="einleitung">
+      Das ist der Teil der Welt, den man sehen kann. Er folgt Janniks
+      gezeichneter Karte: die Umrisse der Landmassen, die Lage des Sumpfes,
+      der Wüste und des Sturmgebiets — und elf Siedlungen, deren Größe er
+      mit der Dicke seiner Kreuze festgelegt hat.
+    </p>
+  </div>
+
+  <div class="karten-werkzeuge">
+    <button type="button" id="zoom-raus" class="karten-knopf">− kleiner</button>
+    <button type="button" id="zoom-rein" class="karten-knopf">+ größer</button>
+    <button type="button" id="neue-welt" class="karten-knopf">Landschaft neu würfeln</button>
+    <button type="button" id="zuruecksetzen" class="karten-knopf">zurücksetzen</button>
+    <span class="mikro" id="kartenstand"></span>
+  </div>
+
+  <div class="kartenrahmen">
+    <div class="kartenbuehne">
+      <canvas id="kartenflaeche" width="480" height="419" role="img"
+              aria-label="Weltkarte von Age of Beast"></canvas>
+      <div id="kartenschrift" class="kartenschrift" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <div class="karten-spalten">
+    <section class="karten-block">
+      <h2 class="mikro">Was man sieht</h2>
+      <ul id="kartenlegende" class="kartenlegende"></ul>
+    </section>
+
+    <section class="karten-block">
+      <h2 class="mikro">Siedlungen</h2>
+      <ul id="staedteliste" class="staedteliste"></ul>
+      <p class="karten-fussnote">
+        Die Namen fehlen noch — die vergibt Jannik.
+      </p>
+    </section>
+
+    <section class="karten-block">
+      <h2 class="mikro">Zwei Warnungen</h2>
+      <p><strong>Der Sumpf ist gefährlich.</strong> Er liegt als eigene
+      Halbinsel westlich des Festlands; eine einzelne Siedlung hält sich
+      darin.</p>
+      <p><strong>Das Gebiet im ewigen Sturm</strong> hinter der Wüste ist
+      unbekannt. Niemand weiß, was dort liegt.</p>
+    </section>
+
+    <section class="karten-block">
+      <h2 class="mikro">Wie diese Karte entsteht</h2>
+      <p>Sie ist kein Bild, sondern wird bei jedem Aufruf gerechnet.
+      Janniks Umrisse geben die Form vor; Strände, Wälder, Hügel und
+      Bergketten entstehen daraus über den Abstand zur Küste, eine daraus
+      abgeleitete Höhe und die Feuchtigkeit.</p>
+      <p><em>Landschaft neu würfeln</em> behält seine Umrisse und die
+      Siedlungen, verteilt aber Wälder und Gebirge neu.</p>
+    </section>
+  </div>
+
+</main>
+
+<script type="module" src="karte/karte-zeichnen.js"></script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 {
   "titel": "Age of Beast",
   "untertitel": "Daggerheart-Welt zwischen Magie, Natur und Maschinen",
-  "standDerDaten": "2026-09-01T04:22:54.346Z",
+  "standDerDaten": "2026-09-04T13:07:33.097Z",
   "kategorien": [
     {
       "schluessel": "wiki",
@@ -1754,11 +1754,11 @@
       "geaendert": "2026-07-30T18:24:33.455Z"
     },
     {
-      "id": "character-sturmwende-lukas-sc-unbenannt",
-      "name": "Unbenannte Spielfigur von Lukas",
+      "id": "character-aob-xeno-sc",
+      "name": "Unbenannte Spielfigur von Xeno",
       "kategorie": "characters",
       "unterart": "Spielfigur",
-      "kurz": "Lukas’ bereits bestehende Spielfigur. Ihr Name und ihre weiteren Charakterangaben sind noch nicht festgelegt.",
+      "kurz": "Xenos bereits bestehende Spielfigur. Ihr Name und ihre weiteren Charakterangaben sind noch nicht festgelegt.",
       "aliase": [],
       "quelle": "",
       "attribute": [
@@ -1785,13 +1785,153 @@
           "herkunft": {
             "art": "panel",
             "panel": 1,
-            "panelId": "panel-lukas-sc-offen",
+            "panelId": "panel-xeno-sc-offen",
             "feld": 0
           }
         },
         {
+          "titel": "Was am Tisch über sie bekannt ist",
+          "html": "<p>Sie trägt einen <strong>Beutel</strong>, dessen Inhalt bisher niemand kennt — Lukas’ Figur hat ausdrücklich danach gefragt: „Was ist in deinen… Beutel?“</p><p>Sie hat Lukas’ Figur darum gebeten, sie zu <strong>warnen, sobald die Goldene Garde auftaucht</strong>. In der Gossensprache heißen die Gardisten herablassend <em>Gelbröcke</em>.</p><p>Mit Lukas’ Figur verbindet sie ein freundlicher Wettstreit: Wer findet und isst die <strong>schrecklichste örtliche Spezialität</strong>?</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 2,
+            "panelId": "panel-xeno-sc-bekannt"
+          }
+        },
+        {
           "titel": "Hinweis",
-          "html": "<p>Diese Spielfigur gehört zum Spieler <strong>Lukas</strong> und existiert bereits. Ihr Name ist derzeit noch nicht festgelegt.</p>",
+          "html": "<p>Diese Spielfigur gehört zum Spieler <strong>Xeno</strong> und existiert bereits. Ihr Name ist derzeit noch nicht festgelegt.</p>",
+          "herkunft": {
+            "art": "richText",
+            "schluessel": "info"
+          },
+          "ergaenzt": true
+        },
+        {
+          "titel": "Rolle",
+          "html": "<p>Spielfigur von Xeno</p>",
+          "herkunft": {
+            "art": "richText",
+            "schluessel": "role"
+          },
+          "ergaenzt": true
+        }
+      ],
+      "verbindungen": [
+        {
+          "art": "Gehört zur Kampagne",
+          "text": "Bestehende Spielfigur von Xeno; Name noch offen",
+          "ziel": "wiki-sturmwende-kampagnenframe"
+        }
+      ],
+      "bild": "",
+      "geaendert": "2026-09-04T13:07:33.097Z"
+    },
+    {
+      "id": "character-aob-lukas-sc",
+      "name": "Unbenannter Faun (Spielfigur von Lukas)",
+      "kategorie": "characters",
+      "unterart": "Spielfigur",
+      "kurz": "Lukas’ Spielfigur: ein seegeborener Faun, Waldläufer und Wegfinder. Der Name ist noch offen.",
+      "aliase": [],
+      "quelle": "",
+      "attribute": [
+        {
+          "schluessel": "characterType",
+          "beschriftung": "Rolle",
+          "wert": "sc"
+        },
+        {
+          "schluessel": "species",
+          "beschriftung": "Volk / Spezies",
+          "wert": "Faun",
+          "ziel": "species-dh-faun"
+        },
+        {
+          "schluessel": "community",
+          "beschriftung": "Gemeinschaft",
+          "wert": "Seeborne"
+        },
+        {
+          "schluessel": "class",
+          "beschriftung": "Klasse",
+          "wert": "Ranger (Waldläufer)"
+        },
+        {
+          "schluessel": "subclass",
+          "beschriftung": "Unterklasse",
+          "wert": "Wayfinder (Wegfinder)"
+        },
+        {
+          "schluessel": "evasion",
+          "beschriftung": "Ausweichen (Evasion)",
+          "wert": "12"
+        },
+        {
+          "schluessel": "armor",
+          "beschriftung": "Rüstung",
+          "wert": "Lederrüstung, Score 3 — Schwellen 6 / 13"
+        },
+        {
+          "schluessel": "weapon",
+          "beschriftung": "Waffe",
+          "wert": "Machete"
+        },
+        {
+          "schluessel": "status",
+          "beschriftung": "Status",
+          "wert": "aktiv"
+        }
+      ],
+      "abschnitte": [
+        {
+          "titel": "Spielwerte",
+          "html": "<h3>Attribute</h3><ul><li><strong>Agility (Beweglichkeit):</strong> +2</li><li><strong>Strength (Stärke):</strong> −1</li><li><strong>Finesse (Fingerfertigkeit):</strong> +1</li><li><strong>Instinct (Instinkt):</strong> +1</li><li><strong>Presence (Ausstrahlung):</strong> 0</li><li><strong>Knowledge (Wissen):</strong> 0</li></ul><h3>Verteidigung</h3><ul><li><strong>Ausweichen (Evasion):</strong> 12</li><li><strong>Rüstung:</strong> Lederrüstung, Rüstungswert (Base Score) 3</li><li><strong>Schadensschwellen (Base Thresholds):</strong> 6 / 13</li></ul><h3>Bewaffnung</h3><ul><li><strong>Machete</strong></li></ul>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 0,
+            "panelId": "panel-lukas-sc-werte"
+          }
+        },
+        {
+          "titel": "Erfahrungen und Fähigkeitskarten",
+          "html": "<h3>Erfahrungen (Experiences)</h3><ul><li><strong>„Die Winde stehen günstig“</strong> +2</li><li><strong>Artefaktsucher</strong> +2</li></ul><h3>Gewählte Fähigkeitskarten</h3><ul><li><strong>Deft Maneuvers</strong> (Geschickte Manöver)</li><li><strong>Gifted Tracker</strong> (Begnadeter Fährtenleser)</li></ul>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 1,
+            "panelId": "panel-lukas-sc-erfahrungen"
+          }
+        },
+        {
+          "titel": "Am Tisch",
+          "html": "<p><strong>Ein freundlicher Wettstreit</strong> mit Xenos Figur: Wer findet und isst die schrecklichste örtliche Spezialität?</p><p><strong>Eine offene Frage</strong> an Xenos Figur: „Was ist in deinen… Beutel?“</p><p><strong>Eine Bitte, die er angenommen hat:</strong> Xenos Figur hat ihn gebeten, sie zu warnen, sobald die <em>Goldene Garde</em> auftaucht. In der Gossensprache heißen die Gardisten herablassend <em>Gelbröcke</em>.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 2,
+            "panelId": "panel-lukas-sc-tisch"
+          }
+        },
+        {
+          "titel": "Wege und Weigerungen",
+          "html": "<p>Er ist <strong>an vielen Orten</strong> gewesen — als Wegfinder kennt er Küsten, Wälder und Straßen.</p><p>Eines tut er aber nicht: <strong>Er weigert sich, in die Berge zu gehen.</strong> Warum, sagt er nicht.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 3,
+            "panelId": "panel-lukas-sc-wege"
+          }
+        },
+        {
+          "titel": "Noch offen",
+          "html": "<p>Der <strong>Name</strong> der Figur ist noch nicht festgelegt. Ebenso fehlen Alter, Geschlecht, Heimatort und die Beweggründe.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 4,
+            "panelId": "panel-lukas-sc-offen"
+          }
+        },
+        {
+          "titel": "Hinweis",
+          "html": "<p>Der <strong>Name</strong> dieser Figur ist noch nicht festgelegt.</p>",
           "herkunft": {
             "art": "richText",
             "schluessel": "info"
@@ -1811,12 +1951,27 @@
       "verbindungen": [
         {
           "art": "Gehört zur Kampagne",
-          "text": "Bestehende Spielfigur von Lukas; Name noch offen",
+          "text": "Spielfigur von Lukas",
           "ziel": "wiki-sturmwende-kampagnenframe"
+        },
+        {
+          "art": "Reisegefährte",
+          "text": "Freundlicher Wettstreit um die schrecklichste Spezialität",
+          "ziel": "character-aob-xeno-sc"
+        },
+        {
+          "art": "Hält Ausschau nach",
+          "text": "Soll Xenos Figur warnen, sobald die Garde auftaucht",
+          "ziel": "faction-sturmwende-gelbroecke-provisorisch"
+        },
+        {
+          "art": "Gehört zum Volk",
+          "text": "Faun",
+          "ziel": "species-dh-faun"
         }
       ],
       "bild": "",
-      "geaendert": "2026-07-30T23:51:27.695Z"
+      "geaendert": "2026-09-04T13:07:33.097Z"
     },
     {
       "id": "item-sturmwende-uniform-goldene-garde",
@@ -5386,6 +5541,8 @@
   ],
   "woerterbuch": {
     "sturmwende": "wiki-sturmwende-kampagnenframe",
+    "goldene garde": "faction-sturmwende-gelbroecke-provisorisch",
+    "faun": "species-dh-faun",
     "maschinisten": "faction-sturmwende-maschinisten",
     "mensch": "species-dh-mensch",
     "menschen": "species-dh-mensch",
@@ -5394,8 +5551,7 @@
     "clanks": "species-dh-clank",
     "die goldene garde": "faction-sturmwende-gelbroecke-provisorisch",
     "gelbröcke": "faction-sturmwende-gelbroecke-provisorisch",
-    "goldene garde": "faction-sturmwende-gelbroecke-provisorisch",
-    "unbenannte spielfigur von lukas": "character-sturmwende-lukas-sc-unbenannt",
+    "unbenannte spielfigur von lukas": "character-aob-xeno-sc",
     "kampagnen-frame: age of beast": "wiki-sturmwende-kampagnenframe",
     "aetheris": "species-dh-aetheris",
     "drakona": "species-dh-drakona",
@@ -5404,7 +5560,6 @@
     "elf": "species-dh-elf",
     "emberkin": "species-dh-emberkin",
     "glutkind": "species-dh-emberkin",
-    "faun": "species-dh-faun",
     "fee": "species-dh-fee",
     "faerie": "species-dh-fee",
     "firbolg": "species-dh-firbolg",
@@ -5430,6 +5585,8 @@
     "gezeitenkind": "species-dh-tidekin",
     "zwerg": "species-dh-zwerg",
     "dwarf": "species-dh-zwerg",
+    "unbenannte spielfigur von xeno": "character-aob-xeno-sc",
+    "unbenannter faun (spielfigur von lukas)": "character-aob-lukas-sc",
     "brix borin": "werkstatt-figur-brix-borin",
     "spielfluss und spotlight": "regel-spielfluss-spotlight",
     "aktionswurf": "regel-aktionswurf",

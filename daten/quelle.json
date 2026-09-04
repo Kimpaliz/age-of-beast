@@ -2,50 +2,50 @@
   "createdAt": "2026-07-30T15:31:46.540Z",
   "elements": {
     "characters": {
-      "character-sturmwende-lukas-sc-unbenannt": {
+      "character-aob-xeno-sc": {
         "attributeRows": [
           {
-            "id": "attribute-lukas-sc-character-type",
+            "id": "attribute-xeno-sc-character-type",
             "key": "characterType",
             "label": "Rolle"
           },
           {
-            "id": "attribute-lukas-sc-title",
+            "id": "attribute-xeno-sc-title",
             "key": "title",
             "label": "Titel"
           },
           {
-            "id": "attribute-lukas-sc-gender",
+            "id": "attribute-xeno-sc-gender",
             "key": "gender",
             "label": "Geschlecht"
           },
           {
-            "id": "attribute-lukas-sc-age",
+            "id": "attribute-xeno-sc-age",
             "key": "age",
             "label": "Alter"
           },
           {
-            "id": "attribute-lukas-sc-species",
+            "id": "attribute-xeno-sc-species",
             "key": "species",
             "label": "Volk / Spezies"
           },
           {
-            "id": "attribute-lukas-sc-occupation",
+            "id": "attribute-xeno-sc-occupation",
             "key": "occupation",
             "label": "Beruf / Aufgabe"
           },
           {
-            "id": "attribute-lukas-sc-status",
+            "id": "attribute-xeno-sc-status",
             "key": "status",
             "label": "Status"
           },
           {
-            "id": "attribute-lukas-sc-residence",
+            "id": "attribute-xeno-sc-residence",
             "key": "residencePlaceId",
             "label": "Heimatort"
           },
           {
-            "id": "attribute-lukas-sc-faction",
+            "id": "attribute-xeno-sc-faction",
             "key": "factionId",
             "label": "Fraktion"
           }
@@ -75,7 +75,7 @@
                 "value": "Spielercharakter"
               }
             ],
-            "id": "panel-lukas-sc-stand",
+            "id": "panel-xeno-sc-stand",
             "image": "",
             "imageSettings": {
               "color": "gold",
@@ -91,7 +91,7 @@
             "title": "Gesicherter Stand"
           },
           {
-            "id": "panel-lukas-sc-offen",
+            "id": "panel-xeno-sc-offen",
             "image": "",
             "imageSettings": {
               "color": "gold",
@@ -113,39 +113,55 @@
             ],
             "textLayout": "single",
             "title": "Noch offene Angaben"
+          },
+          {
+            "id": "panel-xeno-sc-bekannt",
+            "kind": "text",
+            "title": "Was am Tisch über sie bekannt ist",
+            "text": "<p>Sie trägt einen <strong>Beutel</strong>, dessen Inhalt bisher niemand kennt — Lukas’ Figur hat ausdrücklich danach gefragt: „Was ist in deinen… Beutel?“</p><p>Sie hat Lukas’ Figur darum gebeten, sie zu <strong>warnen, sobald die Goldene Garde auftaucht</strong>. In der Gossensprache heißen die Gardisten herablassend <em>Gelbröcke</em>.</p><p>Mit Lukas’ Figur verbindet sie ein freundlicher Wettstreit: Wer findet und isst die <strong>schrecklichste örtliche Spezialität</strong>?</p>",
+            "textLayout": "single",
+            "image": "",
+            "imageSettings": {
+              "color": "gold",
+              "fit": "contain",
+              "frame": "simple",
+              "positionX": 50,
+              "positionY": 50,
+              "zoom": 100
+            }
           }
         ],
-        "description": "Lukas’ bereits bestehende Spielfigur. Ihr Name und ihre weiteren Charakterangaben sind noch nicht festgelegt.",
+        "description": "Xenos bereits bestehende Spielfigur. Ihr Name und ihre weiteren Charakterangaben sind noch nicht festgelegt.",
         "descriptionPanelIds": [
-          "panel-lukas-sc-stand",
-          "panel-lukas-sc-offen"
+          "panel-xeno-sc-stand",
+          "panel-xeno-sc-offen"
         ],
         "fields": {
           "age": "",
           "characterType": "sc",
           "connections": [
             {
-              "id": "connection-lukas-sc-sturmwende-frame",
+              "id": "connection-xeno-sc-sturmwende-frame",
               "kind": "Gehört zur Kampagne",
-              "label": "Bestehende Spielfigur von Lukas; Name noch offen",
+              "label": "Bestehende Spielfigur von Xeno; Name noch offen",
               "targetId": "wiki-sturmwende-kampagnenframe"
             }
           ],
           "factionId": "",
           "gender": "unbekannt",
-          "info": "Diese Spielfigur gehört zum Spieler Lukas und existiert bereits. Ihr Name ist derzeit noch nicht festgelegt.",
+          "info": "Diese Spielfigur gehoert zum Spieler Xeno und existiert bereits. Ihr Name ist derzeit noch nicht festgelegt.",
           "motive": "",
           "occupation": "",
           "pressure": "",
           "reaction": "",
           "residencePlaceId": "",
-          "role": "Spielfigur von Lukas",
+          "role": "Spielfigur von Xeno",
           "species": "",
           "status": "aktiv",
           "title": "",
           "traits": ""
         },
-        "id": "character-sturmwende-lukas-sc-unbenannt",
+        "id": "character-aob-xeno-sc",
         "image": "",
         "imageSettings": {
           "color": "gold",
@@ -156,26 +172,27 @@
           "zoom": 100
         },
         "module": "characters",
-        "name": "Unbenannte Spielfigur von Lukas",
+        "name": "Unbenannte Spielfigur von Xeno",
         "panelHeights": {
-          "panel-lukas-sc-offen": 3,
-          "panel-lukas-sc-stand": 3
+          "panel-xeno-sc-offen": 3,
+          "panel-xeno-sc-stand": 3
         },
         "panelOrder": [
           "core-connections",
           "references",
-          "panel-lukas-sc-stand",
-          "panel-lukas-sc-offen"
+          "panel-xeno-sc-stand",
+          "panel-xeno-sc-offen",
+          "panel-xeno-sc-bekannt"
         ],
         "panelWidths": {
-          "panel-lukas-sc-offen": "wide",
-          "panel-lukas-sc-stand": "standard"
+          "panel-xeno-sc-offen": "wide",
+          "panel-xeno-sc-stand": "standard"
         },
         "richText": {
-          "info": "<p>Diese Spielfigur gehört zum Spieler <strong>Lukas</strong> und existiert bereits. Ihr Name ist derzeit noch nicht festgelegt.</p>",
+          "info": "<p>Diese Spielfigur gehört zum Spieler <strong>Xeno</strong> und existiert bereits. Ihr Name ist derzeit noch nicht festgelegt.</p>",
           "motive": "",
           "pressure": "",
-          "role": "<p>Spielfigur von Lukas</p>",
+          "role": "<p>Spielfigur von Xeno</p>",
           "traits": ""
         },
         "textLinks": {
@@ -189,7 +206,268 @@
             "systemId": ""
           }
         },
-        "updatedAt": "2026-07-30T23:51:27.695Z"
+        "updatedAt": "2026-09-04T13:07:33.097Z"
+      },
+      "character-aob-lukas-sc": {
+        "id": "character-aob-lukas-sc",
+        "module": "characters",
+        "name": "Unbenannter Faun (Spielfigur von Lukas)",
+        "description": "Lukas’ Spielfigur: ein seegeborener Faun, Waldläufer und Wegfinder. Der Name ist noch offen.",
+        "image": "",
+        "imageSettings": {
+          "color": "gold",
+          "fit": "contain",
+          "frame": "simple",
+          "positionX": 50,
+          "positionY": 50,
+          "zoom": 100
+        },
+        "createdAt": "2026-09-04T13:07:33.097Z",
+        "updatedAt": "2026-09-04T13:07:33.097Z",
+        "attributeRows": [
+          {
+            "id": "attribute-lukas-sc-characterType",
+            "key": "characterType",
+            "label": "Rolle"
+          },
+          {
+            "id": "attribute-lukas-sc-species",
+            "key": "species",
+            "label": "Volk / Spezies"
+          },
+          {
+            "id": "attribute-lukas-sc-community",
+            "key": "community",
+            "label": "Gemeinschaft"
+          },
+          {
+            "id": "attribute-lukas-sc-class",
+            "key": "class",
+            "label": "Klasse"
+          },
+          {
+            "id": "attribute-lukas-sc-subclass",
+            "key": "subclass",
+            "label": "Unterklasse"
+          },
+          {
+            "id": "attribute-lukas-sc-evasion",
+            "key": "evasion",
+            "label": "Ausweichen (Evasion)"
+          },
+          {
+            "id": "attribute-lukas-sc-armor",
+            "key": "armor",
+            "label": "Rüstung"
+          },
+          {
+            "id": "attribute-lukas-sc-weapon",
+            "key": "weapon",
+            "label": "Waffe"
+          },
+          {
+            "id": "attribute-lukas-sc-status",
+            "key": "status",
+            "label": "Status"
+          }
+        ],
+        "fields": {
+          "characterType": "sc",
+          "species": "species-dh-faun",
+          "community": "Seeborne",
+          "class": "Ranger (Waldläufer)",
+          "subclass": "Wayfinder (Wegfinder)",
+          "evasion": "12",
+          "armor": "Lederrüstung, Score 3 — Schwellen 6 / 13",
+          "weapon": "Machete",
+          "status": "aktiv",
+          "role": "Spielfigur von Lukas",
+          "info": "Der Name dieser Figur ist noch nicht festgelegt.",
+          "title": "",
+          "gender": "",
+          "age": "",
+          "occupation": "",
+          "factionId": "",
+          "residencePlaceId": "",
+          "motive": "",
+          "pressure": "",
+          "reaction": "",
+          "traits": "",
+          "connections": [
+            {
+              "id": "connection-lukas-sc-kampagne",
+              "kind": "Gehört zur Kampagne",
+              "label": "Spielfigur von Lukas",
+              "targetId": "wiki-sturmwende-kampagnenframe"
+            },
+            {
+              "id": "connection-lukas-sc-xeno",
+              "kind": "Reisegefährte",
+              "label": "Freundlicher Wettstreit um die schrecklichste Spezialität",
+              "targetId": "character-aob-xeno-sc"
+            },
+            {
+              "id": "connection-lukas-sc-garde",
+              "kind": "Hält Ausschau nach",
+              "label": "Soll Xenos Figur warnen, sobald die Garde auftaucht",
+              "targetId": "faction-sturmwende-gelbroecke-provisorisch"
+            },
+            {
+              "id": "connection-lukas-sc-faun",
+              "kind": "Gehört zum Volk",
+              "label": "Faun",
+              "targetId": "species-dh-faun"
+            }
+          ]
+        },
+        "richText": {
+          "role": "<p>Spielfigur von Lukas</p>",
+          "info": "<p>Der <strong>Name</strong> dieser Figur ist noch nicht festgelegt.</p>",
+          "motive": "",
+          "pressure": "",
+          "traits": ""
+        },
+        "customPanels": [
+          {
+            "id": "panel-lukas-sc-werte",
+            "kind": "text",
+            "title": "Spielwerte",
+            "text": "<h3>Attribute</h3><ul><li><strong>Agility (Beweglichkeit):</strong> +2</li><li><strong>Strength (Stärke):</strong> −1</li><li><strong>Finesse (Fingerfertigkeit):</strong> +1</li><li><strong>Instinct (Instinkt):</strong> +1</li><li><strong>Presence (Ausstrahlung):</strong> 0</li><li><strong>Knowledge (Wissen):</strong> 0</li></ul><h3>Verteidigung</h3><ul><li><strong>Ausweichen (Evasion):</strong> 12</li><li><strong>Rüstung:</strong> Lederrüstung, Rüstungswert (Base Score) 3</li><li><strong>Schadensschwellen (Base Thresholds):</strong> 6 / 13</li></ul><h3>Bewaffnung</h3><ul><li><strong>Machete</strong></li></ul>",
+            "textLayout": "single",
+            "image": "",
+            "imageSettings": {
+              "color": "gold",
+              "fit": "contain",
+              "frame": "simple",
+              "positionX": 50,
+              "positionY": 50,
+              "zoom": 100
+            }
+          },
+          {
+            "id": "panel-lukas-sc-erfahrungen",
+            "kind": "text",
+            "title": "Erfahrungen und Fähigkeitskarten",
+            "text": "<h3>Erfahrungen (Experiences)</h3><ul><li><strong>„Die Winde stehen günstig“</strong> +2</li><li><strong>Artefaktsucher</strong> +2</li></ul><h3>Gewählte Fähigkeitskarten</h3><ul><li><strong>Deft Maneuvers</strong> (Geschickte Manöver)</li><li><strong>Gifted Tracker</strong> (Begnadeter Fährtenleser)</li></ul>",
+            "textLayout": "single",
+            "image": "",
+            "imageSettings": {
+              "color": "gold",
+              "fit": "contain",
+              "frame": "simple",
+              "positionX": 50,
+              "positionY": 50,
+              "zoom": 100
+            }
+          },
+          {
+            "id": "panel-lukas-sc-tisch",
+            "kind": "text",
+            "title": "Am Tisch",
+            "text": "<p><strong>Ein freundlicher Wettstreit</strong> mit Xenos Figur: Wer findet und isst die schrecklichste örtliche Spezialität?</p><p><strong>Eine offene Frage</strong> an Xenos Figur: „Was ist in deinen… Beutel?“</p><p><strong>Eine Bitte, die er angenommen hat:</strong> Xenos Figur hat ihn gebeten, sie zu warnen, sobald die <em>Goldene Garde</em> auftaucht. In der Gossensprache heißen die Gardisten herablassend <em>Gelbröcke</em>.</p>",
+            "textLayout": "single",
+            "image": "",
+            "imageSettings": {
+              "color": "gold",
+              "fit": "contain",
+              "frame": "simple",
+              "positionX": 50,
+              "positionY": 50,
+              "zoom": 100
+            }
+          },
+          {
+            "id": "panel-lukas-sc-wege",
+            "kind": "text",
+            "title": "Wege und Weigerungen",
+            "text": "<p>Er ist <strong>an vielen Orten</strong> gewesen — als Wegfinder kennt er Küsten, Wälder und Straßen.</p><p>Eines tut er aber nicht: <strong>Er weigert sich, in die Berge zu gehen.</strong> Warum, sagt er nicht.</p>",
+            "textLayout": "single",
+            "image": "",
+            "imageSettings": {
+              "color": "gold",
+              "fit": "contain",
+              "frame": "simple",
+              "positionX": 50,
+              "positionY": 50,
+              "zoom": 100
+            }
+          },
+          {
+            "id": "panel-lukas-sc-offen",
+            "kind": "text",
+            "title": "Noch offen",
+            "text": "<p>Der <strong>Name</strong> der Figur ist noch nicht festgelegt. Ebenso fehlen Alter, Geschlecht, Heimatort und die Beweggründe.</p>",
+            "textLayout": "single",
+            "image": "",
+            "imageSettings": {
+              "color": "gold",
+              "fit": "contain",
+              "frame": "simple",
+              "positionX": 50,
+              "positionY": 50,
+              "zoom": 100
+            }
+          }
+        ],
+        "panelOrder": [
+          "core-connections",
+          "references",
+          "panel-lukas-sc-werte",
+          "panel-lukas-sc-erfahrungen",
+          "panel-lukas-sc-tisch",
+          "panel-lukas-sc-wege",
+          "panel-lukas-sc-offen"
+        ],
+        "descriptionPanelIds": [
+          "panel-lukas-sc-werte",
+          "panel-lukas-sc-erfahrungen",
+          "panel-lukas-sc-tisch",
+          "panel-lukas-sc-wege",
+          "panel-lukas-sc-offen"
+        ],
+        "panelHeights": {
+          "panel-lukas-sc-werte": 4,
+          "panel-lukas-sc-erfahrungen": 3,
+          "panel-lukas-sc-tisch": 3,
+          "panel-lukas-sc-wege": 2,
+          "panel-lukas-sc-offen": 2
+        },
+        "panelWidths": {
+          "panel-lukas-sc-werte": "standard",
+          "panel-lukas-sc-erfahrungen": "standard",
+          "panel-lukas-sc-tisch": "wide",
+          "panel-lukas-sc-wege": "wide",
+          "panel-lukas-sc-offen": "wide"
+        },
+        "textLinks": {
+          "sturmwende": {
+            "central": false,
+            "id": "wiki-sturmwende-kampagnenframe",
+            "kind": "element",
+            "moon": false,
+            "parentBodyId": "",
+            "parentId": "",
+            "systemId": ""
+          },
+          "Goldene Garde": {
+            "central": false,
+            "id": "faction-sturmwende-gelbroecke-provisorisch",
+            "kind": "element",
+            "moon": false,
+            "parentBodyId": "",
+            "parentId": "",
+            "systemId": ""
+          },
+          "Faun": {
+            "central": false,
+            "id": "species-dh-faun",
+            "kind": "element",
+            "moon": false,
+            "parentBodyId": "",
+            "parentId": "",
+            "systemId": ""
+          }
+        }
       }
     },
     "factions": {
@@ -5022,7 +5300,7 @@
           },
           "unbenannte spielfigur von lukas": {
             "central": false,
-            "id": "character-sturmwende-lukas-sc-unbenannt",
+            "id": "character-aob-xeno-sc",
             "kind": "element",
             "moon": false,
             "parentBodyId": "",
@@ -13165,7 +13443,7 @@
       }
     }
   },
-  "updatedAt": "2026-09-01T04:22:54.346Z",
+  "updatedAt": "2026-09-04T13:07:33.097Z",
   "version": 42,
   "rahmen": {
     "rahmen-prototyp": {
