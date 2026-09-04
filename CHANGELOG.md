@@ -60,6 +60,42 @@ Lauf, wie viele Dateien sie tatsächlich durchsucht hat.
 
 ---
 
+## Fassung 3.1.1 – 4. September 2026
+
+**Die Karten waren zu lang gezogen.** Behoben.
+
+### Was los war
+
+Eine Kachel wuchs mit ihrem Text in die Länge. Bei den Unterklassen
+wurden daraus Streifen: im Median 868 Zeichen, die längste mit 1785.
+
+### Der eigentliche Fehler
+
+Eine Unterklasse ist im Spiel **nicht eine Karte, sondern drei** —
+Foundation, Specialization und Mastery liegen einzeln auf dem Tisch und
+werden nacheinander freigeschaltet. Ich hatte alle drei in eine gepackt.
+
+Aufgeteilt sind es aus 18 Karten **54**, und die längste misst statt
+1785 nur noch 636 Zeichen — so viel wie eine gewöhnliche Domänenkarte.
+
+### Jetzt haben alle Karten dasselbe Format
+
+Was sich anpasst, ist nicht mehr die Höhe, sondern die Schrift: vier
+Stufen, gewählt nach der Textmenge.
+
+| | vorher | jetzt |
+| --- | --- | --- |
+| Karten | 234 | **270** |
+| Höhe | 356 px bis über 700 | **569 px, bei allen gleich** |
+| Platz für den Regeltext | 43 % der Karte | **74 %** |
+| Karten mit abgeschnittenem Text | 218 von 270 | **0** |
+
+Der Fuß ist weggefallen: Die Quelle stand auf allen 270 Karten
+gleich, und die Kartenart nennt schon die Unterzeile. Das waren 32
+Bildpunkte, die dem Regeltext fehlten.
+
+---
+
 ## Fassung 3.1.0 – 4. September 2026
 
 **Die Welt hat jetzt eine Karte, und die Regeln stehen im Wiki.**

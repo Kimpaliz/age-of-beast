@@ -52,12 +52,56 @@ function textAufbereiten(roh) {
   )).join('');
 }
 
+/**
+ * Eine Unterklasse ist im Spiel **nicht eine Karte, sondern drei**:
+ * Foundation, Specialization und Mastery liegen einzeln auf dem Tisch
+ * und werden nacheinander freigeschaltet.
+ *
+ * Zusammengefasst ergaben sie Kacheln von im Median 868 und bis zu 1785
+ * Zeichen — daher die langgezogenen Streifen. Aufgeteilt sind es 302 im
+ * Median und hoechstens 636, also so lang wie eine gewoehnliche
+ * Domaenenkarte.
+ */
+function aufteilen(karten) {
+  const aus = [];
+  for (const k of karten) {
+    const stufen = [
+      ['Foundation', k.merkmaleFoundation],
+      ['Specialization', k.merkmaleSpecialization],
+      ['Mastery', k.merkmaleMastery],
+    ].filter(([, liste]) => Array.isArray(liste) && liste.length);
+
+    if (!stufen.length) { aus.push(k); continue; }
+
+    for (const [stufenname, liste] of stufen) {
+      aus.push({
+        ...k,
+        id: k.id + '-' + stufenname.toLowerCase(),
+        stufenname,
+        merkmale: liste,
+        merkmaleFoundation: null,
+        merkmaleSpecialization: null,
+        merkmaleMastery: null,
+      });
+    }
+  }
+  return aus;
+}
+
 function kachel(k) {
   const art = k.art || 'domain';
   const domaene = k.domaene || '';
   const teile = [];
 
+  /* Wie viel Text traegt diese Karte? Danach richtet sich die
+     Schriftgroesse — so bleibt das Kartenformat fest, statt dass die
+     Kachel in die Laenge waechst. */
+  const textlaenge = (k.regeltext || '').length
+    + (k.merkmale || []).reduce((s, m) => s + (m.text || '').length + (m.name || '').length, 0);
+  const enge = textlaenge > 620 ? 'sehr' : textlaenge > 460 ? 'eng' : textlaenge > 340 ? 'etwas' : 'normal';
+
   teile.push('<article class="spielkarte" data-art="' + sicher(art) + '"'
+    + ' data-enge="' + enge + '"'
     + (domaene ? ' data-domaene="' + sicher(domaene) + '"' : '') + '>');
 
   /* Kopf mit Wappen, Stufe und Kosten */
@@ -76,7 +120,7 @@ function kachel(k) {
   /* Titelband */
   const unterzeile = domaene
     ? domaene + (k.kartentyp ? ' · ' + k.kartentyp : '')
-    : (k.klasse || ARTNAMEN[art] || '');
+    : [k.klasse, k.stufenname].filter(Boolean).join(' · ') || ARTNAMEN[art] || '';
   teile.push('<div class="karte-band">');
   teile.push('<h2 class="karte-name">' + sicher(k.name) + '</h2>');
   if (unterzeile) teile.push('<p class="karte-unterzeile">' + sicher(unterzeile) + '</p>');
@@ -89,23 +133,7 @@ function kachel(k) {
      drei Stufen: Foundation, Specialization, Mastery. Ohne diesen Fall
      stuenden alle 18 Unterklassen als „Regeltext fehlt" da, obwohl die
      Daten vollstaendig sind. */
-  const stufen = [
-    ['Foundation', k.merkmaleFoundation],
-    ['Specialization', k.merkmaleSpecialization],
-    ['Mastery', k.merkmaleMastery],
-  ].filter(([, liste]) => Array.isArray(liste) && liste.length);
-
-  if (stufen.length) {
-    for (const [stufenname, liste] of stufen) {
-      teile.push('<p class="karte-stufenname">' + sicher(stufenname) + '</p>');
-      for (const m of liste) {
-        teile.push('<div class="karte-merkmal">'
-          + '<span class="karte-merkmal-name">' + sicher(m.name) + '</span>'
-          + textAufbereiten(m.text)
-          + '</div>');
-      }
-    }
-  } else if (Array.isArray(k.merkmale) && k.merkmale.length) {
+  if (Array.isArray(k.merkmale) && k.merkmale.length) {
     for (const m of k.merkmale) {
       teile.push('<div class="karte-merkmal">'
         + '<span class="karte-merkmal-name">' + sicher(m.name) + '</span>'
@@ -193,7 +221,7 @@ suchfeld?.addEventListener('input', () => {
     const antwort = await fetch(quelle);
     if (!antwort.ok) throw new Error('HTTP ' + antwort.status);
     const daten = await antwort.json();
-    alleKarten = Array.isArray(daten.karten) ? daten.karten : [];
+    alleKarten = aufteilen(Array.isArray(daten.karten) ? daten.karten : []);
     if (!alleKarten.length) throw new Error('Die Datei enthält keine Karten.');
     filterLeisteBauen();
     zeichnen();

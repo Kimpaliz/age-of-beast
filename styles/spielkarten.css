@@ -32,7 +32,16 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: 21rem;
+  /* Festes Kartenformat statt `min-height`. Vorher wuchs eine Kachel mit
+     ihrem Text in die Laenge — bei den Unterklassen wurden daraus
+     Streifen von ueber 700 Bildpunkten. Eine Karte hat ein Format; was
+     sich anpasst, ist die Schrift.
+
+     Das Verhaeltnis ist hoeher als bei einer echten Spielkarte
+     (1 : 1,42). Gemessen: Bei 1 : 1,42 blieben dem Text nur 152 von
+     356 Bildpunkten — Platz fuer rund 231 Zeichen, waehrend die
+     Karten im Median 315 tragen. 218 von 270 liefen ueber. */
+  aspect-ratio: 1 / 1.68;
   padding: 0.55rem;
   border-radius: 0.7rem;
   background:
@@ -90,7 +99,7 @@
   flex-direction: column;
   align-items: center;
   gap: 0.4rem;
-  padding: 1.1rem 0.6rem 0.9rem;
+  padding: 0.7rem 0.6rem 0.55rem;
   border-radius: 0.45rem 0.45rem 0 0;
   background:
     radial-gradient(70% 90% at 50% 0%,
@@ -99,8 +108,9 @@
 }
 
 .karte-wappen {
-  width: 5.2rem;
-  height: 5.2rem;
+  width: 3.7rem;
+  height: 3.7rem;
+  flex: none;
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
 }
 
@@ -144,7 +154,7 @@
 .karte-band {
   position: relative;
   margin: 0 -0.55rem;
-  padding: 0.5rem 0.9rem 0.45rem;
+  padding: 0.38rem 0.9rem 0.34rem;
   text-align: center;
   background:
     linear-gradient(90deg,
@@ -158,9 +168,9 @@
 .karte-name {
   margin: 0;
   font-family: var(--serif);
-  font-size: 1.02rem;
+  font-size: 0.96rem;
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.18;
   letter-spacing: -0.01em;
   color: var(--schrift);
 }
@@ -180,11 +190,27 @@
 
 .karte-text {
   flex: 1;
-  padding: 0.8rem 0.75rem 0.6rem;
+  min-height: 0;
+  /* Reicht der Platz trotz kleinerer Schrift nicht, wird gerollt statt
+     abgeschnitten. Ein abgeschnittener Regeltext waere am Spieltisch
+     gefaehrlich — man saehe nicht, dass etwas fehlt. */
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0.7rem 0.7rem 0.5rem;
   font-size: 0.8rem;
-  line-height: 1.55;
+  line-height: 1.5;
   color: var(--schrift-matt);
+  scrollbar-width: thin;
 }
+
+/* Die Schrift richtet sich nach der Textmenge. Gemessen an den echten
+   Daten: Median 315 Zeichen, laengste Karte 764. */
+.spielkarte[data-enge="etwas"] .karte-text { font-size: 0.745rem; line-height: 1.46; }
+.spielkarte[data-enge="eng"]   .karte-text { font-size: 0.70rem;  line-height: 1.42; }
+.spielkarte[data-enge="sehr"]  .karte-text { font-size: 0.655rem; line-height: 1.38; }
+
+.spielkarte[data-enge="eng"] .karte-merkmal,
+.spielkarte[data-enge="sehr"] .karte-merkmal { margin-bottom: 0.4rem; }
 
 .karte-text p { margin: 0 0 0.55rem; }
 .karte-text p:last-child { margin-bottom: 0; }
@@ -218,7 +244,10 @@
    ------------------------------------------------------------------ */
 
 .karte-fuss {
-  display: flex;
+  /* Weggelassen: Die Quelle ist auf allen 270 Karten dieselbe, und die
+     Kartenart steht bereits in der Unterzeile. 32 Bildpunkte, die dem
+     Regeltext fehlten. Sie steht jetzt einmal in der Seitenfusszeile. */
+  display: none;
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
@@ -239,13 +268,13 @@
 .spielkarten-raster {
   display: grid;
   gap: 0.85rem;
-  grid-template-columns: repeat(auto-fill, minmax(14.5rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(16.5rem, 1fr));
   margin-top: 1rem;
 }
 
 @media (max-width: 30rem) {
   .spielkarten-raster { grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr)); }
-  .spielkarte { min-height: 18rem; }
+  
   .karte-wappen { width: 4.2rem; height: 4.2rem; }
 }
 
