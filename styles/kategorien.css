@@ -320,3 +320,47 @@ html[data-thema="hell"] .nav-gruppe[data-kategorie="lore"] {
   --verweis-aktiv:   #382b41;
   --tuerkis:         #43334d;
 }
+
+/* ------------------------------------------------------------------ *
+   Die Modulleiste in der Kopfzeile
+
+   Vorher stand jeder Modulknopf einzeln im Kopf-Raster. Mit dem dritten
+   passte die Zeile nicht mehr: gemessen 1736 Bildpunkte Inhalt bei 1265
+   verfuegbaren. Das Raster schob den Rest in eine zweite Zeile, die aus
+   dem Kopf herauslief und die Navigation verdeckte.
+
+   Jetzt sind die drei ein Kind statt drei. Wird der Platz knapp,
+   verlieren sie zuerst ihre Beschriftung und stehen als Zeichen da —
+   das ist der Unterschied zwischen enger und kaputt.
+   ------------------------------------------------------------------ */
+
+.modul-leiste {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  /* `nowrap` ist hier nicht Kosmetik: Ohne es bricht die Leiste selbst um
+     und stapelt „Karten" und „Karte" unter „Werkstatt" — die Rasterspalte
+     gibt ihr nur so viel Platz, wie sie zu brauchen scheint. */
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.modul-leiste .werkstatt-knopf { flex: none; }
+
+/* Unter 68rem tragen die Knoepfe nur noch ihr Zeichen. Die Schwelle ist
+   gemessen: Darunter reicht der Platz fuer Marke, Suche und drei
+   beschriftete Knoepfe nicht mehr. */
+@media (max-width: 68rem) {
+  .modul-leiste .beschriftung { display: none; }
+  .modul-leiste .werkstatt-knopf {
+    padding-inline: 0.55rem;
+    justify-content: center;
+  }
+}
+
+/* Ganz schmal wandert die Leiste aus dem Kopf; die Bereiche sind dann
+   ueber die Navigation erreichbar. */
+@media (max-width: 40rem) {
+  .modul-leiste { gap: 0.15rem; }
+  .modul-leiste .werkstatt-knopf { padding-inline: 0.4rem; }
+}

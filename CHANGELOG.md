@@ -60,6 +60,39 @@ Lauf, wie viele Dateien sie tatsächlich durchsucht hat.
 
 ---
 
+## Fassung 3.1.2 – 4. September 2026
+
+**Die Kopfzeile war kaputt, und die Spielfiguren hatten keine Namen.**
+
+### Die Kopfzeile
+
+Mit dem dritten Knopf (Werkstatt, Karten, Karte) passte die Zeile nicht
+mehr: gemessen 1736 Bildpunkte Inhalt bei 1265 verfügbaren. Der Rest
+rutschte in eine zweite Zeile, die aus dem Kopf herauslief und **die
+Navigation überdeckte**.
+
+Die drei Knöpfe sind jetzt eine Leiste — ein Element statt drei. Wird
+der Platz knapp, verlieren sie zuerst ihre Beschriftung und stehen als
+Zeichen da. Das ist der Unterschied zwischen eng und kaputt.
+
+### Die Figuren heißen jetzt Lukas und Xeno
+
+Als Platzhalter, bis die Figuren eigene Namen bekommen. Vorher standen
+sie als „Unbenannter Faun" und „Unbenannte Spielfigur" da und waren
+kaum zu finden.
+
+**Warum sie ganz fehlten:** Die Daten lagen zwar in der Datei, aber
+nicht in Firebase — und von dort liest die Seite. Nachgetragen.
+
+### Zum dritten Mal: die Firestore-Regeln
+
+Die Wiki-Regeln waren erneut überschrieben, dadurch war die ganze Welt
+nicht mehr lesbar. Wiederhergestellt. Die Ursache ist bekannt und
+gehört behoben, nicht jedes Mal repariert — siehe die technische
+Fassung.
+
+---
+
 ## Fassung 3.1.1 – 4. September 2026
 
 **Die Karten waren zu lang gezogen.** Behoben.

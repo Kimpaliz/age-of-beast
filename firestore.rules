@@ -404,6 +404,9 @@ service cloud.firestore {
 
     /* Andere Anwendungen im Firebase-Projekt verwenden Firestore nicht.
        Jede nicht ausdrücklich genannte Sammlung bleibt geschlossen. */
+
+    /* Andere Anwendungen im Firebase-Projekt verwenden Firestore nicht.
+       Jede nicht ausdrücklich genannte Sammlung bleibt geschlossen. */
     match /{document=**} {
       allow read, write: if false;
     }

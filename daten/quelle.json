@@ -131,7 +131,7 @@
             }
           }
         ],
-        "description": "Xenos bereits bestehende Spielfigur. Ihr Name und ihre weiteren Charakterangaben sind noch nicht festgelegt.",
+        "description": "Xenos bereits bestehende Spielfigur. „Xeno“ ist ein Platzhalter — der Name der Figur steht noch aus.",
         "descriptionPanelIds": [
           "panel-xeno-sc-stand",
           "panel-xeno-sc-offen"
@@ -149,7 +149,7 @@
           ],
           "factionId": "",
           "gender": "unbekannt",
-          "info": "Diese Spielfigur gehoert zum Spieler Xeno und existiert bereits. Ihr Name ist derzeit noch nicht festgelegt.",
+          "info": "Die Figur heißt vorläufig nach ihrem Spieler. Ihr eigener Name steht noch aus.",
           "motive": "",
           "occupation": "",
           "pressure": "",
@@ -172,7 +172,7 @@
           "zoom": 100
         },
         "module": "characters",
-        "name": "Unbenannte Spielfigur von Xeno",
+        "name": "Xeno",
         "panelHeights": {
           "panel-xeno-sc-offen": 3,
           "panel-xeno-sc-stand": 3
@@ -189,7 +189,7 @@
           "panel-xeno-sc-stand": "standard"
         },
         "richText": {
-          "info": "<p>Diese Spielfigur gehört zum Spieler <strong>Xeno</strong> und existiert bereits. Ihr Name ist derzeit noch nicht festgelegt.</p>",
+          "info": "<p>Die Figur heißt vorläufig nach ihrem Spieler <strong>Xeno</strong>. Ihr eigener Name steht noch aus.</p>",
           "motive": "",
           "pressure": "",
           "role": "<p>Spielfigur von Xeno</p>",
@@ -211,8 +211,8 @@
       "character-aob-lukas-sc": {
         "id": "character-aob-lukas-sc",
         "module": "characters",
-        "name": "Unbenannter Faun (Spielfigur von Lukas)",
-        "description": "Lukas’ Spielfigur: ein seegeborener Faun, Waldläufer und Wegfinder. Der Name ist noch offen.",
+        "name": "Lukas",
+        "description": "Lukas’ Spielfigur: ein seegeborener Faun, Waldläufer und Wegfinder. „Lukas“ ist ein Platzhalter — der Name der Figur steht noch aus.",
         "image": "",
         "imageSettings": {
           "color": "gold",
@@ -282,8 +282,8 @@
           "weapon": "Machete",
           "status": "aktiv",
           "role": "Spielfigur von Lukas",
-          "info": "Der Name dieser Figur ist noch nicht festgelegt.",
-          "title": "",
+          "info": "Die Figur heißt vorläufig nach ihrem Spieler. Ihr eigener Name steht noch aus.",
+          "title": "Platzhaltername",
           "gender": "",
           "age": "",
           "occupation": "",
@@ -322,7 +322,7 @@
         },
         "richText": {
           "role": "<p>Spielfigur von Lukas</p>",
-          "info": "<p>Der <strong>Name</strong> dieser Figur ist noch nicht festgelegt.</p>",
+          "info": "<p>Die Figur heißt vorläufig nach ihrem Spieler <strong>Lukas</strong>. Ihr eigener Name steht noch aus.</p>",
           "motive": "",
           "pressure": "",
           "traits": ""

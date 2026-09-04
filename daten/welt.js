@@ -1756,10 +1756,10 @@ window.AGE_OF_BEAST_WELT = {
     },
     {
       "id": "character-aob-xeno-sc",
-      "name": "Unbenannte Spielfigur von Xeno",
+      "name": "Xeno",
       "kategorie": "characters",
       "unterart": "Spielfigur",
-      "kurz": "Xenos bereits bestehende Spielfigur. Ihr Name und ihre weiteren Charakterangaben sind noch nicht festgelegt.",
+      "kurz": "Xenos bereits bestehende Spielfigur. „Xeno“ ist ein Platzhalter — der Name der Figur steht noch aus.",
       "aliase": [],
       "quelle": "",
       "attribute": [
@@ -1801,7 +1801,7 @@ window.AGE_OF_BEAST_WELT = {
         },
         {
           "titel": "Hinweis",
-          "html": "<p>Diese Spielfigur gehört zum Spieler <strong>Xeno</strong> und existiert bereits. Ihr Name ist derzeit noch nicht festgelegt.</p>",
+          "html": "<p>Die Figur heißt vorläufig nach ihrem Spieler <strong>Xeno</strong>. Ihr eigener Name steht noch aus.</p>",
           "herkunft": {
             "art": "richText",
             "schluessel": "info"
@@ -1830,10 +1830,10 @@ window.AGE_OF_BEAST_WELT = {
     },
     {
       "id": "character-aob-lukas-sc",
-      "name": "Unbenannter Faun (Spielfigur von Lukas)",
+      "name": "Lukas",
       "kategorie": "characters",
       "unterart": "Spielfigur",
-      "kurz": "Lukas’ Spielfigur: ein seegeborener Faun, Waldläufer und Wegfinder. Der Name ist noch offen.",
+      "kurz": "Lukas’ Spielfigur: ein seegeborener Faun, Waldläufer und Wegfinder. „Lukas“ ist ein Platzhalter — der Name der Figur steht noch aus.",
       "aliase": [],
       "quelle": "",
       "attribute": [
@@ -1932,7 +1932,7 @@ window.AGE_OF_BEAST_WELT = {
         },
         {
           "titel": "Hinweis",
-          "html": "<p>Der <strong>Name</strong> dieser Figur ist noch nicht festgelegt.</p>",
+          "html": "<p>Die Figur heißt vorläufig nach ihrem Spieler <strong>Lukas</strong>. Ihr eigener Name steht noch aus.</p>",
           "herkunft": {
             "art": "richText",
             "schluessel": "info"
@@ -5586,8 +5586,8 @@ window.AGE_OF_BEAST_WELT = {
     "gezeitenkind": "species-dh-tidekin",
     "zwerg": "species-dh-zwerg",
     "dwarf": "species-dh-zwerg",
-    "unbenannte spielfigur von xeno": "character-aob-xeno-sc",
-    "unbenannter faun (spielfigur von lukas)": "character-aob-lukas-sc",
+    "xeno": "character-aob-xeno-sc",
+    "lukas": "character-aob-lukas-sc",
     "brix borin": "werkstatt-figur-brix-borin",
     "spielfluss und spotlight": "regel-spielfluss-spotlight",
     "aktionswurf": "regel-aktionswurf",
