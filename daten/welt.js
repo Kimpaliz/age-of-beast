@@ -167,6 +167,10 @@ window.AGE_OF_BEAST_WELT = {
       ],
       "verbindungen": [],
       "bild": "",
+      "kartenpunkt": {
+        "x": 780,
+        "y": 400
+      },
       "geaendert": "2026-08-07T22:09:05.871Z"
     },
     {
@@ -382,6 +386,10 @@ window.AGE_OF_BEAST_WELT = {
         }
       ],
       "bild": "",
+      "kartenpunkt": {
+        "x": 900,
+        "y": 560
+      },
       "geaendert": "2026-08-07T21:36:13.331Z"
     },
     {

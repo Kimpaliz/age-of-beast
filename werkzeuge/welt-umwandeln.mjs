@@ -384,6 +384,7 @@ export function umwandeln(roh) {
         // und braeche beim ersten anders formulierten Satz.
         // Figuren ohne Spielwerte tragen das Feld gar nicht erst.
         ...(element.fields?.spielwerte ? { spielwerte: element.fields.spielwerte } : {}),
+        ...(element.fields?.kartenpunkt ? { kartenpunkt: element.fields.kartenpunkt } : {}),
         geaendert: element.updatedAt || '',
       });
     }
