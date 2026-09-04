@@ -12,6 +12,7 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ### Hinzugefügt
 
+<<<<<<< HEAD
 - **Hauptmenü** (`index.html`, `runtime/plattform.js`,
   `styles/plattform.css`). Das bisherige Wiki liegt als `wiki.html`
   (`git mv`, Historie erhalten) und bekam einen Menue-Knopf.
@@ -78,6 +79,34 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
   0 Warnungen und 0 Fehler. Beim expliziten 375 × 812-Pixel-Viewport meldete
   das Dokument `clientWidth` 360 und `scrollWidth` 360: kein waagerechter
   Überlauf.
+=======
+- **Kartenpins über der Weltkarte:** fields.kartenpunkt mit x und y wird in
+  werkzeuge/welt-umwandeln.mjs wie spielwerte strukturiert nach
+  daten/welt.json und daten/welt.js durchgereicht. Das Maß ist ausdrücklich
+  das vorhandene Vorlagenraster aus welt-regionen.mjs: **1.247 × 1.088**
+  Rasterpunkte; das erzeugte Bild misst **480 × 419** Bildpunkte. Es gibt
+  **2** erzeugte Stecknadeln und **11** weiterhin unverknüpfte Stadtmarken.
+- **karte/welt-orte.mjs:** zentrale, DOM-freie Umrechnung Rasterpunkt →
+  Bildpunkt → Rasterpunkt, inklusive Ganzzahl- und Randprüfung. Die
+  Kartenansicht zeichnet die Pins als 44 × 44 CSS-Pixel große Anker über
+  dem Canvas, damit Zoom nur die Karte skaliert und nicht die Bedienfläche.
+  Leere Canvas-Klicks werden über dieselbe Rückrechnung als kopierbares
+  x/y-Paar ausgegeben.
+- **werkzeuge/pruefe-kartenpins.mjs:** prüft Rastergrenzen, einen Pin je
+  Eintrags-ID, die verlustfreie Umrechnung und das reale Ziel in Roh- und
+  erzeugten Weltdaten. Gemessen: **21** Prüfungen bei **2** Pins grün.
+  Die vorgeschaltete Rotprobe mutiert nur im Speicher den ersten Pin auf
+  x 1248; der Wächter meldete ihn außerhalb des 1.247 breiten Rasters mit
+  Exit-Code **1**.
+- **Serverfreigaben:** Nur karte/welt-orte.mjs wurde zu beiden lokalen
+  Positivlisten ergänzt. Gegen den gestarteten Vorschau-Server auf Port
+  4176: karte.html und das Modul jeweils HTTP **200**, ein nicht
+  freigegebenes Prüfwerkzeug HTTP **403**.
+- **Beispieldaten:** Der Rohstand enthält derzeit **0** Einträge in
+  elements.places. Daher zeigen die zwei technisch notwendigen Beispielpins
+  auf den settingnahen Kampagnen-Frame (780, 400) und die Maschinisten
+  (900, 560); sie behaupten keine neuen Orte.
+>>>>>>> paket/kartenpins
 
 ### Behoben
 

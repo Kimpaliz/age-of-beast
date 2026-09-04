@@ -1213,6 +1213,10 @@
           "currentMove": "",
           "drive": "Eine neue Welt schaffen.",
           "headquartersPlaceId": "",
+          "kartenpunkt": {
+            "x": 900,
+            "y": 560
+          },
           "influence": "Hoher politischer Einfluss",
           "leaderId": "",
           "notes": "Die Maschinisten sind ein Zusammenschluss technikbegabter Völker und Gruppen und mittlerweile eine sehr mächtige Gilde mit hohem politischem Einfluss. Ihre Führungsebene besteht zu 95 Prozent aus Menschen. Sie erschufen die Clanks, damit diese ihre Arbeiten erledigen, und verfügen über die Goldene Garde. Jeder Ort, der an der Technologie der Maschinisten teilhaben oder sie nutzen will, muss sich vertraglich oder mündlich dazu bereit erklären, die Goldene Garde zu akzeptieren. Ohne diese Zustimmung gibt es für den Ort keine Teilhabe und keine Nutzungserlaubnis an der Technologie. Die Funktionsweise der Technologie ist geheim. Jede Forschung darüber, die nicht von den Maschinisten genehmigt wurde, ist verboten.",
@@ -5364,6 +5368,10 @@
         "fields": {
           "aliases": "Prototyp",
           "definition": "Eine düstere, abenteuerliche Super-Low-Magic-Kampagne mit einem starken Monsterfokus. Magie ist äußerst selten; bestehende Fraktionen und der technologische Wandel bleiben Teil der Welt.",
+          "kartenpunkt": {
+            "x": 780,
+            "y": 400
+          },
           "tags": "Daggerheart, Kampagnen-Frame, Super-Low-Magic, Monster, Magie, Natur, Technologie, Fraktionen",
           "type": "Kampagnen-Frame",
           "usage": "Diese Übersicht bildet den gemeinsam erarbeiteten Stand des ursprünglichen Kampagnen-Frames vollständig ab."

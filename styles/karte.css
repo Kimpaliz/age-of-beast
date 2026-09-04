@@ -83,6 +83,7 @@
      aus wie ein verwaschenes Foto. */
   image-rendering: pixelated;
   image-rendering: crisp-edges;
+  cursor: crosshair;
 }
 
 /* Beschriftungen liegen als eigene Ebene darueber — mitvergroesserte
@@ -91,6 +92,150 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
+}
+
+/* Die Markierungsebene darf das Bild nicht verdecken. Nur Stecknadeln
+   empfangen Zeigerereignisse, damit Klicks neben ihnen Koordinaten liefern. */
+.kartenmarken {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.karten-nadel {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  transform: translate(-50%, -100%);
+  display: block;
+  pointer-events: auto;
+  cursor: pointer;
+  touch-action: manipulation;
+  line-height: normal;
+  text-decoration: none;
+}
+
+.karten-nadel:focus-visible {
+  outline: 2px solid #fff8db;
+  outline-offset: 1px;
+  border-radius: 50%;
+}
+
+.nadel-sinnbild::before,
+.nadel-sinnbild::after {
+  content: "";
+  position: absolute;
+  display: block;
+  box-sizing: border-box;
+}
+
+.nadel-sinnbild::before {
+  width: 17px;
+  height: 17px;
+  top: 2px;
+  left: 13px;
+  border: 2px solid #fff3cf;
+  border-radius: 50%;
+  background: #c94e3b;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+}
+
+.nadel-sinnbild::after {
+  width: 2px;
+  height: 24px;
+  top: 16px;
+  left: 21px;
+  background: #fff3cf;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+.nadelname {
+  position: absolute;
+  left: 50%;
+  bottom: 41px;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 15rem;
+  padding: 0.28rem 0.42rem;
+  border: 1px solid rgba(255, 243, 207, 0.75);
+  border-radius: var(--radius-klein);
+  background: rgba(19, 22, 20, 0.94);
+  color: #fff8e8;
+  font-size: 0.76rem;
+  font-weight: 650;
+  line-height: 1.2;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.12s ease;
+}
+
+.karten-nadel:hover .nadelname,
+.karten-nadel:focus-visible .nadelname {
+  opacity: 1;
+  visibility: visible;
+}
+
+.karten-stadtmarke {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  line-height: normal;
+}
+
+.stadt-kreuz {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--kreuzlaenge);
+  height: var(--kreuzlaenge);
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.95));
+}
+
+.stadt-kreuz::before,
+.stadt-kreuz::after {
+  content: "";
+  position: absolute;
+  display: block;
+  border-radius: 1px;
+  background: #f6d96a;
+  box-shadow: 0 0 0 1px rgba(31, 25, 9, 0.92);
+}
+
+.stadt-kreuz::before {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: var(--kreuzdicke);
+  transform: translateY(-50%);
+}
+
+.stadt-kreuz::after {
+  top: 0;
+  left: 50%;
+  width: var(--kreuzdicke);
+  height: 100%;
+  transform: translateX(-50%);
+}
+
+.stadt-koordinate {
+  position: absolute;
+  left: 8px;
+  bottom: 7px;
+  width: max-content;
+  padding: 0.12rem 0.22rem;
+  border: 1px solid rgba(246, 217, 106, 0.6);
+  border-radius: 0.18rem;
+  background: rgba(19, 22, 20, 0.8);
+  color: #fff4bd;
+  font-size: 0.66rem;
+  font-weight: 650;
+  line-height: 1.2;
+  text-shadow: 0 1px 2px #000;
+  white-space: nowrap;
 }
 
 .gebietsname {
@@ -191,8 +336,25 @@
   color: var(--schrift-leise) !important;
 }
 
+.karten-hinweis,
+.karten-koordinate {
+  margin: 0.7rem 0 0;
+  color: var(--schrift-matt);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.karten-koordinate {
+  display: inline-block;
+  padding: 0.3rem 0.5rem;
+  border-left: 3px solid var(--akzent-rand);
+  background: color-mix(in srgb, var(--flaeche) 88%, transparent);
+  color: var(--schrift);
+}
+
 @media (max-width: 40rem) {
   .karten-inhalt { padding: 1rem 0.7rem 3rem; }
   .kartenrahmen { max-height: 60vh; }
   .gebietsname { font-size: 0.78rem; }
+  .stadt-koordinate { font-size: 0.6rem; }
 }

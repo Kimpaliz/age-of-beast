@@ -66,6 +66,26 @@ gespeicherten Wiki-Eintrag ist bewusst noch offen.
 Die Vorlagen lassen sich über den lokalen Vorschau-Server auch auf der neuen
 Seite `vorlagen.html` ausprobieren.
 
+## Stecknadeln auf der Weltkarte – 4. September 2026
+
+Auf der Weltkarte können Orte jetzt mit einer roten Stecknadel auf ihren
+Wiki-Eintrag zeigen. Den Namen sieht man beim Darüberfahren; auf dem Handy
+öffnet Antippen den Eintrag direkt.
+
+Die elf noch namenlosen Siedlungen bleiben sichtbar, sind aber klar anders
+markiert: als helle Kreuze. Je größer die Siedlung, desto dicker ist ihr
+Kreuz. Daneben steht jeweils die Koordinate zum Zuordnen.
+
+Ein Klick auf eine freie Stelle der Karte zeigt den passenden Kartenpunkt zum
+Abschreiben an. So kann später jeder neue Ort genau dort verknüpft werden.
+
+Zur Veranschaulichung gibt es zwei vorhandene Welt-Einträge mit Stecknadeln:
+den Kampagnen-Frame „Age of Beast“ und die Maschinisten. Die Daten enthalten
+zurzeit noch keine eigenen Orts- oder Regionseinträge; diese zwei Nadeln sind
+deshalb technische Beispiele und keine neu behaupteten Ortsfakten.
+
+---
+
 ## Nachtrag: die Veröffentlichung stand still – 4. September 2026
 
 Der Bau der Seite ist fehlgeschlagen — bei mir lief alles grün. Ursache

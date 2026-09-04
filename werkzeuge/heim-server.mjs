@@ -103,6 +103,7 @@ const OEFFENTLICHE_DATEIEN = new Set([
   'daten/daggerheart-gegenstaende.json',
   'werkzeuge/welt-dateien.mjs',
   'karte/karte-zeichnen.js',
+  'karte/welt-orte.mjs',
   'karte/karten-zeigen.js',
   'karte/bogen-zeigen.js',
   'karte/karten-daten.js',
