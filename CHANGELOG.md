@@ -7,6 +7,54 @@ Das Neueste steht immer oben.
 
 ---
 
+## Keine Karte wird mehr gescrollt – 4. September 2026
+
+**Was war:** Auf einer Karte („Warden of the Elements", Druide, Mastery)
+tauchte ein Rollbalken auf. Man musste in der Karte scrollen, um die
+Regel zu Ende zu lesen.
+
+**Woran es lag:** Die Schrift auf den Karten richtet sich nach der
+Textmenge, damit alle Karten gleich groß bleiben. Diese Abstufung war
+aber an Karten von 306 Pixeln Breite eingestellt. Je nach Fensterbreite
+werden die Karten schmaler — bei 265 Pixeln, der schmalsten Breite, die
+das Raster überhaupt erzeugt, brauchte der Text plötzlich mehr Zeilen.
+Genau dort liefen **sechs** Karten über.
+
+**Warum eine feinere Abstufung nicht gereicht hätte:** Die Zeichenzahl
+sagt nicht genau genug voraus, wie viel Platz ein Text braucht. Gemessen:
+Eine Karte mit 601 Zeichen brauchte eine kleinere Schrift als eine mit
+627 Zeichen — Überschriften, Absätze und lange Wörter wiegen schwerer als
+die bloße Menge.
+
+**Was jetzt passiert:** Jede Karte sieht selbst nach, ob ihr Text
+hineinpasst, und verkleinert die Schrift nur dann, und nur so weit wie
+nötig. Von 270 Karten müssen **12** überhaupt etwas tun; das Ganze dauert
+**29 Tausendstelsekunden**. Bei allen zehn geprüften Fensterbreiten:
+**keine einzige Karte** mit Rollbalken. Wird das Fenster wieder breiter,
+wird die Schrift auch wieder größer.
+
+Der Rollbalken bleibt als allerletzter Ausweg bestehen. Text einfach
+abzuschneiden wäre schlimmer: Am Spieltisch ist eine Regel, die man nicht
+sieht, gefährlicher als eine, die man wegscrollen muss.
+
+---
+
+## Die Spielregeln des Wikis und von Scotophobia beißen sich nicht mehr – 4. September 2026
+
+Das Wiki ist an diesem Tag **viermal** ausgefallen, einmal nur gut eine
+Minute nach einer Reparatur. Der Grund war keine davon: Wiki und
+Scotophobia liegen in derselben Datenbank, und die hat nur **ein**
+Regelblatt. Bei Scotophobia lag eine unvollständige Fassung; jedes Mal,
+wenn dort veröffentlicht wurde, verschwanden die Regeln des Wikis. Beim
+Veröffentlichen sah alles gut aus — kaputt war es erst beim nächsten
+Aufruf der Seite.
+
+**Jetzt haben beide Projekte dasselbe vollständige Regelblatt.** Es ist
+egal geworden, wer zuletzt veröffentlicht. Beide Seiten prüfen das
+außerdem gegenseitig nach, damit es nicht wieder auseinanderläuft.
+
+---
+
 ## Ordnung im Projekt – 4. September 2026
 
 **Am Wiki selbst ändert sich nichts.** Keine Seite sieht anders aus, kein
