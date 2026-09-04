@@ -61,6 +61,16 @@ Werts gelesen wurde. Lookbehind und Zeilengrenze aus der Skill-Fassung
 `const PASSWORD = "…"` schlägt weiterhin an (Rückgabewert 1), der
 Feldname allein nicht.
 
+### Ein eigener Fehler in der Erweiterung
+
+Die Übersicht zeigte **#11 zweimal** — einmal unter „Wünsche", einmal
+unter „Phasen", weil ein Wunsch beide Label trägt. Gezählt hätte man
+einen Vorgang zu viel. Behoben: Wünsche werden zuerst ausgegeben und
+danach von den Phasen abgezogen; die Summe stimmt jetzt (1 + 3 + 6 = 10).
+
+Aufgefallen ist es nur, weil ich die Ausgabe nach dem Push noch einmal
+gelesen habe statt sie für fertig zu halten.
+
 ### Rot-Beweise
 
 `pruefe-vorgaenge` dreimal: Nummer entfernt · Nummer doppelt vergeben ·
