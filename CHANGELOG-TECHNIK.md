@@ -10,6 +10,45 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ## [Unveröffentlicht]
 
+### Hinzugefügt
+
+- **Spielwerte fuer Brix Borin** (`character-aob-xeno-sc`). Quelle ist
+  die Werkstattfigur `werkstatt-figur-brix-borin` (Klasse, Unterklasse,
+  Abstammung, Gemeinschaft, Attribute, Ausweichen, Ausruestung, Karten);
+  die Klassenzahlen — Domaenen Midnight/Grace, HP 6, Basis-Ausweichen 12,
+  `Rogue's Dodge`, `Cloaked & Sneak Attack`, Zauberattribut Finesse —
+  aus `docs/daggerheart/REGELN-GRUNDLAGEN.md`, Zeile Rogue.
+  **Zwei Gegenproben gingen auf:** Ausweichen 13 = Rogue-Basis 12 + 1
+  durch das Gambeson-Merkmal *Flexible*; und die zwei Karten sind je eine
+  aus seinen zwei Domaenen, beide Stufe 1.
+- **Steckbrief und Verbindungen.** Neun Attributzeilen statt drei; neue
+  Verbindungen zum Baubogen, zu Lukas und zum Volk `species-dh-ribbet`.
+  Zwei Abschnitte aus dem Baubogen uebernommen (Erscheinung, Hintergrund).
+
+### Behoben
+
+- **`Spieler: Lukas` auf Xenos Figur** — Rest der urspruenglichen
+  Fehlzuordnung. Ebenso `Charaktername: Noch nicht festgelegt` und der
+  Abschnitt „Noch offene Angaben", der Volk, Gemeinschaft, Klasse und
+  Hintergrund als offen fuehrte, obwohl sie seit dem 01.09. vorlagen.
+- **Fuerwort durchgehend `sie` statt `er`** in Titel und Text des
+  Abschnitts „Was am Tisch ueber ihn bekannt ist".
+- **Schadensschwellen ohne Stufenbonus.** Die Regel lautet „Grundwert der
+  Ruestung **plus eigene Stufe**"; im Bogen standen die Grundwerte der
+  Ruestungstabelle. `spielwerte.ruestung` traegt jetzt `basisSchwer` /
+  `basisErnst`, der Bogen rechnet und schreibt die Herkunft darunter.
+  Lukas 6/13 → **7/14**, Brix 5/11 → **6/12**.
+  Neu im Bogen: `fuerwort`, `klassengegenstand`, `ruestung.merkmal` —
+  letzteres erklaert, warum das Ausweichen von der Klassenbasis abweicht;
+  ohne die Zeile saehe der Wert nach einem Tippfehler aus.
+
+### Bekannt
+
+- **Zwei Eintraege heissen „Brix Borin"** (Figur und Baubogen). Bewusst
+  nicht zusammengelegt: Der Werkstatteintrag entsteht beim naechsten
+  Import neu. Sie sind stattdessen ueber die Verbindung „Baubogen"
+  verknuepft. `Clank` ist aus demselben Grund doppelt.
+
 ### Behoben
 
 - **Zweispaltiges Kartenraster unter 30rem.** `minmax(12rem, 1fr)` ergab
