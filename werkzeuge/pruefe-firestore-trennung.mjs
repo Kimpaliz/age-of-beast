@@ -483,6 +483,36 @@ if (existsSync(formatDatei)) {
 }
 
 /* ------------------------------------------------------------------ *
+   Kein zerrissener Kommentar
+
+   Am 04.09.2026 wurde diese Datei aus Scotophobias Fassung neu gebaut,
+   und der Schnitt begann mitten in einem Kommentarblock: Das oeffnende
+   „/*" fehlte, das schliessende blieb stehen. Firestore las den
+   Kommentartext daraufhin als Code und wies die ganze Datei ab.
+
+   Eine blosse Zaehlung von „/*" gegen „*\/" haette das nicht gefangen —
+   sie war ausgeglichen, weil ein neu geschriebener Kommentar das fehlende
+   Zeichenpaar zufaellig ausglich. Gezaehlt wird deshalb der Reihe nach:
+   Ein „*\/" ohne offenen Kommentar ist ein Fehler, und am Dateiende darf
+   kein Kommentar offen sein.
+   ------------------------------------------------------------------ */
+
+{
+  const text = regeltext.replace(/\r\n/gu, '\n');
+  let offen = false;
+  let zerrissen = 0;
+  let verwaist = 0;
+  for (let i = 0; i < text.length - 1; i += 1) {
+    if (!offen && text[i] === '/' && text[i + 1] === '*') { offen = true; i += 1; continue; }
+    if (offen && text[i] === '*' && text[i + 1] === '/') { offen = false; i += 1; continue; }
+    if (!offen && text[i] === '*' && text[i + 1] === '/') { verwaist += 1; i += 1; }
+  }
+  if (offen) zerrissen += 1;
+  pruefe(verwaist === 0, 'In firestore.rules stehen ' + verwaist + ' schliessende Kommentarzeichen ohne oeffnendes. Der Text davor wird als Code gelesen, und Firebase weist die Datei ab.');
+  pruefe(zerrissen === 0, 'In firestore.rules bleibt am Ende ein Kommentar offen. Alles danach wuerde verschluckt.');
+}
+
+/* ------------------------------------------------------------------ *
    Ergebnis
    ------------------------------------------------------------------ */
 

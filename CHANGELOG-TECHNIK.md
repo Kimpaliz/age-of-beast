@@ -17,10 +17,12 @@ Schreibweg entfällt.
 
 ### Warum
 
-Der Schreibweg aus 2.0.0 funktionierte, wurde aber nie benutzt: Ein
-fein zugeschnittener GitHub-Token musste von Hand erzeugt und in den Browser
-kopiert werden. Damit stand zwischen „Text ändern" und „Text ändern können"
-eine Hürde, die niemand genommen hat.
+Der Schreibweg aus 2.0.0 funktionierte — am 01.09.2026 wurde darüber
+gespeichert (Commit `0f09f40`, nur Zeitstempel im Diff). Die Hürde war der
+Token selbst: fein zuschneiden, von Hand erzeugen, in den Browser kopieren.
+Für einen einzelnen Bearbeiter machbar, für jeden weiteren dieselbe Prozedur —
+und der Token liegt danach im Browser statt bei einem Anbieter, der ihn
+erneuern kann.
 
 Der Grund für diese Bauart war real: Auf reinem Statik-Hosting gibt es keine
 Stelle, die eine Anmeldung nachprüfen könnte. Firebase ist genau diese Stelle.
@@ -128,6 +130,44 @@ toten Stile des früheren Schlüsseldialogs. Beim Nachziehen eines Kommentars
 in dieser Fassung ist die Prüfung angeschlagen; die Änderung wurde
 zurückgenommen. Sauber wäre, den historischen Beweis gegen den Git-Stand des
 Aufteilungs-Commits zu führen statt gegen die Arbeitskopie.
+
+### Der Zwischenfall vom 04.09.2026 — die Falle ist eingetreten
+
+Zwischen dem ersten Deploy (02.09.) und dem Zusammenführen nach `main`
+wurde Scotophobias Teilfassung veröffentlicht. Folge: Die Wiki-Regeln waren
+weg, jeder Lesezugriff auf `wiki_welt` antwortete mit 403. Bemerkt beim
+Abgleich vor dem Merge, nicht durch eine Meldung — der Deploy selbst hatte
+Erfolg gemeldet.
+
+Umgekehrt war die Wiki-Datei inzwischen ebenfalls veraltet: Scotophobia hatte
+acht Hilfsfunktionen und zwei Sammlungen (`feedbackbewertungen`,
+`feedbackquoten`) dazubekommen, die Regeldatei war von 4.822 auf 11.198
+Zeichen gewachsen. **Ein Deploy der Wiki-Fassung hätte nun umgekehrt
+Scotophobia beschädigt** — und genau das hat `pruefe-firestore-trennung.mjs`
+verhindert: elf Meldungen, Rückgabewert 1.
+
+Behoben, indem die Datei aus Scotophobias aktueller Fassung neu gebaut wurde.
+Der Wiki-Teil wird dabei geschnitten, nie abgetippt.
+
+### Ein eigener Fehler beim Neubau
+
+Der erste Neubau wurde von Firebase abgelehnt (`INVALID_ARGUMENT`, ohne
+Zeilenangabe). Ursache: Der Schnitt suchte nach `/* ══` mit
+Unicode-Doppelstrichen, in der Datei stehen gewöhnliche Gleichheitszeichen.
+Der Rückfall traf eine Zeile **innerhalb** des Kommentars — das öffnende
+`/*` fehlte, das schließende blieb stehen, und Firestore las den
+Kommentartext als Code.
+
+**Die Klammerbilanz war dabei ausgeglichen und hat nichts gemerkt:** 16 zu 16,
+weil der neu geschriebene Trennkommentar das fehlende Zeichenpaar zufällig
+ersetzte. Eine ausgeglichene Bilanz beweist keine heile Struktur.
+
+Der Wächter zählt jetzt der Reihe nach statt in Summe: Ein `*/` ohne offenen
+Kommentar ist ein Fehler. Rot bewiesen an genau dieser Beschädigung.
+
+Der Schnitt selbst sucht den Anfang nicht mehr über eine Zeichenfolge, sondern
+über die Struktur — das letzte `/*` vor der ersten Wiki-Funktion — und prüft
+danach, dass das Stück in sich geschlossen ist.
 
 ### Nicht entfernt
 

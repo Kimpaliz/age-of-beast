@@ -1,56 +1,25 @@
-/* ===================================================================
-   Eine Datei, zwei Anwendungen — bitte vor jeder Änderung lesen
-   ===================================================================
+/* Scotophobia besitzt drei ausdrücklich begrenzte Firestore-Sammlungen:
 
-   Das Firebase-Projekt kampagnenrahmen-jt hat genau eine
-   Firestore-Datenbank, und eine Datenbank hat genau eine Regeldatei. Es
-   gibt keinen zweiten Platz: Eine zweite Datenbank setzt den Blaze-Plan
-   voraus, dieses Projekt läuft im kostenlosen Spark-Plan.
+   - zugriffsanfragen: Ein Google-Konto beantragt einmalig den Zugang.
+     Nur das verifizierte Admin-Konto darf alle offenen Anfragen lesen und
+     von „offen“ auf „bestaetigt“ setzen.
+   - rueckmeldungen und feedbackquoten: Nur freigeschaltete Konten dürfen
+     atomar bis zu drei Rückmeldungen je Berliner Kalenderwoche schreiben.
+     Nur das verifizierte Admin-Konto liest die privaten Nachrichten.
+   - feedbackbewertungen: Der Admin schreibt eine vollständige, neutrale
+     Roadmap-Bewertung. Freigeschaltete Konten lesen ausschließlich deren
+     angenommene Fassung, nie Namen oder Originaltexte.
+   - spielstaende: Nur freigeschaltete Konten lesen oder schreiben ihren
+     eigenen Pfad.
 
-   Daraus folgt die Falle, an der hier alles hängt. Wer aus dem
-   Wiki-Repository firebase deploy --only firestore:rules ausführt,
-   überschreibt damit auch Scotophobias Regeln. Stünden hier nur
-   Wiki-Regeln, wären Spielstände, Rückmeldungen und Freigaben von
-   Scotophobia im selben Augenblick unlesbar — ohne Warnung, ohne
-   Fehlermeldung im Deploy, nur mit einem Spiel, das seine Daten nicht
-   mehr findet.
-
-   Deshalb enthält diese Datei beide Anwendungen, und deshalb wacht
-   werkzeuge/pruefe-firestore-trennung.mjs darüber. Die Prüfung liest
-   Scotophobias eigene Regeldatei und vergleicht Wort für Wort. Wer hier
-   einen Scotophobia-Block entfernt, bekommt einen roten Lauf statt eines
-   stillen Ausfalls.
-
-   Der zweite Grundsatz ist die Trennung. Beide Anwendungen teilen sich
-   die Datei, aber keine einzige Bedingung: Jede hat eigene
-   Hilfsfunktionen und ihre eigene Freigabesammlung. Wer bei Scotophobia
-   freigeschaltet ist, darf dadurch nicht das Wiki bearbeiten — und wer
-   das Wiki bearbeiten darf, kommt dadurch nicht an fremde Spielstände.
-   =================================================================== */
+   Damit ist die Freigabe nicht nur eine Browseranzeige. Ein nicht
+   bestätigtes Konto kann die Seite verändern, wie es will, erhält aber von
+   Firestore weder Schreib- noch Leserechte für Spielzustand und Feedback. */
 
 rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-
-    /* ==================================================================
-       Scotophobia
-       ================================================================== */
-
-    /* Scotophobia besitzt drei ausdrücklich begrenzte Firestore-Sammlungen:
-
-       - zugriffsanfragen: Ein Google-Konto beantragt einmalig den Zugang.
-         Nur das verifizierte Admin-Konto darf alle offenen Anfragen lesen und
-         von „offen“ auf „bestaetigt“ setzen.
-       - rueckmeldungen: Nur freigeschaltete Konten dürfen schreiben; niemand
-         liest oder verändert die Nachrichten über die App.
-       - spielstaende: Nur freigeschaltete Konten lesen oder schreiben ihren
-         eigenen Pfad.
-
-       Damit ist die Freigabe nicht nur eine Browseranzeige. Ein nicht
-       bestätigtes Konto kann die Seite verändern, wie es will, erhält aber von
-       Firestore weder Schreib- noch Leserechte für Spielzustand und Feedback. */
-
     function angemeldet() {
       return request.auth != null;
     }
@@ -70,6 +39,102 @@ service cloud.firestore {
               .data.status == 'bestaetigt'
         )
       );
+    }
+
+    /* Der Wochen-Schlüssel ist immer Montag, 00:00 Uhr in Berlin. Er wird
+       als Datum bei 00:00 UTC gespeichert, damit Browser und Regel dieselbe
+       einfache Zahl vergleichen können. Die Sommerzeit beginnt und endet in
+       Berlin am letzten Sonntag im März beziehungsweise Oktober, jeweils
+       01:00 UTC. */
+    function letzterSonntag(jahr, monat) {
+      let monatsende = timestamp.date(jahr, monat, 31);
+      let versatz = monatsende.dayOfWeek() == 7 ? 0 : monatsende.dayOfWeek();
+      return monatsende - duration.value(versatz, 'd');
+    }
+
+    function istBerlinerSommerzeit() {
+      let jahr = request.time.year();
+      let beginn = letzterSonntag(jahr, 3) + duration.value(1, 'h');
+      let ende = letzterSonntag(jahr, 10) + duration.value(1, 'h');
+      return request.time >= beginn && request.time < ende;
+    }
+
+    function feedbackWoche() {
+      let berlin = request.time + duration.value(istBerlinerSommerzeit() ? 2 : 1, 'h');
+      return berlin.date() - duration.value(berlin.dayOfWeek() - 1, 'd');
+    }
+
+    function quoteDatenGueltig(daten) {
+      return daten.keys().hasOnly(['wochenbeginn', 'eintraege', 'aktualisiertAm'])
+        && daten.keys().hasAll(['wochenbeginn', 'eintraege', 'aktualisiertAm'])
+        && daten.wochenbeginn is timestamp
+        && daten.eintraege is map
+        && daten.eintraege.keys().size() > 0
+        && daten.eintraege.keys().size() <= 3
+        && daten.aktualisiertAm == request.time;
+    }
+
+    function quoteWurdeNeuAngelegt(konto, eintrag) {
+      let quote = getAfter(/databases/$(database)/documents/feedbackquoten/$(konto)).data;
+      return !exists(/databases/$(database)/documents/feedbackquoten/$(konto))
+        && quoteDatenGueltig(quote)
+        && quote.wochenbeginn == feedbackWoche()
+        && quote.eintraege.keys().hasOnly([eintrag])
+        && quote.eintraege[eintrag] == true;
+    }
+
+    function quoteWurdeErweitert(konto, eintrag) {
+      let vorher = get(/databases/$(database)/documents/feedbackquoten/$(konto)).data;
+      let nachher = getAfter(/databases/$(database)/documents/feedbackquoten/$(konto)).data;
+      let aenderung = nachher.eintraege.diff(vorher.eintraege);
+      return quoteDatenGueltig(nachher)
+        && vorher.wochenbeginn == feedbackWoche()
+        && nachher.wochenbeginn == feedbackWoche()
+        && aenderung.addedKeys().hasOnly([eintrag])
+        && aenderung.addedKeys().size() == 1
+        && aenderung.removedKeys().size() == 0
+        && aenderung.changedKeys().size() == 0
+        && nachher.eintraege[eintrag] == true;
+    }
+
+    function feedbackQuoteStimmt(konto, eintrag) {
+      return existsAfter(/databases/$(database)/documents/feedbackquoten/$(konto))
+        && (
+          quoteWurdeNeuAngelegt(konto, eintrag)
+          || (exists(/databases/$(database)/documents/feedbackquoten/$(konto))
+            && quoteWurdeErweitert(konto, eintrag))
+        );
+    }
+
+    function istGueltigeFeedbackBewertung(daten) {
+      return daten.keys().hasOnly([
+          'status', 'art', 'titel', 'zusammenfassung', 'klassifikation',
+          'wichtigkeit', 'komplexitaet', 'schritte', 'bewertetVon', 'bewertetAm'
+        ])
+        && daten.keys().hasAll([
+          'status', 'art', 'titel', 'zusammenfassung', 'klassifikation',
+          'wichtigkeit', 'komplexitaet', 'schritte', 'bewertetVon', 'bewertetAm'
+        ])
+        && daten.status == 'angenommen'
+        && daten.art in ['Nutzerwunsch', 'Nutzeranregung', 'Nutzer-Bugmeldung']
+        && daten.titel is string
+        && daten.titel.size() >= 3
+        && daten.titel.size() <= 140
+        && daten.zusammenfassung is string
+        && daten.zusammenfassung.size() >= 10
+        && daten.zusammenfassung.size() <= 600
+        && daten.klassifikation in ['Gameplay', 'Engine', 'Gemischt']
+        && daten.wichtigkeit is int
+        && daten.wichtigkeit >= 1
+        && daten.wichtigkeit <= 5
+        && daten.komplexitaet is int
+        && daten.komplexitaet >= 1
+        && daten.komplexitaet <= 5
+        && daten.schritte is list
+        && daten.schritte.size() >= 1
+        && daten.schritte.size() <= 4
+        && daten.bewertetVon == request.auth.uid
+        && daten.bewertetAm == request.time;
     }
 
     /* ── Einmalige Zugriffsanfrage ────────────────────────────────── */
@@ -106,15 +171,15 @@ service cloud.firestore {
       allow delete: if false;
     }
 
-    /* ── Rückmeldungen ────────────────────────────────────────────── */
+    /* ── Rückmeldungen und Wochenkonto ─────────────────────────────── */
     match /rueckmeldungen/{eintrag} {
-      allow read: if false;
+      allow read: if istAdmin();
       allow create: if istFreigeschaltet()
         && request.resource.data.keys().hasOnly([
-          'konto', 'name', 'art', 'text', 'fassung', 'geraet', 'angekommen'
+          'konto', 'name', 'art', 'text', 'fassung', 'geraet', 'wochenbeginn', 'angekommen'
         ])
         && request.resource.data.keys().hasAll([
-          'konto', 'name', 'art', 'text', 'fassung', 'geraet', 'angekommen'
+          'konto', 'name', 'art', 'text', 'fassung', 'geraet', 'wochenbeginn', 'angekommen'
         ])
         && request.resource.data.konto == request.auth.uid
         && request.resource.data.name is string
@@ -128,8 +193,55 @@ service cloud.firestore {
         && request.resource.data.fassung.size() <= 80
         && request.resource.data.geraet is string
         && request.resource.data.geraet.size() <= 40
+        && request.resource.data.wochenbeginn == feedbackWoche()
+        && feedbackQuoteStimmt(request.auth.uid, eintrag)
         && request.resource.data.angekommen == request.time;
       allow update, delete: if false;
+    }
+
+    /* Eine Bewertung ist die harte Grenze zwischen privatem Eingang und
+       öffentlicher Roadmap. Das Formular kann „angenommen" nur mit allen
+       Feldern absenden; die Regel erzwingt denselben Vertrag serverseitig. */
+    match /feedbackbewertungen/{eintrag} {
+      allow get, list: if istAdmin()
+        || (istFreigeschaltet() && resource.data.status == 'angenommen');
+      allow create: if istAdmin()
+        && exists(/databases/$(database)/documents/rueckmeldungen/$(eintrag))
+        && istGueltigeFeedbackBewertung(request.resource.data);
+      allow update: if istAdmin()
+        && istGueltigeFeedbackBewertung(request.resource.data);
+      allow delete: if false;
+    }
+
+    match /feedbackquoten/{konto} {
+      allow get: if istFreigeschaltet() && request.auth.uid == konto;
+      allow list: if false;
+      allow create: if istFreigeschaltet()
+        && request.auth.uid == konto
+        && quoteDatenGueltig(request.resource.data)
+        && request.resource.data.wochenbeginn == feedbackWoche()
+        && request.resource.data.eintraege.keys().size() == 1;
+      allow update: if istFreigeschaltet()
+        && request.auth.uid == konto
+        && quoteDatenGueltig(request.resource.data)
+        && (
+          (
+            resource.data.wochenbeginn == feedbackWoche()
+            && request.resource.data.wochenbeginn == feedbackWoche()
+            && request.resource.data.eintraege.diff(resource.data.eintraege)
+              .addedKeys().size() == 1
+            && request.resource.data.eintraege.diff(resource.data.eintraege)
+              .removedKeys().size() == 0
+            && request.resource.data.eintraege.diff(resource.data.eintraege)
+              .changedKeys().size() == 0
+          )
+          || (
+            resource.data.wochenbeginn < feedbackWoche()
+            && request.resource.data.wochenbeginn == feedbackWoche()
+            && request.resource.data.eintraege.keys().size() == 1
+          )
+        );
+      allow delete: if false;
     }
 
     /* ── Spielstände ──────────────────────────────────────────────── */
@@ -137,6 +249,24 @@ service cloud.firestore {
       allow read, write: if istFreigeschaltet() && request.auth.uid == konto;
     }
 
+    /* ==================================================================
+       Ab hier: Age-of-Beast-Wiki
+       ==================================================================
+
+       Alles oberhalb gehoert Scotophobia und stammt Zeichen fuer Zeichen
+       aus dessen eigener Regeldatei. Diese Datei wird nicht von Hand
+       gepflegt, sondern aus Scotophobias Fassung neu gebaut.
+
+       Warum beide in einer Datei stehen: Firestore hat pro Datenbank
+       genau eine Regeldatei, und der Spark-Plan erlaubt keine zweite
+       Datenbank. Wer nur die Regeln einer der beiden Anwendungen
+       veroeffentlicht, schaltet die andere ab.
+
+       Das ist am 04.09.2026 tatsaechlich passiert: Scotophobias
+       Teilfassung wurde deployt, und das Wiki konnte seine eigenen
+       Daten nicht mehr lesen. Vor jedem Deploy deshalb
+       node werkzeuge/pruefe-firestore-trennung.mjs ausfuehren.
+       ================================================================== */
     /* ==================================================================
        Age-of-Beast-Wiki
        ==================================================================
@@ -272,10 +402,8 @@ service cloud.firestore {
       allow delete: if false;
     }
 
-    /* Der Riegel bleibt der letzte Block der Datei. Er schließt alles,
-       was oben nicht ausdrücklich genannt ist — auch eine Sammlung, die
-       morgen jemand versehentlich anlegt. Neue Sammlungen des Wikis
-       tragen das Praefix wiki_ und stehen über diesem Riegel. */
+    /* Andere Anwendungen im Firebase-Projekt verwenden Firestore nicht.
+       Jede nicht ausdrücklich genannte Sammlung bleibt geschlossen. */
     match /{document=**} {
       allow read, write: if false;
     }

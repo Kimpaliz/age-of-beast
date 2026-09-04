@@ -137,7 +137,8 @@ Gespeichert wird in Firestore.
 
 Mehr ist nicht nötig. Bis Fassung 2.x brauchte es einen selbst erzeugten
 GitHub-Schlüssel — anlegen, richtig zuschneiden, in den Browser kopieren.
-Genau daran ist der Weg gescheitert: Über ihn wurde nie ein Text gespeichert.
+Der Weg funktionierte, aber jeder weitere Mitschreiber hätte denselben
+Aufwand gehabt.
 
 ### Wer bearbeiten darf
 

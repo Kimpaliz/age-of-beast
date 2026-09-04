@@ -7,10 +7,11 @@
    Was sich gegenüber Fassung 2 geändert hat und warum
 
    Vorher lag die Welt als Datei im GitHub-Repository, und wer sie ändern
-   wollte, brauchte einen selbst erzeugten GitHub-Schlüssel. Das
-   funktionierte, aber der Schlüssel war die Hürde: Er musste von Hand
-   angelegt, richtig zugeschnitten und in den Browser kopiert werden.
-   Deshalb ist über diesen Weg nie ein einziger Text gespeichert worden.
+   wollte, brauchte einen selbst erzeugten GitHub-Schlüssel. Der Weg
+   funktionierte — am 01.09.2026 wurde darüber gespeichert (Commit
+   0f09f40) —, aber der Schlüssel blieb die Hürde: Er musste von Hand
+   angelegt, richtig zugeschnitten und in den Browser kopiert werden, und
+   das für jeden, der je mitschreiben soll.
 
    Ein Google-Knopf ging damals nicht: GitHub Pages liefert nur Dateien
    aus, es gibt dort keine Stelle, die eine Anmeldung nachprüfen könnte.

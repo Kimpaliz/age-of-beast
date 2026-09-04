@@ -15,8 +15,10 @@ Google-Fenster, fertig.
 ### Warum das nötig war
 
 Bis jetzt brauchte das Bearbeiten einen selbst erzeugten GitHub-Schlüssel:
-anlegen, richtig zuschneiden, kopieren, in den Browser einfügen. Das war die
-Hürde — **über diesen Weg ist nie ein einziger Text gespeichert worden.**
+anlegen, richtig zuschneiden, kopieren, in den Browser einfügen. Der Weg
+funktionierte — am 1. September ist darüber gespeichert worden —, aber der
+Schlüssel bleibt die Hürde: **Jeder, der je mitschreiben soll, müsste sich
+einen eigenen anlegen.**
 
 Ein Google-Knopf ging vorher technisch nicht. GitHub Pages liefert nur Dateien
 aus; dort läuft kein Programm, das eine Anmeldung nachprüfen könnte. Ein Knopf
@@ -63,6 +65,20 @@ Programmbibliothek. Die wird erst geholt, wenn sich jemand anmeldet.
 
 Jeder Browser merkt sich die zuletzt geholte Welt. Beim nächsten Aufruf fragt
 er zuerst nur nach, ob sich etwas geändert hat — ein Abruf statt zehn.
+
+### Was dabei schiefging — und warum es aufgefallen ist
+
+Zwischen dem Einrichten und dem Veröffentlichen hat jemand Scotophobias
+Regeln allein veröffentlicht. **Genau der Fall, vor dem die Prüfung warnt:**
+Das Wiki konnte seine Daten nicht mehr lesen.
+
+Umgekehrt wäre es genauso passiert — Scotophobia hatte inzwischen neue Regeln
+bekommen, die in meiner Datei fehlten. Die Prüfung hat das abgefangen und den
+Deploy verweigert, bis beide Teile aktuell waren.
+
+Beim Zusammenbauen ist mir dann noch ein Fehler unterlaufen: Ich habe mitten
+aus einem Kommentar heraus geschnitten. Firebase lehnte die Datei ab, ohne zu
+sagen, wo. Die Prüfung merkt jetzt auch das.
 
 ### Wer bearbeiten darf
 
