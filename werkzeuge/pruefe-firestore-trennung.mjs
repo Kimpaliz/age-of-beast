@@ -31,10 +31,13 @@ const REGELDATEI = join(WURZEL, 'firestore.rules');
 /* Scotophobia liegt in einem eigenen Repository neben diesem. Der Pfad ist
    nicht fest verdrahtet: Wer die Ordner anders ablegt, setzt
    SCOTOPHOBIA_REGELN und muss diese Datei nicht anfassen. */
-const SCOTOPHOBIA_KANDIDATEN = [
-  process.env.SCOTOPHOBIA_REGELN,
-  join(WURZEL, '..', 'Granithoehle', 'firestore.rules'),
-].filter(Boolean);
+/* Ist die Variable gesetzt, gilt ausschliesslich sie. Sonst wuerde ein
+   absichtlich falscher Pfad stillschweigend vom Standardort ueberholt —
+   und man koennte nie pruefen, wie sich die Pruefung ohne Vergleichsquelle
+   verhaelt. */
+const SCOTOPHOBIA_KANDIDATEN = process.env.SCOTOPHOBIA_REGELN
+  ? [process.env.SCOTOPHOBIA_REGELN]
+  : [join(WURZEL, '..', 'Granithoehle', 'firestore.rules')];
 
 /* Die Sammlungen von Scotophobia werden nicht aufgezaehlt, sondern aus
    dessen Regeldatei gelesen. Eine vierte Sammlung dort waere sonst eine
@@ -172,7 +175,13 @@ function pruefeRegeln(regeltext, scotoText) {
   };
 
   const maske = maskiere(regeltext);
-  const scotoMaske = maskiere(scotoText);
+
+  /* Ohne Vergleichsquelle (nur auf dem Bauserver, siehe oben) werden die
+     Namen der fremden Bloecke aus dieser Datei selbst abgeleitet: alles,
+     was nicht mit `wiki` beginnt. Der Wortgleichheitsvergleich entfaellt
+     dann — die Trennung bleibt prueffbar, die Vollstaendigkeit nicht. */
+  const mitVergleich = typeof scotoText === 'string' && scotoText.length > 0;
+  const scotoMaske = mitVergleich ? maskiere(scotoText) : maske;
 
   /* --- 0. Grundform ------------------------------------------------ */
 
@@ -192,31 +201,41 @@ function pruefeRegeln(regeltext, scotoText) {
 
   /* --- 1. Scotophobia vollstaendig und unveraendert ----------------- */
 
-  const scotoFunktionen = funktionsnamenLesen(scotoMaske);
-  const scotoSammlungen = sammlungenLesen(scotoMaske);
+  const scotoFunktionen = mitVergleich
+    ? funktionsnamenLesen(scotoMaske)
+    : funktionsnamenLesen(maske).filter((n) => !/^(?:wiki|istWiki)/u.test(n));
+  const scotoSammlungen = mitVergleich
+    ? sammlungenLesen(scotoMaske)
+    : sammlungenLesen(maske).filter((n) => !n.startsWith('wiki_'));
 
-  p(scotoFunktionen.length > 0, 'In Scotophobias Regeldatei wurde keine einzige Hilfsfunktion gefunden. Die Vergleichsquelle ist damit unbrauchbar.');
-  p(scotoSammlungen.length > 0, 'In Scotophobias Regeldatei wurde keine einzige Sammlung gefunden. Die Vergleichsquelle ist damit unbrauchbar.');
+  p(scotoFunktionen.length > 0, mitVergleich
+    ? 'In Scotophobias Regeldatei wurde keine einzige Hilfsfunktion gefunden. Die Vergleichsquelle ist damit unbrauchbar.'
+    : 'In firestore.rules steht keine einzige fremde Hilfsfunktion. Scotophobia fehlt dann vollstaendig.');
+  p(scotoSammlungen.length > 0, mitVergleich
+    ? 'In Scotophobias Regeldatei wurde keine einzige Sammlung gefunden. Die Vergleichsquelle ist damit unbrauchbar.'
+    : 'In firestore.rules steht keine einzige fremde Sammlung. Scotophobia fehlt dann vollstaendig.');
 
   const WARNUNG = ' Ein Deploy dieser Datei wuerde Scotophobia abschalten: Spielstaende, Rueckmeldungen und Freigaben waeren sofort unlesbar.';
 
-  for (const name of scotoFunktionen) {
-    const dort = blockLesen(scotoText, scotoMaske, funktionMuster(name));
-    const hier = blockLesen(regeltext, maske, funktionMuster(name));
-    p(hier !== null, 'Die Hilfsfunktion ' + name + '() von Scotophobia fehlt in firestore.rules.' + WARNUNG);
-    if (hier && dort) {
-      p(normalisiere(hier.text) === normalisiere(dort.text),
-        'Die Hilfsfunktion ' + name + '() weicht von Scotophobias Fassung ab. Bedingungen dort duerfen hier nicht veraendert werden.' + WARNUNG);
+  if (mitVergleich) {
+    for (const name of scotoFunktionen) {
+      const dort = blockLesen(scotoText, scotoMaske, funktionMuster(name));
+      const hier = blockLesen(regeltext, maske, funktionMuster(name));
+      p(hier !== null, 'Die Hilfsfunktion ' + name + '() von Scotophobia fehlt in firestore.rules.' + WARNUNG);
+      if (hier && dort) {
+        p(normalisiere(hier.text) === normalisiere(dort.text),
+          'Die Hilfsfunktion ' + name + '() weicht von Scotophobias Fassung ab. Bedingungen dort duerfen hier nicht veraendert werden.' + WARNUNG);
+      }
     }
-  }
 
-  for (const name of scotoSammlungen) {
-    const dort = blockLesen(scotoText, scotoMaske, sammlungMuster(name));
-    const hier = blockLesen(regeltext, maske, sammlungMuster(name));
-    p(hier !== null, 'Der Block match /' + name + '/ von Scotophobia fehlt in firestore.rules.' + WARNUNG);
-    if (hier && dort) {
-      p(normalisiere(hier.text) === normalisiere(dort.text),
-        'Der Block match /' + name + '/ weicht von Scotophobias Fassung ab. Seine Bedingungen duerfen hier nicht veraendert werden.' + WARNUNG);
+    for (const name of scotoSammlungen) {
+      const dort = blockLesen(scotoText, scotoMaske, sammlungMuster(name));
+      const hier = blockLesen(regeltext, maske, sammlungMuster(name));
+      p(hier !== null, 'Der Block match /' + name + '/ von Scotophobia fehlt in firestore.rules.' + WARNUNG);
+      if (hier && dort) {
+        p(normalisiere(hier.text) === normalisiere(dort.text),
+          'Der Block match /' + name + '/ weicht von Scotophobias Fassung ab. Seine Bedingungen duerfen hier nicht veraendert werden.' + WARNUNG);
+      }
     }
   }
 
@@ -359,10 +378,27 @@ if (!existsSync(REGELDATEI)) {
 }
 
 const scotoPfad = SCOTOPHOBIA_KANDIDATEN.find((p) => existsSync(p));
-if (!scotoPfad) {
-  /* Ohne Vergleichsquelle ist diese Pruefung wertlos. Sie darf dann nicht
-     gruen werden, sondern muss laut scheitern: Ein stiller Erfolg wuerde
-     genau die Sicherheit vortaeuschen, um derentwillen es sie gibt. */
+
+/* Fehlt die Vergleichsquelle, ist der Wortgleichheitsvergleich unmoeglich.
+   Was dann richtig ist, haengt davon ab, wo die Pruefung laeuft:
+
+   **Auf einem Arbeitsplatz** ist ihr Fehlen ein Fehler. Dort liegt
+   Scotophobia daneben, dort wird die Regeldatei bearbeitet, und dort wird
+   sie veroeffentlicht. Ein stilles Gruen wuerde genau die Sicherheit
+   vortaeuschen, um derentwillen es diese Pruefung gibt.
+
+   **Auf dem Bauserver** kann die Datei gar nicht liegen: Scotophobia ist
+   ein eigenes, privates Repository. Dort waere die Pruefung dauerhaft rot
+   und wuerde jede Veroeffentlichung der Webseite blockieren — obwohl der
+   Bauserver die Firestore-Regeln nie anfasst. Deployt wird ausschliesslich
+   von Hand.
+
+   Deshalb wird dort nur der Vergleich uebersprungen, nicht die Pruefung:
+   Struktur, Trennung, Riegel, oeffentliches Schreiben und Kommentare werden
+   weiterhin geprueft. Was fehlt, steht in der Ausgabe. */
+const aufBauserver = Boolean(process.env.CI || process.env.GITHUB_ACTIONS);
+
+if (!scotoPfad && !aufBauserver) {
   console.error('Firestore-Trennung nicht pruefbar: Scotophobias Regeldatei wurde nicht gefunden.');
   console.error('Gesucht an:\n- ' + SCOTOPHOBIA_KANDIDATEN.join('\n- '));
   console.error('Ohne diese Datei laesst sich nicht feststellen, ob firestore.rules Scotophobia noch vollstaendig enthaelt.');
@@ -371,7 +407,7 @@ if (!scotoPfad) {
 }
 
 const regeltext = readFileSync(REGELDATEI, 'utf8');
-const scotoText = readFileSync(scotoPfad, 'utf8');
+const scotoText = scotoPfad ? readFileSync(scotoPfad, 'utf8') : null;
 
 const lauf = pruefeRegeln(regeltext, scotoText);
 pruefungen += lauf.anzahl;
@@ -388,12 +424,15 @@ fehler.push(...lauf.meldungen);
 /* Welcher Block beschaedigt wird, steht nicht fest im Code, sondern kommt
    aus Scotophobias Regeldatei. Benennt Scotophobia seine Sammlungen um,
    zielt der Selbsttest weiterhin auf eine echte. */
-const scotoNamen = sammlungenLesen(maskiere(scotoText));
+const scotoNamen = scotoText
+  ? sammlungenLesen(maskiere(scotoText))
+  : sammlungenLesen(maskiere(regeltext)).filter((n) => !n.startsWith('wiki_'));
 const opfer = scotoNamen[scotoNamen.length - 1] || 'spielstaende';
 
 const proben = [
   {
     name: 'Scotophobias Block match /' + opfer + '/ entfernt',
+    brauchtVergleich: true,
     stichwort: opfer,
     aendere: (text) => {
       const maske = maskiere(text);
@@ -405,6 +444,7 @@ const proben = [
     /* Der gefaehrlichere Fall: Der Block bleibt stehen, nur eine Bedingung
        wird entschaerft. Das faellt beim Lesen niemandem auf. */
     name: 'Bedingung in match /' + opfer + '/ still entschaerft',
+    brauchtVergleich: true,
     stichwort: 'weicht von Scotophobias Fassung ab',
     aendere: (text) => {
       const maske = maskiere(text);
@@ -441,7 +481,10 @@ const proben = [
 ];
 
 const selbsttest = [];
-for (const probe of proben) {
+/* Zwei Proben zielen auf den Wortgleichheitsvergleich. Ohne
+   Vergleichsquelle ist der abgeschaltet — dann pruefen sie nichts und
+   wuerden faelschlich als "Schaden nicht erkannt" gemeldet. */
+for (const probe of proben.filter((x) => scotoText || !x.brauchtVergleich)) {
   const beschaedigt = probe.aendere(regeltext);
 
   /* Wenn die Beschaedigung gar nicht griff, prueft der Selbsttest nichts.
@@ -522,13 +565,23 @@ if (fehler.length) {
 } else {
   const maske = maskiere(regeltext);
   const sammlungen = sammlungenLesen(maske);
-  const scotoSammlungen = sammlungenLesen(maskiere(scotoText));
+  const scotoSammlungen = scotoText
+    ? sammlungenLesen(maskiere(scotoText))
+    : sammlungen.filter((n) => !n.startsWith('wiki_'));
   const wikiSammlungen = sammlungen.filter((n) => !scotoSammlungen.includes(n));
 
   console.log('Age-of-Beast-Wiki – Firestore-Trennung geprueft');
   console.log('Pruefungen: ' + pruefungen);
-  console.log('Vergleichsquelle: ' + scotoPfad);
-  console.log('Scotophobia: ' + scotoSammlungen.length + ' Sammlungen (' + scotoSammlungen.join(', ') + ') wortgleich enthalten');
+  if (scotoPfad) {
+    console.log('Vergleichsquelle: ' + scotoPfad);
+  } else {
+    console.log('Vergleichsquelle: keine — auf dem Bauserver liegt Scotophobia nicht.');
+    console.log('                  Der Wortgleichheitsvergleich entfaellt hier; Trennung,');
+    console.log('                  Riegel, Kommentare und Struktur wurden geprueft.');
+    console.log('                  Vor jedem Deploy oertlich mit Vergleichsquelle pruefen.');
+  }
+  console.log('Scotophobia: ' + scotoSammlungen.length + ' Sammlungen (' + scotoSammlungen.join(', ') + ')'
+    + (scotoText ? ' wortgleich enthalten' : ' vorhanden (nicht verglichen)'));
   console.log('Wiki: ' + wikiSammlungen.length + ' Sammlungen (' + wikiSammlungen.join(', ') + ')');
   console.log('Selbsttest: ' + selbsttest.length + ' von ' + proben.length + ' Beschaedigungen wurden erkannt');
   for (const s of selbsttest) {
