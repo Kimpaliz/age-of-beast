@@ -10,6 +10,25 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ## [Unveröffentlicht]
 
+### Geändert
+
+- **`werkzeuge/browser-messen.mjs` aus `pruefe-bogenfarben.mjs`
+  herausgeloest** (175 Zeilen: Browsersuche, statischer Messserver,
+  CDP-Verbindung, Browserstart). Anlass war der Altlasten-Ratchet: Die
+  Begruendung der Umgebungsweiche hatte die Datei auf **504** Zeilen
+  gebracht. Jetzt **366**.
+  `hilfsseite`, `wurzel`, `dateien` und `typen` werden **uebergeben**,
+  nicht importiert — das Modul soll nichts ueber Bogenfarben wissen, und
+  ein Import von dort waere ein Ringbezug.
+  ⚠️ **Beim Schnitt dreimal nachgebessert**, jedes Mal von einem Lauf
+  gefunden: erst fehlten die Importe (`createServer is not defined`),
+  dann die Messseite (`hilfsseite is not defined`), dann die
+  Serverkonfiguration (`DATEIEN is not defined`). Ein Schnitt ist erst
+  fertig, wenn das Herausgeloeste **laeuft**, nicht wenn es uebersetzt.
+  **Nach dem Schnitt alle drei Wege erneut gefahren:** mit Browser gruen
+  und messend, ohne Browser am Arbeitsplatz rot, ohne Browser mit `CI=1`
+  gruen mit Hinweis.
+
 ### Behoben
 
 - **`pruefe-bogenfarben.mjs` blockierte die Veroeffentlichung.** Es misst
