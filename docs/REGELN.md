@@ -35,7 +35,8 @@ steht in [WEGWEISER.md](WEGWEISER.md).
 | Bearbeiten | `Bearbeiten` | `bearbeiten/…` | `bearbeiten.js`, `bearbeiten-kontext.js`, `texte-bearbeiten.js`, `struktur-bedienung.js`, `werkzeuge/bearbeiten-stellen.mjs`, `werkzeuge/text-schreibweise.mjs`, `werkzeuge/struktur-bearbeiten.mjs` |
 | Werkstatt und Rahmen | `Werkstatt` | `werkstatt/…` | `rahmen-assistent.js`, `werkzeuge/rahmen-*.mjs`, `werkzeuge/regeln-*.mjs`, `werkzeuge/werkstatt-uebernehmen.mjs` |
 | Weltdaten | `Weltdaten` | `weltdaten/…` | `daten/quelle.json` und die Ableitungen, `werkzeuge/welt-*.mjs` |
-| Speicher und Anmeldung | `Speicher` | `speicher/…` | `firebase-konfig.js`, `firestore.rules`, `werkzeuge/firestore-*.mjs`, `werkzeuge/github-speicher.mjs` |
+| Speicher und Anmeldung | `Speicher` | `speicher/…` | `firebase-konfig.js`, `firestore.rules`, `werkzeuge/firestore-*.mjs` |
+| Plattform (mehrere Wikis) | `Rahmen` | `plattform/…` | `werkzeuge/plattform-speicher.mjs`, `runtime/plattform.js`, `docs/PLATTFORM.md` |
 | Kartenwappen | `Bilder` | `bilder/…` | `werkzeuge/kartenbilder-erzeugen.mjs`, `daten/kartenbilder/` (234 SVG) |
 | Weltkarte | `Karte` | `karte/…` | `karte/`, `werkzeuge/karte-malen.mjs` |
 | Betrieb und Auslieferung | `Betrieb` | `betrieb/…` | `werkzeuge/vorschau-server.mjs`, `werkzeuge/heim-server.mjs`, `werkzeuge/versioniere-browser-ressourcen.mjs`, `.github/workflows/` |

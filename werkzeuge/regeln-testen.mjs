@@ -148,6 +148,139 @@ const faelle = [
   },
 ];
 
+/* ── Plattform: mehrere Wikis ──────────────────────────────────────
+   Die Plattformregeln schlagen das Wiki-Dokument mit `get()` nach. Der
+   Simulator kennt keine Daten, deshalb wird der Aufruf als Attrappe
+   beantwortet — genau das ist `functionMocks`. Ohne sie faellt jede
+   dieser Regeln durch, und zwar aus dem falschen Grund. */
+
+const WIKIWEG = '/databases/(default)/documents/wiki_projekte/testwiki';
+
+const wikiAttrappe = (daten) => [{
+  function: 'get',
+  args: [{ exactValue: WIKIWEG }],
+  result: { value: { data: daten } },
+}];
+
+const offenesWiki = {
+  name: 'Testwiki', beschreibung: '', oeffentlich: true, regelwerke: ['daggerheart'],
+  mitgliederIds: ['jannik-uid'], rollen: { 'jannik-uid': 'besitzer' },
+  erstelltAm: jetzt, erstelltVon: 'jannik-uid',
+};
+const geschlossenesWiki = { ...offenesWiki, oeffentlich: false };
+const wikiMitLeser = {
+  ...geschlossenesWiki,
+  mitgliederIds: ['jannik-uid', 'fremd-uid'],
+  rollen: { 'jannik-uid': 'besitzer', 'fremd-uid': 'leser' },
+};
+
+const weltDaten = (uid) => ({ inhalt: 'x', stand: 's', geaendertVon: uid, geaendertAm: jetzt });
+
+faelle.push(
+  {
+    name: 'Plattform: offenes Wiki darf jeder lesen',
+    erwartet: true,
+    attrappen: wikiAttrappe(offenesWiki),
+    req: anfrage({ methode: 'get', weg: 'wiki_projekte/testwiki/welt/species' }),
+  },
+  {
+    name: 'Plattform: geschlossenes Wiki liest ein Fremder NICHT',
+    erwartet: false,
+    attrappen: wikiAttrappe(geschlossenesWiki),
+    req: anfrage({ methode: 'get', weg: 'wiki_projekte/testwiki/welt/species', auth: fremdesKonto }),
+  },
+  {
+    name: 'Plattform: geschlossenes Wiki liest sein Besitzer',
+    erwartet: true,
+    attrappen: wikiAttrappe(geschlossenesWiki),
+    req: anfrage({ methode: 'get', weg: 'wiki_projekte/testwiki/welt/species', auth: janniksKonto }),
+  },
+  {
+    name: 'Plattform: Besitzer darf die Welt schreiben',
+    erwartet: true,
+    attrappen: wikiAttrappe(geschlossenesWiki),
+    req: anfrage({
+      methode: 'update', weg: 'wiki_projekte/testwiki/welt/species', auth: janniksKonto,
+      daten: weltDaten('jannik-uid'), zeit: jetzt,
+    }),
+  },
+  {
+    name: 'Plattform: ein Leser darf NICHT schreiben',
+    erwartet: false,
+    attrappen: wikiAttrappe(wikiMitLeser),
+    req: anfrage({
+      methode: 'update', weg: 'wiki_projekte/testwiki/welt/species', auth: fremdesKonto,
+      daten: weltDaten('fremd-uid'), zeit: jetzt,
+    }),
+  },
+  {
+    name: 'Plattform: ein Leser darf lesen',
+    erwartet: true,
+    attrappen: wikiAttrappe(wikiMitLeser),
+    req: anfrage({ methode: 'get', weg: 'wiki_projekte/testwiki/welt/species', auth: fremdesKonto }),
+  },
+  {
+    name: 'Plattform: Welt loeschen geht nie',
+    erwartet: false,
+    attrappen: wikiAttrappe(geschlossenesWiki),
+    req: anfrage({ methode: 'delete', weg: 'wiki_projekte/testwiki/welt/species', auth: janniksKonto }),
+  },
+  {
+    name: 'Plattform: Wiki anlegen als eigener Besitzer',
+    erwartet: true,
+    req: anfrage({
+      methode: 'create', weg: 'wiki_projekte/neuwiki', auth: janniksKonto,
+      daten: {
+        name: 'Neu', beschreibung: '', oeffentlich: false, regelwerke: [],
+        mitgliederIds: ['jannik-uid'], rollen: { 'jannik-uid': 'besitzer' },
+        erstelltAm: jetzt, erstelltVon: 'jannik-uid',
+      },
+      zeit: jetzt,
+    }),
+  },
+  {
+    name: 'Plattform: Wiki anlegen und gleich Fremde eintragen — NEIN',
+    erwartet: false,
+    req: anfrage({
+      methode: 'create', weg: 'wiki_projekte/neuwiki', auth: janniksKonto,
+      daten: {
+        name: 'Neu', beschreibung: '', oeffentlich: false, regelwerke: [],
+        mitgliederIds: ['jannik-uid', 'fremd-uid'],
+        rollen: { 'jannik-uid': 'besitzer', 'fremd-uid': 'schreiber' },
+        erstelltAm: jetzt, erstelltVon: 'jannik-uid',
+      },
+      zeit: jetzt,
+    }),
+  },
+  {
+    name: 'Plattform: Wiki auf fremden Namen anlegen — NEIN',
+    erwartet: false,
+    req: anfrage({
+      methode: 'create', weg: 'wiki_projekte/neuwiki', auth: janniksKonto,
+      daten: {
+        name: 'Neu', beschreibung: '', oeffentlich: false, regelwerke: [],
+        mitgliederIds: ['fremd-uid'], rollen: { 'fremd-uid': 'besitzer' },
+        erstelltAm: jetzt, erstelltVon: 'jannik-uid',
+      },
+      zeit: jetzt,
+    }),
+  },
+  {
+    name: 'Plattform: Liste und Rollen duerfen nicht auseinanderlaufen',
+    erwartet: false,
+    req: anfrage({
+      methode: 'create', weg: 'wiki_projekte/neuwiki', auth: janniksKonto,
+      daten: {
+        name: 'Neu', beschreibung: '', oeffentlich: false, regelwerke: [],
+        mitgliederIds: ['jannik-uid'],
+        rollen: { 'jannik-uid': 'besitzer', 'fremd-uid': 'schreiber' },
+        erstelltAm: jetzt, erstelltVon: 'jannik-uid',
+      },
+      zeit: jetzt,
+    }),
+  },
+);
+
 const antwort = await fetch(
   'https://firebaserules.googleapis.com/v1/projects/' + PROJEKT + ':test',
   {
@@ -162,7 +295,7 @@ const antwort = await fetch(
       testSuite: { testCases: faelle.map((f) => ({
         expectation: f.erwartet ? 'ALLOW' : 'DENY',
         request: f.req,
-        functionMocks: [],
+        functionMocks: f.attrappen || [],
       })) },
     }),
   },

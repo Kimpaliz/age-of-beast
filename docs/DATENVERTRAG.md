@@ -17,9 +17,16 @@
 > **Was unverändert gilt** und der wichtigste Teil dieses Dokuments ist:
 > `daten/quelle.json` bleibt die eine kanonische Quelle, `welt.json` und
 > `welt.js` bleiben Ableitungen, und die sieben Legacy-v0-Regeln stehen
-> unverändert in `werkzeuge/pruefe-datenvertrag.mjs`. `github-speicher.mjs`
-> bleibt als belegter Rückweg liegen — kein Browserpfad führt mehr dorthin
-> (nachgeprüft: nur `pruefe-github.mjs` importiert ihn).
+> unverändert in `werkzeuge/pruefe-datenvertrag.mjs`.
+>
+> **Nachtrag 04.09.2026:** `github-speicher.mjs` und `pruefe-github.mjs`
+> sind entfernt. Sie lagen seit dem Umstieg auf Firebase (02.09.2026) als
+> Rückweg da, den kein Browserpfad mehr benutzte; Janniks Entscheidung
+> vom 04.09. („weg von den GitHub-Code-Login, wir machen Google-Login")
+> hat den Rückweg endgültig erledigt. Der Weg über GitHub war ohnehin nur
+> ein Notbehelf: Ein Browser kann eine GitHub-Anmeldung gar nicht
+> abschließen, weil deren Endpunkt keine `Access-Control`-Kopfzeilen
+> sendet — gemessen am 25.08.2026.
 
 **Gültig für den aktuellen Bestand:** Legacy-v0. Der Vertrag ist umgesetzt in
 `werkzeuge/pruefe-datenvertrag.mjs`, rein lesend und ohne Netz oder temporäre

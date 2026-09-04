@@ -98,12 +98,12 @@ const OEFFENTLICHE_DATEIEN = new Set([
   'karte/welt-regionen.mjs',
   'werkzeuge/firestore-format.mjs',
   'werkzeuge/firestore-speicher.mjs',
+  'werkzeuge/plattform-speicher.mjs',
   'werkzeuge/welt-umwandeln.mjs',
   'werkzeuge/welt-rahmen.mjs',
   'werkzeuge/bearbeiten-stellen.mjs',
   'werkzeuge/text-schreibweise.mjs',
   'werkzeuge/struktur-bearbeiten.mjs',
-  'werkzeuge/github-speicher.mjs',
 ]);
 const OEFFENTLICHER_SVG_PFAD = /^daten\/kartenbilder\/.+\.svg$/iu;
 

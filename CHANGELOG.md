@@ -7,6 +7,36 @@ Das Neueste steht immer oben.
 
 ---
 
+## Grundlage für mehrere Wikis – 4. September 2026
+
+Der erste Schritt zur Plattform, die du beschrieben hast. Sichtbar
+ändert sich noch nichts — was jetzt steht, ist das Fundament.
+
+**Eine Vorgabe geht so nicht, und das solltest du wissen:** „ein neues
+Wiki mit **eigener Datenbank**" ist auf dem kostenlosen Firebase-Tarif
+nicht möglich. Ein Projekt hat dort genau eine Datenbank; eine zweite
+kostet Geld. Stattdessen bekommt jedes Wiki einen eigenen abgeschlossenen
+Bereich: eigene Inhalte, eigene Mitglieder, eigene Rechte. Für alles am
+Spieltisch ist der Unterschied nicht spürbar — nur die Abrechnung läuft
+gemeinsam.
+
+**Die wichtigste Entwurfsentscheidung:** Ein neues Wiki anzulegen darf
+keine Freischaltung brauchen. Die Sicherheitsregeln sprechen deshalb
+allgemein über „ein Wiki" statt über einzelne Namen. Du legst eins an,
+und es funktioniert — ohne dass jemand etwas veröffentlichen muss.
+
+**Geprüft, bevor es live ging:** 25 von 25 Fällen im Firebase-Simulator,
+darunter elf neue: Ein Fremder kommt nicht in ein privates Wiki. Ein
+Leser darf lesen, aber nicht schreiben. Wer ein Wiki anlegt, kann dabei
+nicht heimlich andere eintragen. Und Scotophobia, das sich dieselbe
+Regeldatei teilt, bleibt unberührt — an der laufenden Seite nachgemessen.
+
+**Der GitHub-Schlüssel ist raus.** Angemeldet wird mit Google, wie du es
+gesagt hast. Der alte Weg lag seit dem 2. September ohnehin nur noch als
+toter Rückweg herum — keine Seite hat ihn benutzt.
+
+---
+
 ## Xenos Figur heißt Brix Borin – 4. September 2026
 
 Der Name war der Schlüssel: **Die Werte lagen längst im Wiki**, als

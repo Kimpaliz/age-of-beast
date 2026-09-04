@@ -24,6 +24,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { probenBauen } from './firestore-selbsttest.mjs';
 
 const WURZEL = join(dirname(fileURLToPath(import.meta.url)), '..');
 const REGELDATEI = join(WURZEL, 'firestore.rules');
@@ -123,12 +124,37 @@ function sammlungMuster(name) {
 
 /* Namen aller Sammlungen, auf die die Datei Regeln legt. Der Datenbankpfad
    selbst und der Riegel /{document=**} sind keine Sammlungen. */
+/**
+ * Die Namen der Sammlungen auf **oberster** Ebene.
+ *
+ * Untersammlungen bleiben aussen vor, und zwar aus dem Grund, aus dem es
+ * die Praefixregel ueberhaupt gibt: Sie soll verhindern, dass zwei
+ * Anwendungen sich denselben Namen greifen. Eine Untersammlung liegt
+ * unter ihrem Elterndokument und kann mit nichts kollidieren —
+ * `wiki_projekte/{id}/welt` ist eindeutig, auch ohne Praefix am `welt`.
+ * Wuerde man sie mitzaehlen, muesste jede kuenftige Untersammlung
+ * `wiki_` heissen, was die Pfade nur laenger und nicht sicherer macht.
+ *
+ * Gezaehlt wird ueber die Klammertiefe innerhalb des `match /databases`-
+ * Blocks: Tiefe 1 ist oberste Ebene.
+ */
 function sammlungenLesen(maske) {
   const namen = [];
   const muster = /match\s+\/([A-Za-z0-9_-]+)\/\{/gu;
   let t;
   while ((t = muster.exec(maske)) !== null) {
-    if (t[1] !== 'databases') namen.push(t[1]);
+    if (t[1] === 'databases') continue;
+    /* Wie viele offene `match`-Bloecke stehen vor dieser Stelle? Der
+       Block `match /databases/...` zaehlt dabei nicht mit. */
+    const davor = maske.slice(0, t.index);
+    let tiefe = 0;
+    for (const zeichen of davor) {
+      if (zeichen === '{') tiefe += 1;
+      else if (zeichen === '}') tiefe -= 1;
+    }
+    /* service{ + match /databases{ = 2 offene Klammern auf oberster
+       Sammlungsebene. Alles darueber ist eine Untersammlung. */
+    if (tiefe <= 2) namen.push(t[1]);
   }
   return namen;
 }
@@ -429,56 +455,8 @@ const scotoNamen = (scotoText ? sammlungenLesen(maskiere(scotoText))
   : sammlungenLesen(maskiere(regeltext))).filter((n) => !n.startsWith('wiki_'));
 const opfer = scotoNamen[scotoNamen.length - 1] || 'spielstaende';
 
-const proben = [
-  {
-    name: 'Scotophobias Block match /' + opfer + '/ entfernt',
-    brauchtVergleich: true,
-    stichwort: opfer,
-    aendere: (text) => {
-      const maske = maskiere(text);
-      const b = blockLesen(text, maske, sammlungMuster(opfer));
-      return b ? text.slice(0, b.start) + text.slice(b.ende) : text;
-    },
-  },
-  {
-    /* Der gefaehrlichere Fall: Der Block bleibt stehen, nur eine Bedingung
-       wird entschaerft. Das faellt beim Lesen niemandem auf. */
-    name: 'Bedingung in match /' + opfer + '/ still entschaerft',
-    brauchtVergleich: true,
-    stichwort: 'weicht von Scotophobias Fassung ab',
-    aendere: (text) => {
-      const maske = maskiere(text);
-      const b = blockLesen(text, maske, sammlungMuster(opfer));
-      if (!b) return text;
-      return text.slice(0, b.start) + b.text.replace(/if\s+/u, 'if true || ') + text.slice(b.ende);
-    },
-  },
-  {
-    name: 'wiki_welt ruft Scotophobias istFreigeschaltet() auf',
-    stichwort: 'istFreigeschaltet',
-    aendere: (text) => text.replace('if istWikiSchreiber()', 'if istFreigeschaltet()'),
-  },
-  {
-    name: 'Riegel auf if true gestellt',
-    stichwort: 'Riegel',
-    aendere: (text) => {
-      const maske = maskiere(text);
-      const b = blockLesen(text, maske, /match\s+\/\{document=\*\*\}\s*\{/u);
-      if (!b) return text;
-      return text.slice(0, b.start) + b.text.replace('if false', 'if true') + text.slice(b.ende);
-    },
-  },
-  {
-    name: 'Wiki-Sammlung ohne Praefix (wiki_welt zu weltdaten)',
-    stichwort: 'weltdaten',
-    aendere: (text) => text.split('wiki_welt').join('weltdaten'),
-  },
-  {
-    name: 'oeffentliches Lesen der Weltdaten entfernt',
-    stichwort: 'Besucher',
-    aendere: (text) => text.replace('allow read: if true;', 'allow read: if istWikiSchreiber();'),
-  },
-];
+/* Die Proben liegen in einer eigenen Datei — siehe deren Kopf. */
+const proben = probenBauen({ maskiere, blockLesen, sammlungMuster, opfer });
 
 const selbsttest = [];
 /* Zwei Proben zielen auf den Wortgleichheitsvergleich. Ohne

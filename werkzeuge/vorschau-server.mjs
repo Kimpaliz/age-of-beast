@@ -72,12 +72,12 @@ const FREIGEGEBENE_DATEIEN = new Set([
   'karte/welt-regionen.mjs',
   'werkzeuge/firestore-format.mjs',
   'werkzeuge/firestore-speicher.mjs',
+  'werkzeuge/plattform-speicher.mjs',
   'werkzeuge/welt-umwandeln.mjs',
   'werkzeuge/welt-rahmen.mjs',
   'werkzeuge/bearbeiten-stellen.mjs',
   'werkzeuge/text-schreibweise.mjs',
   'werkzeuge/struktur-bearbeiten.mjs',
-  'werkzeuge/github-speicher.mjs',
 ]);
 
 function sendeAntwort(antwort, methode, status, kopfzeilen, inhalt = '') {

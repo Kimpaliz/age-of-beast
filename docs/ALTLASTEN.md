@@ -38,7 +38,7 @@ Gemessen mit derselben Zählung wie der Wächter (Anzahl `\n`), über die
 | `werkzeuge/pruefe-datenvertrag.mjs` | 852 | Die sieben Legacy-v0-Regeln aus `DATENVERTRAG.md` sind sieben Prüfblöcke plus 18 Mutationsproben. Die Proben können in eine eigene Datei neben die Regeln. |
 | `werkzeuge/pruefe-rahmen-routen.mjs` | 645 | Die DOM- und `location`-Attrappe ist der größere Teil; sie gehört in ein eigenes Modul, das auch `pruefe-leseruntime.mjs` benutzen könnte. |
 | `werkzeuge/versioniere-browser-ressourcen.mjs` | 615 | Der Abhängigkeitsläufer (HTML, JavaScript-Importe, CSS-Importe, `url()`) ist von der Umschreiberei trennbar; `pruefe-cache-graph.mjs` bräuchte denselben Läufer. |
-| `werkzeuge/pruefe-firestore-trennung.mjs` | 592 | Die sechs absichtlichen Beschädigungen, mit denen die Wirksamkeit belegt ist, können neben die Blockprüfung. |
+| `werkzeuge/pruefe-firestore-trennung.mjs` | 571 | Die Beschädigungen liegen seit dem 04.09.2026 in `firestore-selbsttest.mjs`. Als Nächstes könnten die Blockleser (`blockLesen`, `maskiere`, `sammlungMuster`) daneben. |
 
 Am nächsten dran, aber noch darunter (nur zur Warnung, nicht geführt):
 `werkzeuge/werkstatt-uebernehmen.mjs` 426 · `karte/karte-erzeugen.mjs`
@@ -102,7 +102,6 @@ node -e "const f=require('fs');const A=new Set(['node_modules','.git','.entwurf'
 | `werkzeuge/bearbeiten-stellen.mjs` | `Bearbeiten` |
 | `werkzeuge/firestore-format.mjs` | `Speicher` |
 | `werkzeuge/firestore-speicher.mjs` | `Speicher` |
-| `werkzeuge/github-speicher.mjs` | `Speicher` |
 | `werkzeuge/heim-server.mjs` | `Betrieb` |
 | `werkzeuge/kartenbilder-erzeugen.mjs` | `Bilder` |
 | `werkzeuge/pruefe-bearbeiten.mjs` | `Prüfwesen` |
@@ -111,7 +110,6 @@ node -e "const f=require('fs');const A=new Set(['node_modules','.git','.entwurf'
 | `werkzeuge/pruefe-datenvertrag.mjs` | `Prüfwesen` |
 | `werkzeuge/pruefe-firestore-format.mjs` | `Prüfwesen` |
 | `werkzeuge/pruefe-firestore-trennung.mjs` | `Prüfwesen` |
-| `werkzeuge/pruefe-github.mjs` | `Prüfwesen` |
 | `werkzeuge/pruefe-gleichstand.mjs` | `Prüfwesen` |
 | `werkzeuge/pruefe-leseruntime.mjs` | `Prüfwesen` |
 | `werkzeuge/pruefe-rahmen-routen.mjs` | `Prüfwesen` |
