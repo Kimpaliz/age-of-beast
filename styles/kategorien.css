@@ -351,15 +351,22 @@ html[data-thema="hell"] .nav-gruppe[data-kategorie="lore"] {
 
    ⚠️ **Die Schwelle gehoert zur Anzahl der Knoepfe und wird jedes Mal neu
    gemessen.** Ihre Geschichte in einer Zeile: 68rem bei drei Knoepfen,
-   78rem beim vierten („Boegen"), 84rem beim fuenften („Menue").
-   Gemessen am 04.09.2026: Bei 1250 px fehlten der Kopfzeile **56 px**,
-   sie braucht also rund 1306. 84rem sind 1344 px und lassen 38 px Luft.
+   78rem beim vierten („Boegen"), 84rem beim fuenften („Menue"), 90rem
+   beim sechsten („Vorlagen") — gemessen fehlten bei 1400 px noch 9 px,
+   die Kopfzeile braucht also rund 1409; 90rem sind 1440 px.
+
+   ⚠️ **Hier endet dieser Weg.** 1409 px sind mehr, als die meisten
+   Notebooks haben (1366 und 1440 sind die haeufigsten Breiten) — die
+   Beschriftungen erscheinen also kaum noch. Ein **siebter** Knopf
+   braucht deshalb keine neue Schwelle, sondern eine andere Bauart:
+   entweder dauerhaft nur Zeichen mit Kurzhinweis, oder ein Ueberlaufmenue
+   („mehr …"). Wer einfach 96rem einsetzt, verschiebt das Problem nur.
 
    Wird die Schwelle vergessen, entsteht ein Band, in dem die
    Beschriftungen noch stehen, aber nicht mehr passen — dort schiebt sich
    die Leiste in die Kopfzeile hinein. Genau das hat Jannik am 04.09.2026
    mit „das ist ein wenig ukkelig geworden" gemeldet. */
-@media (max-width: 84rem) {
+@media (max-width: 90rem) {
   .modul-leiste .beschriftung { display: none; }
   .modul-leiste .werkstatt-knopf {
     padding-inline: 0.55rem;

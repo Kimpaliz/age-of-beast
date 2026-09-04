@@ -3,8 +3,8 @@
    [Aufgabe: Gestaltung]
 
    -------------------------------------------------------------------
-   Zusatzstil, kein Teil der urspruenglichen Aufteilung. `styles/wiki.css`,
-   `tokens.css`, `bearbeiten.css` und `werkstatt.css` sind per Pruefsumme
+   Zusatzstil, kein Teil der ursprünglichen Aufteilung. `styles/wiki.css`,
+   `tokens.css`, `bearbeiten.css` und `werkstatt.css` sind per Prüfsumme
    eingefroren: `werkzeuge/pruefe-stilstruktur.mjs` belegt, dass ihre
    Verkettung noch immer der alten `stil.css` entspricht. Neue Gestaltung
    kommt deshalb hierher.
@@ -12,28 +12,52 @@
    Jannik will das Wiki **vor allem auf Handy und Tablet** benutzen.
    =================================================================== */
 
-@media (max-width: 48rem) {
-  .kopf {
-    height: auto;
-    padding: 0.4rem 0.75rem;
-    row-gap: 0.45rem;
-    column-gap: 0.5rem;
-    grid-template-columns: auto minmax(0, 1fr) auto auto;
-    grid-template-areas:
-      "schalter marke leiste rechts"
-      "suche    suche  suche  suche";
-  }
-  .leiste-schalter { grid-area: schalter; }
-  .kopf > .marke   { grid-area: marke; min-width: 0; }
-  .kopf > .suche   { grid-area: suche; max-width: none; }
-  .modul-leiste    { grid-area: leiste; }
-  .kopf-rechts     { grid-area: rechts; }
-
-  /* Der Untertitel neben der Marke ist hier nur noch Ballast. */
-  .marke .teiler,
-  .marke small { display: none; }
-}
-
+/* Der Kopf ist ein Raster aus festen Spalten. Passen sie nicht
+   nebeneinander, schrumpfen sie unter ihr eigenes Minimum — gemessen am
+   04.09.2026 bei 390 px Fensterbreite: **das Suchfeld war 66 Pixel
+   breit**, obwohl die Regel ihm 12,5rem zusichert. Ein Raster hält sein
+   `minmax` nur, solange die Summe hineinpasst.
+
+   Jannik will ausdrücklich „über suche speziefisch suchen". Deshalb
+   bekommt die Suche hier eine **eigene Zeile über die volle Breite**. */
+
+@media (max-width: 48rem) {
+  .kopf {
+    height: auto;
+    padding: 0.4rem 0.75rem;
+    row-gap: 0.45rem;
+    column-gap: 0.5rem;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      "schalter marke  rechts"
+      "suche    suche  suche"
+      "leiste   leiste leiste";
+  }
+
+  .leiste-schalter { grid-area: schalter; }
+  .kopf > .marke   { grid-area: marke; min-width: 0; }
+  .kopf > .suche   { grid-area: suche; max-width: none; }
+  .kopf-rechts     { grid-area: rechts; }
+
+  /* Die Modulleiste bekommt eine eigene Zeile und darf **waagerecht
+     rutschen**. Gemessen am 04.09.2026: Mit sechs Zeichenknöpfen in der
+     ersten Zeile scrollte bei 375 px die ganze Kopfzeile — dann wandert
+     auch die Marke aus dem Bild. Rutscht dagegen nur die Leiste, bleibt
+     alles andere stehen, und ein siebter Knopf ändert daran nichts. */
+  .modul-leiste {
+    grid-area: leiste;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 0.1rem;
+  }
+  .modul-leiste::-webkit-scrollbar { display: none; }
+  .modul-leiste .werkstatt-knopf { min-width: 2.75rem; justify-content: center; }
+
+  /* Der Untertitel neben der Marke ist hier nur noch Ballast. */
+  .marke .teiler,
+  .marke small { display: none; }
+}
+
 @media (max-width: 40rem) {
   /* 16px verhindert das Hineinzoomen auf iPhones, 2.75rem macht das Feld
      zu einem Ziel, das ein Finger trifft. */
