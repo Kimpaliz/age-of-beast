@@ -201,12 +201,12 @@ function pruefeRegeln(regeltext, scotoText) {
 
   /* --- 1. Scotophobia vollstaendig und unveraendert ----------------- */
 
-  const scotoFunktionen = mitVergleich
-    ? funktionsnamenLesen(scotoMaske)
-    : funktionsnamenLesen(maske).filter((n) => !/^(?:wiki|istWiki)/u.test(n));
-  const scotoSammlungen = mitVergleich
-    ? sammlungenLesen(scotoMaske)
-    : sammlungenLesen(maske).filter((n) => !n.startsWith('wiki_'));
+  /* Das Praefix entscheidet, nicht die Datei — siehe docs/PROJEKTGRENZE.md,
+     „Warum das Praefix entscheidet". */
+  const scotoFunktionen = (mitVergleich ? funktionsnamenLesen(scotoMaske)
+    : funktionsnamenLesen(maske)).filter((n) => !/^(?:wiki|istWiki)/u.test(n));
+  const scotoSammlungen = (mitVergleich ? sammlungenLesen(scotoMaske)
+    : sammlungenLesen(maske)).filter((n) => !n.startsWith('wiki_'));
 
   p(scotoFunktionen.length > 0, mitVergleich
     ? 'In Scotophobias Regeldatei wurde keine einzige Hilfsfunktion gefunden. Die Vergleichsquelle ist damit unbrauchbar.'
@@ -424,9 +424,9 @@ fehler.push(...lauf.meldungen);
 /* Welcher Block beschaedigt wird, steht nicht fest im Code, sondern kommt
    aus Scotophobias Regeldatei. Benennt Scotophobia seine Sammlungen um,
    zielt der Selbsttest weiterhin auf eine echte. */
-const scotoNamen = scotoText
-  ? sammlungenLesen(maskiere(scotoText))
-  : sammlungenLesen(maskiere(regeltext)).filter((n) => !n.startsWith('wiki_'));
+/* Ohne den Praefixfilter traefe der Selbsttest einen Wiki-Block. */
+const scotoNamen = (scotoText ? sammlungenLesen(maskiere(scotoText))
+  : sammlungenLesen(maskiere(regeltext))).filter((n) => !n.startsWith('wiki_'));
 const opfer = scotoNamen[scotoNamen.length - 1] || 'spielstaende';
 
 const proben = [

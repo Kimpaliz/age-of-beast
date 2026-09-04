@@ -10,6 +10,49 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ## [Unveröffentlicht]
 
+### Hinzugefügt
+
+- **Charakterbögen** (`bogen.html`, `karte/bogen-zeigen.js`,
+  `styles/charakterbogen.css`). Gezeichnet wird aus `eintrag.spielwerte`;
+  die Struktur liegt in `daten/quelle.json` unter `fields.spielwerte` und
+  wird von `welt-umwandeln.mjs` unveraendert durchgereicht. Fehlende
+  Angaben erscheinen als sichtbares „noch offen", nie als weggelassenes
+  Feld.
+  **Gemessen:** 23 Textstellen, beide Schemata, Mindestkontrast 6,07
+  (hell) und 6,17 (dunkel) gegen gefordert 4,5. Sieben Beschriftungen von
+  `--schrift-leise` (3,05–3,54) auf `--schrift-matt` gehoben.
+  ⚠️ Die Kontrastmessung ging dreimal daneben, bevor sie stimmte: erst
+  wurde der **eigene** durchsichtige Hintergrund eines `<span>` gemessen
+  (Ergebnis 1,52 und 11.837.750), dann scheiterte der Parser an
+  `oklab()`-Werten aus `color-mix` und las eine helle Flaeche als
+  Schwarz. Erst das Aufloesen ueber eine Zeichenflaeche misst wirklich.
+
+### Geändert
+
+- **`werkzeuge/welt-rahmen.mjs` aus `welt-umwandeln.mjs` herausgeloest**
+  (147 Zeilen: `angaben`, `rahmenPanelRoh`, `rahmenAlsElement`,
+  `mitRahmen`, `BILD_VORGABE`). Anlass war der Altlasten-Ratchet: Fuer
+  `spielwerte` musste die Datei um 7 Zeilen wachsen, und Regel 10
+  verlangt, dass ein fachlicher Eingriff ein Stueck der Abloesung zahlt.
+  **582 → 471 Zeilen**, damit unter 500 und aus `docs/ALTLASTEN.md`
+  gestrichen.
+  **Beweis:** `daten/welt.json` und `daten/welt.js` geloescht, neu
+  erzeugt, **bytegleich** (240.029 und 240.143 Bytes). `alsAbsaetze` wird
+  durchgereicht statt importiert (Ringbezug); die acht `rahmenPanel`-
+  Aufrufe blieben unangetastet, weil ein lokaler Kurzname die alte
+  Signatur behaelt — dadurch ist der Umbau an den Bytes nachweisbar.
+- **Umbruchschwelle der Modulleiste 68rem → 78rem.** Vier beschriftete
+  Knoepfe brauchen gemessen 1221 px (bei 1200 fehlten 21, bei 1260
+  passte es); die alte Schwelle lag bei 1088. Dazwischen lag ein Band, in
+  dem die Beschriftungen standen, aber nicht passten. Sechs Fensterbreiten
+  von 375 bis 1400 px geprueft: kein Ueberlauf, keine Ueberlappung.
+- **`pruefe-firestore-trennung.mjs`: Zuordnung folgt dem Praefix, nicht
+  der Datei.** Seit beide Repositorys dieselbe vollstaendige Regeldatei
+  fuehren, stehen die `wiki_`-Bloecke auch in Scotophobias Fassung — der
+  Waechter hielt sie daraufhin fuer Scotophobia-Sammlungen und meldete
+  die Trennung als verletzt. Betroffen waren die Zuordnung **und** die
+  Wahl des Selbsttest-Opfers.
+
 ### Behoben
 
 - **Rollbalken auf einzelnen Spielkarten.** `data-enge` staffelt die

@@ -7,6 +7,43 @@ Das Neueste steht immer oben.
 
 ---
 
+## Echte Charakterbögen für die Spielfiguren – 4. September 2026
+
+Neuer Bereich **Bögen** in der Kopfleiste. Die Spielfiguren stehen dort
+als vollständige Daggerheart-Bögen: die sechs Attribute, Ausweichen und
+Rüstung, die Schadensschwellen als Balken, Lebenspunkte, Stress und
+Hoffnung als Kästchen zum Abhaken, Erfahrungen, Ausrüstung, Domänen und
+die Fähigkeitskarten — letztere verlinkt auf die passende Karte.
+
+**Lukas' Figur ist vollständig**, Stufe 1, Faun aus der Seeborne-Gemeinschaft,
+Ranger/Wayfinder. Zwei Zahlen dazu haben sich beim Eintragen bestätigt:
+Ausweichen 12 ist genau der Startwert eines Rangers, und seine beiden
+Karten — *Deft Maneuvers* und *Gifted Tracker* — sind je eine aus seinen
+zwei Domänen Bone und Sage, beide Stufe 1. Das ist eine stimmige
+Ausrüstung für Stufe 1.
+
+**Xenos Bogen ist fast leer, und das steht auch so da.** Statt Felder
+wegzulassen zeigt er überall „noch offen" und listet unten auf, was
+fehlt. Am Spieltisch ist eine Lücke, die man sieht, harmlos — eine, die
+man für vollständig hält, nicht.
+
+**Die Werte liegen als Daten, nicht als Text.** Sie stehen in der
+Weltquelle unter `spielwerte` und werden von dort gezeichnet. Hätte der
+Bogen sie aus Absätzen herauslesen müssen, wäre er beim ersten anders
+formulierten Satz zerbrochen.
+
+**Nebenbei die Kopfleiste geradegerückt.** Mit dem vierten Knopf brauchte
+sie 1221 Pixel, die Regel zum Verkürzen griff aber erst bei 1088 —
+dazwischen drängelten sich die Beschriftungen. Gemessen und die Schwelle
+nachgezogen; bei sechs geprüften Fensterbreiten von 375 bis 1400 Pixeln
+schiebt sich jetzt nichts mehr ineinander.
+
+**Lesbarkeit geprüft, nicht behauptet:** Alle 23 Textstellen der Bögen
+liegen in beiden Farbschemata über dem Kontrastwert 4,5 (schwächste 6,07).
+Sieben Beschriftungen mussten dafür einen kräftigeren Grauton bekommen.
+
+---
+
 ## Keine Karte wird mehr gescrollt – 4. September 2026
 
 **Was war:** Auf einer Karte („Warden of the Elements", Druide, Mastery)
