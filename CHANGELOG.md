@@ -5,6 +5,20 @@ Dieselben Änderungen stehen in Entwicklersprache in [CHANGELOG-TECHNIK.md](CHAN
 
 Das Neueste steht immer oben.
 
+## Aufräumen hinter der Reparatur – 4. September 2026
+
+Die Begründung, warum der Farbwächter auf dem Bauserver anders arbeitet,
+hat seine Datei über die Grenze von 500 Zeilen gebracht. Der Teil, der
+einen Browser startet und fernsteuert, ist deshalb in eine eigene Datei
+gewandert — er ist ohnehin ein eigenes Thema und lässt sich beim nächsten
+Mal wiederverwenden.
+
+Beim Herauslösen habe ich dreimal nachbessern müssen, und jedes Mal hat
+es erst ein echter Lauf gezeigt: fehlende Importe, dann die Messseite,
+dann die Serverkonfiguration. **Ein Schnitt ist nicht fertig, wenn er
+übersetzt — sondern wenn er läuft.**
+
+
 ## Die Veröffentlichung stand zweimal still – 4. September 2026
 
 Seit dem Nachmittag ist nichts mehr live gegangen, und ich habe es erst
