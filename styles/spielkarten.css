@@ -1,0 +1,288 @@
+/* ===================================================================
+   Age of Beast — Daggerheart-Karten als Kacheln
+   -------------------------------------------------------------------
+   Janniks Vorgabe: „Für alle arten von karten machst du einfach karten
+   ohne illustrationen, aber verziere sie schön. auch als kacheln mit
+   allen infos dazu."
+
+   Ohne Illustration muss die Gestaltung tragen, was sonst das Bild
+   leistet. Drei Mittel dafür:
+
+   1. **Das Wappen** steht gross im Kopf, wo sonst die Illustration
+      waere. Es ist gezeichnet, nicht gemalt — und traegt die Farbe
+      seiner Domaene.
+   2. **Ein Zierrahmen** aus doppelter Linie mit abgesetzten Ecken.
+      Er kommt aus Farbverlaeufen, nicht aus Bilddateien: Ein Rahmen,
+      der eine Datei braucht, faellt bei fehlendem Netz aus.
+   3. **Die Domaenenfarbe** faerbt Kopf, Rahmen und Schmuck. Sie ist
+      dieselbe wie im Wappen, damit eine Karte auf einen Blick ihrer
+      Domaene zuzuordnen ist.
+
+   [Aufgabe: Bilder]
+   =================================================================== */
+
+/* ------------------------------------------------------------------ *
+   Die Karte selbst
+   ------------------------------------------------------------------ */
+
+.spielkarte {
+  --karte-ton: var(--akzent, #9184d9);
+  --karte-hell: var(--akzent-hell, #d2cefd);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 21rem;
+  padding: 0.55rem;
+  border-radius: 0.7rem;
+  background:
+    linear-gradient(160deg,
+      color-mix(in srgb, var(--karte-ton) 14%, var(--flaeche)) 0%,
+      var(--flaeche) 42%,
+      color-mix(in srgb, var(--karte-ton) 8%, var(--flaeche)) 100%);
+  border: 1px solid color-mix(in srgb, var(--karte-ton) 45%, transparent);
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--karte-ton) 22%, transparent) inset,
+    var(--schatten-klein);
+  overflow: hidden;
+}
+
+/* Die zweite, innere Linie. Sie sitzt bewusst knapp innen und nicht am
+   Rand — das ist der Unterschied zwischen „Kasten" und „Karte". */
+.spielkarte::before {
+  content: "";
+  position: absolute;
+  inset: 0.28rem;
+  border-radius: 0.45rem;
+  border: 1px solid color-mix(in srgb, var(--karte-ton) 28%, transparent);
+  pointer-events: none;
+}
+
+/* Eckmarken: vier kurze Winkel, die den Rahmen an den Ecken verdichten.
+   Mit `conic-gradient` sind es zwei Elemente statt acht. */
+.spielkarte::after {
+  content: "";
+  position: absolute;
+  inset: 0.28rem;
+  border-radius: 0.45rem;
+  pointer-events: none;
+  background:
+    conic-gradient(from 0deg at 0 0, var(--karte-ton) 0 90deg, transparent 0) 0 0 / 0.9rem 0.9rem no-repeat,
+    conic-gradient(from 90deg at 100% 0, var(--karte-ton) 0 90deg, transparent 0) 100% 0 / 0.9rem 0.9rem no-repeat,
+    conic-gradient(from 270deg at 0 100%, var(--karte-ton) 0 90deg, transparent 0) 0 100% / 0.9rem 0.9rem no-repeat,
+    conic-gradient(from 180deg at 100% 100%, var(--karte-ton) 0 90deg, transparent 0) 100% 100% / 0.9rem 0.9rem no-repeat;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  padding: 1px;
+  opacity: 0.75;
+}
+
+/* ------------------------------------------------------------------ *
+   Kopf — dort, wo sonst die Illustration waere
+   ------------------------------------------------------------------ */
+
+.karte-kopf {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 1.1rem 0.6rem 0.9rem;
+  border-radius: 0.45rem 0.45rem 0 0;
+  background:
+    radial-gradient(70% 90% at 50% 0%,
+      color-mix(in srgb, var(--karte-ton) 26%, transparent) 0%,
+      transparent 70%);
+}
+
+.karte-wappen {
+  width: 5.2rem;
+  height: 5.2rem;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
+}
+
+/* Stufe und Kosten sitzen als Medaillons in den oberen Ecken — wie auf
+   einer echten Spielkarte. */
+.karte-stufe,
+.karte-kosten {
+  position: absolute;
+  top: 0.5rem;
+  display: grid;
+  place-items: center;
+  min-width: 1.7rem;
+  height: 1.7rem;
+  padding: 0 0.35rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--karte-ton) 55%, transparent);
+  background: color-mix(in srgb, var(--karte-ton) 20%, var(--grund));
+  color: var(--karte-hell);
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.karte-stufe { left: 0.5rem; }
+.karte-kosten { right: 0.5rem; }
+
+.karte-kosten::after {
+  content: "";
+  width: 0.32rem;
+  height: 0.32rem;
+  margin-left: 0.18rem;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: 0.75;
+}
+
+/* ------------------------------------------------------------------ *
+   Titelband
+   ------------------------------------------------------------------ */
+
+.karte-band {
+  position: relative;
+  margin: 0 -0.55rem;
+  padding: 0.5rem 0.9rem 0.45rem;
+  text-align: center;
+  background:
+    linear-gradient(90deg,
+      transparent 0%,
+      color-mix(in srgb, var(--karte-ton) 30%, transparent) 12%,
+      color-mix(in srgb, var(--karte-ton) 30%, transparent) 88%,
+      transparent 100%);
+  border-block: 1px solid color-mix(in srgb, var(--karte-ton) 40%, transparent);
+}
+
+.karte-name {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--schrift);
+}
+
+.karte-unterzeile {
+  margin: 0.18rem 0 0;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--karte-hell);
+}
+
+/* ------------------------------------------------------------------ *
+   Regeltext
+   ------------------------------------------------------------------ */
+
+.karte-text {
+  flex: 1;
+  padding: 0.8rem 0.75rem 0.6rem;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--schrift-matt);
+}
+
+.karte-text p { margin: 0 0 0.55rem; }
+.karte-text p:last-child { margin-bottom: 0; }
+.karte-text strong { color: var(--schrift); }
+
+.karte-merkmal { margin-bottom: 0.6rem; }
+
+.karte-merkmal-name {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--karte-hell);
+  margin-bottom: 0.12rem;
+}
+
+/* Fehlt ein Regeltext, wird das gesagt statt kaschiert. Eine Karte, die
+   so tut, als sei sie vollstaendig, waere am Spieltisch schlimmer als
+   eine mit sichtbarer Luecke. */
+.karte-luecke {
+  padding: 0.5rem 0.6rem;
+  border-radius: var(--radius-klein);
+  border: 1px dashed var(--rand-hell);
+  font-size: 0.75rem;
+  color: var(--schrift-leise);
+}
+
+/* ------------------------------------------------------------------ *
+   Fuss
+   ------------------------------------------------------------------ */
+
+.karte-fuss {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem 0.35rem;
+  border-top: 1px solid color-mix(in srgb, var(--karte-ton) 22%, transparent);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--schrift-leise);
+}
+
+.karte-fuss .karte-art { color: var(--karte-hell); font-weight: 600; }
+
+/* ------------------------------------------------------------------ *
+   Das Kachelraster
+   ------------------------------------------------------------------ */
+
+.spielkarten-raster {
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: repeat(auto-fill, minmax(14.5rem, 1fr));
+  margin-top: 1rem;
+}
+
+@media (max-width: 30rem) {
+  .spielkarten-raster { grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr)); }
+  .spielkarte { min-height: 18rem; }
+  .karte-wappen { width: 4.2rem; height: 4.2rem; }
+}
+
+/* ------------------------------------------------------------------ *
+   Die neun Domaenenfarben
+
+   Sie stammen aus `werkzeuge/kartenbilder-erzeugen.mjs` und sind
+   dieselben wie in den Wappen — eine Arcana-Karte muss violett sein,
+   sonst stimmt die Zuordnung am Tisch nicht mehr.
+   ------------------------------------------------------------------ */
+
+.spielkarte[data-domaene="Arcana"]    { --karte-ton: #755391; --karte-hell: #c9b3dd; }
+.spielkarte[data-domaene="Blade"]     { --karte-ton: #a34843; --karte-hell: #e3aca8; }
+.spielkarte[data-domaene="Bone"]      { --karte-ton: #5a6f7b; --karte-hell: #b6c8d2; }
+.spielkarte[data-domaene="Codex"]     { --karte-ton: #94723f; --karte-hell: #dcc396; }
+.spielkarte[data-domaene="Grace"]     { --karte-ton: #a35479; --karte-hell: #e2b0c8; }
+.spielkarte[data-domaene="Midnight"]  { --karte-ton: #41476f; --karte-hell: #a9aed0; }
+.spielkarte[data-domaene="Sage"]      { --karte-ton: #4c7650; --karte-hell: #a8ccab; }
+.spielkarte[data-domaene="Splendor"]  { --karte-ton: #b38f2c; --karte-hell: #ecd58a; }
+.spielkarte[data-domaene="Valor"]     { --karte-ton: #9a5d3f; --karte-hell: #ddb094; }
+
+.spielkarte[data-art="ancestry"]  { --karte-ton: #477980; --karte-hell: #a9d0d6; }
+.spielkarte[data-art="community"] { --karte-ton: #765d85; --karte-hell: #c7b3d4; }
+.spielkarte[data-art="subclass"]  { --karte-ton: #665e87; --karte-hell: #bcb5d8; }
+
+/* Die helle Ansicht braucht dunklere Toene, sonst sind die Titelbaender
+   nicht mehr lesbar. */
+html[data-thema="hell"] .spielkarte { --karte-hell: #2e2a3f; }
+html[data-thema="hell"] .spielkarte[data-domaene="Arcana"]   { --karte-hell: #4a3260; }
+html[data-thema="hell"] .spielkarte[data-domaene="Blade"]    { --karte-hell: #6e2a26; }
+html[data-thema="hell"] .spielkarte[data-domaene="Bone"]     { --karte-hell: #35434c; }
+html[data-thema="hell"] .spielkarte[data-domaene="Codex"]    { --karte-hell: #5d4622; }
+html[data-thema="hell"] .spielkarte[data-domaene="Grace"]    { --karte-hell: #6b3049; }
+html[data-thema="hell"] .spielkarte[data-domaene="Midnight"] { --karte-hell: #262a45; }
+html[data-thema="hell"] .spielkarte[data-domaene="Sage"]     { --karte-hell: #2c4830; }
+html[data-thema="hell"] .spielkarte[data-domaene="Splendor"] { --karte-hell: #6d5615; }
+html[data-thema="hell"] .spielkarte[data-domaene="Valor"]    { --karte-hell: #613424; }
+html[data-thema="hell"] .spielkarte[data-art="ancestry"]     { --karte-hell: #2b4a4f; }
+html[data-thema="hell"] .spielkarte[data-art="community"]    { --karte-hell: #48374f; }
+html[data-thema="hell"] .spielkarte[data-art="subclass"]     { --karte-hell: #3d3853; }

@@ -1,0 +1,198 @@
+/* ===================================================================
+   Age of Beast — die Weltkartenseite
+   -------------------------------------------------------------------
+   Eigene Datei statt eines Anhangs an `wiki.css`: Die Karte ist eine
+   eigenstaendige Seite ohne Navigation und Suche, und ihre Regeln
+   gelten sonst nirgends.
+
+   [Aufgabe: Karte]
+   =================================================================== */
+
+.kartenseite .kopf {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0 1rem;
+}
+
+.karten-inhalt {
+  max-width: 78rem;
+  margin: 0 auto;
+  padding: 1.6rem 1.2rem 4rem;
+}
+
+/* ------------------------------------------------------------------ *
+   Werkzeugleiste
+   ------------------------------------------------------------------ */
+
+.karten-werkzeuge {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1.2rem 0 0.9rem;
+}
+
+.karten-knopf {
+  font: inherit;
+  font-size: 0.82rem;
+  padding: 0.42rem 0.85rem;
+  min-height: 2.2rem;
+  border-radius: var(--radius-klein);
+  border: 1px solid var(--rand-hell);
+  background: var(--flaeche);
+  color: var(--schrift);
+  cursor: pointer;
+  transition: border-color 0.16s, background 0.16s;
+}
+
+.karten-knopf:hover,
+.karten-knopf:focus-visible {
+  border-color: var(--akzent-rand);
+  background: var(--flaeche-hoch);
+}
+
+#kartenstand { margin-left: auto; }
+
+/* ------------------------------------------------------------------ *
+   Die Karte selbst
+   ------------------------------------------------------------------ */
+
+.kartenrahmen {
+  /* Die Buehne scrollt, der Rahmen bleibt stehen. Ohne das waere die
+     Karte bei starker Vergroesserung nicht mehr erreichbar. */
+  overflow: auto;
+  border: 1px solid var(--rand-hell);
+  border-radius: var(--radius);
+  background: var(--grund-tief);
+  box-shadow: var(--schatten-klein);
+  max-height: 78vh;
+}
+
+.kartenbuehne {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+}
+
+#kartenflaeche {
+  display: block;
+  /* Der entscheidende Punkt fuer den Pixellook: Der Browser darf beim
+     Vergroessern nicht weichzeichnen. Ohne diese Zeile sieht die Karte
+     aus wie ein verwaschenes Foto. */
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* Beschriftungen liegen als eigene Ebene darueber — mitvergroesserte
+   Schrift wuerde ausfransen. */
+.kartenschrift {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.gebietsname {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  color: #f4f1e6;
+  text-align: center;
+  white-space: nowrap;
+  /* Ein Schatten statt eines Kastens: Die Schrift muss auf hellem Sand
+     und auf dunklem Moor gleich gut lesbar sein. */
+  text-shadow:
+    0 0 3px rgba(0, 0, 0, 0.9),
+    0 0 7px rgba(0, 0, 0, 0.7),
+    0 1px 2px rgba(0, 0, 0, 1);
+}
+
+.gebietsname em {
+  display: block;
+  font-size: 0.7rem;
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  margin-top: 0.1rem;
+}
+
+/* ------------------------------------------------------------------ *
+   Legende, Siedlungen, Erläuterungen
+   ------------------------------------------------------------------ */
+
+.karten-spalten {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  margin-top: 1.2rem;
+}
+
+.karten-block {
+  padding: 0.95rem 1.05rem;
+  background: color-mix(in srgb, var(--flaeche) 82%, transparent);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius);
+}
+
+.karten-block h2 { margin: 0 0 0.7rem; }
+.karten-block p { margin: 0 0 0.6rem; font-size: 0.85rem; line-height: 1.6; color: var(--schrift-matt); }
+.karten-block p:last-child { margin-bottom: 0; }
+
+.kartenlegende,
+.staedteliste {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.84rem;
+}
+
+.kartenlegende li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.18rem 0;
+  color: var(--schrift-matt);
+}
+
+.tupfen {
+  width: 0.85rem;
+  height: 0.85rem;
+  flex: none;
+  border-radius: 0.2rem;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+}
+
+.staedteliste li {
+  padding: 0.3rem 0;
+  border-bottom: 1px solid var(--rand);
+  color: var(--schrift-matt);
+}
+
+.staedteliste li:last-child { border-bottom: none; }
+.staedteliste strong { color: var(--schrift); font-weight: 600; }
+.staedteliste em { opacity: 0.6; }
+
+.staedteliste .lage {
+  display: block;
+  font-size: 0.74rem;
+  color: var(--schrift-leise);
+}
+
+.karten-fussnote {
+  margin-top: 0.7rem !important;
+  font-size: 0.76rem !important;
+  color: var(--schrift-leise) !important;
+}
+
+@media (max-width: 40rem) {
+  .karten-inhalt { padding: 1rem 0.7rem 3rem; }
+  .kartenrahmen { max-height: 60vh; }
+  .gebietsname { font-size: 0.78rem; }
+}

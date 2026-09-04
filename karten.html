@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spielkarten – Age of Beast</title>
+<meta name="description" content="Alle Daggerheart-Karten als Kacheln: Domänenkarten, Abstammungen, Gemeinschaften und Unterklassen.">
+<meta name="color-scheme" content="dark light">
+<link rel="stylesheet" href="stil.css">
+<link rel="stylesheet" href="styles/spielkarten.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23161815'/><text x='16' y='23' font-size='18' text-anchor='middle' fill='%23d2cefd'>&#9670;</text></svg>">
+</head>
+<body class="kartenseite">
+
+<a class="zum-inhalt" href="#inhalt">Direkt zum Inhalt</a>
+
+<header class="kopf">
+  <a class="marke" href="./">
+    <strong>Age of Beast</strong>
+    <span class="teiler" aria-hidden="true">|</span>
+    <small>Spielkarten</small>
+  </a>
+  <div class="kopf-rechts">
+    <a class="modul-knopf" href="./">&lsaquo; Zurück ins Wiki</a>
+  </div>
+</header>
+
+<main id="inhalt" class="karten-inhalt" tabindex="-1">
+
+  <div class="seitenkopf">
+    <span class="mikro">Spielmaterial</span>
+    <h1>Die Karten</h1>
+    <p class="einleitung">
+      Alle Karten des Spiels als Kacheln — Domänenkarten, Abstammungen,
+      Gemeinschaften und Unterklassen. Ohne die offiziellen
+      Illustrationen: Jede Karte trägt stattdessen ihr eigenes Wappen,
+      aus ihrem Namen und ihrer Domäne berechnet.
+    </p>
+  </div>
+
+  <div class="karten-werkzeuge" id="kartenfilter"></div>
+
+  <div class="karten-suche">
+    <label class="visuell-versteckt" for="kartensuche">Karten durchsuchen</label>
+    <input type="search" id="kartensuche" placeholder="Karte suchen …" autocomplete="off" spellcheck="false">
+    <span class="mikro" id="kartenzahl"></span>
+  </div>
+
+  <div id="kartenmeldung" class="hinweis" hidden></div>
+
+  <div class="spielkarten-raster" id="kartenraster"></div>
+
+</main>
+
+<script type="module" src="karte/karten-zeigen.js"></script>
+</body>
+</html>
