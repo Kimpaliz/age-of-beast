@@ -391,6 +391,44 @@ Vollstaendigkeit wird jetzt in beide Richtungen geprueft
 und jede genannte Datei existiert.
 
 
+### E9 · Das Attribut stand da, die Wirkung fehlte
+
+**Was ich tat:** Janniks Meldung „Die Kategorien filtern nichts" geprueft,
+indem ich nach einem Klick `document.querySelectorAll('.kachel')` nahm und
+zaehlte, wie viele `k.hidden` tragen.
+**Was herauskam:** 35 von 59 — genau die richtige Zahl. Ich haette daraus
+fast geschlossen, der Filter sei in Ordnung und Jannik taeusche sich.
+**Warum:** `hidden` wirkt allein ueber die eingebaute Browserregel
+`[hidden] { display: none }`, und die ist die **schwaechste Regel
+ueberhaupt**. `wiki.css` setzt `.kachel { display: flex }` — eine
+Klassenregel schlaegt sie. Gemessen: 35 Kacheln mit dem Attribut,
+**0 davon unsichtbar**.
+**Woran ich es frueher merke:** Ein Attribut ist eine Absicht, keine
+Wirkung. Wer Sichtbarkeit prueft, fragt nach `offsetParent` oder
+`getComputedStyle(...).display` — also nach dem, was ein Mensch saehe.
+Verwandt mit **D3**: dort las die Pruefung die Schreibweise statt des
+Verhaltens, hier den Zustand statt seiner Folge.
+
+### E10 · Ein Modul, das Wiederverwendung verspricht und sie nicht kann
+
+**Was ich tat:** `werkzeuge/browser-messen.mjs` fuer eine zweite Messung
+benutzt. Sein Kopfkommentar sagt ausdruecklich, es sei herausgeloest
+worden, „weil die naechste Messung es wiederverwenden kann".
+**Was herauskam:** „Chromium gab innerhalb von 15 Sekunden kein
+Messergebnis aus." Dreimal, mit drei verschiedenen Vermutungen — fehlende
+Dateien, zu kurze Wartezeit, kaputtes Skript. Alle falsch.
+**Warum:** Die Adresse der Messseite (`/__aob-bogenfarben.html`) und die
+Ergebnis-ID waren **fest verdrahtet**. Der Server lieferte meine Seite gar
+nicht aus, der Browser suchte eine ID, die es nicht gab. Beides stumm: ein
+404 auf eine Seite, die niemand sonst anfordert, und eine Abfrage, die
+ewig `undefined` liefert.
+**Woran ich es frueher merke:** Ein Modul ist erst wiederverwendbar, wenn
+es **einmal wirklich wiederverwendet** wurde — der Kopfkommentar ist eine
+Absichtserklaerung, kein Beleg. Und: Eine Messung, die im Fehlerfall nur
+„kein Ergebnis" sagt, macht jede Diagnose zum Raten. Die Messseite meldet
+jetzt, an welchem Schritt sie haengt.
+
+
 ---
 
 ## Was daraus folgt

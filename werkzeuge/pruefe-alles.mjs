@@ -19,6 +19,7 @@
    | `pruefe-cache-graph.mjs` | jede veränderliche Browser-Abhängigkeit trägt im Artefakt ihre SHA | ein Besucher mit neuem HTML und altem JavaScript aus dem Zwischenspeicher |
    | `pruefe-datenvertrag.mjs` | IDs, Kategorien, Panels, Verweise, Rahmen, Bildpfade (Legacy-v0) | der Verweis auf einen Eintrag, den es nicht gibt |
    | `pruefe-favoriten.mjs` | Sterne halten, ohne Anmeldung und über Seitenwechsel | der gesetzte Stern, der beim nächsten Aufruf weg ist |
+   | `pruefe-filter.mjs` | eine versteckte Kachel ist **wirklich** unsichtbar; die Karten stehen in Bloecken | der Filter, der `hidden` setzt und trotzdem nichts versteckt — eine `display`-Regel schlaegt es |
    | `pruefe-firestore-format.mjs` | Welt ⇄ Firestore-Dokumente, samt Schlüsselreihenfolge | ein Speichern, das `quelle.json` komplett umsortiert |
    | `pruefe-firestore-trennung.mjs` | die Regeldatei enthält Scotophobias Blöcke wortgleich | **ein Deploy, der das Nachbarprojekt abschaltet** — siehe `docs/PROJEKTGRENZE.md` |
    | `pruefe-gleichstand.mjs` | `welt.json` passt zu den Rohdaten | eine Anzeige, die etwas anderes zeigt als die Quelle sagt |

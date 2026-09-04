@@ -44,11 +44,20 @@ export function browserPfad() {
  * Dateien gehoeren zu der Pruefung, die misst — dieses Modul soll nichts
  * ueber Bogenfarben wissen. Ein Import von dort waere ein Ringbezug.
  */
-export function starteServer({ hilfsseite, wurzel, dateien, typen }) {
+/* ⚠️ `seite` und die Ergebnis-ID waren bis zum 04.09.2026 fest auf
+   „bogenfarben" verdrahtet — in einem Modul, dessen eigener Kopf
+   verspricht, dass die naechste Messung es wiederverwenden kann. Die
+   erste Wiederverwendung (`pruefe-filter.mjs`) lief deshalb stumm ins
+   404: Der Server lieferte die Messseite nicht aus, der Browser fand
+   die ID nie, und die Meldung lautete bloss „kein Messergebnis".
+
+   Die Standardwerte halten die bestehende Messung unveraendert. */
+export function starteServer({ hilfsseite, wurzel, dateien, typen,
+  seite = '/__aob-bogenfarben.html' }) {
   return new Promise((fertig) => {
     const server = createServer(async (anfrage, antwort) => {
       const adresse = decodeURIComponent((anfrage.url || '/').split('?')[0]);
-      if (adresse === '/__aob-bogenfarben.html') {
+      if (adresse === seite) {
         antwort.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
         antwort.end(hilfsseite());
         return;
@@ -130,7 +139,7 @@ async function cdpOeffnen(adresse) {
   };
 }
 
-export async function browserStarten(url) {
+export async function browserStarten(url, ergebnisId = 'aob-bogenfarben-ergebnis') {
   const programm = browserPfad();
   if (!programm) throw new Error('Weder Chrome noch Edge wurden gefunden.');
   const profil = mkdtempSync(join(tmpdir(), 'aob-bogenfarben-'));
@@ -160,7 +169,7 @@ export async function browserStarten(url) {
     try {
       await cdp.ruf('Page.navigate', { url });
       for (let versuch = 0; versuch < 600; versuch += 1) {
-        const antwort = await cdp.ruf('Runtime.evaluate', { expression: 'document.getElementById("aob-bogenfarben-ergebnis")?.textContent', returnByValue: true });
+        const antwort = await cdp.ruf('Runtime.evaluate', { expression: 'document.getElementById(' + JSON.stringify(ergebnisId) + ')?.textContent', returnByValue: true });
         const text = antwort.result?.value;
         if (text && text !== 'wartet') return JSON.parse(Buffer.from(text, 'base64').toString('utf8'));
         await warte(25);
