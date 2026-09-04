@@ -5,6 +5,45 @@ Dieselben Änderungen stehen in Entwicklersprache in [CHANGELOG-TECHNIK.md](CHAN
 
 Das Neueste steht immer oben.
 
+## Fahrplan, Wünsche und Fehler leben jetzt auf GitHub – 4. September 2026
+
+Bisher standen offene Punkte als Absätze in Dokumenten. Das geht so
+lange gut, bis jemand etwas baut und vergisst, den Absatz nachzuziehen —
+und dann steht dort monatelang „noch offen", obwohl es längst fertig
+ist. Niemand merkt es, weil nichts kaputtgeht.
+
+**Ab jetzt sind es Vorgänge im Projekt selbst.** Auf
+<https://github.com/Kimpaliz/age-of-beast/issues> siehst du, was offen
+ist — und zwar immer, ohne dass jemand eine Liste pflegen muss.
+
+### Es gibt fünf Sorten
+
+| | wofür |
+| --- | --- |
+| **Wunsch** | Was du dir wünschst. Dein Wortlaut bleibt darin stehen. |
+| **Phase** | Ein größeres Vorhaben aus dem Fahrplan. |
+| **Schritt** | Ein Stück Arbeit mit **einem** Kriterium, wann es fertig ist. |
+| **Fehler** | Etwas ist kaputt. |
+| **Entscheidung** | Eine Frage, die nur du beantworten kannst. |
+
+**Ein Wunsch und eine Phase enthalten selbst keine Arbeit** — die Arbeit
+sind ihre Schritte. Du siehst am Balken, wie viele davon erledigt sind.
+
+### Was schon drinsteht
+
+Drei Vorhaben mit sechs Schritten: die Wikis mit eigenen Inhalten, die
+mitrechnenden Charakterbögen, und die Gruppierung der Regeleinträge.
+Dazu dein Charakterbogen-Wunsch im Wortlaut und der behobene
+Filter-Fehler — der ist gleich als erledigt eingetragen, damit man sieht,
+wie ein abgeschlossener Vorgang aussieht.
+
+### Du kannst selbst welche anlegen
+
+Auf GitHub unter „New issue" stehen jetzt drei Formulare: **Wunsch**,
+**Fehler**, **Entscheidung**. Sie fragen genau das ab, was gebraucht
+wird — beim Wunsch ausdrücklich in deinen eigenen Worten, nichts
+glattgezogen.
+
 ## Aufgeräumt – 4. September 2026
 
 Kein neues Können, nichts sieht anders aus. Aber das Projekt erklärt

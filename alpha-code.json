@@ -18,6 +18,12 @@
     ".git"
   ],
   "altlasten": "docs/ALTLASTEN.md",
+  "vorgaenge": {
+    "repo": "Kimpaliz/age-of-beast",
+    "roadmap": "docs/ROADMAP.md",
+    "sammel_label": "track"
+  },
+  "_warum_vorgaenge": "Regel 16: Fahrplan, Wuensche, Fehler und offene Fragen leben als GitHub-Issues, nicht als Absaetze in Dokumenten. Ein Absatz veraltet lautlos, ein geschlossener Vorgang nicht. Das Repo steht ausdruecklich hier statt aus der Git-Fernstelle geraten zu werden — ein Werkzeug, das Vorgaenge anlegt, soll nie im falschen Projekt landen.",
   "_warum_daten_ausgenommen": "daten/ traegt nur erzeugte Weltdaten und 234 SVG-Wappen. daten/welt.js (5462 Zeilen) wird von welt-aufbereiten.mjs geschrieben; eine Kopfnotiz dort waere beim naechsten Erzeugen wieder weg. Erzeugtes ist keine Altlast.",
   "_warum_zwei_ausnahmelisten": "ausnahmen gilt fuer die Quelldateiliste (Tags, Altlasten). geheimnisAusnahmen gilt fuer die Geheimnissuche und ist absichtlich viel enger: Ein Ordner, den man nicht als Quelle fuehrt, muss trotzdem auf Geheimnisse geprueft werden. Mit der gemeinsamen Liste blieben docs/ und daten/ ungeprueft (Alpha-Code-Fehlerbuch E3)."
 }

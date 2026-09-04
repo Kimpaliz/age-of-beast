@@ -1,0 +1,35 @@
+name: Wunsch
+description: Etwas, das du dir wünschst. Dein Wortlaut zählt.
+title: "[Wunsch] "
+labels: ["wunsch", "track"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Ein Wunsch ist ein **Sammelvorgang**: Er enthält selbst keine
+        Arbeit. Was dafür gebraucht wird, steht erst nach dem Nachsehen
+        fest — daraus werden dann die Schritte.
+  - type: textarea
+    id: wortlaut
+    attributes:
+      label: Was du dir wünschst
+      description: >
+        In deinen eigenen Worten. Nichts glattziehen — der Wortlaut
+        bleibt hier stehen, damit später nachprüfbar ist, ob die
+        Auslegung stimmte.
+      placeholder: "Die Charakterbögen sollen sich automatisch ändern, wenn …"
+    validations:
+      required: true
+  - type: textarea
+    id: warum
+    attributes:
+      label: Wofür brauchst du das? (freiwillig)
+      description: >
+        Der Zweck hilft beim Schneiden. Oft gibt es einen kürzeren Weg
+        zum selben Ziel.
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        *Die Analyse — was gebraucht wird und in welche Schritte es
+        zerfällt — kommt als Kommentar darunter, getrennt vom Wortlaut.*

@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Fahrplan
+    url: https://github.com/Kimpaliz/age-of-beast/blob/main/docs/ROADMAP.md
+    about: Was gebaut werden soll und warum in dieser Reihenfolge. Phasen und Schritte entstehen daraus, nicht von Hand.
+  - name: Was gerade offen ist
+    url: https://github.com/Kimpaliz/age-of-beast/issues
+    about: Der Stand lebt hier und nicht in einem Dokument — ein Absatz veraltet lautlos, ein geschlossener Vorgang nicht.
