@@ -97,9 +97,20 @@ async function abfragen(strukturierteAbfrage, token) {
   return zeilen.map((z) => wikiAus(z.document)).filter(Boolean);
 }
 
-/** Alle öffentlich lesbaren Wikis. Geht ohne Anmeldung. */
+/**
+ * Alle öffentlich lesbaren Wikis. Geht ohne Anmeldung.
+ *
+ * ⚠️ **Sortiert wird hier, nicht in Firestore.** Ein `orderBy` neben dem
+ * Filter verlangt einen zusammengesetzten Index — also eine
+ * Infrastrukturänderung, die jemand veröffentlichen müsste. Genau das
+ * soll die Plattform nicht brauchen: Ein neues Wiki ist ein
+ * Schreibvorgang, kein Eingriff (siehe `docs/PLATTFORM.md`). Bei
+ * höchstens hundert Wikis kostet das Sortieren im Browser nichts.
+ * Gemessen am 04.09.2026: ohne diesen Umweg antwortete die Abfrage mit
+ * HTTP 400 „The query requires an index".
+ */
 export async function oeffentlicheWikis() {
-  return abfragen({
+  const wikis = await abfragen({
     from: [{ collectionId: WIKI_SAMMLUNG }],
     where: {
       fieldFilter: {
@@ -108,31 +119,32 @@ export async function oeffentlicheWikis() {
         value: { booleanValue: true },
       },
     },
-    orderBy: [{ field: { fieldPath: 'name' }, direction: 'ASCENDING' }],
     limit: 100,
   });
+  return wikis.sort((a, b) =>
+    String(a.name || '').localeCompare(String(b.name || ''), 'de'));
 }
 
 /**
  * Die Wikis, in denen dieses Konto Mitglied ist.
  *
- * Braucht den Anmeldetoken: Die Regel lässt die Abfrage nur durch, wenn
- * sie sich auf die eigene Kennung beschränkt — sonst bekäme man mit
- * derselben Abfrage die privaten Wikis aller anderen.
+ * **Über das SDK, nicht über REST.** Die Regel lässt die Abfrage nur
+ * durch, wenn sie sich auf die eigene Kennung beschränkt — dafür braucht
+ * es einen gültigen Anmeldetoken. Den über REST mitzuführen hiesse, ihn
+ * selbst zu holen, im Blick zu behalten und rechtzeitig zu erneuern. Wer
+ * hier ankommt, ist ohnehin angemeldet, und dann ist das SDK schon
+ * geladen: Es kennt den Token und erneuert ihn von selbst.
  */
-export async function meineWikis(token, uid) {
-  if (!token || !uid) return [];
-  return abfragen({
-    from: [{ collectionId: WIKI_SAMMLUNG }],
-    where: {
-      fieldFilter: {
-        field: { fieldPath: 'mitgliederIds' },
-        op: 'ARRAY_CONTAINS',
-        value: { stringValue: uid },
-      },
-    },
-    limit: 100,
-  }, token);
+export async function meineWikis(uid) {
+  if (!uid) return [];
+  const { db, storeModul } = await verbinden();
+  const abfrage = storeModul.query(
+    storeModul.collection(db, WIKI_SAMMLUNG),
+    storeModul.where('mitgliederIds', 'array-contains', uid),
+    storeModul.limit(100),
+  );
+  const schnappschuss = await storeModul.getDocs(abfrage);
+  return schnappschuss.docs.map((d) => ({ kennung: d.id, ...d.data() }));
 }
 
 /* ------------------------------------------------------------------ *

@@ -1,0 +1,41 @@
+/* ===================================================================
+   Age of Beast — Handy und Tablet
+   [Aufgabe: Gestaltung]
+
+   -------------------------------------------------------------------
+   Zusatzstil, kein Teil der urspruenglichen Aufteilung. `styles/wiki.css`,
+   `tokens.css`, `bearbeiten.css` und `werkstatt.css` sind per Pruefsumme
+   eingefroren: `werkzeuge/pruefe-stilstruktur.mjs` belegt, dass ihre
+   Verkettung noch immer der alten `stil.css` entspricht. Neue Gestaltung
+   kommt deshalb hierher.
+
+   Jannik will das Wiki **vor allem auf Handy und Tablet** benutzen.
+   =================================================================== */
+
+@media (max-width: 48rem) {
+  .kopf {
+    height: auto;
+    padding: 0.4rem 0.75rem;
+    row-gap: 0.45rem;
+    column-gap: 0.5rem;
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    grid-template-areas:
+      "schalter marke leiste rechts"
+      "suche    suche  suche  suche";
+  }
+  .leiste-schalter { grid-area: schalter; }
+  .kopf > .marke   { grid-area: marke; min-width: 0; }
+  .kopf > .suche   { grid-area: suche; max-width: none; }
+  .modul-leiste    { grid-area: leiste; }
+  .kopf-rechts     { grid-area: rechts; }
+
+  /* Der Untertitel neben der Marke ist hier nur noch Ballast. */
+  .marke .teiler,
+  .marke small { display: none; }
+}
+
+@media (max-width: 40rem) {
+  /* 16px verhindert das Hineinzoomen auf iPhones, 2.75rem macht das Feld
+     zu einem Ziel, das ein Finger trifft. */
+  .suche input { font-size: 16px; height: 2.75rem; }
+}

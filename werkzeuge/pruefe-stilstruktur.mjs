@@ -33,6 +33,7 @@ const STIL_TEILE = [
    Ursprungsteile gefuehrt wird. Neue Gestaltung kommt deshalb hier dazu. */
 const STIL_ZUSATZ = [
   'styles/kategorien.css',
+  'styles/handy.css',
 ];
 
 const STIL_ALLE = [...STIL_TEILE, ...STIL_ZUSATZ];
@@ -116,8 +117,22 @@ function reineFassadePruefen(fassade) {
   }
 }
 
+/**
+ * Ob ein Stilanker als **Grunddefinition** in diesem Text steht.
+ *
+ * Entscheidend ist Spalte 0. Ein Anker wie `.kopf {` ganz links ist die
+ * Stelle, an der ein Element sein Aussehen bekommt — die soll es genau
+ * einmal geben, damit niemand einen Block still in eine andere Datei
+ * verschiebt.
+ *
+ * Eingerueckte Vorkommen sind dagegen **Ueberschreibungen** in einer
+ * Media Query oder unter einem Elternselektor, und die gehoeren
+ * ausdruecklich in die Zusatzdateien. Zuvor zaehlte hier `trimStart()`
+ * mit — dadurch sah eine eingerueckte Handy-Regel wie ein zweiter
+ * Grundblock aus, und keine Zusatzdatei durfte je etwas anpassen.
+ */
 function stilankerVorhanden(text, sentinel) {
-  return text.split('\n').some((zeile) => zeile.trimStart().startsWith(sentinel));
+  return text.split('\n').some((zeile) => zeile.startsWith(sentinel));
 }
 
 function sentinelPruefen(teile) {

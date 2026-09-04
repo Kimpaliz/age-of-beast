@@ -7,6 +7,46 @@ Das Neueste steht immer oben.
 
 ---
 
+## Ein ehrlicher Hinweis statt einer falschen Anzeige – 4. September 2026
+
+Das Hauptmenü verweist auf `wiki.html?w=<name>`. Die Wikiseite zeigt
+aber bis auf Weiteres **immer dieselbe Welt** — der Umzug auf mehrere
+Welten ist der nächste Schritt.
+
+Wer mit einer fremden Kennung dort landet, bekäme sonst fremde Inhalte
+unter dem richtigen Namen zu sehen. Das ist die schlimmste Art von
+Fehler, weil ihn niemand bemerkt. Stattdessen steht jetzt ein Hinweis
+da, dass diese Welt noch nicht angezeigt werden kann.
+
+---
+
+## Hauptmenü, Handy-Kopfzeile, Rechtsklickmenü – 4. September 2026
+
+**Man landet jetzt zuerst im Hauptmenü.** Dort stehen die Wikis, die du
+lesen darfst; angemeldet kommen deine eigenen dazu und der Knopf, um ein
+neues anzulegen — mit Namen, Beschreibung, Regelwerken zum Ankreuzen und
+der Wahl, ob es öffentlich lesbar ist. Das Wiki selbst liegt jetzt unter
+`wiki.html` und hat einen Rückweg ins Menü.
+
+**Ohne Anmeldung ist das Menü nicht leer.** Wer nur lesen will, sieht die
+öffentlichen Wikis und kommt mit einem Klick hinein.
+
+**Die Handy-Kopfzeile war unbenutzbar, und zwar messbar:** Bei 390 Pixeln
+Fensterbreite war das Suchfeld **66 Pixel breit** — die fünf Knöpfe daneben
+hatten es zusammengedrückt. Jetzt bekommt die Suche eine eigene Zeile über
+die volle Breite: **366 Pixel, 44 hoch**, also ein Ziel, das ein Finger
+trifft.
+
+**Rechtsklick zeigt jetzt ein eigenes Menü** statt des Windows-Menüs: den
+Eintrag öffnen, in neuem Tab öffnen, zu den Favoriten, Verweis kopieren —
+und bei markiertem Text „im Wiki suchen". Mit gedrückter Umschalttaste
+kommt das gewohnte Browsermenü, damit „Bild speichern" nicht verloren
+geht. Auf dem Handy ändert sich nichts: Dort gibt es keinen Rechtsklick,
+und langes Drücken abzufangen würde das Markieren kaputtmachen.
+Die Taste `/` springt in die Suche.
+
+---
+
 ## Nachtrag: die Veröffentlichung stand still – 4. September 2026
 
 Der Bau der Seite ist fehlgeschlagen — bei mir lief alles grün. Ursache
