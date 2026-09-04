@@ -1,0 +1,328 @@
+/* [Aufgabe: Bearbeiten]
+   Gestaltet den Vorlagen-Editor innerhalb des bestehenden Aschekodex-Stils.
+
+   Die Datei nutzt nur die gemeinsamen Tokens. So folgt die neue Seite dem
+   hellen und dunklen Thema automatisch, statt ein zweites Farbsystem zu
+   pflegen.
+*/
+
+.vorlagen-seite {
+  overflow-x: hidden;
+}
+
+.vorlagen-seite .modul-knopf {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+}
+
+.vorlagen-inhalt {
+  width: min(100%, 72rem);
+  margin: 0 auto;
+  padding: 2.2rem 1rem 3rem;
+}
+
+.vorlagen-app {
+  min-width: 0;
+}
+
+.vorlagen-auswahl,
+.vorlagen-formularbereich,
+.vorlagen-ausgabe {
+  min-width: 0;
+  padding: 1.1rem;
+  background: color-mix(in srgb, var(--flaeche) 92%, transparent);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius);
+  box-shadow: var(--schatten-klein);
+}
+
+.vorlagen-formularbereich,
+.vorlagen-ausgabe {
+  margin-top: 1rem;
+}
+
+.vorlagen-auswahl h2,
+.vorlagen-formularbereich h2,
+.vorlagen-ausgabe h2 {
+  margin: 0;
+  color: var(--schrift);
+  font-family: var(--serif);
+  font-size: 1.22rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.vorlagen-auswahl-hilfe,
+.vorlagen-formular-einleitung,
+.vorlagen-ausgabe-hilfe {
+  margin: 0.45rem 0 0;
+  color: var(--schrift-matt);
+  font-size: 0.9rem;
+}
+
+.vorlagen-auswahlraster {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+
+.vorlagen-auswahlknopf {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    "symbol name"
+    "symbol meta";
+  column-gap: 0.7rem;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  min-height: 5.25rem;
+  padding: 0.8rem;
+  color: var(--schrift);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  background: var(--grund);
+  border: 1px solid var(--rand-hell);
+  border-radius: var(--radius-klein);
+  transition: border-color 0.15s, background 0.15s, transform 0.15s;
+}
+
+.vorlagen-auswahlknopf:hover {
+  background: var(--flaeche-hoch);
+  border-color: var(--akzent-rand);
+  transform: translateY(-1px);
+}
+
+.vorlagen-auswahlknopf[aria-pressed="true"] {
+  background: var(--akzent-schleier);
+  border-color: var(--akzent);
+  box-shadow: 0 0 0 1px var(--akzent-rand) inset;
+}
+
+.vorlagen-symbol {
+  grid-area: symbol;
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  color: var(--akzent-hell);
+  font-size: 1.45rem;
+  background: color-mix(in srgb, var(--akzent) 18%, transparent);
+  border: 1px solid var(--akzent-rand);
+  border-radius: 50%;
+}
+
+.vorlagen-auswahlname {
+  grid-area: name;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-weight: 700;
+}
+
+.vorlagen-auswahlmeta {
+  grid-area: meta;
+  color: var(--schrift-leise);
+  font-size: 0.78rem;
+}
+
+.vorlagen-meldung {
+  margin: 1rem 0 0;
+  padding: 0.75rem 0.85rem;
+  color: var(--schrift-matt);
+  background: var(--flaeche);
+  border: 1px solid var(--rand);
+  border-left: 3px solid var(--akzent);
+  border-radius: var(--radius-klein);
+}
+
+.vorlagen-meldung[data-art="fehler"] {
+  border-left-color: #d97d7d;
+}
+
+.vorlagen-meldung[data-art="erfolg"] {
+  border-left-color: var(--tuerkis);
+}
+
+.vorlagen-feldraster {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.15rem;
+}
+
+.vorlagen-feld {
+  min-width: 0;
+}
+
+.vorlagen-feld[data-art="mehrzeilig"] {
+  grid-column: 1 / -1;
+}
+
+.vorlagen-beschriftung {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--schrift);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.vorlagen-pflicht {
+  color: var(--tuerkis);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.vorlagen-eingabe {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 2.75rem;
+  padding: 0.65rem 0.75rem;
+  color: var(--schrift);
+  font: inherit;
+  line-height: 1.4;
+  background: var(--grund);
+  border: 1px solid var(--rand-hell);
+  border-radius: var(--radius-klein);
+}
+
+textarea.vorlagen-eingabe {
+  min-height: 7.5rem;
+  resize: vertical;
+}
+
+.vorlagen-eingabe::placeholder {
+  color: var(--schrift-leise);
+}
+
+.vorlagen-eingabe:hover {
+  border-color: var(--akzent-rand);
+}
+
+.vorlagen-eingabe:focus {
+  border-color: var(--akzent);
+  outline: 2px solid color-mix(in srgb, var(--akzent) 42%, transparent);
+  outline-offset: 1px;
+}
+
+.vorlagen-eingabe[aria-invalid="true"] {
+  border-color: #d97d7d;
+  outline-color: rgba(217, 125, 125, 0.42);
+}
+
+.vorlagen-hilfe,
+.vorlagen-feldfehler {
+  margin: 0.35rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.vorlagen-hilfe {
+  color: var(--schrift-leise);
+}
+
+.vorlagen-feldfehler {
+  color: #e69b9b;
+  font-weight: 600;
+}
+
+.vorlagen-aktionen {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.2rem;
+}
+
+.vorlagen-erzeugen,
+.vorlagen-kopieren {
+  min-height: 2.75rem;
+  padding: 0.62rem 1rem;
+  color: #161815;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  background: var(--akzent-hell);
+  border: 1px solid var(--akzent-hell);
+  border-radius: var(--radius-klein);
+  transition: background 0.15s, border-color 0.15s, transform 0.15s;
+}
+
+.vorlagen-erzeugen:hover,
+.vorlagen-kopieren:hover {
+  background: var(--verweis-aktiv);
+  border-color: var(--verweis-aktiv);
+  transform: translateY(-1px);
+}
+
+.vorlagen-json {
+  min-width: 0;
+  margin: 1rem 0;
+  padding: 0.9rem;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  color: var(--schrift);
+  font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  background: var(--grund);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+}
+
+.vorlagen-kopierstatus {
+  min-height: 1.5rem;
+  margin: 0.55rem 0 0;
+  color: var(--schrift-matt);
+  font-size: 0.82rem;
+}
+
+@media (max-width: 40rem) {
+  .vorlagen-seite .kopf {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.45rem;
+    padding: 0 0.6rem;
+  }
+
+  .vorlagen-seite .marke .teiler,
+  .vorlagen-seite .marke small {
+    display: none;
+  }
+
+  .vorlagen-seite .modul-knopf {
+    padding: 0.45rem 0.55rem;
+    font-size: 0.75rem;
+  }
+
+  .vorlagen-inhalt {
+    padding: 1.45rem 0.75rem 2rem;
+  }
+
+  .vorlagen-auswahl,
+  .vorlagen-formularbereich,
+  .vorlagen-ausgabe {
+    padding: 0.9rem;
+  }
+
+  .vorlagen-auswahlraster,
+  .vorlagen-feldraster {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .vorlagen-feld[data-art="mehrzeilig"] {
+    grid-column: auto;
+  }
+
+  .vorlagen-aktionen {
+    justify-content: stretch;
+  }
+
+  .vorlagen-erzeugen,
+  .vorlagen-kopieren {
+    width: 100%;
+  }
+}

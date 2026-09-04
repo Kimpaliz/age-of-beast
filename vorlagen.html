@@ -1,0 +1,49 @@
+<!doctype html>
+<!-- [Aufgabe: Bearbeiten] Diese Seite macht die Datenvorlagen ohne Schreibweg nutzbar. -->
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eintragsvorlagen – Age of Beast</title>
+<meta name="description" content="Vorlagen für NPCs, Orte, POIs und Gegenstände im Age-of-Beast-Wiki.">
+<meta name="color-scheme" content="dark light">
+<link rel="stylesheet" href="stil.css">
+<link rel="stylesheet" href="styles/vorlagen.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23161815'/><text x='16' y='23' font-size='18' text-anchor='middle' fill='%23d2cefd'>&#9670;</text></svg>">
+</head>
+<body class="vorlagen-seite">
+
+<a class="zum-inhalt" href="#inhalt">Direkt zum Inhalt</a>
+
+<header class="kopf">
+  <a class="marke" href="./">
+    <strong>Age of Beast</strong>
+    <span class="teiler" aria-hidden="true">|</span>
+    <small>Eintragsvorlagen</small>
+  </a>
+  <div class="kopf-rechts">
+    <a class="modul-knopf" href="./">&lsaquo; Zurück ins Wiki</a>
+  </div>
+</header>
+
+<main id="inhalt" class="vorlagen-inhalt" tabindex="-1">
+  <div class="seitenkopf">
+    <span class="mikro">Einträge vorbereiten</span>
+    <h1>Neue Wiki-Einträge vorbereiten</h1>
+    <p class="einleitung">
+      Wähle eine Vorlage, fülle die Felder aus und erzeuge einen fertigen
+      Entwurf zum Kopieren. Diese Seite speichert nichts in der Welt.
+    </p>
+  </div>
+
+  <div id="vorlagen-app" class="vorlagen-app" aria-busy="true">
+    <p class="hinweis">Vorlagen werden geladen …</p>
+  </div>
+</main>
+
+<script src="runtime/vorlagen.js"></script>
+<script>
+  window.aobVorlagen.starten(document.getElementById("vorlagen-app")).catch(() => {});
+</script>
+</body>
+</html>
