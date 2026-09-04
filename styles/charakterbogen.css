@@ -1,0 +1,412 @@
+/* ===================================================================
+   Age of Beast — Charakterbögen
+   [Aufgabe: Karte]
+
+   -------------------------------------------------------------------
+   Der Bogen ist eine Arbeitsfläche, keine Kachel: Er darf so hoch
+   werden, wie seine Figur Werte hat. Deshalb hier bewusst **kein**
+   festes Seitenverhältnis wie bei den Spielkarten — dort geht es ums
+   Vergleichen, hier ums Nachschlagen.
+
+   Alle Farben kommen aus `styles/tokens.css`. Damit stimmt der Bogen in
+   beiden Schemata, ohne dass hier ein zweiter Satz gepflegt wird.
+   =================================================================== */
+
+.bogen-inhalt {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 4rem;
+}
+
+.boegen {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(23rem, 1fr));
+  margin-top: 1.5rem;
+  align-items: start;
+}
+
+.bogen {
+  background: var(--flaeche);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  box-shadow: var(--schatten-klein);
+}
+
+/* ── Kopf ───────────────────────────────────────────────────────── */
+
+.bogen-kopf {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--rand);
+}
+
+.bogen-kopf-text { flex: 1; min-width: 0; }
+
+.bogen-name {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.bogen-herkunft {
+  margin: 0.25rem 0 0;
+  color: var(--akzent-hell);
+  font-size: 0.86rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.bogen-beruf {
+  margin: 0.3rem 0 0;
+  color: var(--schrift-matt);
+  font-size: 0.92rem;
+}
+
+/* Die deutsche Entsprechung steht in Klammern und darf zuruecktreten —
+   aber lesbar bleiben: mit `--schrift-leise` waren es gemessen 3,16
+   (hell) und 3,5 (dunkel). */
+.bogen-beruf .fremd { color: var(--schrift-matt); }
+
+/* Die Stufe ist die eine Zahl, die man von weitem sehen will. */
+.bogen-stufe {
+  flex: none;
+  width: 3.4rem;
+  text-align: center;
+  padding: 0.4rem 0 0.45rem;
+  background: var(--akzent-schleier);
+  border: 1px solid var(--akzent-rand);
+  border-radius: var(--radius-klein);
+}
+
+.bogen-stufe strong {
+  display: block;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--akzent-hell);
+}
+
+.bogen-kurz {
+  margin: 0.9rem 0 0;
+  color: var(--schrift-matt);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* ── Blöcke ─────────────────────────────────────────────────────── */
+
+.bogen-block { margin-top: 1.15rem; }
+
+.bogen-block h3 {
+  margin: 0 0 0.55rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--schrift-matt);
+  font-weight: 600;
+}
+
+.mikro {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  /* `--schrift-matt` statt `--schrift-leise`: gemessen kam der leise Ton
+     bei dieser Groesse nur auf 3,1 (hell) und 3,5 (dunkel) Kontrast — die
+     Beschriftungen sind aber genau das, was man beim Nachschlagen sucht. */
+  color: var(--schrift-matt);
+}
+
+.mikro small { text-transform: none; letter-spacing: 0; }
+
+/* Eine Lücke wird sichtbar gemacht, nicht versteckt — siehe die
+   Begründung im Kopf von `karte/bogen-zeigen.js`. */
+.offen {
+  color: var(--schrift-matt);
+  font-style: italic;
+  font-size: 0.85rem;
+}
+
+.bogen-luecke { margin: 0.3rem 0 0; font-size: 0.88rem; }
+
+/* ── Attribute ──────────────────────────────────────────────────── */
+
+.attribute {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.attribut {
+  text-align: center;
+  padding: 0.55rem 0.3rem 0.5rem;
+  background: var(--grund);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+}
+
+/* Ein Attribut über null hebt sich ab: Danach sucht man beim Würfeln. */
+.attribut.stark {
+  border-color: var(--akzent-rand);
+  background: var(--akzent-schleier);
+}
+
+.attribut-wert {
+  display: block;
+  font-size: 1.3rem;
+  line-height: 1.1;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.attribut.stark .attribut-wert { color: var(--akzent-hell); }
+
+.attribut-name {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--schrift-matt);
+}
+
+.attribut-de {
+  display: block;
+  font-size: 0.66rem;
+  color: var(--schrift-matt);
+}
+
+/* ── Verteidigung ───────────────────────────────────────────────── */
+
+.verteidigung {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.schild {
+  text-align: center;
+  padding: 0.5rem 0.4rem 0.55rem;
+  background: var(--grund);
+  border: 1px solid var(--rand-hell);
+  border-radius: var(--radius-klein);
+}
+
+.schild strong {
+  display: block;
+  font-size: 1.45rem;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.schild small {
+  display: block;
+  font-size: 0.68rem;
+  color: var(--schrift-matt);
+  margin-top: 0.1rem;
+}
+
+/* Der Schwellenbalken: drei Bereiche, dazwischen die Marken. */
+.schwellen {
+  display: flex;
+  align-items: stretch;
+  margin-top: 0.6rem;
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+  overflow: hidden;
+}
+
+.schwelle-bereich {
+  flex: 1;
+  text-align: center;
+  padding: 0.35rem 0.2rem;
+  background: var(--grund);
+}
+
+.schwelle-bereich strong {
+  display: block;
+  font-size: 0.95rem;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+
+.schwelle-bereich small {
+  display: block;
+  font-size: 0.64rem;
+  color: var(--schrift-matt);
+}
+
+/* Je schwerer der Treffer, desto kräftiger der Grund. */
+.schwelle-bereich.s2 { background: color-mix(in oklab, var(--akzent) 12%, var(--grund)); }
+.schwelle-bereich.s3 { background: color-mix(in oklab, var(--akzent) 26%, var(--grund)); }
+
+.schwelle-marke {
+  display: flex;
+  align-items: center;
+  padding: 0 0.4rem;
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--akzent-hell);
+  background: var(--flaeche-hoch);
+  border-left: 1px solid var(--rand);
+  border-right: 1px solid var(--rand);
+}
+
+.schwellen-hinweis {
+  margin: 0.3rem 0 0;
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--schrift-matt);
+  text-align: center;
+}
+
+/* ── Vorräte ────────────────────────────────────────────────────── */
+
+.vorraete { display: grid; gap: 0.6rem; }
+
+.leiste {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.25rem;
+}
+
+.kaestchen {
+  width: 1.35rem;
+  height: 1.35rem;
+  border: 1px solid var(--rand-hell);
+  border-radius: 0.25rem;
+  background: var(--grund);
+}
+
+.leiste.hoffnung .kaestchen { border-radius: 50%; }
+.leiste.hoffnung .kaestchen.voll {
+  background: var(--akzent);
+  border-color: var(--akzent);
+}
+
+/* ── Erfahrungen ────────────────────────────────────────────────── */
+
+.erfahrungen { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem; }
+
+.erfahrungen li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 0.6rem;
+  background: var(--grund);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+  font-size: 0.9rem;
+}
+
+.erf-name { flex: 1; min-width: 0; }
+
+.erf-bonus {
+  flex: none;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--akzent-hell);
+}
+
+/* ── Ausrüstung ─────────────────────────────────────────────────── */
+
+.ausruestung { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem; }
+
+.ausruestung li {
+  font-size: 0.9rem;
+  padding: 0.4rem 0.6rem;
+  background: var(--grund);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+}
+
+.ausruestung .mikro { margin-bottom: 0.1rem; }
+.ausruestung small { color: var(--schrift-matt); }
+
+/* ── Domänen und Karten ─────────────────────────────────────────── */
+
+.domaenen { margin: 0 0 0.55rem; display: flex; gap: 0.4rem; flex-wrap: wrap; }
+
+.domaene-marke {
+  padding: 0.2rem 0.6rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid var(--akzent-rand);
+  background: var(--akzent-schleier);
+  color: var(--akzent-hell);
+  border-radius: 999px;
+}
+
+.kartenliste { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem; }
+
+.kartenliste a {
+  display: block;
+  padding: 0.45rem 0.6rem;
+  background: var(--grund);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+  font-size: 0.9rem;
+  color: var(--verweis);
+  text-decoration: none;
+}
+
+.kartenliste a:hover,
+.kartenliste a:focus-visible {
+  border-color: var(--akzent-rand);
+  color: var(--verweis-aktiv);
+}
+
+.fertigkeiten {
+  margin: 0.7rem 0 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.25rem 0.7rem;
+  font-size: 0.86rem;
+}
+
+.fertigkeiten dt {
+  color: var(--schrift-matt);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  align-self: center;
+}
+
+.fertigkeiten dd { margin: 0; }
+
+/* ── Noch offen ─────────────────────────────────────────────────── */
+
+.bogen-offen ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.86rem;
+  color: var(--schrift-matt);
+  display: grid;
+  gap: 0.15rem;
+}
+
+.bogen-fuss {
+  margin-top: 1.15rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--rand);
+  font-size: 0.85rem;
+}
+
+.bogen-fuss a { color: var(--verweis); text-decoration: none; }
+.bogen-fuss a:hover { color: var(--verweis-aktiv); }
+
+/* ── Schmale Geräte ─────────────────────────────────────────────── */
+
+@media (max-width: 30rem) {
+  .bogen-inhalt { padding: 1rem 0.75rem 3rem; }
+  .bogen { padding: 1rem; }
+  .attribute { grid-template-columns: repeat(2, 1fr); }
+  .kaestchen { width: 1.2rem; height: 1.2rem; }
+}

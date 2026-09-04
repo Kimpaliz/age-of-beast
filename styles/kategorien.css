@@ -347,10 +347,17 @@ html[data-thema="hell"] .nav-gruppe[data-kategorie="lore"] {
 
 .modul-leiste .werkstatt-knopf { flex: none; }
 
-/* Unter 68rem tragen die Knoepfe nur noch ihr Zeichen. Die Schwelle ist
-   gemessen: Darunter reicht der Platz fuer Marke, Suche und drei
-   beschriftete Knoepfe nicht mehr. */
-@media (max-width: 68rem) {
+/* Unter 78rem tragen die Knoepfe nur noch ihr Zeichen. Die Schwelle ist
+   gemessen, nicht geschaetzt: Mit vier beschrifteten Knoepfen braucht die
+   Kopfzeile 1221 px (bei 1200 fehlten 21, bei 1260 passte es). 78rem sind
+   1248 px und lassen 27 px Luft.
+
+   ⚠️ Die Schwelle gehoert zur **Anzahl** der Knoepfe. Sie stand auf 68rem,
+   als es drei waren; mit dem vierten („Boegen") lag zwischen 1088 und
+   1221 px ein Band, in dem die Beschriftungen noch standen, aber nicht
+   mehr passten — dort schob sich die Leiste in die Kopfzeile hinein.
+   Wer einen fuenften Knopf ergaenzt, misst neu. */
+@media (max-width: 78rem) {
   .modul-leiste .beschriftung { display: none; }
   .modul-leiste .werkstatt-knopf {
     padding-inline: 0.55rem;

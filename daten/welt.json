@@ -1825,6 +1825,40 @@
         }
       ],
       "bild": "",
+      "spielwerte": {
+        "system": "Daggerheart",
+        "stufe": null,
+        "abstammung": null,
+        "gemeinschaft": null,
+        "klasse": null,
+        "klasseDe": null,
+        "unterklasse": null,
+        "unterklasseDe": null,
+        "domaenen": [],
+        "zauberattribut": null,
+        "evasion": null,
+        "ruestung": null,
+        "hp": null,
+        "stress": null,
+        "hoffnung": null,
+        "attribute": null,
+        "waffen": [],
+        "erfahrungen": [],
+        "karten": [],
+        "klassenfertigkeit": null,
+        "hoffnungsfertigkeit": null,
+        "offen": [
+          "Name der Figur",
+          "Volk und Gemeinschaft",
+          "Klasse und Unterklasse",
+          "Attribute",
+          "Ausweichen und Rüstung",
+          "Erfahrungen",
+          "Fähigkeitskarten",
+          "Hintergrund",
+          "Inhalt des Beutels"
+        ]
+      },
       "geaendert": "2026-09-04T13:07:33.097Z"
     },
     {
@@ -1971,6 +2005,73 @@
         }
       ],
       "bild": "",
+      "spielwerte": {
+        "system": "Daggerheart",
+        "stufe": 1,
+        "abstammung": "Faun",
+        "gemeinschaft": "Seeborne",
+        "klasse": "Ranger",
+        "klasseDe": "Waldläufer",
+        "unterklasse": "Wayfinder",
+        "unterklasseDe": "Wegfinder",
+        "domaenen": [
+          "Bone",
+          "Sage"
+        ],
+        "zauberattribut": "Agility",
+        "evasion": 12,
+        "ruestung": {
+          "name": "Lederrüstung",
+          "score": 3,
+          "schwelleSchwer": 6,
+          "schwelleErnst": 13
+        },
+        "hp": 6,
+        "stress": 6,
+        "hoffnung": {
+          "start": 2,
+          "max": 6
+        },
+        "attribute": {
+          "agility": 2,
+          "strength": -1,
+          "finesse": 1,
+          "instinct": 1,
+          "presence": 0,
+          "knowledge": 0
+        },
+        "waffen": [
+          {
+            "name": "Machete",
+            "hand": "primär"
+          }
+        ],
+        "erfahrungen": [
+          {
+            "name": "Die Winde stehen günstig",
+            "bonus": 2
+          },
+          {
+            "name": "Artefaktsucher",
+            "bonus": 2
+          }
+        ],
+        "karten": [
+          "Deft Maneuvers",
+          "Gifted Tracker"
+        ],
+        "klassenfertigkeit": "Hold Them Off",
+        "hoffnungsfertigkeit": "Ranger's Focus",
+        "offen": [
+          "Name der Figur",
+          "Alter",
+          "Geschlecht",
+          "Heimatort",
+          "Beweggründe",
+          "Ausrüstung",
+          "Gold"
+        ]
+      },
       "geaendert": "2026-09-04T13:07:33.097Z"
     },
     {

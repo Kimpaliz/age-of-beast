@@ -100,6 +100,31 @@ Summe. *Eine ausgeglichene Bilanz beweist keine heile Struktur.*
 
 ---
 
+## Warum das Präfix entscheidet, nicht die Datei
+
+Bis zum 04.09.2026 galt für `werkzeuge/pruefe-firestore-trennung.mjs`:
+*Was in Scotophobias Regeldatei steht, gehört Scotophobia.* Diese Annahme
+ist entfallen.
+
+Seit dem Tag führen **beide Repositorys dieselbe vollständige Regeldatei**.
+Der Grund steht oben im Musterfall: Eine Firestore-Datenbank hat genau eine
+Regeldatei, der Spark-Plan erlaubt keine zweite, und Scotophobias
+Teilfassung hat das Wiki bei jedem Deploy abgeschaltet — an einem Tag
+viermal, einmal 68 Sekunden nach einer Reparatur. Wiederholtes Reparieren
+half nicht; erst die gemeinsame vollständige Datei hat es beendet.
+
+Damit stehen die `wiki_`-Blöcke auch in Scotophobias Fassung. Ein Wächter,
+der die Zugehörigkeit aus der Datei ableitet, hält `wiki_welt` seither für
+eine Scotophobia-Sammlung und meldet die Trennung als verletzt. **Maßgeblich
+ist deshalb das Präfix**, und zwar an zwei Stellen: bei der Zuordnung der
+Sammlungen und Hilfsfunktionen, und bei der Wahl des Blocks, den der
+Selbsttest beschädigt — sonst prüfte der Selbsttest das Gegenteil dessen,
+wofür er da ist.
+
+Die Gegenrichtung sichert `werkzeuge/pruefe-firestore-wiki.mjs` in
+Scotophobias Repository: Es prüft, dass die `wiki_`-Blöcke dort vorhanden
+und mit der Fassung hier wortgleich sind.
+
 ## Vor jeder Veröffentlichung
 
 Die Kette (`node werkzeuge/pruefe-alles.mjs`) allein genügt nicht. Dazu:

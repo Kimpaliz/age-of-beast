@@ -11,6 +11,19 @@ Begründung. Genau darin liegt der Schutz.
 
 ---
 
+## Abgelöst
+
+- **`werkzeuge/welt-umwandeln.mjs`** stand hier mit 582 Zeilen. Am
+  04.09.2026 wurde der Kampagnenrahmen nach `werkzeuge/welt-rahmen.mjs`
+  herausgelöst (147 Zeilen) — die Datei liegt jetzt bei **471** und ist
+  damit unter der Grenze. Anlass war der Ratchet selbst: Für die
+  Charakterbögen musste sie um sieben Zeilen wachsen, und die Regel
+  verlangt, dass ein fachlicher Eingriff ein Stück der Ablösung bezahlt.
+  Belegt: `daten/welt.json` und `daten/welt.js` wurden gelöscht, neu
+  erzeugt und sind **bytegleich** zum Stand davor (je 240 KB).
+
+---
+
 ## Großdateien (Regel 10)
 
 `werkzeuge/pruefe-altlasten.mjs` hält die gemessene Zeilenzahl als
@@ -26,7 +39,6 @@ Gemessen mit derselben Zählung wie der Wächter (Anzahl `\n`), über die
 | `werkzeuge/pruefe-rahmen-routen.mjs` | 645 | Die DOM- und `location`-Attrappe ist der größere Teil; sie gehört in ein eigenes Modul, das auch `pruefe-leseruntime.mjs` benutzen könnte. |
 | `werkzeuge/versioniere-browser-ressourcen.mjs` | 615 | Der Abhängigkeitsläufer (HTML, JavaScript-Importe, CSS-Importe, `url()`) ist von der Umschreiberei trennbar; `pruefe-cache-graph.mjs` bräuchte denselben Läufer. |
 | `werkzeuge/pruefe-firestore-trennung.mjs` | 592 | Die sechs absichtlichen Beschädigungen, mit denen die Wirksamkeit belegt ist, können neben die Blockprüfung. |
-| `werkzeuge/welt-umwandeln.mjs` | 582 | Je Kategorie eine Umwandlung; die Panel-Behandlung ist der gemeinsame Teil. **Achtung:** Diese Datei läuft im Browser *und* in Node — jede Aufteilung muss ohne Node-Bausteine auskommen. |
 
 Am nächsten dran, aber noch darunter (nur zur Warnung, nicht geführt):
 `werkzeuge/werkstatt-uebernehmen.mjs` 426 · `karte/karte-erzeugen.mjs`
