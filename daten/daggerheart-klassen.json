@@ -1,0 +1,203 @@
+{
+ "hinweis": "Erzeugt von werkzeuge/klassen-auslesen.mjs aus docs/daggerheart/. Nicht von Hand ändern — die Recherchedateien sind die Quelle.",
+ "klassen": [
+  {
+   "id": "klasse-bard",
+   "name": "Bard",
+   "domaenen": [
+    "Grace",
+    "Codex"
+   ],
+   "evasion": 10,
+   "hp": 5,
+   "hoffnungsfertigkeit": {
+    "name": "Make a Scene",
+    "text": "Ziel in Close Range wird kurzzeitig Distracted (−2 auf Difficulty)"
+   },
+   "klassenfertigkeit": {
+    "name": "Rally",
+    "text": "1×/Sitzung Rally-Würfel (d6, ab Stufe 5 d8) für alle Verbündeten"
+   },
+   "gegenstaende": [
+    "Liebesroman",
+    "ungeöffneter Brief"
+   ]
+  },
+  {
+   "id": "klasse-druid",
+   "name": "Druid",
+   "domaenen": [
+    "Arcana",
+    "Sage"
+   ],
+   "evasion": 10,
+   "hp": 6,
+   "hoffnungsfertigkeit": {
+    "name": "Evolution",
+    "text": "ohne Stress-Kosten in Beastform wechseln, +1 auf ein Attribut in dieser Form"
+   },
+   "klassenfertigkeit": {
+    "name": null,
+    "text": "*Beastform* (Stress markieren, in Tier-passendes Tier verwandeln) & *Wildtouch* (harmlose Natureffekte nach Belieben)"
+   },
+   "gegenstaende": [
+    "Beutel mit Steinen/Knochen",
+    "seltsamer Anhänger"
+   ]
+  },
+  {
+   "id": "klasse-guardian",
+   "name": "Guardian",
+   "domaenen": [
+    "Valor",
+    "Blade"
+   ],
+   "evasion": 9,
+   "hp": 7,
+   "hoffnungsfertigkeit": {
+    "name": "Frontline Tank",
+    "text": "2 Armor Slots löschen"
+   },
+   "klassenfertigkeit": {
+    "name": "Unstoppable",
+    "text": "1×/Long Rest Unstoppable-Würfel (d4, ab Stufe 5 d6) aktivieren, reduziert Schadensschwere um eine Stufe, addiert Würfelwert zum Schaden, macht immun gegen Restrained/Vulnerable"
+   },
+   "gegenstaende": [
+    "Totem des Mentors",
+    "geheimer Schlüssel"
+   ]
+  },
+  {
+   "id": "klasse-ranger",
+   "name": "Ranger",
+   "domaenen": [
+    "Bone",
+    "Sage"
+   ],
+   "evasion": 12,
+   "hp": 6,
+   "hoffnungsfertigkeit": {
+    "name": "Hold Them Off",
+    "text": "erfolgreichen Waffenangriff auf 2 zusätzliche Gegner anwenden"
+   },
+   "klassenfertigkeit": {
+    "name": "Ranger's Focus",
+    "text": "Hope ausgeben, Ziel markieren („Focus\") mit Bonuseffekten gegen dieses Ziel"
+   },
+   "gegenstaende": [
+    "Trophäe des ersten Erlegten",
+    "scheinbar zerbrochener Kompass"
+   ]
+  },
+  {
+   "id": "klasse-rogue",
+   "name": "Rogue",
+   "domaenen": [
+    "Midnight",
+    "Grace"
+   ],
+   "evasion": 12,
+   "hp": 6,
+   "hoffnungsfertigkeit": {
+    "name": "Rogue's Dodge",
+    "text": "+2 auf Evasion bis zum nächsten erfolgreichen gegnerischen Treffer (oder bis zur nächsten Rast)"
+   },
+   "klassenfertigkeit": {
+    "name": null,
+    "text": "*Cloaked* (verbesserte Hidden-Variante) & *Sneak Attack* (zusätzliche d6 gleich der Tier-Stufe bei Angriffen aus dem Verborgenen oder mit Verbündeten in Melee Range)"
+   },
+   "gegenstaende": [
+    "Fälscherwerkzeug",
+    "Enterhaken"
+   ]
+  },
+  {
+   "id": "klasse-seraph",
+   "name": "Seraph",
+   "domaenen": [
+    "Splendor",
+    "Valor"
+   ],
+   "evasion": 9,
+   "hp": 7,
+   "hoffnungsfertigkeit": {
+    "name": "Life Support",
+    "text": "1 HP bei einer verbündeten Person in Close Range löschen"
+   },
+   "klassenfertigkeit": {
+    "name": "Prayer Dice",
+    "text": "zu Sitzungsbeginn d4-Pool (Anzahl = Spellcast-Attribut) zum Schaden abmildern, Wurf verbessern oder in Hope umwandeln"
+   },
+   "gegenstaende": [
+    "Opfergaben-Bündel",
+    "Siegel des Gottes"
+   ]
+  },
+  {
+   "id": "klasse-sorcerer",
+   "name": "Sorcerer",
+   "domaenen": [
+    "Arcana",
+    "Midnight"
+   ],
+   "evasion": 10,
+   "hp": 6,
+   "hoffnungsfertigkeit": {
+    "name": "Volatile Magic",
+    "text": "beliebig viele Schadenswürfel eines Magieangriffs neu würfeln"
+   },
+   "klassenfertigkeit": {
+    "name": null,
+    "text": "*Arcane Sense*, *Minor Illusion*, *Channel Raw Power* (Domänenkarte gegen Hope oder Zauberbonus eintauschen)"
+   },
+   "gegenstaende": [
+    "flüsternde Kugel",
+    "Familienerbstück"
+   ]
+  },
+  {
+   "id": "klasse-warrior",
+   "name": "Warrior",
+   "domaenen": [
+    "Blade",
+    "Bone"
+   ],
+   "evasion": 11,
+   "hp": 6,
+   "hoffnungsfertigkeit": {
+    "name": "No Mercy",
+    "text": "+1 auf Angriffswürfe bis zur nächsten Rast"
+   },
+   "klassenfertigkeit": {
+    "name": null,
+    "text": "*Attack of Opportunity* (Reaction Roll gegen fliehende Gegner in Melee Range) & *Combat Training* (Burden ignorieren, +Schaden gleich der eigenen Stufe)"
+   },
+   "gegenstaende": [
+    "Zeichnung einer Geliebten",
+    "Schleifstein"
+   ]
+  },
+  {
+   "id": "klasse-wizard",
+   "name": "Wizard",
+   "domaenen": [
+    "Codex",
+    "Splendor"
+   ],
+   "evasion": 11,
+   "hp": 5,
+   "hoffnungsfertigkeit": {
+    "name": "Not This Time",
+    "text": "Gegner in Far Range zwingt Angriffs-/Schadenswurf neu zu würfeln"
+   },
+   "klassenfertigkeit": {
+    "name": null,
+    "text": "*Prestidigitation* (kleine magische Effekte) & *Strange Patterns* (gewählte Zahl auf einem Duality-Würfel gibt Hope oder löscht Stress)"
+   },
+   "gegenstaende": [
+    "zu übersetzendes Buch",
+    "harmloses Elementarwesen als Haustier"
+   ]
+  }
+ ]
+}

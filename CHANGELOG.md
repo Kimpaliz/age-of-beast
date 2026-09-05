@@ -5,6 +5,79 @@ Dieselben Änderungen stehen in Entwicklersprache in [CHANGELOG-TECHNIK.md](CHAN
 
 Das Neueste steht immer oben.
 
+## Eine Figur erschaffen – 5. September 2026
+
+Deine Frage: „Gibt es schon eine Charaktererstellung für Spieler, die einen
+durch die Erstellung begleitet für Daggerheart?"
+
+Es gab keine. Jetzt gibt es sie: **„Eine Figur erschaffen"**, erreichbar
+über die Charakterbögen (Knopf „+ Neue Figur") oder direkt unter
+`erschaffung.html`.
+
+### Neun Schritte — die aus dem Regelwerk, nicht ausgedachte
+
+Klasse und Subklasse · Herkunft · Eigenschaften · Angaben und Startwerte ·
+Startausrüstung · Hintergrund · Erfahrungen · Domänenkarten · Verbindungen.
+
+Zu jedem Schritt steht **die Regel wörtlich da**, aus dem Wiki-Eintrag
+„Charaktererschaffung". Wer sie dort ändert, ändert damit auch den
+Assistenten — es gibt keine zweite Liste, die veralten könnte.
+
+### Was der Assistent für dich tut
+
+- **Jede Wahl zeigt, was sie bedeutet.** An jeder Klasse stehen Ausweichen,
+  Lebenspunkte und ihre zwei Domänen; an jeder Waffe Schaden, Reichweite
+  und Merkmal; an jeder Rüstung Rüstungswert und Schwellen. Eine Liste mit
+  neun Namen wäre für jemanden, der zum ersten Mal spielt, keine
+  Entscheidungsgrundlage.
+- **Die sechs Eigenschaftszahlen werden ausgeteilt, nicht abgefragt.**
+  +2, +1, +1, 0, 0 und −1 liegen bereit; jede Eigenschaft nimmt eine. So
+  kann gar keine Verteilung entstehen, die es nicht gibt.
+- **Was fehlt, steht daneben statt zu blockieren.** Du darfst jederzeit
+  springen und alles ändern — der Regeltext sagt das ausdrücklich.
+- **Nichts wird geraten.** Eine zweihändige Waffe plus Nebenhand wird
+  abgelehnt, eine Unterklasse der falschen Klasse auch. Der Entwurf wird
+  nach jeder Änderung gemerkt; ein versehentlich geschlossener Tab kostet
+  ihn nicht.
+- **Am Ende steht ein echter Bogen**, in derselben Form wie Brix und
+  Lukas — mit an- und ablegbarer Ausrüstung und der Herleitung jedes Werts.
+
+### Was dabei neu dazukam
+
+Die **neun Klassen** mit Start-Ausweichen, Start-Lebenspunkten, ihren zwei
+Domänen und den je zwei Klassengegenständen. Sie standen bisher nur als
+Tabelle in der Regelrecherche; jetzt liest ein Werkzeug sie dort aus, statt
+dass jemand sie abtippt.
+
+### Wo der Bogen bleibt
+
+**Auf deinem Gerät**, nicht in der gemeinsamen Welt. Die Charakterbogen-Seite
+hat keine Anmeldung, und eine Erschaffung, die erst nach einem Google-Konto
+funktioniert, wäre am Spieltisch unbrauchbar. Achtung: Das ist **keine
+Sicherung** — wer die Website-Daten löscht, verliert die Figur.
+
+### Zwei eigene Fehler, gefunden beim echten Durchklicken
+
+**Schritt 5 stürzte ab, und man sah es nicht.** Vier der acht Rüstungen des
+ersten Rangs haben keinen festen Rüstungswert, sondern eine Liste über alle
+vier Ränge (`3·4·5·6`). Die Anzeige setzte einen festen Wert voraus und warf
+— worauf der **vorige** Schritt einfach stehen blieb. Es sah aus, als
+reagiere die Leiste nicht. Jetzt wird der Wert des ersten Rangs aus der
+Liste gelesen, und passt das Format nicht, steht dort ehrlich „unbekannt"
+statt einer geratenen Zahl.
+
+**Und in zwei Hinweisen stand Technik im Text.** „Zwei Karten aus
+`</strong> oder <strong>`" — die Auszeichnung wurde mit entschärft und
+landete als sichtbarer Text auf der Seite.
+
+**Beide hätten die 94 Prüfungen nie gefunden**: Sie zählten, was zur Wahl
+steht, und zeichneten nie eine Kachel. Jetzt werden alle neun Schritte in
+vier Zuständen wirklich gezeichnet und geprüft — 251 Prüfungen, und beide
+Fehler wurden absichtlich wieder eingebaut, um zu belegen, dass die neuen
+Prüfungen sie fangen.
+
+---
+
 ## Zwei Meldungen von dir behoben – 5. September 2026
 
 ### „Auf den Karten kann man nicht scrollen"

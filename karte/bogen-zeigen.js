@@ -25,6 +25,7 @@
    =================================================================== */
 
 import { blasenAnbinden } from './kartenblase.js';
+import { alleFiguren } from './figuren-eigen.js';
 import {
   attributeHtml, ausruestungHtml, bogenVerdrahten, katalogLaden, rechnerFuer,
   verteidigungHtml, vorraeteHtml,
@@ -223,7 +224,15 @@ function bogen(e, rechner) {
  * ------------------------------------------------------------------ */
 
 const welt = window.AGE_OF_BEAST_WELT;
-const figuren = ((welt && welt.eintraege) || []).filter((e) => e.spielwerte);
+/* Die Figuren der Welt **und** die selbst erschaffenen. Letztere liegen
+   auf dem Geraet (`karte/figuren-eigen.js`) — `bogen.html` hat keine
+   Anmeldung, und eine Erschaffung, die erst nach einem Google-Konto
+   funktioniert, waere am Spieltisch unbrauchbar. Sie stehen hinten,
+   damit die gemeinsamen Figuren der Runde vorn bleiben. */
+const figuren = [
+  ...((welt && welt.eintraege) || []).filter((e) => e.spielwerte),
+  ...alleFiguren(),
+];
 
 if (!figuren.length) {
   if (meldung) {
@@ -237,7 +246,10 @@ if (!figuren.length) {
      uninteressantere Einstieg. */
   /* Wer schon Werte hat, steht vorn — ein leerer Bogen ist der
      uninteressantere Einstieg. */
-  figuren.sort((a, b) => (b.spielwerte.stufe ? 1 : 0) - (a.spielwerte.stufe ? 1 : 0));
+  /* Eigene Figuren bleiben hinten — sonst schoebe sich der eigene
+     Entwurf vor die Figuren der Runde. */
+  figuren.sort((a, b) => (a.eigen ? 1 : 0) - (b.eigen ? 1 : 0)
+    || (b.spielwerte.stufe ? 1 : 0) - (a.spielwerte.stufe ? 1 : 0));
 
   const leiste = document.getElementById('bogenwahl');
 
@@ -263,6 +275,10 @@ if (!figuren.length) {
         + (unter ? '<span class="bogenwahl-unter">' + sicher(unter) + '</span>' : '')
         + '</button>';
     }).join('');
+    leiste.insertAdjacentHTML('beforeend',
+      '<a class="bogenwahl-knopf neu" href="erschaffung.html">'
+      + '<span class="bogenwahl-name">+ Neue Figur</span>'
+      + '<span class="bogenwahl-unter">in neun Schritten</span></a>');
     for (const b of leiste.querySelectorAll('button')) {
       b.addEventListener('click', () => zeigen(b.dataset.figur, true));
     }
