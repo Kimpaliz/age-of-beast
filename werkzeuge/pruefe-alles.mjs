@@ -38,6 +38,7 @@
    | `pruefe-tags.mjs` | jede Quelldatei trägt ihr `[Aufgabe: …]` aus der Systemtabelle | die Datei, von der niemand mehr weiß, wozu sie da ist |
    | `pruefe-verweise.mjs` | kein Markdown-Verweis zeigt ins Leere | ein Wegweiser auf eine Datei, die es nicht mehr gibt — er wird geglaubt |
    | `pruefe-vorlagen.mjs` | NPC, Ort, POI und Gegenstände haben vollständige Vorlagen | ein Vorlagenfeld, das beim Anlegen still verlorengeht |
+   | `pruefe-werte.mjs` | der Bogen rechnet mit allem Getragenen wieder genau den eingetragenen Wert; Ablegen nimmt genau das eine Stück zurück | der Bogen, der beim blossen Aufrufen eine andere Zahl zeigt als das Blatt am Tisch — und die Wirkung, die doppelt gezählt wird, weil Bogentext und Regelwerk dasselbe sagen |
    | `pruefe-workclaim.mjs` | WORKCLAIM.md ist da, lesbar, jeder Anspruch vollständig | zwei Sitzungen im selben Checkout, Konfliktmarker in sieben Dateien |
    | `pruefe-geheimnisse.mjs` | kein verbotenes Format, kein Geheimnismuster im Arbeitsstand | der Schlüssel, der „nur kurz zum Testen" eingetragen wurde |
    | `pruefe-altlasten.mjs` | neue Dateien < 500 Zeilen; geführte Altlasten wachsen nie | die Altlast, die „nur diesmal" um dreißig Zeilen wächst |

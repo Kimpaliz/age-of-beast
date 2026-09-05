@@ -81,3 +81,22 @@
     padding-inline: 0.9rem;
   }
 }
+
+/* Der Schalter zum An- und Ablegen ist der meistgedrückte Knopf des
+   Bogens — und mit 24 px zu klein für einen Finger. Die Zeile bleibt
+   dabei schmal: Vergrössert wird die Trefferfläche, nicht das Kästchen
+   (`::before` legt sich unsichtbar darüber). */
+@media (pointer: coarse) {
+  .stueck-schalter {
+    position: relative;
+  }
+
+  .stueck-schalter::before {
+    content: "";
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: 44px;
+    height: 44px;
+    transform: translate(-50%, -50%);
+  }
+}

@@ -5,6 +5,63 @@ Dieselben Änderungen stehen in Entwicklersprache in [CHANGELOG-TECHNIK.md](CHAN
 
 Das Neueste steht immer oben.
 
+## Die Charakterbögen rechnen jetzt mit – 5. September 2026
+
+Dein Wunsch: *„Die Charakterbögen, die Werte wie Stress, HP, Rüstung
+usw. sollen sich automatisch ändern beim An- oder Ablegen von Items. Und
+beim Drüberhalten wird angezeigt, was Grundwert und was Bonus oder Malus
+ist und wodurch es verursacht wird."*
+
+### Ausrüstung an- und ablegen
+
+Neben jedem Ausrüstungsstück steht ein Kästchen. Tippst du es an, ist
+das Stück abgelegt — und **alle Werte oben rechnen sich sofort mit**:
+Ausweichen, Rüstung, die Schadensschwellen, die Attribute. Nimmt Brix
+den Gambeson ab, fällt sein Rüstungswert von 3 auf 0 und die schwere
+Schwelle von 6 auf 1.
+
+Ein abgelegtes Stück **verschwindet nicht** aus der Liste, es wird nur
+durchgestrichen. Sonst könntest du es nicht wieder anlegen — und wüsstest
+nicht, warum eine Zahl kleiner ist als auf deinem Blatt. Oben am Bogen
+steht dann ein Hinweis mit einem Knopf „Alles anlegen".
+
+Was du an- und abgelegt hast, merkt sich dein Gerät. Es steht **nicht**
+in den Weltdaten: Was du gerade trägst, ist ein Spielzustand am Tisch und
+keine Aussage über die Figur.
+
+### Beim Drüberhalten steht, woher die Zahl kommt
+
+Fahre über eine Zahl (auf dem Handy: antippen), und es erscheint die
+Herleitung — Grundwert, jeder Bonus, jeder Malus, und **wodurch**:
+
+> **Ausweichen 13** · Grundwert 13 · −1 durch Dolch · +1 durch Gambeson
+
+Zahlen, hinter denen etwas steckt, sind gepunktet unterstrichen. Werte,
+an denen die Ausrüstung etwas geändert hat, sind farbig hervorgehoben.
+
+### Was bewusst *nicht* eingerechnet wird
+
+Von den Gegenständen im Regelwerk sind die wenigsten reine Zahlen. Sätze
+wie „1 Stress markieren, um ein weiteres Ziel anzugreifen" hängen an
+einer Entscheidung am Tisch — die kann kein Rechner treffen. Solche
+Wirkungen stehen jetzt **unter der Ausrüstungsliste als Hinweis** und
+werden nicht in die Werte gerechnet. Eine geratene Zahl wäre schlimmer
+als keine: Der Bogen zeigte dann etwas, das im Spiel nicht gilt.
+
+### Ein Fund, den du kennen solltest
+
+Beim Nachrechnen ist aufgefallen: In unserer Regelrecherche steht beim
+**Dolch** „Heavy: −1 Ausweichen". Das passt nicht zu einem einhändigen
+Dolch — und drei weitere Merkmale in derselben Tabelle stehen genau eine
+Zeile unter einer Waffe, zu der sie besser passen würden. Es sieht nach
+einer verrutschten Spalte aus.
+
+**Ich habe nichts geändert.** Das ist eine Regelfrage, und geraten wird
+hier nichts. Es steht als Fehler-Vorgang auf GitHub. Auf dem Bogen siehst
+du die Wirkung jetzt direkt am Dolch stehen — schau am Spieltisch nach,
+ob sie stimmt.
+
+
 ## Fahrplan, Wünsche und Fehler leben jetzt auf GitHub – 4. September 2026
 
 Bisher standen offene Punkte als Absätze in Dokumenten. Das geht so

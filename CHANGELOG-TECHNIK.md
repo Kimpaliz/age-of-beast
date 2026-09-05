@@ -10,6 +10,59 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ## [Unveröffentlicht]
 
+### Charakterbögen rechnen mit der Ausrüstung (Vorgang #5, #6, #7)
+
+Janniks Wunsch vom 04.09.2026, wörtlich: *„Die Charakterbögen, die Werte
+wie Stress, HP, Rüstung usw. sollen sich automatisch ändern beim An- oder
+Ablegen von Items. Und beim Drüberhalten wird angezeigt, was Grundwert
+und was Bonus oder Malus ist und wodurch es verursacht wird."*
+
+- **`werkzeuge/werte-rechnen.mjs` erweitert** um `ausruestungBauen`,
+  `basisZurueckrechnen` und `bogenAusDaten`. Weiterhin ohne DOM.
+- **Neu `karte/bogen-werte.js`** (447 Zeilen): Umschalten, Zeichnen der
+  vier abhängigen Bereiche, Herleitung, Merken je Gerät.
+- **Neu `werkzeuge/pruefe-werte.mjs`** — 68 Prüfungen an den echten
+  Bogendaten, in der Kette. Sieben Rot-Beweise, alle angeschlagen.
+- **`karte/kartenblase.js`** nimmt über `blaseAnbinden(element, bauer)`
+  jetzt auch fertigen Inhalt an. Eine zweite Blase mit eigener
+  Platzierung und eigenem Escape hätte gleichzeitig offen stehen können.
+- `karte/bogen-zeigen.js` 385 → 313 Zeilen; die vier rechnenden Bereiche
+  sind ausgezogen.
+
+**Der Grundwert wird zurückgerechnet, nicht aufgeschrieben.** In den
+Weltdaten steht `evasion: 13` — der Wert *mit* Gambeson. Wer ihn als
+Grundwert nähme und die Rüstung erneut addierte, käme auf 14: falsch
+beim blossen Aufrufen, ohne dass jemand etwas angefasst hat. Ein
+`basis`-Feld in den Weltdaten wäre die Alternative gewesen und hätte
+eine Datenänderung mit eigener Freigabe bedeutet. Die Rückrechnung ist
+nachweisbar gleichwertig — mit allem Getragenen kommt wieder der
+eingetragene Wert heraus — und der Preis steht in der Beschriftung:
+„ohne Ausrüstung", nicht „Rogue-Basis". Wir wissen, dass 13 − 1 = 12
+ist; wir wissen nicht, dass 12 die Rogue-Basis ist.
+
+**Eine Wirkung wird genau einmal gezählt.** Auf Brix’ Bogen steht beim
+Gambeson `merkmal: "Flexible: +1 Ausweichen"`, im Regelwerk steht
+`merkmal: "Flexible"` und `wirkung: "+1 auf Evasion"`. Beide Texte
+treffen dasselbe Muster. Steht ein Gegenstand im Regelwerk, ist das
+Regelwerk die Quelle; der Bogentext wird nur verglichen, und eine
+Abweichung wird am Stück angezeigt statt still entschieden.
+
+**Drei eigene Fehler, alle von den eigenen Prüfungen gefunden:**
+
+| | |
+| --- | --- |
+| **Zwei Prüfungen konnten ihren Fehler nicht sehen** | Der Rot-Beweis blieb in 2 von 7 Fällen grün. Bei beiden Figuren heben sich die Ausweichen-Beiträge zufällig auf (Dolch −1, Gambeson +1; Lukas’ Lederrüstung wirkt gar nicht) — eine ausgebaute Rückrechnung fiel dadurch nicht auf. Behoben mit einer Probefigur und einem echten Katalogeintrag, dessen Wirkung sich nicht wegkürzt (Chainmail Armor). Und „Merkmal und Wirkung sind verschieden" wurde zu „die Wirkung ist wortgleich die des Regelwerks". Danach 7 von 7 rot. |
+| **Der Messserver kannte die neuen Dateien nicht** | `pruefe-bogenfarben.mjs` liefert nur eine feste Liste. `karte/bogen-werte.js` und `werkzeuge/werte-rechnen.mjs` fehlten darin, dazu der MIME-Typ für `.mjs`. Der Browser bekam 404, `bogen-zeigen.js` lud gar nicht, und die Meldung lautete „Der Bogen wird nicht gezeichnet" — sie klang nach einem Fehler am Bogen. Warnung an die Liste geschrieben. |
+| **Zwei Farbmängel in der neuen Oberfläche** | Der Bogenfarben-Wächter mass 3,54:1 (dunkel) und 3,16:1 (hell) am Ausrüstungshinweis gegen geforderte 4,5:1, und 1,00:1 an einem weggeschnittenen Vorlese-Text. Ersteres auf `--schrift-matt` gehoben, letzteres durch `aria-label` am Knopf ersetzt. |
+
+**Offener Befund, nicht behoben:** `docs/daggerheart/REGELN-GRUNDLAGEN.md`
+schreibt dem Dolch „Heavy: −1 Evasion" zu. In derselben Tabelle stehen
+drei weitere Merkmale genau eine Zeile unter einem plausibleren
+Besitzer. Das ist eine Regelfrage und wird nicht geraten — als Vorgang
+mit Label `fehler` eingetragen. Auf dem Bogen ist die Wirkung jetzt
+sichtbar am Stück; was man sieht, kann man am Tisch widerlegen.
+
+
 ### Vorgangs-Infrastruktur eingerichtet (Regel 16)
 
 Auf Janniks Ansage: *„fest in das github projekt integrieren. Issue

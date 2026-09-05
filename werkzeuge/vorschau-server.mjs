@@ -86,6 +86,8 @@ const FREIGEGEBENE_DATEIEN = new Set([
   'karte/welt-orte.mjs',
   'karte/karten-zeigen.js',
   'karte/bogen-zeigen.js',
+  'karte/bogen-werte.js',
+  'werkzeuge/werte-rechnen.mjs',
   'karte/karten-daten.js',
   'karte/kartenblase.js',
   'karte/karte-erzeugen.mjs',

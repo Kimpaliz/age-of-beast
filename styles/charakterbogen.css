@@ -782,3 +782,182 @@ a.karte-anker { cursor: pointer; }
 }
 
 .stern[aria-pressed="true"] { color: var(--bogen-akzent-hell); }
+
+/* ── An- und Ablegen, Herleitung ──────────────────────────────────────
+   Vorgang #6 und #7. Janniks Wunsch: Werte ändern sich beim An- und
+   Ablegen, und beim Drüberhalten steht da, woher sie kommen.
+
+   Zwei Gestaltungsentscheidungen:
+
+   **Eine Zahl mit Herleitung sieht anders aus als eine ohne.** Sonst
+   probiert man an jeder Zahl, ob sich etwas zeigt. Die gepunktete
+   Unterkante ist die übliche Einladung dafür.
+
+   **Ein abgelegtes Stück bleibt sichtbar**, es verschwindet nicht aus
+   der Liste. Wer es nicht mehr sähe, könnte es nicht wieder anlegen —
+   und wüsste nicht, warum eine Zahl kleiner ist als auf dem Blatt. */
+
+.mit-herleitung {
+  cursor: help;
+  border-bottom: 1px dotted var(--akzent-rand);
+}
+
+.mit-herleitung:hover,
+.mit-herleitung:focus-visible {
+  color: var(--akzent-hell);
+  border-bottom-color: var(--akzent);
+  outline: none;
+}
+
+/* Ein Wert, an dem die Ausrüstung etwas geändert hat. Ohne diese Marke
+   sähe man dem Bogen nicht an, welche Zahl überhaupt beweglich ist. */
+.attribut.veraendert,
+.schild.veraendert,
+.vorrat.veraendert {
+  border-color: var(--akzent-rand);
+}
+
+.schild.veraendert strong,
+.attribut.veraendert .attribut-wert { color: var(--akzent-hell); }
+
+/* ── Die Ausrüstungsliste ───────────────────────────────────────── */
+
+/* `--schrift-leise` waere hier zu blass: gemessen 3.54:1 im dunklen und
+   3.16:1 im hellen Stil, gefordert sind 4.5:1. Der Bogenfarben-Waechter
+   hat es beim ersten Lauf gemeldet. */
+.ausruestung-hinweis,
+.wirkungshinweise-fuss {
+  margin: 0 0 0.5rem;
+  font-size: 0.82rem;
+  color: var(--schrift-matt);
+}
+
+.wirkungshinweise-fuss { margin: 0.45rem 0 0; }
+
+.ausruestung li.stueck {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.6rem;
+  align-items: start;
+}
+
+.stueck-text { display: grid; gap: 0.1rem; min-width: 0; }
+
+.stueck-schalter {
+  margin-top: 0.1rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: var(--flaeche);
+  border: 1px solid var(--rand-hell);
+  border-radius: var(--radius-klein);
+  cursor: pointer;
+}
+
+.stueck-schalter:hover,
+.stueck-schalter:focus-visible {
+  border-color: var(--akzent);
+  outline: none;
+}
+
+/* Der Haken wird gezeichnet statt getippt: Ein Häkchen-Zeichen fehlt in
+   manchen Schriften und stünde dann als leeres Kästchen da. */
+.stueck-haken {
+  width: 0.55rem;
+  height: 0.3rem;
+  border-left: 2px solid var(--bogen-akzent-hell, var(--akzent-hell));
+  border-bottom: 2px solid var(--bogen-akzent-hell, var(--akzent-hell));
+  transform: rotate(-45deg) translate(1px, -1px);
+}
+
+.stueck-schalter[aria-pressed="false"] .stueck-haken { opacity: 0; }
+
+.stueck.abgelegt { opacity: 0.55; }
+.stueck.abgelegt .stueck-text > span:not(.mikro) { text-decoration: line-through; }
+
+.stueck-fremd { color: var(--schrift-leise); font-style: italic; }
+.stueck-abweichung { color: var(--akzent-hell); }
+
+.wirkungshinweise {
+  list-style: none;
+  margin: 0.55rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  color: var(--schrift-matt);
+}
+
+.wirkungshinweise strong { color: var(--schrift); }
+
+.abgelegt-hinweis {
+  margin: 0 0 0.85rem;
+  padding: 0.5rem 0.7rem;
+  font-size: 0.86rem;
+  background: var(--akzent-schleier);
+  border: 1px solid var(--akzent-rand);
+  border-radius: var(--radius-klein);
+  color: var(--schrift-matt);
+}
+
+.ausruestung-zuruecksetzen {
+  margin-left: 0.4rem;
+  padding: 0.15rem 0.55rem;
+  font: inherit;
+  font-size: 0.82rem;
+  background: transparent;
+  border: 1px solid var(--akzent-rand);
+  border-radius: 999px;
+  color: var(--akzent-hell);
+  cursor: pointer;
+}
+
+.ausruestung-zuruecksetzen:hover,
+.ausruestung-zuruecksetzen:focus-visible {
+  border-color: var(--akzent);
+  outline: none;
+}
+
+/* ── Die Herleitung in der Blase ────────────────────────────────── */
+
+.herleitung { display: grid; gap: 0.5rem; }
+
+.herleitung-kopf {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.8rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--rand);
+}
+
+.herleitung-kopf h3 { margin: 0; font-size: 0.95rem; }
+
+.herleitung-summe {
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--akzent-hell);
+  font-variant-numeric: tabular-nums;
+}
+
+.herleitung-liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.3rem; }
+
+.herleitung-liste li {
+  display: grid;
+  grid-template-columns: 4.2rem 2.4rem 1fr;
+  gap: 0.4rem;
+  align-items: baseline;
+  font-size: 0.84rem;
+}
+
+.h-was { color: var(--schrift-leise); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.7rem; }
+.h-zahl { font-variant-numeric: tabular-nums; text-align: right; color: var(--schrift); }
+.h-quelle { color: var(--schrift-matt); }
+.h-quelle em { color: var(--schrift-leise); font-style: normal; }
+
+.h-beitrag.plus .h-zahl { color: var(--tuerkis); }
+.h-beitrag.minus .h-zahl { color: var(--akzent-hell); }
+.h-leer { display: block; color: var(--schrift-leise); font-style: italic; }
