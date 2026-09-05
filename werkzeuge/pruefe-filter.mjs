@@ -216,8 +216,21 @@ async function messen() {
     kopf: b.querySelector('.karten-block-kopf')?.textContent.trim() || '',
     karten: b.querySelectorAll('.spielkarte').length,
   }));
+  /* Janniks Meldung vom 05.09.2026: „wenn man auf den karten mit finger
+     oder mous scrollen will funktioniert das nicht." Gemessen wird
+     zweierlei — wie viele Bereiche das Weiterreichen unterbinden, und
+     ob ueberhaupt einer davon je rollen muesste. */
+  const stil2 = kd.defaultView.getComputedStyle;
+  const texte = [...kd.querySelectorAll('.karte-text')];
+  const fallen = [...kd.querySelectorAll('.spielkarte *')].filter((e) => {
+    const s = stil2(e);
+    return s.overscrollBehaviorY === 'contain' || s.overscrollBehaviorY === 'none';
+  });
   ergebnis.karten = {
     bloecke,
+    scrollfallen: fallen.length,
+    textbereiche: texte.length,
+    ueberlaufende: texte.filter((e) => e.scrollHeight > e.clientHeight + 1).length,
     kartenGesamt: kd.querySelectorAll('.spielkarte').length,
     koepfeKleben: bloecke.length
       ? kd.defaultView.getComputedStyle(kd.querySelector('.karten-block-kopf')).position
@@ -327,6 +340,25 @@ function auswerten(mess) {
   pruefe(k.koepfeKleben === 'sticky',
     'Die Blocküberschrift klebt nicht oben. Bei 21 Karten je Block weiß man '
     + 'sonst nach dem dritten Bildschirm nicht mehr, wo man ist.');
+
+  /* Janniks Meldung vom 05.09.2026. Ein Bereich mit
+     `overscroll-behavior: contain` reicht eine Scrollbewegung nicht ans
+     Dokument weiter. Auf einer Seite, die 254.612 px hoch ist und deren
+     Kacheln zwei Drittel der Flaeche einnehmen, heisst das: Man trifft
+     die Luecken zwischen den Karten oder man kommt nicht voran. */
+  pruefe(k.scrollfallen === 0,
+    k.scrollfallen + ' Bereiche auf den Karten unterbinden das Weiterreichen '
+    + 'der Scrollbewegung (`overscroll-behavior`). Dann laesst sich die Seite '
+    + 'nur in den Luecken zwischen den Karten rollen.');
+
+  /* Die Gegenprobe zur Begruendung. `overflow-y: auto` bleibt als
+     Sicherung gegen abgeschnittenen Regeltext — die Behauptung dabei
+     ist, dass sie heute nie greift. Greift sie doch, will ich es wissen:
+     dann ist die Karte zu klein, und das ist ein anderer Fehler. */
+  pruefe(k.ueberlaufende === 0,
+    k.ueberlaufende + ' von ' + k.textbereiche + ' Regeltexten laufen ueber '
+    + 'und werden gerollt. Bisher tat das keiner — eine Karte ist zu klein '
+    + 'geworden, und der Text steht nicht mehr ganz da.');
 }
 
 /* ------------------------------------------------------------------ *

@@ -193,9 +193,28 @@
   min-height: 0;
   /* Reicht der Platz trotz kleinerer Schrift nicht, wird gerollt statt
      abgeschnitten. Ein abgeschnittener Regeltext waere am Spieltisch
-     gefaehrlich — man saehe nicht, dass etwas fehlt. */
+     gefaehrlich — man saehe nicht, dass etwas fehlt.
+
+     ⚠️ **Kein `overscroll-behavior: contain` hier.** Es stand bis zum
+     05.09.2026 daneben und war der einzige Mechanismus auf der
+     Kartenseite, der Scrollen abfangen kann. Janniks Meldung: „wenn man
+     auf den karten mit finger oder mous scrollen will funktioniert das
+     nicht."
+
+     Gemessen an den echten 393 Karten: **kein einziger Textbereich
+     laeuft ueber** — nicht bei 1280 px und nicht bei 375 px
+     (`scrollHeight === clientHeight` bei allen 393). Der Textbereich
+     bedeckt dabei **67 % der Kartenhoehe**. Es gab also 393 Bereiche,
+     die selbst nie rollen, aber das Weiterreichen ans Dokument
+     unterbinden — genau ueber zwei Dritteln jeder Karte.
+
+     `overflow-y: auto` bleibt als Sicherung gegen abgeschnittenen Text.
+     Ohne `contain` reicht ein Bereich, der am Ende ist — und das ist er
+     immer —, die Bewegung ans Dokument weiter.
+
+     `werkzeuge/pruefe-filter.mjs` haelt die Messung fest: Sobald ein
+     Regeltext doch ueberlaeuft, meldet sie es. */
   overflow-y: auto;
-  overscroll-behavior: contain;
   padding: 0.7rem 0.7rem 0.5rem;
   font-size: 0.8rem;
   line-height: 1.5;

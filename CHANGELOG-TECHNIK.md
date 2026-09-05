@@ -10,6 +10,63 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ## [Unveröffentlicht]
 
+### Zwei Meldungen Janniks: Scrollen auf den Karten, Blase ohne Hintergrund
+
+**1 · `styles/spielkarten.css`: `overscroll-behavior: contain` entfernt.**
+Es stand an `.karte-text` und war der **einzige** Mechanismus auf
+`karten.html`, der eine Scrollbewegung abfangen kann — es gibt dort
+keinen `wheel`- und keinen `touchmove`-Horcher.
+
+Gemessen an den echten 393 Karten:
+
+| | |
+| --- | ---: |
+| Textbereiche mit `overflow-y: auto` | **393** |
+| davon je überlaufend, bei 1280 px | **0** |
+| davon je überlaufend, bei 375 px | **0** |
+| Anteil an der Kartenhöhe | **67 %** |
+| Seitenhöhe bei 375 px | 254.612 px |
+
+393 Bereiche, die selbst nie rollen, aber das Weiterreichen ans Dokument
+unterbinden — über zwei Dritteln jeder Karte. `overflow-y: auto` bleibt
+als Sicherung gegen abgeschnittenen Regeltext; ohne `contain` reicht ein
+Bereich, der am Ende ist, die Bewegung weiter.
+
+**2 · `styles/charakterbogen.css`: Die Fläche gehört an die Blase.**
+Hintergrund, Rand, Radius, Schatten und Polster hingen an
+`.kartenblase-karte`. Das trug, solange nur Karten in der Blase standen —
+mit der Herleitung der Bogenwerte kam ein zweiter Inhalt dazu, und der
+stand ohne Hintergrund am unteren Rand. Jetzt trägt `.kartenblase` selbst
+die Fläche; damit bekommt **alles**, was je hineingelegt wird, einen
+Hintergrund. `.kartenblase-karte` bringt keine eigene mehr mit — im
+Browser gegengeprüft, dass kein doppelter Rahmen entsteht.
+
+**Drei neue Messungen, alle im Browser, alle rot bewiesen:**
+
+| Prüfung | rot gemacht durch | Meldung |
+| --- | --- | --- |
+| `pruefe-filter` · Scrollfallen | `contain` wieder eingebaut | 393 Bereiche |
+| `pruefe-filter` · Überlauf | `max-height: 24px` an `.karte-text` | 393 von 393 |
+| `pruefe-bogenfarben` · Blasengrund | Hintergrund auf `transparent` | Alpha 0 von 255, Kontrast 1,12:1 |
+
+`pruefe-filter` 30 → **32**, `pruefe-bogenfarben` 174 → **178** Prüfungen.
+
+**Eigener Fehler dabei:** Die neue Messfunktion gehört ins Browser-Skript
+der Messseite — also in eine Vorlagenzeichenkette. Backticks im
+Kommentar (`` `document.body` ``) haben sie beendet; die Datei war danach
+syntaktisch kaputt. `node --check` hat es gefangen, ein Hinweis steht
+jetzt im Kommentar.
+
+**Nicht messbar hier:** Der eigentliche Scroll- und Zeigepfad. Der
+Browser-Bereich dieser Sitzung ist ausgeblendet, dort rendert die Seite
+nicht — `elementFromPoint` gibt `null`, `requestAnimationFrame` feuert
+nie, und `scrollTo` bewegt nichts. Eine erste Messung „die Seite lässt
+sich gar nicht scrollen" war genau dieses Artefakt und wurde verworfen,
+nachdem dieselbe Messung auch auf einer unveränderten Seite fehlschlug.
+Belegt ist, **was auf der Seite steht** — dass es sich für Jannik richtig
+anfühlt, kann nur er sagen.
+
+
 ### Kategorieseiten gliedern nach Unterart (Vorgang #9)
 
 - **`runtime/ansichten.js`** bekommt `inBloecken()` und
