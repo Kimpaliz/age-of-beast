@@ -598,11 +598,26 @@ a.karte-anker { cursor: pointer; }
   .karte-anker { border-bottom-style: dashed; border-bottom-color: var(--akzent); }
 }
 
+/* ⚠️ **Die Flaeche gehoert an die Blase, nicht an ihren Inhalt.**
+   Bis zum 05.09.2026 brachte `.kartenblase-karte` Hintergrund, Rand und
+   Schatten selbst mit. Das ging so lange gut, wie nur Karten in der
+   Blase standen — mit der Herleitung der Bogenwerte kam ein zweiter
+   Inhalt dazu, und der stand **ohne Hintergrund** am unteren Rand.
+   Janniks Meldung: „im caractere bogen werden die ursprungswerte unten
+   am rand ohne Hintergrund angezeigt".
+   Jetzt traegt die Blase selbst die Flaeche. Damit bekommt alles, was
+   je hineingelegt wird, einen Hintergrund — auch das, was es heute noch
+   nicht gibt. */
 .kartenblase {
   position: absolute;
   z-index: 60;
   width: min(22rem, calc(100vw - 2rem));
   pointer-events: none;
+  background: var(--flaeche-hoch);
+  border: 1px solid var(--akzent-rand);
+  border-radius: var(--radius);
+  box-shadow: var(--schatten);
+  padding: 0.85rem 0.95rem 0.8rem;
 }
 
 /* Am Handy klebt sie unten am Rand: Ein Kästchen neben dem Finger läge
@@ -619,13 +634,8 @@ a.karte-anker { cursor: pointer; }
   pointer-events: auto;
 }
 
-.kartenblase-karte {
-  background: var(--flaeche-hoch);
-  border: 1px solid var(--akzent-rand);
-  border-radius: var(--radius);
-  box-shadow: var(--schatten);
-  padding: 0.85rem 0.95rem 0.8rem;
-}
+/* Der Inhalt bringt keine eigene Flaeche mehr mit — siehe oben. */
+.kartenblase-karte { display: block; }
 
 .blase-kopf { border-bottom: 1px solid var(--rand); padding-bottom: 0.45rem; }
 

@@ -5,6 +5,40 @@ Dieselben Änderungen stehen in Entwicklersprache in [CHANGELOG-TECHNIK.md](CHAN
 
 Das Neueste steht immer oben.
 
+## Zwei Meldungen von dir behoben – 5. September 2026
+
+### „Auf den Karten kann man nicht scrollen"
+
+Du hattest recht, und die Ursache war eine einzige Zeile.
+
+Jede der 393 Karten hat einen Textbereich, der **rollen kann**, falls der
+Regeltext einmal nicht in die Karte passt. Daneben stand eine Anweisung:
+„und gib die Bewegung nicht an die Seite weiter". Gemeint war: Wer in
+einem langen Regeltext blättert, soll nicht aus Versehen die ganze Seite
+verschieben.
+
+**Gemessen: Kein einziger der 393 Texte läuft je über** — weder am
+Bildschirm noch am Handy. Es gab also 393 Bereiche, die selbst nie rollen,
+aber das Weiterrollen der Seite verhindern. Und sie bedecken **zwei
+Drittel jeder Karte**. Praktisch hieß das: Du musstest die schmalen
+Lücken zwischen den Karten treffen.
+
+Die Anweisung ist weg. Der Textbereich kann weiterhin rollen, falls es
+je nötig wird — er gibt die Bewegung jetzt nur weiter.
+
+### „Die Ursprungswerte stehen unten ohne Hintergrund"
+
+Auch das stimmte, und es war mein Fehler von heute Vormittag.
+
+Das Kästchen, das beim Überfahren erscheint, hatte seinen Hintergrund
+nicht selbst — den brachte die **Karte darin** mit. Das ging so lange
+gut, wie nur Karten darin standen. Die neue Herleitung ist keine Karte,
+also stand sie ohne Kästchen frei am Bildschirmrand.
+
+Jetzt trägt das Kästchen den Hintergrund selbst. Damit sieht auch alles
+richtig aus, was später einmal hineinkommt.
+
+
 ## Die Regeln im Wiki stehen jetzt in Kapiteln – 5. September 2026
 
 Die 26 Regelartikel standen alphabetisch in einem Raster. Praktisch

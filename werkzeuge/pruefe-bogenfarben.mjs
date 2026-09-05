@@ -218,6 +218,42 @@ function textstellen(dokument) {
   }
   return [...gruppen.values()];
 }
+/* Die Blase mit der Herleitung. Sie haengt an document.body, nicht im
+   Bogen — textstellen() sieht sie deshalb nicht.
+
+   ACHTUNG: Am 05.09.2026 stand sie **ohne Hintergrund** am unteren Rand.
+   Flaeche und Rand hingen an .kartenblase-karte, und die Herleitung ist
+   kein .kartenblase-karte. Janniks Meldung: „im caractere bogen werden
+   die ursprungswerte unten am rand ohne Hintergrund angezeigt."
+   Gemessen wird deshalb der Deckungsgrad des Hintergrunds und der
+   Kontrast des Textes darauf — nicht, ob eine Regel im Quelltext steht.
+
+   (Diese Funktion steht im Browser-Skript der Messseite, also in einer
+   Vorlagenzeichenkette. Deshalb hier keine Backticks im Kommentar: Sie
+   wuerden die Zeichenkette beenden.) */
+function blasenGrund(dokument) {
+  const zeichenflaeche = flaeche(dokument);
+  const stil = dokument.defaultView.getComputedStyle;
+  const ausloeser = dokument.querySelector('[data-wert]');
+  if (!ausloeser) return { fehlt: 'Keine Zahl mit Herleitung auf dem Bogen.' };
+  ausloeser.dispatchEvent(new dokument.defaultView.MouseEvent('mouseenter'));
+  const blase = dokument.querySelector('.kartenblase');
+  if (!blase || blase.hidden) return { fehlt: 'Die Blase oeffnet nicht.' };
+
+  const regel = stil(blase);
+  const grund = loese(zeichenflaeche, regel.backgroundColor);
+  const text = blase.querySelector('.h-quelle') || blase.querySelector('.herleitung-summe');
+  const vorn = text ? ueber(loese(zeichenflaeche, stil(text).color), [...grund.slice(0, 3), 255]).slice(0, 3) : null;
+  const ergebnis = {
+    deckung: grund[3],
+    grund: grund.slice(0, 3),
+    vorn,
+    inhalt: blase.textContent.trim().slice(0, 40),
+  };
+  dokument.dispatchEvent(new dokument.defaultView.KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+  return ergebnis;
+}
+
 function klassenfarben(dokument) {
   const bogen = dokument.querySelector('.bogen');
   const zeichenflaeche = flaeche(dokument);
@@ -239,13 +275,14 @@ async function messen() {
   const figuren = erstesFenster.AGE_OF_BEAST_WELT.eintraege.filter((eintrag) => eintrag.spielwerte).map((eintrag) => eintrag.id);
   const ergebnis = { figuren, schemata: {} };
   for (const thema of ['dunkel', 'hell']) {
-    const schema = { farben: null, texte: {} };
+    const schema = { farben: null, blase: null, texte: {} };
     for (const figur of figuren) {
       await lade(figur);
       const dokument = rahmen.contentDocument;
       dokument.documentElement.dataset.thema = thema;
       await pause();
       if (!schema.farben) schema.farben = klassenfarben(dokument);
+      if (!schema.blase) schema.blase = blasenGrund(dokument);
       schema.texte[figur] = textstellen(dokument);
     }
     ergebnis.schemata[thema] = schema;
@@ -304,6 +341,23 @@ function auswerten(ergebnis) {
       pruefe(wert >= stelle.mindest,
         thema + ': ' + figur + ' – ' + stelle.element + ' „' + stelle.text + '“ (' + stelle.anzahl + ' gleiche Textstelle(n)) hat ' + wert.toFixed(2) + ':1 statt ' + stelle.mindest + ':1 (Vordergrund ' + hex(stelle.vorn) + ', Hintergrund ' + hex(stelle.grund) + ').');
     }
+    /* Die Blase mit der Herleitung — Janniks Meldung vom 05.09.2026. */
+    const blase = schema.blase || {};
+    pruefe(!blase.fehlt, thema + ': ' + (blase.fehlt || ''));
+    if (!blase.fehlt) {
+      pruefe(blase.deckung >= 254,
+        thema + ': Die Herleitungsblase hat keinen deckenden Hintergrund '
+        + '(Alpha ' + blase.deckung + ' von 255). Dann steht der Text frei '
+        + 'auf der Seite darunter — genau das hat Jannik am unteren Rand gesehen.');
+      if (blase.vorn) {
+        const wert = kontrast(blase.vorn, blase.grund);
+        pruefe(wert >= MINDESTKONTRAST,
+          thema + ': Text in der Herleitungsblase hat ' + wert.toFixed(2)
+          + ':1 statt ' + MINDESTKONTRAST + ':1 (Vordergrund ' + hex(blase.vorn)
+          + ', Hintergrund ' + hex(blase.grund) + ').');
+      }
+    }
+
     const naechste = {};
     for (const [name, farbe] of Object.entries(schema.farben)) {
       let bester = { wert: Infinity, name: '' };
