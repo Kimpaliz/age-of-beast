@@ -10,6 +10,40 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ## [Unveröffentlicht]
 
+### Kategorieseiten gliedern nach Unterart (Vorgang #9)
+
+- **`runtime/ansichten.js`** bekommt `inBloecken()` und
+  `kachelnOderBloecke()`; `kategorieZeichnen()` benutzt sie.
+- **Neu `styles/eintragsbloecke.css`** mit `.eintrag-block` und
+  klebendem `.eintrag-block-kopf`.
+- **`werkzeuge/pruefe-filter.mjs`** 23 → **30 Prüfungen**: Die
+  Kategorieseiten werden jetzt mit gemessen, im Browser.
+
+**Die Gliederung kommt aus `unterart` an den Einträgen selbst** — es
+gibt keine zweite Liste, die jemand nachpflegen müsste; eine neue
+Unterart bekommt ihren Block von allein. Die Reihenfolge der Blöcke ist
+die Reihenfolge in den Weltdaten (bei den Regeln also die des
+Regelwerks), nicht das Alphabet.
+
+**Gegliedert wird ab acht Einträgen und ab zwei Unterarten.** Damit
+bekommen „Regeln" (26 → 5 Blöcke) und „Spezies" (24 → 2) eine
+Gliederung, „Fraktionen" und „Figuren" (je 2) nicht.
+
+**Eigener Fehler, vom Rot-Beweis gefunden:** Die Gegenprobe „eine kurze
+Liste bleibt ungegliedert" stand auf *Figuren*. Beide Einträge dort sind
+„Spielfigur", also greift schon die zweite Sperre — mit
+`AB_WIEVIEL_GLIEDERN = 1` blieb die Prüfung grün. Sie steht jetzt auf
+*Fraktionen*: zwei Einträge mit **verschiedener** Unterart, wo allein
+die Länge entscheidet. Danach beide Rot-Beweise wie erwartet.
+
+**Nebenbefund:** Die neue Stildatei musste in **vier** Freigabelisten
+eingetragen werden (`stil.css`, `pruefe-stilstruktur`, `vorschau-server`,
+`pruefe-filter`) — dieselbe Falle wie beim Charakterbogen am selben Tag.
+Ein Anhang an `styles/wiki.css` ging nicht: Die vier Ursprungsteile der
+CSS-Aufteilung müssen byteweise bleiben, daran hängt der SHA-256-Beweis,
+dass beim Aufteilen nichts verlorenging.
+
+
 ### Charakterbögen rechnen mit der Ausrüstung (Vorgang #5, #6, #7)
 
 Janniks Wunsch vom 04.09.2026, wörtlich: *„Die Charakterbögen, die Werte

@@ -41,7 +41,8 @@ const DATEIEN = new Set([
   'wiki.html', 'karten.html', 'stil.css', 'wiki.js', 'daten/welt.js',
   'styles/tokens.css', 'styles/wiki.css', 'styles/bearbeiten.css',
   'styles/werkstatt.css', 'styles/kategorien.css', 'styles/handy.css',
-  'styles/grundregeln.css', 'styles/spielkarten.css', 'styles/favoriten.css',
+  'styles/grundregeln.css', 'styles/eintragsbloecke.css',
+  'styles/spielkarten.css', 'styles/favoriten.css',
   'runtime/favoriten.js', 'runtime/symbole.js', 'runtime/datenindex.js',
   'runtime/ansichten.js', 'runtime/interaktion.js', 'runtime/routing.js',
   'runtime/kontextmenue.js', 'runtime/kontextmenue-wiki.js',
@@ -166,7 +167,7 @@ function sichtbarkeit(dokument) {
 }
 
 async function messen() {
-  const ergebnis = { filter: [], karten: null, fehler: [] };
+  const ergebnis = { filter: [], wiki: null, karten: null, fehler: [] };
 
   schritt = 'wiki.html laden';
   await lade('/wiki.html?w=age-of-beast', '.kachel');
@@ -180,6 +181,32 @@ async function messen() {
     knopf.click();
     await pause();
     ergebnis.filter.push({ knopf: wahl, ...sichtbarkeit(dok) });
+  }
+
+  /* Vorgang #9: Die Regeleintraege im Wiki stehen in Bloecken. Gemessen
+     wird an der **Kategorieseite**, nicht am Quelltext: Ob eine
+     Ueberschrift oben klebt und ob die Summe der Bloecke die Liste
+     ergibt, sieht man nur im Browser. */
+  ergebnis.wiki = {};
+  for (const kategorie of ['regeln', 'species', 'factions']) {
+    schritt = 'Kategorieseite ' + kategorie;
+    rahmen.contentWindow.location.hash = '#/kategorie/' + kategorie;
+    await warteAuf(() => rahmen.contentDocument
+      ?.querySelector('.seitenkopf[data-kategorie="' + kategorie + '"]'),
+      'Kategorieseite ' + kategorie + ' erscheint nicht.');
+    await pause();
+    const kd2 = rahmen.contentDocument;
+    const bl = [...kd2.querySelectorAll('.eintrag-block')].map((b) => ({
+      kopf: b.querySelector('.eintrag-block-kopf')?.textContent.trim() || '',
+      kacheln: b.querySelectorAll('.kachel').length,
+    }));
+    ergebnis.wiki[kategorie] = {
+      bloecke: bl,
+      kachelnGesamt: kd2.querySelectorAll('.kachel').length,
+      koepfeKleben: bl.length
+        ? kd2.defaultView.getComputedStyle(kd2.querySelector('.eintrag-block-kopf')).position
+        : null,
+    };
   }
 
   schritt = 'karten.html laden';
@@ -250,6 +277,40 @@ function auswerten(mess) {
       'Der Filter „' + lauf.knopf + '" setzt gar kein `hidden` — dann filtert '
       + 'er nicht, sondern tut nichts.');
   }
+
+  /* Vorgang #9 — die Regeleintraege im Wiki. Die Gliederung kommt aus
+     `unterart` an den Eintraegen selbst; es gibt keine zweite Liste. */
+  const w = mess.wiki || {};
+  const regeln = w.regeln;
+  pruefe(Boolean(regeln) && regeln.kachelnGesamt > 0,
+    'Die Kategorieseite „Regeln" zeigt keine Eintraege.');
+  if (regeln) {
+    pruefe(regeln.bloecke.length > 1,
+      'Die Regeleintraege stehen in ' + regeln.bloecke.length
+      + ' Block/Bloecken statt gegliedert — alphabetisch stehen dann '
+      + 'Wurfregeln zwischen Regeln fuer die Spielleitung.');
+    const summe = regeln.bloecke.reduce((s, b) => s + b.kacheln, 0);
+    pruefe(summe === regeln.kachelnGesamt,
+      'Die Bloecke enthalten ' + summe + ' Eintraege, gezeichnet sind '
+      + regeln.kachelnGesamt + '. Beim Gliedern geht etwas verloren.');
+    pruefe(regeln.bloecke.every((b) => b.kopf && b.kacheln > 0),
+      'Ein Block hat keinen Kopf oder keine Eintraege.');
+    pruefe(regeln.koepfeKleben === 'sticky',
+      'Die Blockueberschrift der Kategorieseite klebt nicht oben.');
+  }
+  /* Die Gegenprobe. Sie braucht **genau den richtigen Fall**: eine
+     kurze Liste, die zwei Unterarten haette. „Figuren" taugte dafuer
+     nicht — beide Eintraege sind „Spielfigur", also greift schon die
+     zweite Sperre, und ein ausgebauter Schwellwert faellt nicht auf
+     (beim Rot-Beweis am 05.09.2026 blieb die Pruefung gruen).
+     „Fraktionen" hat zwei Eintraege mit **verschiedener** Unterart:
+     Hier entscheidet allein die Laenge. */
+  const fraktionen = w.factions;
+  pruefe(Boolean(fraktionen) && fraktionen.kachelnGesamt > 0,
+    'Die Kategorieseite „Fraktionen" zeigt keine Eintraege.');
+  pruefe(Boolean(fraktionen) && fraktionen.bloecke.length === 0,
+    'Auch die kurze Fraktionsliste wird gegliedert — zwei Bloecke mit je '
+    + 'einer Kachel sind keine Gliederung, sondern Laerm.');
 
   const k = mess.karten;
   pruefe(Boolean(k) && k.kartenGesamt > 0, 'Die Kartenseite zeigt keine Karten.');

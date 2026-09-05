@@ -5,6 +5,39 @@ Dieselben Änderungen stehen in Entwicklersprache in [CHANGELOG-TECHNIK.md](CHAN
 
 Das Neueste steht immer oben.
 
+## Die Regeln im Wiki stehen jetzt in Kapiteln – 5. September 2026
+
+Die 26 Regelartikel standen alphabetisch in einem Raster. Praktisch
+heißt das: „Aktionswurf" neben „Angriffe und Ausweichen" neben
+„Ausrüstung und Gold" — Wurfregeln zwischen Regeln für die
+Spielleitung, und man musste jeden Titel einzeln lesen.
+
+Jetzt sind sie in fünf Blöcken, in der Reihenfolge des Regelwerks:
+
+| | |
+| --- | ---: |
+| Grundlagen | 6 |
+| Charaktere | 5 |
+| Konflikte | 7 |
+| Spielleitung | 7 |
+| Nachschlagen | 1 |
+
+Die Überschrift bleibt beim Blättern oben stehen — so weißt du auch
+mitten in den Spielleitungsregeln noch, worin du blätterst. Genau wie
+auf der Kartenseite.
+
+**Auch die Spezies sind gegliedert:** 18 Kern-Abstammungen, 6
+Erweiterungs-Abstammungen.
+
+**Woher die Gliederung kommt:** Jeder Eintrag trägt seine Art schon
+selbst mit sich. Es gibt keine zweite Liste, die jemand nachpflegen
+müsste — kommt eine neue Art dazu, entsteht ihr Block von allein.
+
+**Kurze Listen bleiben ungegliedert.** Bei zwei Fraktionen wären zwei
+Überschriften mit je einem Eintrag keine Hilfe, sondern Lärm. Gegliedert
+wird ab acht Einträgen.
+
+
 ## Die Charakterbögen rechnen jetzt mit – 5. September 2026
 
 Dein Wunsch: *„Die Charakterbögen, die Werte wie Stress, HP, Rüstung

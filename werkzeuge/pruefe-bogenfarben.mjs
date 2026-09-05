@@ -67,6 +67,7 @@ const DATEIEN = new Set([
   'bogen.html', 'stil.css', 'daten/welt.js', 'runtime/favoriten.js',
   'styles/tokens.css', 'styles/wiki.css', 'styles/bearbeiten.css',
   'styles/werkstatt.css', 'styles/kategorien.css', 'styles/charakterbogen.css',
+  'styles/handy.css', 'styles/grundregeln.css', 'styles/eintragsbloecke.css',
   'karte/bogen-zeigen.js', 'karte/bogen-werte.js', 'karte/kartenblase.js',
   'karte/karten-daten.js', 'werkzeuge/werte-rechnen.mjs',
   'daten/daggerheart-karten.json', 'daten/daggerheart-gegenstaende.json',

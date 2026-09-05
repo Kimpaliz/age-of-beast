@@ -35,6 +35,7 @@ const STIL_TEILE = [
 const STIL_ZUSATZ = [
   'styles/kategorien.css',
   'styles/handy.css',
+  'styles/eintragsbloecke.css',
   'styles/grundregeln.css',
 ];
 
