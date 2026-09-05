@@ -1,0 +1,55 @@
+/* ===================================================================
+   Age-of-Beast-Wiki — Bloecke auf einer Kategorieseite
+   [Aufgabe: Leseruntime]
+
+   -------------------------------------------------------------------
+   Die 26 Regelartikel standen alphabetisch in einem Raster: Wurfregeln
+   zwischen Regeln fuer die Spielleitung. Jetzt tragen sie ihre Unterart
+   als Ueberschrift — dieselbe Gliederung wie die 17 Bloecke auf der
+   Kartenseite, nur aus den Eintragsdaten selbst.
+
+   **Warum eine eigene Datei und kein Anhang an `styles/wiki.css`:**
+   Die vier Ursprungsteile der Aufteilung muessen byteweise so bleiben,
+   wie sie beim Aufteilen entstanden sind — daran haengt der
+   SHA-256-Beweis in `werkzeuge/pruefe-stilstruktur.mjs`, dass die alte
+   `stil.css` dabei nichts verloren hat. Neue Gestaltung kommt deshalb
+   als eigener Teil dazu.
+
+   Arbeitet zusammen mit: `runtime/ansichten.js` (erzeugt die Bloecke),
+   `stil.css` (laedt diese Datei), `werkzeuge/pruefe-filter.mjs` (misst
+   die Bloecke im Browser).
+   =================================================================== */
+
+.eintrag-block { margin-top: 1.6rem; }
+.eintrag-block:first-child { margin-top: 0.4rem; }
+
+/* Der Kopf klebt beim Blaettern oben: Wer mitten in den
+   Spielleitungsregeln steht, soll noch sehen, worin er blaettert. */
+.eintrag-block-kopf {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0.5rem 0 0.42rem;
+  font-size: 0.94rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--schrift-matt);
+  background: var(--grund);
+  border-bottom: 1px solid var(--rand);
+}
+
+.eintrag-block-kopf small {
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--schrift-leise);
+}
+
+/* Das Raster im Block braucht seinen eigenen Abstand nicht noch einmal
+   — den setzt bereits der Blockkopf darueber. */
+.eintrag-block .kacheln { margin-top: 0.7rem; }

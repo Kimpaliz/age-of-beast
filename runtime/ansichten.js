@@ -69,6 +69,57 @@
       return '<a class="kachel" href="#/eintrag/' + encodeURIComponent(e.id) + '" data-kategorie="' + sicher(e.kategorie) + '"><span class="k-kopf">' + symbol(e.kategorie, 'k-marke') + '<span class="mikro k-etikett">' + etikett(e) + '</span></span><h2>' + sicher(e.name) + '</h2><p>' + sicher(kuerzen(e.kurz, 150)) + '</p><span class="k-fuss"><span>' + anzahlWort(zahl, 'Verknüpfung', 'Verknüpfungen') + '</span><span class="reife ' + reife + '">' + (reife === 'ausgebaut' ? 'ausgebaut' : 'knapp') + '</span></span></a>';
     }
 
+    /* ── Bloecke nach Unterart ─────────────────────────────────────
+       Dieselbe Idee wie auf `karten.html`, und **aus derselben Sorte
+       Daten**: Jeder Eintrag traegt seine `unterart` selbst mit sich
+       ("Grundlagen", "Kern-Abstammung", "Gilde"). Es gibt keine zweite
+       Liste, die jemand nachpflegen muesste — kommt eine neue Unterart
+       hinzu, entsteht ihr Block von allein.
+
+       Die Reihenfolge der Bloecke ist die **Reihenfolge in den
+       Weltdaten**, nicht das Alphabet: Bei den Regeln ist das die
+       Reihenfolge des Regelwerks (Grundlagen, Charaktere, Konflikte,
+       Spielleitung, Nachschlagen), und die will man beim Lesen. */
+
+    /* Ab wann gegliedert wird. Bei zwei Fraktionen waeren zwei Bloecke
+       mit je einer Kachel Zierde; die 26 Regelartikel dagegen sind ohne
+       Gliederung eine alphabetische Wand, in der Wurfregeln zwischen
+       Spielleitungsregeln stehen. Acht ist ungefaehr das, was man mit
+       einem Blick noch ueberschaut. */
+    const AB_WIEVIEL_GLIEDERN = 8;
+
+    function inBloecken(liste) {
+      const welt = datenindex.weltHolen();
+      /* Rang = erstes Auftreten in den Weltdaten. */
+      const rang = new Map();
+      for (const e of welt.eintraege) {
+        const u = e.unterart || '';
+        if (!rang.has(u)) rang.set(u, rang.size);
+      }
+      const bloecke = new Map();
+      for (const e of liste) {
+        const u = e.unterart || 'Sonstige';
+        if (!bloecke.has(u)) bloecke.set(u, []);
+        bloecke.get(u).push(e);
+      }
+      return [...bloecke.entries()]
+        .map(([name, eintraege]) => ({ name, eintraege }))
+        .sort((a, b) => (rang.get(a.name === 'Sonstige' ? '' : a.name) ?? 1e9)
+          - (rang.get(b.name === 'Sonstige' ? '' : b.name) ?? 1e9));
+    }
+
+    function kachelnOderBloecke(liste) {
+      const flach = '<div class="kacheln">' + liste.map(kachel).join('') + '</div>';
+      if (liste.length < AB_WIEVIEL_GLIEDERN) return flach;
+      const bloecke = inBloecken(liste);
+      if (bloecke.length < 2) return flach;
+      return '<div class="eintrag-bloecke">' + bloecke.map((b) =>
+        '<section class="eintrag-block"><h2 class="eintrag-block-kopf">' + sicher(b.name)
+        + ' <small>' + b.eintraege.length + '</small></h2>'
+        + '<div class="kacheln">' + b.eintraege.map(kachel).join('') + '</div></section>'
+      ).join('') + '</div>';
+    }
+
     function kopfzeileSetzen() {
       const welt = datenindex.weltHolen();
       document.getElementById('welt-titel').textContent = welt.titel;
@@ -110,7 +161,7 @@
       const k = datenindex.kategorieInfoHolen(s);
       const liste = datenindex.kategorieHolen(s);
       if (!k || !liste) return nichtGefunden();
-      inhalt.innerHTML = '<p class="brotkrumen"><a class="zurueck" href="#/">&lsaquo; Arbeitsfläche</a><span class="pfad">' + sicher(welt.titel) + ' / ' + sicher(k.name) + '</span></p><div class="seitenkopf" data-kategorie="' + sicher(k.schluessel) + '"><span class="mikro">' + anzahlWort(liste.length, 'Eintrag', 'Einträge') + '</span><h1 class="mit-marke">' + symbol(k.schluessel, 'titel-marke') + sicher(k.name) + '</h1></div><div class="kacheln">' + liste.map(kachel).join('') + '</div>';
+      inhalt.innerHTML = '<p class="brotkrumen"><a class="zurueck" href="#/">&lsaquo; Arbeitsfläche</a><span class="pfad">' + sicher(welt.titel) + ' / ' + sicher(k.name) + '</span></p><div class="seitenkopf" data-kategorie="' + sicher(k.schluessel) + '"><span class="mikro">' + anzahlWort(liste.length, 'Eintrag', 'Einträge') + '</span><h1 class="mit-marke">' + symbol(k.schluessel, 'titel-marke') + sicher(k.name) + '</h1></div>' + kachelnOderBloecke(liste);
       navigationMarkieren(null);
       document.title = k.name + ' – ' + welt.titel;
     }

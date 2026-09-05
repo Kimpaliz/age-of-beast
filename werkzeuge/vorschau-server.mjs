@@ -52,6 +52,7 @@ const FREIGEGEBENE_DATEIEN = new Set([
   'styles/plattform.css',
   'styles/handy.css',
   'styles/grundregeln.css',
+  'styles/eintragsbloecke.css',
   'styles/karte.css',
   'styles/spielkarten.css',
   'styles/charakterbogen.css',
