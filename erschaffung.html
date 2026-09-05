@@ -1,0 +1,59 @@
+<!doctype html>
+<!-- [Aufgabe: Charakterbogen] Die Charaktererschaffung, Schritt fuer Schritt. -->
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Charakter erschaffen – Age of Beast</title>
+<meta name="description" content="Der Assistent führt in neun Schritten durch die Daggerheart-Charaktererschaffung: Klasse, Herkunft, Eigenschaften, Ausrüstung, Domänenkarten.">
+<meta name="color-scheme" content="dark light">
+<link rel="stylesheet" href="stil.css">
+<link rel="stylesheet" href="styles/charakterbogen.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23161815'/><text x='16' y='23' font-size='18' text-anchor='middle' fill='%23d2cefd'>&#9670;</text></svg>">
+</head>
+<body class="erschaffungsseite">
+
+<a class="zum-inhalt" href="#inhalt">Direkt zum Inhalt</a>
+
+<header class="kopf">
+  <a class="marke" href="wiki.html">
+    <strong>Age of Beast</strong>
+    <span class="teiler" aria-hidden="true">|</span>
+    <small>Charakter erschaffen</small>
+  </a>
+  <div class="kopf-rechts">
+    <a class="modul-knopf" href="bogen.html">Charakterbögen</a>
+    <a class="modul-knopf" href="karten.html">Karten</a>
+    <a class="modul-knopf" href="wiki.html">&lsaquo; Zurück ins Wiki</a>
+  </div>
+</header>
+
+<main id="inhalt" class="erschaffung-inhalt" tabindex="-1">
+
+  <div class="seitenkopf">
+    <span class="mikro">Daggerheart</span>
+    <h1>Eine Figur erschaffen</h1>
+    <p class="einleitung">
+      Neun Schritte, in der Reihenfolge des Regelwerks. Zu jedem steht
+      die Regel wörtlich da, und zu jeder Wahl, was sie bedeutet.
+      Frühere Entscheidungen darfst du jederzeit ändern — der Assistent
+      hält dich nirgends fest. Was noch fehlt, steht daneben.
+    </p>
+  </div>
+
+  <div id="erschaffungsmeldung" class="hinweis" hidden></div>
+
+  <div class="erschaffung-raster">
+    <nav id="schrittleiste" class="schrittleiste" aria-label="Die neun Schritte"></nav>
+    <section id="schrittinhalt" class="schrittinhalt"></section>
+  </div>
+
+  <div id="schrittfuss" class="schrittfuss"></div>
+
+</main>
+
+<script src="daten/welt.js"></script>
+<script type="module" src="karte/erschaffung.js"></script>
+<script src="runtime/wiki-rueckweg.js"></script>
+</body>
+</html>

@@ -69,7 +69,8 @@ const DATEIEN = new Set([
   'styles/werkstatt.css', 'styles/kategorien.css', 'styles/charakterbogen.css',
   'styles/handy.css', 'styles/grundregeln.css', 'styles/eintragsbloecke.css',
   'karte/bogen-zeigen.js', 'karte/bogen-werte.js', 'karte/kartenblase.js',
-  'karte/karten-daten.js', 'werkzeuge/werte-rechnen.mjs',
+  'karte/karten-daten.js', 'karte/figuren-eigen.js', 'werkzeuge/werte-rechnen.mjs',
+  'styles/erschaffung.css',
   'daten/daggerheart-karten.json', 'daten/daggerheart-gegenstaende.json',
 ]);
 const TYPEN = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.json': 'application/json; charset=utf-8' };

@@ -362,6 +362,15 @@ export function ausruestungHtml(r) {
   for (const s of r.ausruestung) t.push(stueckZeile(s));
   t.push('</ul>');
 
+  /* Der Grundvorrat aus Schritt 5 der Erschaffung (Fackel, Seil, …).
+     Er steht ohne Schalter da: Es gibt bei ihm nichts zu waehlen und
+     nichts zu rechnen — aber am Tisch will man wissen, dass man ein
+     Seil dabeihat. */
+  if (r.vorrat && r.vorrat.length) {
+    t.push('<p class="grundvorrat"><span class="mikro">Immer dabei</span> '
+      + sicher(r.vorrat.join(' · ')) + '</p>');
+  }
+
   /* Wirkungen, die keine Zahl sind, werden **gezeigt und nicht
      gerechnet**. Sie hängen an einer Entscheidung am Tisch; eine
      geratene Zahl wäre schlimmer als keine. */

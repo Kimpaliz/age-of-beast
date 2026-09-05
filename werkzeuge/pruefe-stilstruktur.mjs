@@ -36,6 +36,7 @@ const STIL_ZUSATZ = [
   'styles/kategorien.css',
   'styles/handy.css',
   'styles/eintragsbloecke.css',
+  'styles/erschaffung.css',
   'styles/grundregeln.css',
 ];
 

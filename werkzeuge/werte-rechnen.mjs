@@ -280,6 +280,36 @@ export function herleitung(ergebnis) {
  * plausibel bleibt. Deshalb gilt: **Steht der Gegenstand im Regelwerk,
  * ist das Regelwerk die Quelle**, der Bogentext wird nur verglichen.
  */
+/**
+ * Liest den Wert des **ersten Rangs** aus einer Stufenliste.
+ *
+ * ⚠️ **Warum das nötig ist.** Vier der acht Rüstungen des ersten Rangs
+ * tragen keinen festen `score`, sondern eine Liste über alle vier Ränge:
+ * `"3·4·5·6"` und `"6/12 · 9/19 · 11/26 · 13/35"`. Wer das übersieht,
+ * bekommt `undefined` — und genau daran ist der Assistent am 05.09.2026
+ * beim Zeichnen von Schritt 5 abgestürzt, ohne dass eine der 94
+ * Node-Prüfungen etwas gemerkt hätte: Sie zählten die Rüstungen, sie
+ * zeichneten sie nie.
+ *
+ * Der **erste** Eintrag wird genommen, und das ist keine Auslegung: Der
+ * Gegenstand trägt `abStufe: 1`, die Liste ist nach Rängen geordnet.
+ * Passt das Format nicht, kommt `null` zurück — dann steht auf dem
+ * Bogen sichtbar nichts statt einer geratenen Zahl.
+ */
+export function ersterRang(text) {
+  const erster = String(text ?? '').split(/[·,]/u)[0]?.trim();
+  const n = Number(erster);
+  return Number.isFinite(n) ? n : null;
+}
+
+/** Dasselbe für `"6/12 · 9/19 · …"` — der erste Rang als Schwellenpaar. */
+export function ersterRangSchwellen(text) {
+  const erster = String(text ?? '').split(/[·,]/u)[0]?.trim() || '';
+  const teile = erster.split('/').map((s) => Number(s.trim()));
+  if (teile.length !== 2 || !teile.every((n) => Number.isFinite(n))) return null;
+  return { schwer: teile[0], ernst: teile[1] };
+}
+
 export function ausruestungBauen(spielwerte = {}, finde = () => null) {
   const stuecke = [];
 
@@ -304,8 +334,12 @@ export function ausruestungBauen(spielwerte = {}, finde = () => null) {
     };
 
     if (regel) {
-      stueck.score = typeof regel.score === 'number' ? regel.score : null;
-      stueck.schwellen = regel.schwellen ? { ...regel.schwellen } : null;
+      /* Fester Wert, sonst der erste Rang aus der Stufenliste. */
+      stueck.score = typeof regel.score === 'number'
+        ? regel.score : ersterRang(regel.scoreStufen);
+      stueck.schwellen = regel.schwellen
+        ? { ...regel.schwellen } : ersterRangSchwellen(regel.schwellenStufen);
+      stueck.ausStufenliste = typeof regel.score !== 'number' && stueck.score !== null;
       stueck.merkmal = regel.merkmal || null;
       stueck.wirkung = regel.wirkung || null;
       stueck.schaden = regel.schaden ? regel.schaden.text : null;
@@ -428,5 +462,8 @@ export function bogenAusDaten(spielwerte = {}, finde = () => null, angelegt = {}
     }
   }
   const ergebnis = bogenRechnen({ ...spielwerte, basis, grundQuellen: quellen, ausruestung });
-  return { ...ergebnis, ausruestung };
+  /* Der Grundvorrat wird durchgereicht, nicht gerechnet: Fackel, Seil
+     und Grundvorräte haben keinen Zahlenwert, gehören aber auf den
+     Bogen. Er entsteht in der Charaktererschaffung (Schritt 5). */
+  return { ...ergebnis, ausruestung, vorrat: spielwerte.vorrat || [] };
 }

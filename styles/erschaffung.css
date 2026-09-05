@@ -1,0 +1,394 @@
+/* ===================================================================
+   Age-of-Beast-Wiki — die Charaktererschaffung
+   [Aufgabe: Charakterbogen]
+
+   -------------------------------------------------------------------
+   Neun Schritte, links die Leiste, rechts der Schritt. Auf dem Handy
+   liegt die Leiste oben und rollt waagerecht — sie ist dort ein
+   Fortschrittsbalken, kein Menue.
+
+   **Warum eine eigene Datei:** Die vier Ursprungsteile der
+   CSS-Aufteilung muessen byteweise bleiben, daran haengt der
+   SHA-256-Beweis in `werkzeuge/pruefe-stilstruktur.mjs`.
+
+   Arbeitet zusammen mit: `karte/erschaffung.js`,
+   `karte/erschaffung-schritte.js`, `erschaffung.html`.
+   =================================================================== */
+
+.erschaffung-inhalt {
+  max-width: 74rem;
+  margin: 0 auto;
+  padding: 1.4rem 1.1rem 6rem;
+}
+
+.erschaffung-raster {
+  display: grid;
+  grid-template-columns: 17rem 1fr;
+  gap: 1.4rem;
+  align-items: start;
+}
+
+/* 56rem und nicht die 60rem aus `wiki.css`: Der Bruchpunkt folgt hier
+   dem eigenen Bau — 17rem Leiste + 1,4rem Abstand + gut 24rem, damit
+   eine Auswahlkachel (13rem) noch zweimal nebeneinander passt, plus
+   Polster. Darunter liegt die Leiste oben.
+   (Nebeneffekt, aber kein Zufall: `pruefe-stilstruktur.mjs` verlangt,
+   dass die Stilanker der Aufteilung genau einmal vorkommen. Eine
+   kopierte Medienabfrage haette den Beweis mehrdeutig gemacht.) */
+@media (max-width: 56rem) {
+  .erschaffung-raster { grid-template-columns: 1fr; }
+}
+
+/* ── Die Schrittleiste ───────────────────────────────────────────── */
+
+.schrittleiste {
+  display: grid;
+  gap: 0.3rem;
+  position: sticky;
+  top: 0.6rem;
+}
+
+@media (max-width: 56rem) {
+  .schrittleiste {
+    position: static;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(9.5rem, 1fr);
+    overflow-x: auto;
+    padding-bottom: 0.4rem;
+  }
+}
+
+.schrittknopf {
+  display: grid;
+  grid-template-columns: 1.6rem 1fr auto;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+  padding: 0.5rem 0.65rem;
+  text-align: left;
+  font: inherit;
+  font-size: 0.88rem;
+  background: var(--flaeche);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+  color: var(--schrift-matt);
+  cursor: pointer;
+}
+
+.schrittknopf:hover,
+.schrittknopf:focus-visible { border-color: var(--akzent-rand); outline: none; }
+
+.schrittknopf.aktiv {
+  background: var(--akzent-schleier);
+  border-color: var(--akzent);
+  color: var(--schrift);
+}
+
+.schrittnummer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  border: 1px solid var(--rand-hell);
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.schrittknopf.fertig .schrittnummer {
+  border-color: var(--tuerkis);
+  color: var(--tuerkis);
+}
+
+.schrittname { min-width: 0; }
+
+.schrittmarke {
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--schrift-leise);
+}
+
+.schrittknopf.fertig .schrittmarke { color: var(--tuerkis); }
+
+/* ── Der Schritt selbst ──────────────────────────────────────────── */
+
+.schrittinhalt {
+  min-width: 0;
+  background: var(--flaeche);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.15rem 1.3rem;
+}
+
+.schritt-kopf h2 { margin: 0.15rem 0 0.5rem; font-size: 1.4rem; }
+
+/* Der Regeltext steht woertlich da. Er ist abgesetzt, damit man sieht:
+   Das ist die Regel, nicht meine Zusammenfassung. */
+.schritt-regel {
+  margin: 0 0 0.5rem;
+  padding-left: 0.75rem;
+  border-left: 2px solid var(--akzent-rand);
+  color: var(--schrift-matt);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.schritt-quelle { margin: 0 0 1rem; font-size: 0.8rem; }
+
+.schritt-fehlt {
+  list-style: none;
+  margin: 0 0 1.1rem;
+  padding: 0.55rem 0.7rem;
+  display: grid;
+  gap: 0.25rem;
+  background: var(--akzent-schleier);
+  border: 1px solid var(--akzent-rand);
+  border-radius: var(--radius-klein);
+  font-size: 0.86rem;
+  color: var(--schrift-matt);
+}
+
+.schritt-fertig {
+  margin: 0 0 1.1rem;
+  font-size: 0.86rem;
+  color: var(--tuerkis);
+}
+
+.schritt-feldkopf {
+  margin: 1.2rem 0 0.5rem;
+  font-size: 0.76rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--schrift-leise);
+}
+
+.schritt-feldkopf:first-child { margin-top: 0; }
+
+.schritt-hinweis {
+  margin: 0.6rem 0 0;
+  font-size: 0.84rem;
+  color: var(--schrift-matt);
+}
+
+.zaehler { color: var(--akzent-hell); font-variant-numeric: tabular-nums; }
+
+/* ── Auswahlkacheln ──────────────────────────────────────────────── */
+
+.wahl-raster {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  gap: 0.5rem;
+}
+
+.wahl {
+  display: grid;
+  gap: 0.18rem;
+  align-content: start;
+  padding: 0.6rem 0.7rem;
+  text-align: left;
+  font: inherit;
+  background: var(--grund);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+  color: var(--schrift);
+  cursor: pointer;
+}
+
+.wahl:hover,
+.wahl:focus-visible { border-color: var(--akzent-rand); outline: none; }
+
+.wahl.gewaehlt {
+  background: var(--akzent-schleier);
+  border-color: var(--akzent);
+}
+
+.wahl.gesperrt { opacity: 0.4; cursor: not-allowed; }
+
+.wahl-titel { font-size: 0.98rem; font-weight: 600; }
+
+.wahl-unter {
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--akzent-hell);
+}
+
+.wahl-werte {
+  display: grid;
+  gap: 0.1rem;
+  margin-top: 0.2rem;
+  font-size: 0.79rem;
+  color: var(--schrift-matt);
+}
+
+/* ── Eigenschaften ───────────────────────────────────────────────── */
+
+.vorrat-zeile {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin: 0 0 0.8rem;
+  font-size: 0.86rem;
+  color: var(--schrift-matt);
+}
+
+.vorratswert {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  padding: 0.12rem 0.4rem;
+  background: var(--akzent-schleier);
+  border: 1px solid var(--akzent-rand);
+  border-radius: 999px;
+  color: var(--akzent-hell);
+  font-variant-numeric: tabular-nums;
+}
+
+.eigenschaften-tafel { display: grid; gap: 0.4rem; }
+
+.eigenschaft {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.45rem 0.65rem;
+  background: var(--grund);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+}
+
+.eigenschaft.gesetzt { border-color: var(--akzent-rand); }
+
+.eigenschaft-name { display: grid; font-size: 0.95rem; }
+.eigenschaft-name small { font-size: 0.74rem; color: var(--schrift-leise); }
+
+.eigenschaft-knoepfe { display: flex; gap: 0.3rem; flex-wrap: wrap; }
+
+.eigenschaft-knopf {
+  min-width: 2.6rem;
+  min-height: 2.1rem;
+  padding: 0.2rem 0.5rem;
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+  background: var(--flaeche);
+  border: 1px solid var(--rand-hell);
+  border-radius: var(--radius-klein);
+  color: var(--schrift-matt);
+  cursor: pointer;
+}
+
+.eigenschaft-knopf:hover,
+.eigenschaft-knopf:focus-visible { border-color: var(--akzent); outline: none; }
+
+.eigenschaft-knopf.gewaehlt {
+  background: var(--akzent-schleier);
+  border-color: var(--akzent);
+  color: var(--akzent-hell);
+}
+
+/* ── Textfelder ──────────────────────────────────────────────────── */
+
+.feld-reihe { display: grid; grid-template-columns: 2fr 1fr; gap: 0.6rem; }
+
+@media (max-width: 40rem) {
+  .feld-reihe { grid-template-columns: 1fr; }
+}
+
+.feld { display: grid; gap: 0.2rem; margin-bottom: 0.7rem; }
+
+.feld input,
+.feld textarea {
+  font: inherit;
+  padding: 0.5rem 0.6rem;
+  background: var(--grund);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+  color: var(--schrift);
+  resize: vertical;
+}
+
+.feld input:focus-visible,
+.feld textarea:focus-visible { border-color: var(--akzent); outline: none; }
+
+.erf-bonus { color: var(--tuerkis); }
+
+/* ── Startwerte ──────────────────────────────────────────────────── */
+
+.startwerte {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+  gap: 0.45rem;
+}
+
+.startwert {
+  display: grid;
+  gap: 0.05rem;
+  padding: 0.5rem 0.6rem;
+  background: var(--grund);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+}
+
+.startwert strong { font-size: 1.25rem; line-height: 1.1; }
+.startwert small { font-size: 0.72rem; color: var(--schrift-leise); }
+
+/* ── Fussleiste ──────────────────────────────────────────────────── */
+
+.schrittfuss {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  padding: 0.6rem 0.7rem;
+  background: var(--flaeche-hoch);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius);
+  box-shadow: var(--schatten-klein);
+}
+
+.fuss-mitte {
+  flex: 1;
+  min-width: 8rem;
+  font-size: 0.84rem;
+  color: var(--schrift-matt);
+}
+
+.schrittfuss .modul-knopf[disabled] { opacity: 0.4; cursor: not-allowed; }
+
+.modul-knopf.betont {
+  background: var(--akzent-schleier);
+  border-color: var(--akzent);
+  color: var(--akzent-hell);
+}
+
+.hinweis.gut { border-color: var(--tuerkis); }
+.hinweis.warnung { border-color: var(--akzent); }
+
+/* Der Grundvorrat auf dem fertigen Bogen. */
+.grundvorrat {
+  margin: 0.55rem 0 0;
+  font-size: 0.85rem;
+  color: var(--schrift-matt);
+}
+
+/* Der Verweis auf die Erschaffung steht in der Bogen-Auswahlleiste und
+   sieht aus wie ein Bogen, ist aber ein Verweis. */
+.bogenwahl-knopf.neu {
+  display: grid;
+  align-content: center;
+  text-decoration: none;
+  border-style: dashed;
+}
+
+/* Auf dem Handy sind Kacheln und Schrittknoepfe das, was man trifft. */
+@media (pointer: coarse) {
+  .wahl, .schrittknopf { min-height: 44px; }
+  .eigenschaft-knopf { min-height: 44px; min-width: 44px; }
+}

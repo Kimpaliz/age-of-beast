@@ -18,6 +18,8 @@
    | `pruefe-bogenfarben.mjs` | jede Klasse hat eigene Bogenfarben mit belegtem Abstand | zwei Charakterbögen, die auf dem Bildschirm gleich aussehen |
    | `pruefe-cache-graph.mjs` | jede veränderliche Browser-Abhängigkeit trägt im Artefakt ihre SHA | ein Besucher mit neuem HTML und altem JavaScript aus dem Zwischenspeicher |
    | `pruefe-datenvertrag.mjs` | IDs, Kategorien, Panels, Verweise, Rahmen, Bildpfade (Legacy-v0) | der Verweis auf einen Eintrag, den es nicht gibt |
+   | `pruefe-erschaffung.mjs` | die neun Schritte der Charaktererschaffung — Auswahl, Regeln, und dass jeder Schritt sich wirklich **zeichnen** laesst | der Assistent, der bei vier von acht Ruestungen beim Zeichnen wirft und stumm den vorigen Schritt stehen laesst |
+   | `pruefe-werte.mjs` | der Bogen rechnet mit der Ausruestung, und die Herleitung nennt ihre Quelle | der Wert, der sich beim Ablegen um etwas anderes aendert als das Stueck beitraegt |
    | `pruefe-favoriten.mjs` | Sterne halten, ohne Anmeldung und über Seitenwechsel | der gesetzte Stern, der beim nächsten Aufruf weg ist |
    | `pruefe-vorgaenge.mjs` | jede Phase und jeder Schritt hat einen Vorgang, keine Nummer zweimal, kein Stand im Fahrplan | der Fahrplan, der als Absatz weiterlebt und lautlos veraltet, waehrend die Vorgaenge etwas anderes sagen |
    | `pruefe-doku-status.mjs` | kein Dokument behauptet einen Zustand (datierte Nachweise und `docs/geschichte/` ausgenommen) | das Dokument, das seit Monaten „noch offen" sagt, obwohl es laengst gebaut ist — und das jeder glaubt, weil es im Repository steht |
