@@ -25,21 +25,13 @@
    =================================================================== */
 
 import { blasenAnbinden } from './kartenblase.js';
+import {
+  attributeHtml, ausruestungHtml, bogenVerdrahten, katalogLaden, rechnerFuer,
+  verteidigungHtml, vorraeteHtml,
+} from './bogen-werte.js';
 
 const ziel = document.getElementById('boegen');
 const meldung = document.getElementById('bogenmeldung');
-
-/* Die sechs Attribute in der Reihenfolge des offiziellen Bogens. Die
-   deutschen Namen stehen dabei, weil am Tisch deutsch gesprochen wird —
-   auf den Karten steht aber englisch. */
-const ATTRIBUTE = [
-  ['agility', 'Agility', 'Beweglichkeit'],
-  ['strength', 'Strength', 'Stärke'],
-  ['finesse', 'Finesse', 'Fingerfertigkeit'],
-  ['instinct', 'Instinct', 'Instinkt'],
-  ['presence', 'Presence', 'Ausstrahlung'],
-  ['knowledge', 'Knowledge', 'Wissen'],
-];
 
 /* Die Klassenfarbe kommt nicht aus dem Namen der Klasse, sondern aus
    ihrem Paar von Domänen. Fehlt eines der beiden Felder, bleibt der
@@ -94,19 +86,7 @@ function mod(n) {
   return '0';
 }
 
-/* Eine Leiste aus Kästchen. `gefuellt` sind die bereits belegten. */
-function leiste(anzahl, gefuellt, art) {
-  if (!anzahl) return OFFEN;
-  const voll = gefuellt || 0;
-  let s = '<div class="leiste ' + art + '" role="img" aria-label="'
-    + voll + ' von ' + anzahl + '">';
-  for (let i = 0; i < anzahl; i += 1) {
-    s += '<span class="kaestchen' + (i < voll ? ' voll' : '') + '"></span>';
-  }
-  return s + '</div>';
-}
-
-function bogen(e) {
+function bogen(e, rechner) {
   const w = e.spielwerte || {};
   const t = [];
 
@@ -149,69 +129,25 @@ function bogen(e) {
 
   if (e.kurz) t.push('<p class="bogen-kurz">' + sicher(e.kurz) + '</p>');
 
-  /* ── Die sechs Attribute ── */
-  t.push('<section class="bogen-block"><h3>Attribute</h3><div class="attribute">');
-  for (const [schluessel, en, de] of ATTRIBUTE) {
-    const wert = w.attribute ? w.attribute[schluessel] : null;
-    const stark = typeof wert === 'number' && wert > 0;
-    t.push('<div class="attribut' + (stark ? ' stark' : '') + '">'
-      + '<span class="attribut-wert">' + mod(wert) + '</span>'
-      + '<span class="attribut-name">' + en + '</span>'
-      + '<span class="attribut-de">' + de + '</span>'
-      + '</div>');
-  }
-  t.push('</div></section>');
+  /* ── Die rechnenden Bereiche ──────────────────────────────────────
+     Attribute, Verteidigung, Vorräte und Ausrüstung hängen zusammen:
+     Wer die Rüstung ablegt, ändert Ausweichen, Rüstungswert und
+     Schwellen auf einmal. Deshalb baut sie `karte/bogen-werte.js`, und
+     hier stehen nur die vier Behälter, die es beim Umschalten neu
+     füllt. Das erspart es, den ganzen Bogen neu zu zeichnen — sonst
+     verlöre man bei jedem Klick Blätterstand und Fokus. */
+  t.push('<div data-bereich="abgelegt-hinweis"></div>');
 
-  /* ── Verteidigung ── */
-  t.push('<section class="bogen-block"><h3>Verteidigung</h3><div class="verteidigung">');
-  t.push('<div class="schild"><span class="mikro">Ausweichen</span><strong>'
-    + (w.evasion === null || w.evasion === undefined ? '—' : w.evasion) + '</strong></div>');
-  const score = w.ruestung && w.ruestung.score !== undefined ? w.ruestung.score : '—';
-  t.push('<div class="schild"><span class="mikro">Rüstung</span><strong>' + score + '</strong>'
-    + (w.ruestung && w.ruestung.name ? '<small>' + sicher(w.ruestung.name) + '</small>' : '')
-    + '</div>');
-  t.push('</div>');
+  t.push('<section class="bogen-block"><h3>Attribute</h3>'
+    + '<div data-bereich="attribute">' + attributeHtml(rechner.ergebnis()) + '</div></section>');
 
-  /* Die Schwellen schlägt man am Tisch am häufigsten nach — deshalb als
-     Balken mit den drei Bereichen statt als zwei nackte Zahlen. Unter
-     der schweren Schwelle kostet ein Treffer 1 Lebenspunkt, dazwischen
-     2, ab der ernsten 3.
+  t.push('<section class="bogen-block"><h3>Verteidigung</h3>'
+    + '<div data-bereich="verteidigung">' + verteidigungHtml(rechner.ergebnis())
+    + '</div></section>');
 
-     **Gerechnet, nicht abgeschrieben:** Die Regel lautet „Grundwert der
-     Rüstung **plus eigene Stufe**". Auf der Rüstungskarte steht nur der
-     Grundwert — wer ihn direkt überträgt, spielt auf jeder Stufe mit zu
-     niedrigen Schwellen. Deshalb steht hier der Grundwert in den Daten
-     und die Stufe kommt sichtbar dazu. */
-  if (w.ruestung && w.ruestung.basisSchwer && w.stufe) {
-    const a = w.ruestung.basisSchwer + w.stufe;
-    const b = w.ruestung.basisErnst + w.stufe;
-    t.push('<div class="schwellen">');
-    t.push('<div class="schwelle-bereich s1"><strong>1</strong><small>unter ' + a + '</small></div>');
-    t.push('<div class="schwelle-marke">' + a + '</div>');
-    t.push('<div class="schwelle-bereich s2"><strong>2</strong><small>ab ' + a + '</small></div>');
-    t.push('<div class="schwelle-marke">' + b + '</div>');
-    t.push('<div class="schwelle-bereich s3"><strong>3</strong><small>ab ' + b + '</small></div>');
-    t.push('</div>');
-    t.push('<p class="schwellen-hinweis">Lebenspunkte je Treffer'
-      + ' &middot; ' + sicher(w.ruestung.name) + ' ' + w.ruestung.basisSchwer + '/'
-      + w.ruestung.basisErnst + ' + Stufe ' + w.stufe + '</p>');
-  } else {
-    t.push('<p class="bogen-luecke">Schadensschwellen ' + OFFEN + '</p>');
-  }
-  t.push('</section>');
-
-  /* ── Die drei Leisten ── */
-  t.push('<section class="bogen-block"><h3>Vorräte</h3><div class="vorraete">');
-  t.push('<div class="vorrat"><span class="mikro">Lebenspunkte</span>'
-    + leiste(w.hp, 0, 'hp') + '</div>');
-  t.push('<div class="vorrat"><span class="mikro">Stress</span>'
-    + leiste(w.stress, 0, 'stress') + '</div>');
-  const hStart = w.hoffnung ? w.hoffnung.start : null;
-  const hMax = w.hoffnung ? w.hoffnung.max : null;
-  t.push('<div class="vorrat"><span class="mikro">Hoffnung'
-    + (hStart === null || hStart === undefined ? '' : ' <small>Start ' + hStart + '</small>')
-    + '</span>' + leiste(hMax, hStart, 'hoffnung') + '</div>');
-  t.push('</div></section>');
+  t.push('<section class="bogen-block"><h3>Vorräte</h3>'
+    + '<div data-bereich="vorraete">' + vorraeteHtml(rechner.ergebnis(), w)
+    + '</div></section>');
 
   /* ── Erfahrungen ── */
   t.push('<section class="bogen-block"><h3>Erfahrungen</h3>');
@@ -228,32 +164,9 @@ function bogen(e) {
   t.push('</section>');
 
   /* ── Ausrüstung ── */
-  t.push('<section class="bogen-block"><h3>Ausrüstung</h3><ul class="ausruestung">');
-  let etwas = false;
-  if (w.waffen && w.waffen.length) {
-    for (const x of w.waffen) {
-      etwas = true;
-      t.push('<li><span class="mikro">' + sicher(x.hand || 'Waffe') + '</span>'
-        + mitKarte(x.name, x.regelname) + '</li>');
-    }
-  }
-  if (w.ruestung && w.ruestung.name) {
-    etwas = true;
-    /* Ein Rüstungsmerkmal wie „Flexible: +1 Ausweichen" erklärt, warum
-       das Ausweichen oben von der Klassenbasis abweicht. Ohne diese
-       Zeile sähe der Wert nach einem Tippfehler aus. */
-    const merkmal = w.ruestung.merkmal ? ' · ' + sicher(w.ruestung.merkmal) : '';
-    t.push('<li><span class="mikro">Rüstung</span>'
-      + mitKarte(w.ruestung.name, w.ruestung.regelname)
-      + ' <small>Score ' + w.ruestung.score + merkmal + '</small></li>');
-  }
-  if (w.klassengegenstand) {
-    etwas = true;
-    t.push('<li><span class="mikro">Klassengegenstand</span>'
-      + sicher(w.klassengegenstand) + '</li>');
-  }
-  if (!etwas) t.push('<li class="bogen-luecke">' + OFFEN + '</li>');
-  t.push('</ul></section>');
+  t.push('<section class="bogen-block"><h3>Ausrüstung</h3>'
+    + '<div data-bereich="ausruestung">' + ausruestungHtml(rechner.ergebnis())
+    + '</div></section>');
 
   /* ── Domänen, Karten, Klassenfertigkeiten ── */
   t.push('<section class="bogen-block"><h3>Domänen und Karten</h3>');
@@ -366,9 +279,12 @@ if (!figuren.length) {
 
   function zeigen(id, adresseSetzen) {
     const figur = figuren.find((f) => f.id === id) || figuren[0];
-    ziel.innerHTML = bogen(figur);
+    const rechner = rechnerFuer(figur);
+    rechner.rechne();
+    ziel.innerHTML = bogen(figur, rechner);
     /* Erst nach dem Zeichnen: Vorher gibt es die Ausloeser noch nicht. */
     blasenAnbinden(ziel);
+    bogenVerdrahten(ziel, rechner, figur);
     sterneSetzen(ziel);
     leisteZeichnen(figur);
     document.title = figur.name + ' – Charakterbogen – Age of Beast';
@@ -380,6 +296,18 @@ if (!figuren.length) {
     }
   }
 
-  zeigen(gewaehlt().id, false);
-  window.addEventListener('popstate', () => zeigen(gewaehlt().id, false));
+  /* ⚠️ **Erst der Katalog, dann der erste Bogen.** Die Wirkungen der
+     Gegenstände stehen in `daten/daggerheart-gegenstaende.json`. Wer
+     ohne sie zeichnet, zeigt bei Brix ein Ausweichen von 14 und
+     korrigiert es Sekundenbruchteile später auf 13 — eine Zahl, die von
+     selbst springt, ist am Spieltisch schlimmer als eine, die kurz auf
+     sich warten lässt. Schlägt das Laden fehl, wird trotzdem gezeichnet:
+     dann ohne Gegenstandswirkungen, und die Ausrüstungsliste sagt das
+     bei jedem Stück selbst. */
+  katalogLaden()
+    .catch(() => null)
+    .then(() => {
+      zeigen(gewaehlt().id, false);
+      window.addEventListener('popstate', () => zeigen(gewaehlt().id, false));
+    });
 }

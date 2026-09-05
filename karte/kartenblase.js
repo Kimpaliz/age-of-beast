@@ -164,18 +164,33 @@ function stellen(ausloeser) {
   b.style.top = Math.round(oben + window.scrollY) + 'px';
 }
 
-async function oeffnen(ausloeser) {
-  const name = ausloeser.dataset.karte;
-  if (!name) return;
-  const eintrag = await finde(name);
-  const b = blaseHolen();
+/* Auslöser mit eigenem Inhalt. Die Blase zeigt nicht nur Karten: Der
+   Charakterbogen hängt seit dem 05.09.2026 die Herleitung eines Werts
+   daran (`karte/bogen-werte.js`). Ein zweites Kästchen mit eigener
+   Platzierung, eigener Tastaturbedienung und eigenem Escape wäre nicht
+   nur doppelte Arbeit — beide könnten gleichzeitig offen stehen. */
+const eigeneInhalte = new WeakMap();
 
-  b.innerHTML = eintrag
-    ? inhaltBauen(eintrag)
-    : '<div class="kartenblase-karte leer"><h3>' + sicher(name) + '</h3>'
-      + '<p class="blase-unsicher">Dazu gibt es keine Karte in den geladenen '
-      + 'Regelwerken. Entweder stammt der Gegenstand aus eurer Runde, oder er '
-      + 'steht in einem Teil der Regeln, der noch nicht erfasst ist.</p></div>';
+async function oeffnen(ausloeser) {
+  const b = blaseHolen();
+  const eigener = eigeneInhalte.get(ausloeser);
+
+  if (eigener) {
+    /* Der Inhalt wird bei **jedem** Öffnen neu gebaut, nicht einmal
+       eingefroren: Nach dem Ablegen einer Rüstung soll die Herleitung
+       den neuen Stand zeigen, nicht den von vor dem Klick. */
+    b.innerHTML = eigener();
+  } else {
+    const name = ausloeser.dataset.karte;
+    if (!name) return;
+    const eintrag = await finde(name);
+    b.innerHTML = eintrag
+      ? inhaltBauen(eintrag)
+      : '<div class="kartenblase-karte leer"><h3>' + sicher(name) + '</h3>'
+        + '<p class="blase-unsicher">Dazu gibt es keine Karte in den geladenen '
+        + 'Regelwerken. Entweder stammt der Gegenstand aus eurer Runde, oder er '
+        + 'steht in einem Teil der Regeln, der noch nicht erfasst ist.</p></div>';
+  }
 
   b.hidden = false;
   /* Erst sichtbar machen, dann messen — vorher ist die Grösse 0. */
@@ -189,30 +204,66 @@ async function oeffnen(ausloeser) {
  * Macht jedes Element mit `data-karte="Name"` zum Auslöser.
  * Mehrfach aufrufbar: Schon versorgte Elemente werden übersprungen.
  */
+/**
+ * Ob ein angeklicktes Element zur Blase gehört — also ein Auslöser ist
+ * oder in der Blase selbst liegt.
+ *
+ * ⚠️ **Gefragt wird nach `[data-blase]`, nicht nach `[data-karte]`.**
+ * Jeder verdrahtete Auslöser trägt `data-blase`; seit dem 05.09.2026
+ * gibt es welche **ohne** `data-karte` — die Zahlen des
+ * Charakterbogens. Mit der alten Bedingung schloss der Horcher unten
+ * die Blase in demselben Klick wieder, in dem der Auslöser sie öffnete:
+ * Auf dem Handy tat sich beim Antippen einer Zahl **gar nichts**. Am
+ * Schreibtisch fiel es nicht auf, weil dort `mouseenter` öffnet.
+ *
+ * Steht als eigene Funktion da, damit `werkzeuge/pruefe-werte.mjs` sie
+ * ohne Browser durchspielen kann.
+ */
+export function gehoertZurBlase(element) {
+  if (!element || typeof element.closest !== 'function') return false;
+  return Boolean(element.closest('[data-blase]') || element.closest('.kartenblase'));
+}
+
+function verdrahten(a) {
+  a.dataset.blase = 'ja';
+  a.setAttribute('tabindex', '0');
+  a.setAttribute('aria-expanded', 'false');
+
+  a.addEventListener('mouseenter', () => { if (!istBeruehrung()) oeffnen(a); });
+  a.addEventListener('mouseleave', () => { if (!istBeruehrung()) schliessen(); });
+  a.addEventListener('focus', () => oeffnen(a));
+  a.addEventListener('blur', () => schliessen());
+
+  /* Antippen schaltet um — sonst liesse sich die Blase auf dem Handy
+     nicht wieder schliessen. */
+  a.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (offenFuer === a && blase && !blase.hidden) schliessen();
+    else oeffnen(a);
+  });
+  a.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); oeffnen(a); }
+  });
+}
+
 export function blasenAnbinden(wurzel = document) {
   const ausloeser = wurzel.querySelectorAll('[data-karte]:not([data-blase])');
-  for (const a of ausloeser) {
-    a.dataset.blase = 'ja';
-    a.setAttribute('tabindex', '0');
-    a.setAttribute('aria-expanded', 'false');
-
-    a.addEventListener('mouseenter', () => { if (!istBeruehrung()) oeffnen(a); });
-    a.addEventListener('mouseleave', () => { if (!istBeruehrung()) schliessen(); });
-    a.addEventListener('focus', () => oeffnen(a));
-    a.addEventListener('blur', () => schliessen());
-
-    /* Antippen schaltet um — sonst liesse sich die Blase auf dem Handy
-       nicht wieder schliessen. */
-    a.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (offenFuer === a && blase && !blase.hidden) schliessen();
-      else oeffnen(a);
-    });
-    a.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); oeffnen(a); }
-    });
-  }
+  for (const a of ausloeser) verdrahten(a);
   return ausloeser.length;
+}
+
+/**
+ * Macht ein einzelnes Element zum Auslöser mit **eigenem** Inhalt.
+ * `inhaltBauer` liefert fertiges HTML und wird bei jedem Öffnen erneut
+ * gerufen. Damit hängt der Charakterbogen die Herleitung eines Werts an
+ * dieselbe Blase, die sonst Karten zeigt.
+ */
+export function blaseAnbinden(element, inhaltBauer) {
+  if (!element || typeof inhaltBauer !== 'function') return false;
+  eigeneInhalte.set(element, inhaltBauer);
+  if (element.dataset.blase) return true;   // schon verdrahtet, nur Inhalt neu
+  verdrahten(element);
+  return true;
 }
 
 /* Einmal je Seite: Escape und ein Klick daneben schliessen. */
@@ -220,7 +271,7 @@ if (typeof document !== 'undefined') {
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') schliessen(); });
   document.addEventListener('click', (e) => {
     if (!blase || blase.hidden) return;
-    if (e.target.closest('[data-karte]') || e.target.closest('.kartenblase')) return;
+    if (gehoertZurBlase(e.target)) return;
     schliessen();
   });
   window.addEventListener('resize', schliessen);

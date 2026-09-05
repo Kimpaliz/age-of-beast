@@ -56,6 +56,10 @@ export const WERTE = {
   knowledge: 'Knowledge',
 };
 
+/* Die sechs Attribute stehen an drei Stellen dieser Datei. Einmal
+   aufgeschrieben, sonst zählt eines Tages eine Stelle fünf. */
+export const ATTRIBUTE = ['agility', 'strength', 'finesse', 'instinct', 'presence', 'knowledge'];
+
 /* ------------------------------------------------------------------ *
  * Wirkungstexte lesen
  * ------------------------------------------------------------------ *
@@ -196,11 +200,18 @@ export function bogenRechnen(spielwerte = {}) {
   const werte = {};
   const ohneBasis = [];
 
+  /* Woher der Grundwert kommt, darf der Aufrufer benennen. Wer ihn
+     zurückrechnet (siehe `basisZurueckrechnen`), weiß nämlich **nicht**,
+     dass die 12 die Rogue-Basis sind — er weiß nur, dass 13 minus
+     Gambeson 12 ergibt. Diese beiden Aussagen dürfen nicht gleich
+     beschriftet werden; die zweite ist die schwächere. */
+  const quellen = spielwerte.grundQuellen || {};
+
   const hole = (schluessel, altwert, quelle) => {
     const vorhanden = typeof basis[schluessel] === 'number';
     if (!vorhanden && typeof altwert === 'number') ohneBasis.push(schluessel);
     return wertRechnen(schluessel, vorhanden ? basis[schluessel] : altwert, beitraege,
-      vorhanden ? quelle : 'bisheriger Endwert, Herkunft unbekannt');
+      vorhanden ? (quellen[schluessel] || quelle) : 'bisheriger Endwert, Herkunft unbekannt');
   };
 
   werte.evasion = hole('evasion', spielwerte.evasion, (spielwerte.klasse || 'Klasse') + '-Basis');
@@ -215,10 +226,11 @@ export function bogenRechnen(spielwerte = {}) {
   werte.schwelleSchwer = wertRechnen('schwelleSchwer', stufe, beitraege, 'Stufe ' + stufe);
   werte.schwelleErnst = wertRechnen('schwelleErnst', stufe, beitraege, 'Stufe ' + stufe);
 
-  for (const schluessel of ['agility', 'strength', 'finesse', 'instinct', 'presence', 'knowledge']) {
-    const grund = (spielwerte.attribute || {})[schluessel];
+  for (const schluessel of ATTRIBUTE) {
+    const vorhanden = typeof basis[schluessel] === 'number';
+    const grund = vorhanden ? basis[schluessel] : (spielwerte.attribute || {})[schluessel];
     werte[schluessel] = wertRechnen(schluessel, typeof grund === 'number' ? grund : 0,
-      beitraege, 'Charakterbogen');
+      beitraege, quellen[schluessel] || 'Charakterbogen');
   }
 
   return {
@@ -244,4 +256,177 @@ export function herleitung(ergebnis) {
   }
   if (!ergebnis.beitraege.length) zeilen.push('keine Boni oder Mali');
   return zeilen;
+}
+
+/* ------------------------------------------------------------------ *
+ * Von den Bogendaten zur an- und ablegbaren Ausrüstung
+ * ------------------------------------------------------------------ */
+
+/**
+ * Baut aus den Bogenfeldern (`waffen`, `ruestung`, `klassengegenstand`)
+ * die eine Liste, mit der gerechnet wird.
+ *
+ * `finde(name)` schlägt einen Gegenstand im Regelwerk nach und gibt
+ * `null` zurück, wenn es ihn dort nicht gibt. Die Funktion wird
+ * hereingereicht statt hier importiert: Im Browser kommt sie aus
+ * `karte/karten-daten.js` (asynchron geladen), in Node aus der
+ * JSON-Datei. So bleibt dieses Modul ohne Browser prüfbar.
+ *
+ * ⚠️ **Die Wirkung wird genau einmal gezählt.** Auf Brix' Bogen steht
+ * beim Gambeson `merkmal: "Flexible: +1 Ausweichen"`, im Regelwerk
+ * steht `merkmal: "Flexible"` und `wirkung: "+1 auf Evasion"`. Beide
+ * Texte treffen dasselbe Muster. Wer sie nebeneinander verrechnet,
+ * bekommt +2 — einen Fehler, den niemand sieht, weil die Zahl
+ * plausibel bleibt. Deshalb gilt: **Steht der Gegenstand im Regelwerk,
+ * ist das Regelwerk die Quelle**, der Bogentext wird nur verglichen.
+ */
+export function ausruestungBauen(spielwerte = {}, finde = () => null) {
+  const stuecke = [];
+
+  const nimm = (rolle, name, regelname, bogen = {}) => {
+    if (!name) return;
+    const regel = finde(regelname || name) || null;
+    const stueck = {
+      /* Der Schlüssel muss über Neuladen hinweg derselbe bleiben —
+         daran hängt, welches Stück angelegt war. Die Position in der
+         Liste taugt dafür nicht: Kommt eine Waffe dazu, verschöbe sich
+         alles dahinter, und der Spieler fände plötzlich die Rüstung
+         abgelegt. */
+      schluessel: rolle + ':' + name,
+      rolle,
+      name,
+      regelname: regelname || null,
+      hand: bogen.hand || null,
+      imRegelwerk: Boolean(regel),
+      art: regel ? regel.art : null,
+      angelegt: true,
+      abweichungen: [],
+    };
+
+    if (regel) {
+      stueck.score = typeof regel.score === 'number' ? regel.score : null;
+      stueck.schwellen = regel.schwellen ? { ...regel.schwellen } : null;
+      stueck.merkmal = regel.merkmal || null;
+      stueck.wirkung = regel.wirkung || null;
+      stueck.schaden = regel.schaden ? regel.schaden.text : null;
+
+      /* Weicht der Bogen vom Regelwerk ab, wird das **gezeigt** statt
+         still entschieden. Eine der beiden Zahlen ist dann falsch, und
+         welche, kann nur ein Mensch sagen. */
+      if (typeof bogen.score === 'number' && bogen.score !== stueck.score) {
+        stueck.abweichungen.push('Bogen sagt Rüstungswert ' + bogen.score
+          + ', Regelwerk ' + stueck.score);
+      }
+      if (typeof bogen.schwer === 'number' && stueck.schwellen
+        && bogen.schwer !== stueck.schwellen.schwer) {
+        stueck.abweichungen.push('Bogen sagt schwere Schwelle ' + bogen.schwer
+          + ', Regelwerk ' + stueck.schwellen.schwer);
+      }
+      if (typeof bogen.ernst === 'number' && stueck.schwellen
+        && bogen.ernst !== stueck.schwellen.ernst) {
+        stueck.abweichungen.push('Bogen sagt ernste Schwelle ' + bogen.ernst
+          + ', Regelwerk ' + stueck.schwellen.ernst);
+      }
+    } else {
+      /* Nicht im Regelwerk — dann trägt der Bogen, was er hat. */
+      stueck.score = typeof bogen.score === 'number' ? bogen.score : null;
+      stueck.schwellen = (typeof bogen.schwer === 'number' && typeof bogen.ernst === 'number')
+        ? { schwer: bogen.schwer, ernst: bogen.ernst } : null;
+      stueck.merkmal = bogen.merkmal || null;
+      stueck.wirkung = bogen.merkmal || null;
+      stueck.schaden = null;
+    }
+
+    stuecke.push(stueck);
+  };
+
+  for (const x of spielwerte.waffen || []) {
+    nimm('waffe', x.name, x.regelname, { hand: x.hand });
+  }
+  const r = spielwerte.ruestung;
+  if (r && r.name) {
+    nimm('ruestung', r.name, r.regelname, {
+      score: r.score, schwer: r.basisSchwer, ernst: r.basisErnst, merkmal: r.merkmal,
+    });
+  }
+  if (spielwerte.klassengegenstand) {
+    nimm('klassengegenstand', spielwerte.klassengegenstand, null, {});
+  }
+  return stuecke;
+}
+
+/**
+ * Rechnet aus den **eingetragenen Endwerten** den Grundwert zurück.
+ *
+ * ⚠️ **Warum zurückgerechnet und nicht aufgeschrieben.** In den
+ * Bogendaten steht `evasion: 13`. Das ist der Wert *mit* Gambeson. Wer
+ * ihn als Grundwert nähme und die Rüstung wieder addierte, käme auf 14
+ * — der Bogen würde beim ersten Anzeigen falsch, ohne dass jemand
+ * etwas angefasst hat.
+ *
+ * Ein `basis`-Feld in den Weltdaten wäre die andere Lösung. Sie hätte
+ * bedeutet, Janniks Weltdaten anzufassen, und das ist eine
+ * Datenänderung mit eigener Freigabe. Die Rückrechnung braucht das
+ * nicht und ist **nachweisbar gleichwertig**: Mit allem, was der Bogen
+ * trägt, muss wieder genau der eingetragene Wert herauskommen. Genau
+ * das prüft `werkzeuge/pruefe-werte.mjs`.
+ *
+ * Der Preis steht in der Beschriftung: Wir wissen, dass 13 − 1 = 12
+ * ist. Wir wissen **nicht**, dass 12 die Rogue-Basis ist. Deshalb heißt
+ * die Quelle „ohne Ausrüstung" und nicht „Rogue-Basis".
+ */
+export function basisZurueckrechnen(spielwerte = {}, ausruestung = []) {
+  /* Gerechnet wird gegen den Zustand, den die Daten beschreiben: Alles,
+     was auf dem Bogen steht, ist getragen. Ein zwischenzeitlich
+     abgelegtes Stück darf die Rückrechnung nicht verschieben — sonst
+     wanderte der Grundwert mit jedem Klick. */
+  const beitraege = beitraegeSammeln(ausruestung.map((s) => ({ ...s, angelegt: true })));
+  const abzug = (schluessel) => beitraege
+    .filter((b) => b.wert === schluessel && b.delta)
+    .reduce((summe, b) => summe + b.delta, 0);
+
+  const basis = {};
+  const quellen = {};
+
+  for (const schluessel of ['evasion', 'hp', 'stress']) {
+    if (typeof spielwerte[schluessel] !== 'number') continue;
+    basis[schluessel] = spielwerte[schluessel] - abzug(schluessel);
+    quellen[schluessel] = abzug(schluessel)
+      ? 'ohne Ausrüstung (aus dem Bogenwert ' + spielwerte[schluessel] + ' zurückgerechnet)'
+      : 'Bogenwert, ohne Ausrüstung';
+  }
+
+  for (const schluessel of ATTRIBUTE) {
+    const wert = (spielwerte.attribute || {})[schluessel];
+    if (typeof wert !== 'number') continue;
+    basis[schluessel] = wert - abzug(schluessel);
+    quellen[schluessel] = abzug(schluessel)
+      ? 'ohne Ausrüstung (aus dem Bogenwert ' + wert + ' zurückgerechnet)'
+      : 'Charakterbogen';
+  }
+
+  /* Rüstungswert und Schwellen werden **nicht** zurückgerechnet: Ihre
+     Grundwerte sind strukturell bekannt (0 ohne Rüstung, die eigene
+     Stufe bei den Schwellen). Eine Rückrechnung wäre hier nicht nur
+     überflüssig, sondern falsch — sie würde die Rüstung doppelt zählen. */
+  basis.ruestungswert = 0;
+
+  return { basis, quellen };
+}
+
+/**
+ * Der übliche Weg in einem Zug: Bogendaten hinein, gerechneter Bogen
+ * heraus. `angelegt` sagt je Schlüssel, was gerade getragen wird;
+ * fehlt ein Eintrag, gilt „getragen".
+ */
+export function bogenAusDaten(spielwerte = {}, finde = () => null, angelegt = {}) {
+  const ausruestung = ausruestungBauen(spielwerte, finde);
+  const { basis, quellen } = basisZurueckrechnen(spielwerte, ausruestung);
+  for (const stueck of ausruestung) {
+    if (Object.prototype.hasOwnProperty.call(angelegt, stueck.schluessel)) {
+      stueck.angelegt = Boolean(angelegt[stueck.schluessel]);
+    }
+  }
+  const ergebnis = bogenRechnen({ ...spielwerte, basis, grundQuellen: quellen, ausruestung });
+  return { ...ergebnis, ausruestung };
 }

@@ -55,14 +55,23 @@ const KLASSEN = [
   ['warrior', 'Warrior', 'Blade', 'Bone'],
   ['wizard', 'Wizard', 'Codex', 'Splendor'],
 ];
+/* ⚠️ **Diese Liste ist eine Falle, und sie hat am 05.09.2026
+   zugeschnappt.** Der Messserver liefert ausschliesslich, was hier
+   steht. Ein neues Modul im Bogen fehlt darin — der Browser bekommt
+   404, `bogen-zeigen.js` lädt gar nicht erst, und die Prüfung meldet
+   „Der Bogen wird nicht gezeichnet". Das klingt nach einem Fehler am
+   Bogen und ist einer an dieser Zeile.
+   Wer am Bogen ein Modul, ein Stylesheet oder eine Datendatei
+   hinzufügt, trägt sie hier ein. */
 const DATEIEN = new Set([
   'bogen.html', 'stil.css', 'daten/welt.js', 'runtime/favoriten.js',
   'styles/tokens.css', 'styles/wiki.css', 'styles/bearbeiten.css',
   'styles/werkstatt.css', 'styles/kategorien.css', 'styles/charakterbogen.css',
-  'karte/bogen-zeigen.js', 'karte/kartenblase.js', 'karte/karten-daten.js',
+  'karte/bogen-zeigen.js', 'karte/bogen-werte.js', 'karte/kartenblase.js',
+  'karte/karten-daten.js', 'werkzeuge/werte-rechnen.mjs',
   'daten/daggerheart-karten.json', 'daten/daggerheart-gegenstaende.json',
 ]);
-const TYPEN = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.json': 'application/json; charset=utf-8' };
+const TYPEN = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.json': 'application/json; charset=utf-8' };
 let pruefungen = 0;
 const fehler = [];
 let uebersprungen = null;
