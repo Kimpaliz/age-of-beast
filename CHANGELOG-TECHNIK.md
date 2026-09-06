@@ -85,6 +85,24 @@ ohnehin nicht hingehoert: Der Satz zur Schwelle ist **Regeltext**, keine
 Bedienung und keine Rechnung. `bogen-werte.js` steht jetzt bei 474
 Zeilen; die Pruefung liest die Funktion direkt aus dem neuen Modul.
 
+**7 · `browser-messen.mjs`: das Wegwerfprofil wird hartnaeckig geloescht.**
+Gemessen: **1 von 5 Laeufen** brach mit `ENOTEMPTY: directory not empty,
+rmdir '…/Default'` ab. Chrome schreibt sein Profil noch zu Ende, waehrend
+der Prozess schon als beendet gilt; der Fehler flog aus dem `finally` und
+machte die ganze Pruefung rot, obwohl die Messung fertig und in Ordnung
+war.
+
+Das faellt erst mit Punkt 4 ins Gewicht: Der Pages-Ablauf laesst alle
+Waechter vor dem Deploy laufen. Sobald dort ein Browser gefunden wird,
+haette dieser Aufraeumfehler jede fuenfte Veroeffentlichung blockiert —
+dieselbe Art Stillstand wie am 04.09.2026, nur wuerfelnd statt dauerhaft.
+
+`profilRaeumen()` versucht es jetzt bis zu 20-mal im Abstand von 50 ms
+und **gibt danach auf, ohne die Pruefung zu faellen**: Ein
+liegengebliebener Ordner in `tmp` raeumt das Betriebssystem weg, ein
+Fehlalarm kostet Vertrauen. Nachgemessen: **8 von 8 Laeufen gruen**
+(vorher 4 von 5).
+
 **Nicht behoben, weil nicht dieses Vorhabens:** `pruefe-firestore-trennung`
 bleibt rot, weil Scotophobias Regeldatei in dieser Werkstatt nicht liegt
 (`/home/user/Granithoehle/firestore.rules`, siehe `SCOTOPHOBIA_REGELN`).

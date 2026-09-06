@@ -205,6 +205,39 @@ export async function browserStarten(url, ergebnisId = 'aob-bogenfarben-ergebnis
   } finally {
     if (kind.exitCode === null) kind.kill();
     for (let versuch = 0; versuch < 40 && kind.exitCode === null; versuch += 1) await warte(25);
-    rmSync(profil, { recursive: true, force: true });
+    await profilRaeumen(profil);
   }
+}
+
+/**
+ * Das Wegwerfprofil loeschen — hartnaeckig, und niemals auf Kosten der
+ * Messung.
+ *
+ * ⚠️ **Gemessen am 06.09.2026: 1 von 5 Laeufen brach hier ab**, mit
+ * `ENOTEMPTY: directory not empty, rmdir '…/Default'`. Chrome schreibt
+ * sein Profil noch zu Ende, waehrend der Prozess schon als beendet
+ * gilt; `rmSync` faellt dann mitten hinein. Der Fehler flog aus dem
+ * `finally` heraus und machte die **ganze Pruefung** rot — obwohl die
+ * Messung langst fertig und in Ordnung war.
+ *
+ * Das ist keine Kleinigkeit: Der Pages-Ablauf laesst alle Waechter vor
+ * dem Deploy laufen. Ein Aufraeumfehler haette die Veroeffentlichung
+ * jedes fuenfte Mal blockiert — dieselbe Art Stillstand wie am
+ * 04.09.2026, nur wuerfelnd statt dauerhaft.
+ *
+ * Aufgeben ist hier richtig: Ein liegengebliebener Ordner in `tmp`
+ * raeumt das Betriebssystem weg. Eine rote Pruefung dafuer waere ein
+ * Fehlalarm, und Fehlalarme kosten genau das Vertrauen, das eine
+ * Pruefung haben muss.
+ */
+async function profilRaeumen(profil) {
+  for (let versuch = 0; versuch < 20; versuch += 1) {
+    try {
+      rmSync(profil, { recursive: true, force: true });
+      return true;
+    } catch {
+      await warte(50);
+    }
+  }
+  return false;
 }
