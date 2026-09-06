@@ -128,25 +128,33 @@ Zwei Aenderungen, beide noetig:
   uebersprungene Teil wird **mit seinem Grund genannt**, nicht
   verschwiegen.
 
-**Nachtrag zum Nachtrag: Lauf 44 lief ueber eine Viertelstunde** und war
-immer noch im Schritt „Alle lokalen Waechter ausfuehren". Kein Haenger —
-`pages.yml` faehrt die Waechter **nacheinander**, und `pruefe-bogenfarben`
-laedt gut zwanzig Boegen in zwei Themen durch einen ferngesteuerten
-Browser mit SwiftShader.
-
-Damit ist die Weiche „bei jedem Messfehlschlag" nicht genug: Die Messung
-darf auf dem Bauserver **gar nicht erst starten**. `AUF_BAUSERVER` wird
-jetzt **vor** dem Aufruf geprueft, nicht im `catch`. Gemessen: 0,13 s
-statt >15 min; am Arbeitsplatz unveraendert 178 Pruefungen.
-
-Kein Verlust gegenueber dem Stand von gestern: Dort lief die Messung auf
-dem Bauserver nie, weil `browserPfad()` keinen Browser fand. Neu ist
-allein, dass es Absicht ist statt Zufall — und in der Ausgabe steht.
-
-Die Lehre, jetzt dreimal bezahlt: Ein Waechter, der eine
+Die Lehre, schon zweimal bezahlt: Ein Waechter, der eine
 Veroeffentlichung blockieren kann, muss zwischen „die Sache ist kaputt"
-und „ich konnte nicht messen" unterscheiden — und eine Messung, die
-Minuten kostet, gehoert ueberhaupt nicht in den Veroeffentlichungsweg.
+und „ich konnte nicht messen" unterscheiden.
+
+**9 · Berichtigung am selben Tag.** Zwischen Lauf 44 und Lauf 45 stand
+hier — und in einem Commit auf `main` — die Behauptung, Lauf 44 sei
+„ueber eine Viertelstunde" gelaufen und immer noch nicht fertig gewesen.
+**Das war falsch.** Die Zahl stammte aus einer Statusabfrage mit
+veralteten Daten; an den Zeitstempeln des Jobs nachgeschlagen lief
+Lauf 44 **erfolgreich** durch: Schritt „Alle lokalen Waechter
+ausfuehren" 11:17:39 → 11:18:39, also **60 Sekunden**; die Seite war um
+11:18:50 live, 85 s nach dem Push.
+
+Auf dieser falschen Zahl war ein Commit gebaut, der die Browsermessung
+auf dem Bauserver ganz abgeschaltet haette (`533868f`). Er ist
+zurueckgenommen: Die Messung laeuft dort, sie funktioniert dort, und
+60 Sekunden sind ein fairer Preis fuer eine Farb- und
+Sichtbarkeitsmessung vor jeder Veroeffentlichung. Was bleibt, ist die
+Weiche aus Punkt 8 — kann die Messung nicht laufen, blockiert sie nicht.
+
+Zwei Lehren, beide teuer bezahlt:
+
+- Ein `status: in_progress` aus der API ist **kein Beleg**, dass etwas
+  noch laeuft. Die Zeitstempel der einzelnen Schritte sind es.
+- `533868f` entstand **direkt auf `main`** statt auf einem Zweig, weil
+  nach dem vorigen Merge niemand den Zweig zurueckgewechselt hat. Regel
+  1 gilt auch fuer eine Korrektur, die eilig ist — gerade dann.
 
 **Nicht behoben, weil nicht dieses Vorhabens:** `pruefe-firestore-trennung`
 bleibt rot, weil Scotophobias Regeldatei in dieser Werkstatt nicht liegt
