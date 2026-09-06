@@ -63,7 +63,21 @@ Arbeitsrechner, und die Kontrolle gab nach **vier Sekunden** auf. Damit
 galt sie als fehlgeschlagen, und der Veröffentlichungsablauf hält dann
 an — deine Seite blieb auf dem alten Stand stehen.
 
-Zwei Dinge behoben: Die Wartezeit ist jetzt **30 Sekunden** statt vier.
+Der zweite Versuch lief dann **über eine Viertelstunde** und war immer
+noch nicht fertig — die Farbmessung lädt über zwanzig Charakterbögen in
+einem ferngesteuerten Browser. Das ist Werkstattarbeit und gehört nicht
+in den Weg, den deine Webseite nimmt, um zu erscheinen.
+
+**Jetzt wird auf GitHubs Rechner gar nicht erst gemessen** — dort dauert
+der Schritt 0,13 Sekunden statt einer Viertelstunde. Auf deinem eigenen
+Rechner läuft die Messung weiter voll (178 Prüfungen), und was auf
+GitHub übersprungen wurde, steht laut in der Ausgabe.
+
+Das ist übrigens **kein Verlust**: Vorher lief diese Messung dort
+ohnehin nie, weil GitHubs Rechner keinen Browser hatte, den sie finden
+konnte. Neu ist nur, dass es jetzt Absicht ist statt Zufall.
+
+Die Wartezeit beim Browserstart ist trotzdem auf **30 Sekunden** statt vier.
 Und viel wichtiger — **eine Messung, die nicht laufen kann, hält die
 Veröffentlichung nicht mehr auf.** Sie sagt dann laut, dass sie
 übersprungen wurde, und warum. Auf deinem eigenen Rechner bleibt sie

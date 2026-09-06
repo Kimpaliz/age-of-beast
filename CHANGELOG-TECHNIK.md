@@ -128,9 +128,25 @@ Zwei Aenderungen, beide noetig:
   uebersprungene Teil wird **mit seinem Grund genannt**, nicht
   verschwiegen.
 
-Die Lehre, schon zweimal bezahlt: Ein Waechter, der eine
+**Nachtrag zum Nachtrag: Lauf 44 lief ueber eine Viertelstunde** und war
+immer noch im Schritt „Alle lokalen Waechter ausfuehren". Kein Haenger —
+`pages.yml` faehrt die Waechter **nacheinander**, und `pruefe-bogenfarben`
+laedt gut zwanzig Boegen in zwei Themen durch einen ferngesteuerten
+Browser mit SwiftShader.
+
+Damit ist die Weiche „bei jedem Messfehlschlag" nicht genug: Die Messung
+darf auf dem Bauserver **gar nicht erst starten**. `AUF_BAUSERVER` wird
+jetzt **vor** dem Aufruf geprueft, nicht im `catch`. Gemessen: 0,13 s
+statt >15 min; am Arbeitsplatz unveraendert 178 Pruefungen.
+
+Kein Verlust gegenueber dem Stand von gestern: Dort lief die Messung auf
+dem Bauserver nie, weil `browserPfad()` keinen Browser fand. Neu ist
+allein, dass es Absicht ist statt Zufall — und in der Ausgabe steht.
+
+Die Lehre, jetzt dreimal bezahlt: Ein Waechter, der eine
 Veroeffentlichung blockieren kann, muss zwischen „die Sache ist kaputt"
-und „ich konnte nicht messen" unterscheiden.
+und „ich konnte nicht messen" unterscheiden — und eine Messung, die
+Minuten kostet, gehoert ueberhaupt nicht in den Veroeffentlichungsweg.
 
 **Nicht behoben, weil nicht dieses Vorhabens:** `pruefe-firestore-trennung`
 bleibt rot, weil Scotophobias Regeldatei in dieser Werkstatt nicht liegt
