@@ -27,6 +27,54 @@ import { finde } from './karten-daten.js';
 let blase = null;
 let offenFuer = null;
 
+/* ------------------------------------------------------------------ *
+ * Woher der Fokus kam — daran hing ein Tipp oder zwei
+ * ------------------------------------------------------------------ */
+
+/* Janniks Meldung vom 06.09.2026, wörtlich: „Die popup fenster im
+   caracterbogen muss ich immer doppelklicken. Ich will aber nur einmal
+   klicken müssen."
+
+   ⚠️ **Die Ursache war die Reihenfolge der Ereignisse, nicht der
+   Klick.** Ein Tipp auf ein Element mit `tabindex="0"` löst
+   nacheinander `pointerdown` → `focus` → `click` aus. Der Fokus
+   öffnete die Blase; der Klick unmittelbar danach fand sie offen und
+   schloss sie als Umschalter wieder. Sichtbar geschah beim ersten Tipp
+   **gar nichts**. Erst der zweite Tipp löste keinen Fokus mehr aus —
+   das Element hatte ihn schon — und öffnete deshalb.
+
+   Am Schreibtisch fiel es kaum auf, weil dort `mouseenter` die Blase
+   ohnehin zeigt. Auf Handy und Tablet, Janniks Hauptfall, war es der
+   ganze Unterschied.
+
+   Der Fokus-Öffner ist **allein für die Tastatur** da: Wer mit Tab
+   durch den Bogen geht, soll die Herleitung ohne Maus bekommen. Für
+   Finger und Maus gibt es `click` und `mouseenter`. Also öffnet der
+   Fokus nur noch, wenn er wirklich von der Tastatur kommt. */
+let letzteEingabeart = 'tastatur';
+
+/**
+ * Darf ein `focus` die Blase öffnen?
+ *
+ * Steht als eigene, reine Funktion da, damit `werkzeuge/pruefe-blase.mjs`
+ * sie ohne Browser durchspielen kann — wie `gehoertZurBlase()` weiter
+ * unten.
+ */
+export function fokusDarfOeffnen(eingabeart) {
+  return eingabeart !== 'zeiger';
+}
+
+if (typeof document !== 'undefined') {
+  /* In der **Erfassungsphase**: So kommt es auch dann an, wenn ein
+     Auslöser das Ereignis unterwegs abfängt. */
+  document.addEventListener('pointerdown', () => { letzteEingabeart = 'zeiger'; }, true);
+  /* Tab ist die einzige Taste, mit der man einen Auslöser überhaupt
+     erreicht; Enter und Leertaste öffnen über den eigenen Horcher. */
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab') letzteEingabeart = 'tastatur';
+  }, true);
+}
+
 function sicher(t) {
   return String(t ?? '')
     .replace(/&/g, '&amp;').replace(/</g, '&lt;')
@@ -231,7 +279,10 @@ function verdrahten(a) {
 
   a.addEventListener('mouseenter', () => { if (!istBeruehrung()) oeffnen(a); });
   a.addEventListener('mouseleave', () => { if (!istBeruehrung()) schliessen(); });
-  a.addEventListener('focus', () => oeffnen(a));
+  /* Nur ein Fokus von der Tastatur öffnet — siehe die Begründung oben.
+     Käme er vom Finger, schlösse der Klick danach wieder, was der Fokus
+     gerade geöffnet hat. */
+  a.addEventListener('focus', () => { if (fokusDarfOeffnen(letzteEingabeart)) oeffnen(a); });
   a.addEventListener('blur', () => schliessen());
 
   /* Antippen schaltet um — sonst liesse sich die Blase auf dem Handy

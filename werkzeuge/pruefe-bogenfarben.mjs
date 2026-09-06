@@ -69,6 +69,12 @@ const DATEIEN = new Set([
   'styles/werkstatt.css', 'styles/kategorien.css', 'styles/charakterbogen.css',
   'styles/handy.css', 'styles/grundregeln.css', 'styles/eintragsbloecke.css',
   'karte/bogen-zeigen.js', 'karte/bogen-werte.js', 'karte/kartenblase.js',
+  /* ⚠️ Jede neue Datei, die der Bogen laedt, muss hier stehen. Fehlt
+     sie, liefert der Messserver 404, das Modul bricht ab und der Bogen
+     wird nie gezeichnet — die Meldung lautet dann nur „Der Bogen fuer
+     … wird nicht gezeichnet" und nennt die fehlende Datei nicht. Am
+     06.09.2026 mit `schwellen-text.js` genau so passiert. */
+  'karte/schwellen-text.js',
   'karte/karten-daten.js', 'karte/figuren-eigen.js', 'werkzeuge/werte-rechnen.mjs',
   'styles/erschaffung.css',
   'daten/daggerheart-karten.json', 'daten/daggerheart-gegenstaende.json',
@@ -146,6 +152,14 @@ async function lade(id) {
   rahmen.src = '/bogen.html?figur=' + encodeURIComponent(id);
   await fertig;
   await warteAuf(() => Boolean(rahmen.contentDocument?.querySelector('.bogen')), 'Der Bogen für ' + id + ' wird nicht gezeichnet.');
+  /* ACHTUNG, Wettlauf: '.bogen' steht im DOM, sobald das HTML gesetzt
+     ist — die Blasen werden aber erst danach verdrahtet. Wer hier schon
+     misst, findet eine Zahl, an der noch kein Horcher haengt, und meldet
+     'Die Blase oeffnet nicht'. Am 06.09.2026 genau so passiert, und
+     zwar unbemerkt: browserPfad() kannte nur Windows-Pfade, also lief
+     diese Messung ueberall sonst gar nicht erst. Gewartet wird deshalb
+     auf das Merkmal, das die Verdrahtung selbst setzt. */
+  await warteAuf(() => Boolean(rahmen.contentDocument?.querySelector('[data-wert][data-blase]')), 'Die Zahlen auf dem Bogen für ' + id + ' bekommen keine Herleitung.');
 }
 function flaeche(dokument) {
   const canvas = dokument.createElement('canvas');
@@ -237,7 +251,29 @@ function blasenGrund(dokument) {
   const stil = dokument.defaultView.getComputedStyle;
   const ausloeser = dokument.querySelector('[data-wert]');
   if (!ausloeser) return { fehlt: 'Keine Zahl mit Herleitung auf dem Bogen.' };
-  ausloeser.dispatchEvent(new dokument.defaultView.MouseEvent('mouseenter'));
+  /* ⚠️ **Getippt, nicht ueberfahren.** Bis zum 06.09.2026 stand hier ein
+     synthetisches 'mouseenter'. Das kann in diesem Prueflauf gar nicht
+     wirken: Der ferngesteuerte Browser meldet 'hover: none' (gemessen:
+     true bei innerWidth 1280), und die Blase ueberspringt das
+     Ueberfahren dann bewusst — auf einem Telefon gibt es keins. Die
+     Messung meldete darum immer 'Die Blase oeffnet nicht', und niemand
+     sah es, weil browserPfad() ausserhalb von Windows gar keinen
+     Browser fand.
+
+     Die Folge hier ist dieselbe, die ein Finger ausloest: pointerdown,
+     Fokus, Klick.
+
+     ⚠️ **Diese Pruefung deckt Janniks Doppeltipp NICHT ab**, auch wenn
+     die Folge danach aussieht. Der Messrahmen liegt bei left:-2000px und
+     ist nicht fokussiert; ein focus() darin loest gar kein
+     Fokus-Ereignis aus, und genau dieses Ereignis ist die Ursache des
+     Doppeltipps. Hier wird die Blase geoeffnet, um ihre **Farben** zu
+     messen — mehr behauptet sie nicht. Fuer den Tipp selbst gibt es
+     werkzeuge/pruefe-blase.mjs. */
+  const fenster = dokument.defaultView;
+  ausloeser.dispatchEvent(new fenster.PointerEvent('pointerdown', { bubbles: true }));
+  ausloeser.focus();
+  ausloeser.dispatchEvent(new fenster.MouseEvent('click', { bubbles: true }));
   const blase = dokument.querySelector('.kartenblase');
   if (!blase || blase.hidden) return { fehlt: 'Die Blase oeffnet nicht.' };
 

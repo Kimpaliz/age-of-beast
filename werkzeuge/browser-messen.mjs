@@ -25,14 +25,40 @@ import { spawn } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { connect } from 'node:net';
 import { randomBytes } from 'node:crypto';
+/* ⚠️ **Die Liste kannte bis zum 06.09.2026 nur Windows.** Auf Janniks
+   Rechner stimmte sie, und deshalb ist es nie aufgefallen: In jeder
+   anderen Werkstatt — Linux, Mac, der Bauserver — fand `browserPfad()`
+   nichts, und `pruefe-bogenfarben` wie `pruefe-filter` meldeten
+   „fehlgeschlagen: weder Chrome noch Edge gefunden". Zwei Pruefungen,
+   die genau den Charakterbogen und die Kacheln absichern sollen, liefen
+   also **nirgends ausser auf einem Rechner**.
+
+   `AOB_BROWSER` steht bewusst zuerst: Wer einen Browser an einer
+   ungewoehnlichen Stelle hat — oder eine bestimmte Fassung messen will
+   —, soll ihn nennen koennen, ohne diese Liste zu aendern. */
 export function browserPfad() {
+  const genannt = process.env.AOB_BROWSER;
+  if (genannt && existsSync(genannt)) return genannt;
+
   return [
+    /* Windows */
     'C:/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe',
     'C:/Program Files (x86)/BraveSoftware/Brave-Browser/Application/brave.exe',
     'C:/Program Files/Google/Chrome/Application/chrome.exe',
     'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe',
     'C:/Program Files/Microsoft/Edge/Application/msedge.exe',
     'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',
+    /* macOS */
+    '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    '/Applications/Brave Browser.app/Contents/MacOS/Brave Browser',
+    '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge',
+    /* Linux — auch der Bauserver und die Werkstatt */
+    '/usr/bin/google-chrome',
+    '/usr/bin/google-chrome-stable',
+    '/usr/bin/chromium',
+    '/usr/bin/chromium-browser',
+    '/usr/bin/microsoft-edge',
+    '/snap/bin/chromium',
   ].find((pfad) => existsSync(pfad));
 }
 

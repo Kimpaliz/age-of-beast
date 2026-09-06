@@ -403,11 +403,26 @@ html[data-thema="hell"] .bogen:not([data-klasse]) {
 .schwelle-bereich.s2 { background: color-mix(in oklab, var(--akzent) 12%, var(--grund)); }
 .schwelle-bereich.s3 { background: color-mix(in oklab, var(--akzent) 26%, var(--grund)); }
 
+/* ⚠️ **Das Tippziel, nicht die Schrift, bestimmt die Breite.**
+   Gemessen am 06.09.2026 auf einem Telefon (412 Punkte breit): Die
+   Marke war 22 bzw. 29 Punkte breit — ein Streifen zwischen zwei
+   Balken. Zusammen mit dem damaligen Doppeltipp traf man ihn praktisch
+   nie, und Jannik hat daraus geschlossen, die Schwelle habe gar kein
+   Popup („Und den schadensthreshold auch mit popup anzeigen"). Sie
+   hatte eins — es war nur unerreichbar.
+
+   2,75rem sind 44 Bildpunkte: das übliche Mindestmass für einen Finger.
+   Die drei Bereiche daneben tragen `flex: 1` und geben den Platz
+   selbst ab. */
 .schwelle-marke {
   display: flex;
   align-items: center;
+  justify-content: center;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
   padding: 0 0.4rem;
-  font-size: 0.72rem;
+  font-size: 0.78rem;
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
   color: var(--akzent-hell);
   background: var(--flaeche-hoch);
@@ -971,3 +986,16 @@ a.karte-anker { cursor: pointer; }
 .h-beitrag.plus .h-zahl { color: var(--tuerkis); }
 .h-beitrag.minus .h-zahl { color: var(--akzent-hell); }
 .h-leer { display: block; color: var(--schrift-leise); font-style: italic; }
+
+/* Die Fussnote der Herleitung: was der Wert am Tisch bedeutet. Sie
+   steht abgesetzt, weil sie keine Rechnung ist, sondern eine Regel —
+   `var(--schrift)` und nicht `--schrift-matt`, denn sie ist der Satz,
+   wegen dem man die Zahl ueberhaupt angetippt hat. */
+.herleitung-fuss {
+  margin: 0.1rem 0 0;
+  padding-top: 0.45rem;
+  border-top: 1px solid var(--rand);
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--schrift);
+}

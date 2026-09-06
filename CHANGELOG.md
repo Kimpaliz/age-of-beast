@@ -5,6 +5,67 @@ Dieselben Änderungen stehen in Entwicklersprache in [CHANGELOG-TECHNIK.md](CHAN
 
 Das Neueste steht immer oben.
 
+## Ein Tipp reicht — und die Schadensschwelle erklärt sich – 6. September 2026
+
+Deine Meldung: *„Die popup fenster im caracterbogen muss ich immer
+doppelklicken. Ich will aber nur einmal klicken müssen. Und den
+schadensthreshold auch mit popup anzeigen."*
+
+### Warum zweimal tippen nötig war
+
+Es lag nicht am Klick, sondern an der Reihenfolge. Wenn du eine Zahl
+antippst, macht der Browser drei Dinge nacheinander: Er merkt den
+Finger, er setzt den Blinkpunkt auf die Zahl, und **dann** meldet er den
+Klick.
+
+Der Blinkpunkt hat das Fenster geöffnet — und der Klick eine
+Sekundenbruchteile später hat es als „Aus-Schalter" wieder zugemacht.
+Beim ersten Tippen passierte deshalb sichtbar **gar nichts**. Beim
+zweiten Mal saß der Blinkpunkt schon auf der Zahl, es gab also nichts
+mehr zu öffnen — und der Klick machte auf.
+
+Am Rechner ist es kaum aufgefallen, weil dort schon das Drüberfahren
+mit der Maus das Fenster zeigt. Auf Handy und Tablet gibt es das nicht.
+
+**Jetzt öffnet der Blinkpunkt nur noch, wenn er von der Tastatur kommt**
+— also wenn jemand mit der Tab-Taste durch den Bogen geht. Für Finger
+und Maus zählt der Klick. Ein Tipp öffnet, ein zweiter schließt.
+
+### Die Schadensschwelle hatte ein Fenster — man traf es nur nicht
+
+Nachgemessen auf einem Telefon: Die beiden Zahlen im Schwellenbalken
+waren **22 und 29 Bildpunkte breit** — schmale Streifen zwischen den
+Balken. Zusammen mit dem Doppeltipp war das praktisch nicht zu treffen.
+Deshalb sah es so aus, als hätten sie gar kein Fenster.
+
+Jetzt sind sie **44 × 46 Bildpunkte** groß — das übliche Mindestmaß für
+einen Daumen.
+
+**Und im Fenster steht jetzt der Satz, wegen dem man draufdrückt.**
+Vorher stand dort nur, woher die Zahl kommt („Grundwert 1, Bonus +5
+durch Gambeson"). Neu dazu:
+
+> *Ein Treffer unter 6 Schaden kostet 1 Lebenspunkt, ab 6 kostet er 2.*
+> *Ab 12 Schaden kostet ein Treffer 3 Lebenspunkte — darunter, ab 6, sind es 2.*
+
+Die Zahlen darin werden mitgerechnet: Legst du die Rüstung ab, ändert
+sich der Satz mit.
+
+### Nebenbei: zwei Prüfungen liefen seit Wochen nirgends
+
+Beim Nachmessen ist aufgefallen, dass zwei automatische Kontrollen —
+die für die Bogenfarben und die für die Kachelfilter — **nur auf deinem
+Windows-Rechner** laufen konnten. Sie suchen einen Browser, und die
+Liste der Suchorte kannte nur Windows-Pfade. Überall sonst meldeten sie
+„fehlgeschlagen: kein Browser gefunden", und niemand hat hingesehen.
+
+Die Bogenfarben-Kontrolle hätte dein Popup-Problem übrigens gesehen —
+sie wollte das Fenster öffnen und schaffte es nicht. Die Meldung stand
+da, gelesen hat sie keiner.
+
+Beide laufen jetzt auch auf Linux und Mac, und die Bogenfarben-Kontrolle
+tippt jetzt, statt mit der Maus drüberzufahren.
+
 ## Eine Figur erschaffen – 5. September 2026
 
 Deine Frage: „Gibt es schon eine Charaktererstellung für Spieler, die einen

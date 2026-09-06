@@ -42,6 +42,7 @@
 import { bogenAusDaten, herleitung } from '../werkzeuge/werte-rechnen.mjs';
 import { ladeKarten, namensKern } from './karten-daten.js';
 import { blaseAnbinden, blasenAnbinden } from './kartenblase.js';
+import { schwellenErklaerung } from './schwellen-text.js';
 
 const SCHLUESSEL = 'aob.ausruestung.v1';
 
@@ -161,7 +162,7 @@ export function rechnerFuer(figur) {
  * aus der Anzeige. Damit lässt sich in Node prüfen, dass hier steht,
  * was gerechnet wurde.
  */
-export function herleitungHtml(ergebnis) {
+export function herleitungHtml(ergebnis, fussnote) {
   const t = [];
   t.push('<article class="herleitung">');
   t.push('<header class="herleitung-kopf"><h3>' + sicher(ergebnis.name) + '</h3>'
@@ -182,9 +183,14 @@ export function herleitungHtml(ergebnis) {
     t.push('<li class="h-leer">Keine Boni oder Mali aus der Ausrüstung.</li>');
   }
   t.push('</ul>');
+  /* Die Fussnote beantwortet die Frage, die man am Tisch **wirklich**
+     stellt. Bei einer Schwelle ist das nicht „woher kommt die 6", sondern
+     „was kostet mich ein Treffer" — die Herleitung allein sagt das nicht. */
+  if (fussnote) t.push('<p class="herleitung-fuss">' + sicher(fussnote) + '</p>');
   t.push('</article>');
   return t.join('');
 }
+
 
 /**
  * Macht eine Zahl zum Auslöser ihrer eigenen Herleitung.
@@ -193,10 +199,13 @@ export function herleitungHtml(ergebnis) {
  * Umschalten soll die Blase den neuen Stand zeigen, nicht den von vor
  * dem Klick.
  */
-function herleitungAnbinden(element, holeErgebnis) {
+function herleitungAnbinden(element, holeErgebnis, holeFussnote) {
   element.classList.add('mit-herleitung');
   element.setAttribute('title', 'Herleitung anzeigen');
-  blaseAnbinden(element, () => herleitungHtml(holeErgebnis()));
+  blaseAnbinden(element, () => herleitungHtml(
+    holeErgebnis(),
+    holeFussnote ? holeFussnote() : ''
+  ));
 }
 
 /* ------------------------------------------------------------------ *
@@ -412,7 +421,11 @@ export function bogenVerdrahten(bereich, rechner, figur) {
     /* Herleitung an jede Zahl, die aus der Rechnung kommt. */
     for (const el of bereich.querySelectorAll('[data-wert]:not([data-blase])')) {
       const schluessel = el.dataset.wert;
-      herleitungAnbinden(el, () => rechner.ergebnis().werte[schluessel]);
+      herleitungAnbinden(
+        el,
+        () => rechner.ergebnis().werte[schluessel],
+        () => schwellenErklaerung(schluessel, rechner.ergebnis().werte)
+      );
     }
     /* Kartenblasen für neu entstandene Namen. */
     blasenAnbinden(bereich);

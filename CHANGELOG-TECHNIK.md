@@ -10,6 +10,87 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ## [Unveröffentlicht]
 
+### Janniks Meldung 06.09.2026: „muss ich immer doppelklicken"
+
+Woertlich: *„Die popup fenster im caracterbogen muss ich immer
+doppelklicken. Ich will aber nur einmal klicken muessen. Und den
+schadensthreshold auch mit popup anzeigen."*
+
+**1 · `karte/kartenblase.js`: der Fokus oeffnet nur noch von der Tastatur.**
+
+Die Ursache war die Ereignisfolge, nicht der Klick. Ein Tipp auf ein
+Element mit `tabindex="0"` loest `pointerdown` → `focus` → `click` aus.
+Der `focus`-Horcher oeffnete die Blase; der `click`-Horcher fand sie
+offen und schloss sie als Umschalter wieder. Sichtbar geschah beim
+ersten Tipp nichts. Der zweite Tipp loeste keinen Fokus mehr aus (das
+Element hatte ihn) und oeffnete deshalb.
+
+Am Schreibtisch verdeckt `mouseenter` den Fehler. Auf Berührungsgeräten
+— Janniks Hauptfall — gibt es das nicht.
+
+Neu: `letzteEingabeart` wird in der Erfassungsphase aus `pointerdown`
+(→ `'zeiger'`) und `keydown` mit `Tab` (→ `'tastatur'`) gesetzt; der
+`focus`-Horcher fragt `fokusDarfOeffnen()`. Die Funktion ist exportiert,
+damit `pruefe-blase.mjs` sie ohne Browser durchspielen kann — wie
+`gehoertZurBlase()`.
+
+Im echten Browser gemessen (412 x 915, `hasTouch`), vorher/nachher fuer
+alle fuenf Ausloeserarten: 1. Tipp `versteckt` → `SICHTBAR`.
+
+**2 · `styles/charakterbogen.css`: `.schwelle-marke` bekommt ein
+Tippziel.** Gemessen: 22 x 46 und 29 x 46 CSS-Punkte. `min-width` und
+`min-height` stehen jetzt auf `2.75rem` (44 px); die drei
+`.schwelle-bereich` daneben tragen `flex: 1` und geben den Platz ab.
+Nachgemessen: 44 x 46.
+
+**3 · `karte/bogen-werte.js`: `schwellenErklaerung()` und eine
+Fussnote.** `herleitungHtml()` nimmt ein zweites Argument. Die Schwelle
+sagt jetzt, was sie am Tisch bedeutet — mit **gerechneten** Zahlen, die
+dem Umschalten der Ausruestung folgen, nicht mit festgeschriebenen.
+
+**4 · `werkzeuge/browser-messen.mjs`: `browserPfad()` kannte nur
+Windows.** Deshalb meldeten `pruefe-bogenfarben.mjs` und
+`pruefe-filter.mjs` in jeder anderen Werkstatt und auf dem Bauserver
+„Weder Chrome noch Edge wurden gefunden" — zwei Pruefungen, die
+ausserhalb genau eines Rechners nie liefen. Ergaenzt: `AOB_BROWSER` als
+Vorrang, dazu macOS- und Linux-Pfade.
+
+Damit wurde sichtbar, dass `pruefe-bogenfarben.mjs` rot ist: „Die Blase
+oeffnet nicht." Die Ursache ist **nicht** Janniks Fehler, sondern die
+Messung selbst — der ferngesteuerte Browser meldet `hover: none` (bei
+`innerWidth` 1280), und die Blase ueberspringt das Ueberfahren dann
+bewusst. Die Messung dispatcht jetzt `pointerdown` + `focus()` +
+`click`. Danach: 178 Pruefungen gruen.
+
+⚠️ Ehrlich vermerkt: Diese Farbmessung deckt den Doppeltipp **nicht**
+ab. Ihr Messrahmen liegt bei `left:-2000px` und ist nicht fokussiert;
+ein `focus()` darin loest gar kein Fokus-Ereignis aus — die Ursache
+tritt dort also nicht auf. Der Kommentar an der Stelle sagt das.
+
+**5 · `werkzeuge/pruefe-blase.mjs` (neu, 17 Pruefungen).** Ein
+Papier-DOM, gerade gross genug, damit `kartenblase.js` wirklich laeuft;
+kein Browser, keine Fremdbibliothek, laeuft auch auf dem Bauserver.
+Geprueft wird die Tippfolge `pointerdown` → `focus` → `click` am
+Schreibtisch **und** im Beruehrungsfall, dazu die Tastaturbedienung,
+`schwellenErklaerung()` und das Tippziel im CSS.
+
+Sieben Sabotagen, alle schlagen an — die erste stellt den alten
+`focus`-Horcher wortgleich wieder her und meldet „nach dem ersten Tipp
+immer noch zu".
+
+**6 · `karte/schwellen-text.js` (neu) herausgeloest.** Die Ergaenzung
+schob `bogen-werte.js` auf 503 Zeilen und damit ueber die Grenze, die
+`pruefe-altlasten.mjs` bewacht. Herausgeloest wurde der Teil, der dort
+ohnehin nicht hingehoert: Der Satz zur Schwelle ist **Regeltext**, keine
+Bedienung und keine Rechnung. `bogen-werte.js` steht jetzt bei 474
+Zeilen; die Pruefung liest die Funktion direkt aus dem neuen Modul.
+
+**Nicht behoben, weil nicht dieses Vorhabens:** `pruefe-firestore-trennung`
+bleibt rot, weil Scotophobias Regeldatei in dieser Werkstatt nicht liegt
+(`/home/user/Granithoehle/firestore.rules`, siehe `SCOTOPHOBIA_REGELN`).
+Das war schon vor dieser Aenderung so, und `firestore.rules` ist
+unberuehrt.
+
 ### Zwei Meldungen Janniks: Scrollen auf den Karten, Blase ohne Hintergrund
 
 **1 · `styles/spielkarten.css`: `overscroll-behavior: contain` entfernt.**
