@@ -98,6 +98,12 @@ const FREIGEGEBENE_DATEIEN = new Set([
   'werkzeuge/werte-rechnen.mjs',
   'karte/karten-daten.js',
   'karte/kartenblase.js',
+  /* ⚠️ Jede neue Datei, die eine Seite laedt, muss hier stehen. Fehlt
+     sie, antwortet der Server mit 403, das Modul bricht ab und die
+     Seite bleibt leer — ohne dass irgendwo etwas rot wird. Am
+     06.09.2026 mit `schwellen-text.js` genau so passiert: Der
+     Charakterbogen war oertlich kaputt, waehrend er live lief. */
+  'karte/schwellen-text.js',
   'karte/karte-erzeugen.mjs',
   'karte/palette.mjs',
   'karte/welt-regionen.mjs',

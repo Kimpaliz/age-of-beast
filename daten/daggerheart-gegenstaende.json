@@ -16,8 +16,8 @@
     "text": "d8 phy"
    },
    "traglast": "Einhändig",
-   "merkmal": null,
-   "wirkung": null,
+   "merkmal": "Reliable",
+   "wirkung": "+1 auf Angriffswürfe",
    "quelle": "SRD 1.0",
    "unsicher": null
   },
@@ -36,8 +36,8 @@
     "text": "d8+3 phy"
    },
    "traglast": "Zweihändig",
-   "merkmal": "Reliable",
-   "wirkung": "+1 auf Angriffswürfe",
+   "merkmal": null,
+   "wirkung": null,
    "quelle": "SRD 1.0",
    "unsicher": null
   },
@@ -76,8 +76,8 @@
     "text": "d10+3 phy"
    },
    "traglast": "Zweihändig",
-   "merkmal": null,
-   "wirkung": null,
+   "merkmal": "Massive",
+   "wirkung": "−1 Evasion; zusätzlicher Schadenswürfel, niedrigster wird verworfen",
    "quelle": "SRD 1.0",
    "unsicher": null
   },
@@ -96,8 +96,8 @@
     "text": "d8+1 phy"
    },
    "traglast": "Einhändig",
-   "merkmal": "Massive",
-   "wirkung": "−1 Evasion; zusätzlicher Schadenswürfel, niedrigster wird verworfen",
+   "merkmal": null,
+   "wirkung": null,
    "quelle": "SRD 1.0",
    "unsicher": null
   },
@@ -116,8 +116,8 @@
     "text": "d12+3 phy"
    },
    "traglast": "Zweihändig",
-   "merkmal": null,
-   "wirkung": null,
+   "merkmal": "Heavy",
+   "wirkung": "−1 Evasion",
    "quelle": "SRD 1.0",
    "unsicher": null
   },
@@ -136,8 +136,8 @@
     "text": "d8+1 phy"
    },
    "traglast": "Einhändig",
-   "merkmal": "Heavy",
-   "wirkung": "−1 Evasion",
+   "merkmal": null,
+   "wirkung": null,
    "quelle": "SRD 1.0",
    "unsicher": null
   },
@@ -196,8 +196,8 @@
     "text": "d8 phy"
    },
    "traglast": "Einhändig",
-   "merkmal": null,
-   "wirkung": null,
+   "merkmal": "Quick",
+   "wirkung": "1 Stress markieren, um ein weiteres Ziel in Reichweite anzugreifen",
    "quelle": "SRD 1.0",
    "unsicher": null
   },
@@ -216,8 +216,8 @@
     "text": "d10+2 phy"
    },
    "traglast": "Zweihändig",
-   "merkmal": "Quick",
-   "wirkung": "1 Stress markieren, um ein weiteres Ziel in Reichweite anzugreifen",
+   "merkmal": "Cumbersome",
+   "wirkung": "−1 Finesse",
    "quelle": "SRD 1.0",
    "unsicher": null
   },

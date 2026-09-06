@@ -10,6 +10,64 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ## [Unveröffentlicht]
 
+### Vorgang #12: die verrutschte Merkmalspalte der Tier-1-Waffen
+
+**Befund bestaetigt.** In `docs/daggerheart/REGELN-GRUNDLAGEN.md` stand
+die Spalte „Feature" bei allen Nahkampfzeilen genau eine Zeile zu tief:
+Reliable/Longsword statt Broadsword, Massive/Mace statt Greatsword,
+Heavy/**Dagger** statt Warhammer, Quick/Halberd statt Rapier. Vier
+Paare.
+
+Abgeglichen gegen das SRD ueber daggerheart.org/reference/weapons und
+daggerheartsrd.com/rules/primary-weapon-tables/. Bestaetigt: Broadsword
+*Reliable*, Greatsword *Massive*, Warhammer *Heavy*, Rapier *Quick*,
+Halberd *Cumbersome*; Dagger, Longsword, Battleaxe, Mace, Quarterstaff
+und Cutlass tragen kein Merkmal.
+
+**Warum keine Pruefung es sah:** `pruefe-werte.mjs` fuhr 73
+Zusicherungen an den echten Figuren und blieb gruen, weil der Grundwert
+aus dem **eingetragenen Endwert zurueckgerechnet** wird. Ein falscher
+Beitrag verschiebt dann nur die Zerlegung, nie die Summe. Fehlerbuch
+**E11**.
+
+**Gemessen im Browser, vorher/nachher (Brix, 412 x 915):**
+
+| | vorher | jetzt |
+| --- | --- | --- |
+| Zerlegung Ausweichen | Grundwert 13, −1 durch Dolch, +1 Gambeson | Grundwert 12, +1 Gambeson |
+| Dolch ablegen | 13 → **14** | 13 → **13** |
+| Gambeson ablegen (Gegenprobe) | 13 → 12 | 13 → 12 |
+
+Katalog neu erzeugt mit `gegenstaende-auslesen.mjs --schreiben`: genau
+16 Zeilen in `daten/daggerheart-gegenstaende.json` geaendert, acht
+Merkmal/Wirkung-Paare getauscht, sonst nichts.
+
+**Neu: `werkzeuge/pruefe-waffentabelle.mjs`, 16 Pruefungen.** Zwei
+Ebenen mit Absicht: die Zuordnung namentlich (eine abgeschriebene
+Quelle mit Datum und Fundstelle — ein Programm kann einen SRD-Abgleich
+nicht herleiten, nur festhalten) **und** die Regel dahinter (ein
+Merkmal, das Evasion senkt, gehoert zu einer zweihaendigen Waffe). Die
+zweite braucht keine Liste und traegt auch bei neuen Waffen.
+
+Vier Sabotagen, alle schlagen an — die erste stellt die Verschiebung
+von gestern wortgleich wieder her (6 rote Zeilen). Sabotage D nimmt alle
+Evasion-Mali heraus und beweist, dass die Regel nicht ins Leere laeuft.
+
+⚠️ **Ausdruecklich offen:** Shortbow, Crossbow und Longbow bleiben
+unveraendert und ungeprueft — die Quellen widersprechen sich, eine
+fuehrt *Cumbersome* erst ab Tier 3. Im Regelwerk als Notiz vermerkt.
+
+**Nebenbefund, behoben:** `karte/schwellen-text.js` (heute Vormittag
+angelegt) fehlte in der Freigabeliste von `werkzeuge/vorschau-server.mjs`.
+Der Server antwortete mit 403, das Modul brach ab, und `bogen.html`
+zeichnete **gar keinen Bogen** — oertlich kaputt, live in Ordnung.
+Dieselbe Klasse wie die `DATEIEN`-Liste in `pruefe-bogenfarben.mjs`,
+zweimal am selben Tag.
+
+Ausserdem Fehlerbuch **C7**: `pkill -f vorschau-server` brachte zweimal
+die eigene Shell um (Code 144), weil das Muster in ihrer eigenen
+Kommandozeile steht.
+
 ### Janniks Meldung 06.09.2026: „muss ich immer doppelklicken"
 
 Woertlich: *„Die popup fenster im caracterbogen muss ich immer

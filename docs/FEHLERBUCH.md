@@ -440,6 +440,47 @@ jetzt, an welchem Schritt sie haengt.
 
 ---
 
+### E11 · Eine verrutschte Tabellenspalte, die jede Rechenpruefung ueberlebt
+
+**Was ich tat:** Vorgang #12 nachgegangen — der Dolch trug auf Brix'
+Bogen „Heavy: −1 Evasion" und senkte das Ausweichen. Die Merkmalspalte
+der Tier-1-Waffen in `docs/daggerheart/REGELN-GRUNDLAGEN.md` gegen das
+SRD abgeglichen.
+**Was herauskam:** Die Spalte stand bei **allen** Nahkampfzeilen genau
+eine Zeile zu tief. „Reliable" beim Longsword statt beim Broadsword,
+„Massive" bei der Mace statt beim Greatsword, „Heavy" beim Dolch statt
+beim Warhammer, „Quick" bei der Hellebarde statt beim Rapier. Vier
+Paare, kein Zufall.
+**Warum:** Keine Pruefung konnte es sehen. `pruefe-werte.mjs` rechnet
+73 Zusicherungen an den echten Figuren — und blieb gruen, weil der
+Grundwert aus dem **eingetragenen Endwert zurueckgerechnet** wird. Ein
+falscher Beitrag verschiebt dann nur die Zerlegung, nie die Summe. Die
+Zahl auf dem Bogen stimmte; ihre Herkunft war erfunden. Sichtbar wurde
+es erst beim **Ablegen**: Dolch ab → Ausweichen 13 auf 14.
+**Woran ich es frueher merke:** Wo ein Endwert die Rechnung schliesst,
+prueft eine Summenkontrolle gar nichts — es braucht eine Zusicherung
+**gegen die Quelle** (hier: eine abgeschriebene SRD-Liste mit Datum und
+Fundstelle) und, besser noch, eine **Regel statt einer Liste**: Ein
+Merkmal, das Evasion senkt, gehoert zu einer zweihaendigen Waffe.
+„Heavy" auf einem einhaendigen Dolch ist innerlich unstimmig, und genau
+diese Unstimmigkeit hat den Fehler auffliegen lassen.
+Verwandt mit **A**-Klasse: Gemessen wurde die Summe, sichtbar war der
+Fehler nur in der Zerlegung.
+
+### C7 · `pkill -f` traf die eigene Shell
+
+**Was ich tat:** `pkill -f vorschau-server` geschrieben, um den lokalen
+Server neu zu starten.
+**Was herauskam:** Der ganze Befehl brach mit Code 144 ab, und die
+Heredoc-Datei danach wurde nie geschrieben. Zweimal hintereinander,
+beim zweiten Mal mit `pgrep -f`.
+**Warum:** Das Suchmuster steht in der Kommandozeile der eigenen Shell —
+`pkill -f` findet sie und bringt sie um.
+**Woran ich es frueher merke:** Kein `pkill -f`/`pgrep -f` auf ein
+Muster, das im eigenen Befehl vorkommt. Entweder den Server auf einem
+anderen Port starten (`PORT=4180 node …`) oder die PID beim Start
+merken.
+
 ## Was daraus folgt
 
 Die fünf wirksamsten Gewohnheiten aus diesen Fällen:

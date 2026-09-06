@@ -5,6 +5,83 @@ Dieselben Änderungen stehen in Entwicklersprache in [CHANGELOG-TECHNIK.md](CHAN
 
 Das Neueste steht immer oben.
 
+## Der Dolch senkt dein Ausweichen nicht mehr – 6. September 2026
+
+Auf den Charakterbögen stimmte eine Zahl nicht — und zwar so, dass man
+es kaum sehen konnte.
+
+### Was los war
+
+In der Waffentabelle im Regelwerk stand die Spalte mit den besonderen
+Eigenschaften **um eine Zeile zu tief**. Jede Waffe hatte also die
+Eigenschaft ihrer Vorgängerin:
+
+| Waffe | stand bei euch | ist richtig |
+| --- | --- | --- |
+| Broadsword | – | **Reliable: +1 auf Angriffswürfe** |
+| Longsword | Reliable | **–** |
+| Greatsword | – | **Massive: −1 Ausweichen + Extra-Würfel** |
+| Mace | Massive | **–** |
+| Warhammer | – | **Heavy: −1 Ausweichen** |
+| **Dolch** | **Heavy: −1 Ausweichen** | **–** (gar keine) |
+| Rapier | – | **Quick: 1 Stress für ein zweites Ziel** |
+| Halberd | Quick | **Cumbersome: −1 Finesse** |
+
+Der Dolch zog dadurch **einen Punkt Ausweichen ab**, obwohl er das gar
+nicht darf. Auf Brix' Bogen stand: *„Grundwert 13, −1 durch Dolch, +1
+durch Gambeson"*.
+
+### Warum es keiner Prüfung aufgefallen ist
+
+Das ist der interessante Teil. Es gibt 73 automatische Kontrollen für
+die Bogenrechnung, und **alle waren grün** — weil der Grundwert aus dem
+eingetragenen Endwert *zurückgerechnet* wird. Ein falscher Abzug
+verschiebt dann nur die Aufschlüsselung, nie die Endzahl.
+
+Sichtbar wurde es erst beim **Ablegen**: Dolch weglegen ließ das
+Ausweichen von 13 auf **14 steigen**. Genau daran hat es eine frühere
+Sitzung bemerkt — und dann bewusst **nichts geändert**, weil das eine
+Regelfrage ist. Völlig richtig: Eine geratene Zahl ist am Spieltisch
+schlimmer als eine, über die man stolpert.
+
+### Nachgeschlagen statt geraten
+
+Ich habe die Tabelle gegen das offizielle Regelwerk abgeglichen. Der
+Verdacht stimmte in allen vier Paaren. Jetzt sagt der Bogen:
+
+> *Ausweichen 13 · Grundwert 12 (ohne Ausrüstung) · Bonus +1 durch Gambeson*
+
+Und Dolch ablegen ändert **nichts** mehr — nachgemessen im Browser.
+Gambeson ablegen senkt weiterhin auf 12, die Mechanik ist also heil.
+
+### ⚠️ Bewusst offen gelassen
+
+Bei **Kurzbogen, Armbrust und Langbogen** widersprechen sich die
+Quellen, ob sie „Cumbersome" tragen. Diese drei Zeilen habe ich
+**nicht angefasst** und im Regelwerk vermerkt. Wer sie richten will,
+braucht das Regelbuch selbst — nicht eine Suchmaschine.
+
+### Damit es nicht zurückkommt
+
+Eine neue Kontrolle (`pruefe-waffentabelle.mjs`, 16 Prüfungen) hält
+zwei Dinge fest: die Zuordnung namentlich, **und** die Regel dahinter —
+eine Eigenschaft, die Ausweichen kostet, gehört zu einer *zweihändigen*
+Waffe. „Heavy" auf einem einhändigen Dolch ist in sich unstimmig, und
+genau das hat den Fehler verraten.
+
+Vier Sabotagen, alle schlagen an. Die erste stellt den Fehler von
+gestern wortwörtlich wieder her.
+
+### Nebenbei behoben: der Bogen war auf deinem PC kaputt
+
+Beim Nachmessen aufgefallen: Die Datei, die ich heute Vormittag für die
+Schadensschwellen-Erklärung angelegt habe, stand nicht in der
+Freigabeliste des lokalen Vorschau-Servers. Live lief alles — aber wer
+das Wiki mit `Wiki-im-eigenen-Netz-starten.cmd` auf dem eigenen Rechner
+öffnete, bekam **einen leeren Charakterbogen**. Eine Zeile ergänzt,
+und der Kommentar daneben sagt jetzt, warum jede neue Datei dort
+eingetragen werden muss.
+
 ## Ein Tipp reicht — und die Schadensschwelle erklärt sich – 6. September 2026
 
 Deine Meldung: *„Die popup fenster im caracterbogen muss ich immer

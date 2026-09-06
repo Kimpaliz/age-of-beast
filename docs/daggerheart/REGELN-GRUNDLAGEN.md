@@ -681,21 +681,40 @@ Advancement-„Slots", einige verlangen beide auf einmal):
 
 | Name | Attribut | Reichweite | Schaden | Burden | Feature |
 | --- | --- | --- | --- | --- | --- |
-| Broadsword | Agility | Melee | d8 phy | Einhändig | – |
-| Longsword | Agility | Melee | d8+3 phy | Zweihändig | Reliable: +1 auf Angriffswürfe |
+| Broadsword | Agility | Melee | d8 phy | Einhändig | Reliable: +1 auf Angriffswürfe |
+| Longsword | Agility | Melee | d8+3 phy | Zweihändig | – |
 | Battleaxe | Strength | Melee | d10+3 phy | Zweihändig | – |
-| Greatsword | Strength | Melee | d10+3 phy | Zweihändig | – |
-| Mace | Strength | Melee | d8+1 phy | Einhändig | Massive: −1 Evasion; zusätzlicher Schadenswürfel, niedrigster wird verworfen |
-| Warhammer | Strength | Melee | d12+3 phy | Zweihändig | – |
-| Dagger | Finesse | Melee | d8+1 phy | Einhändig | Heavy: −1 Evasion |
+| Greatsword | Strength | Melee | d10+3 phy | Zweihändig | Massive: −1 Evasion; zusätzlicher Schadenswürfel, niedrigster wird verworfen |
+| Mace | Strength | Melee | d8+1 phy | Einhändig | – |
+| Warhammer | Strength | Melee | d12+3 phy | Zweihändig | Heavy: −1 Evasion |
+| Dagger | Finesse | Melee | d8+1 phy | Einhändig | – |
 | Quarterstaff | Instinct | Melee | d10+3 phy | Zweihändig | – |
 | Cutlass | Presence | Melee | d8+1 phy | Einhändig | – |
-| Rapier | Presence | Melee | d8 phy | Einhändig | – |
-| Halberd | Strength | Very Close | d10+2 phy | Zweihändig | Quick: 1 Stress markieren, um ein weiteres Ziel in Reichweite anzugreifen |
+| Rapier | Presence | Melee | d8 phy | Einhändig | Quick: 1 Stress markieren, um ein weiteres Ziel in Reichweite anzugreifen |
+| Halberd | Strength | Very Close | d10+2 phy | Zweihändig | Cumbersome: −1 Finesse |
 | Spear | Finesse | Very Close | d10+2 phy | Zweihändig | Cumbersome: −1 Finesse |
 | Shortbow | Agility | Far | d6+3 phy | Zweihändig | Cumbersome: −1 Finesse |
 | Crossbow | Finesse | Far | d6+1 phy | Einhändig | – |
 | Longbow | Agility | Very Far | d8+3 phy | Zweihändig | Cumbersome: −1 Finesse |
+
+> **Zur Merkmalspalte, berichtigt am 06.09.2026 (Vorgang #12).** Sie stand
+> in den Nahkampfzeilen **um eine Zeile zu tief**: „Reliable" lag beim
+> Longsword statt beim Broadsword, „Massive" bei der Mace statt beim
+> Greatsword, „Heavy" beim **Dolch** statt beim Warhammer, „Quick" bei
+> der Hellebarde statt beim Rapier. Der Dolch trug dadurch −1 Evasion und
+> senkte auf jedem Bogen das Ausweichen um eins.
+>
+> Abgeglichen gegen das SRD über <https://daggerheart.org/reference/weapons>
+> und <https://daggerheartsrd.com/rules/primary-weapon-tables/>. Bestätigt
+> sind: Broadsword *Reliable*, Greatsword *Massive*, Warhammer *Heavy*,
+> Rapier *Quick*, Halberd *Cumbersome*; **Dagger, Longsword, Battleaxe,
+> Mace, Quarterstaff und Cutlass tragen kein Merkmal.**
+>
+> ⚠️ **Offen geblieben, bewusst:** Für **Shortbow, Crossbow und Longbow**
+> widersprechen sich die Quellen — eine führt *Cumbersome* erst ab Tier 3.
+> Diese drei Zeilen sind **unverändert**. Wer sie anfasst, braucht das SRD
+> selbst, nicht eine Suchmaschine: Eine geratene Zahl ist am Spieltisch
+> schlimmer als eine, über die man stolpert.
 
 ### Primärwaffen, Tier 1, magisch (erfordern Spellcast-Attribut)
 
