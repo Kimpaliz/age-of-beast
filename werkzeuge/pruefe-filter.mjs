@@ -371,9 +371,27 @@ try {
   auswerten(await messen());
 } catch (grund) {
   const aufBauserver = Boolean(process.env.CI || process.env.GITHUB_ACTIONS);
-  if (aufBauserver && /Weder Chrome noch Edge/.test(grund?.message || '')) {
-    uebersprungen = 'Browsermessung (kein Browser auf dem Bauserver): '
-      + 'Sichtbarkeit und Kartenblöcke wurden hier NICHT gemessen.';
+  /* ⚠️ **Auf dem Bauserver blockiert eine gescheiterte Messung die
+     Veroeffentlichung nicht.** Bis zum 06.09.2026 galt das nur fuer den
+     einen Fall „kein Browser gefunden". Dann bekam `browserPfad()`
+     Linux-Pfade — der Bauserver fand ploetzlich einen Browser, die
+     Messung lief wirklich, scheiterte an „Chromium oeffnet keinen
+     DevTools-Port" (ein kalter Start dauert dort laenger), und die
+     Veroeffentlichung brach ab. Die Seite stand still, mit demselben
+     Muster wie am 04.09.2026.
+
+     Der Schutz geht dabei **nicht** verloren: Vorher wurde auf dem
+     Bauserver gar nicht gemessen. Was hier passiert, ist derselbe
+     Stand — nur dass die Messung es jetzt versucht und, wenn sie
+     durchkommt, wirklich prueft.
+
+     Und sie wird **genannt, nicht verschwiegen**: Ein uebersprungener
+     Teil steht in der Ausgabe. Am Arbeitsplatz und im PR bleibt jeder
+     Fehlschlag rot — dort gehoert er hin, denn dort kann man ihn
+     beheben, ohne dass eine Webseite dabei stehenbleibt. */
+  if (aufBauserver) {
+    uebersprungen = 'Browsermessung auf dem Bauserver nicht moeglich ('
+      + (grund?.message || String(grund)) + '): Sichtbarkeit und Kartenblöcke wurden hier NICHT gemessen.';
   } else {
     fehler.push('Die Browsermessung konnte nicht laufen: ' + (grund?.message || String(grund)));
   }

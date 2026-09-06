@@ -51,6 +51,25 @@ durch Gambeson"). Neu dazu:
 Die Zahlen darin werden mitgerechnet: Legst du die Rüstung ab, ändert
 sich der Satz mit.
 
+### Nachtrag: die erste Veröffentlichung ist steckengeblieben
+
+Ehrlich dazu, weil es dein Wiki kurz betroffen hat: Der erste Versuch,
+das Ganze zu veröffentlichen, **ist abgebrochen** — und schuld war
+genau die Verbesserung aus dem nächsten Absatz.
+
+Die beiden Kontrollen fanden auf GitHubs Rechner nun einen Browser und
+wollten wirklich messen. Nur startet der dort langsamer als auf einem
+Arbeitsrechner, und die Kontrolle gab nach **vier Sekunden** auf. Damit
+galt sie als fehlgeschlagen, und der Veröffentlichungsablauf hält dann
+an — deine Seite blieb auf dem alten Stand stehen.
+
+Zwei Dinge behoben: Die Wartezeit ist jetzt **30 Sekunden** statt vier.
+Und viel wichtiger — **eine Messung, die nicht laufen kann, hält die
+Veröffentlichung nicht mehr auf.** Sie sagt dann laut, dass sie
+übersprungen wurde, und warum. Auf deinem eigenen Rechner bleibt sie
+weiterhin rot, wenn etwas nicht stimmt; dort kann man es reparieren,
+ohne dass die Webseite dabei stehenbleibt.
+
 ### Nebenbei: zwei Prüfungen liefen seit Wochen nirgends
 
 Beim Nachmessen ist aufgefallen, dass zwei automatische Kontrollen —

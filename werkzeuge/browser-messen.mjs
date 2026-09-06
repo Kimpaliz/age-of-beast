@@ -175,15 +175,28 @@ export async function browserStarten(url, ergebnisId = 'aob-bogenfarben-ergebnis
     '--remote-debugging-port=0', '--remote-allow-origins=*', '--user-data-dir=' + profil,
   ], { windowsHide: true, stdio: 'ignore' });
   try {
+    /* ⚠️ **160 x 25 ms sind vier Sekunden — auf dem Bauserver zu wenig.**
+       Gemessen am 06.09.2026: Auf `ubuntu-latest` scheiterten beide
+       Browsermessungen mit „Chromium oeffnet keinen DevTools-Port",
+       und die Veroeffentlichung brach ab. Ein kalter Start mit
+       SwiftShader (`--use-angle=swiftshader`) braucht dort laenger als
+       auf einem warmen Arbeitsrechner, und die Pruefkette faehrt bis zu
+       vier Messungen gleichzeitig auf vier Kernen.
+
+       30 Sekunden kosten nichts, wenn der Port wie ueblich nach einer
+       halben Sekunde da ist — gewartet wird nur, solange er fehlt. */
     let port;
-    for (let versuch = 0; versuch < 160; versuch += 1) {
+    for (let versuch = 0; versuch < 1200; versuch += 1) {
       const aktiv = join(profil, 'DevToolsActivePort');
       if (existsSync(aktiv)) { port = Number(readFileSync(aktiv, 'utf8').split(/\r?\n/u)[0]); break; }
+      if (kind.exitCode !== null) {
+        throw new Error('Chromium hat sich sofort beendet (Code ' + kind.exitCode + ').');
+      }
       await warte(25);
     }
     if (!port) throw new Error('Chromium öffnet keinen DevTools-Port.');
     let ziel;
-    for (let versuch = 0; versuch < 120 && !ziel; versuch += 1) {
+    for (let versuch = 0; versuch < 600 && !ziel; versuch += 1) {
       try {
         const ziele = await (await fetch('http://127.0.0.1:' + port + '/json/list')).json();
         ziel = ziele.find((eintrag) => eintrag.type === 'page');

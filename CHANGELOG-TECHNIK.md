@@ -103,6 +103,35 @@ liegengebliebener Ordner in `tmp` raeumt das Betriebssystem weg, ein
 Fehlalarm kostet Vertrauen. Nachgemessen: **8 von 8 Laeufen gruen**
 (vorher 4 von 5).
 
+**8 · Nachtrag am selben Tag: Punkt 4 hat die Veroeffentlichung
+gestoppt.** Lauf 43 des Pages-Ablaufs brach bei „Alle lokalen Waechter
+ausfuehren" ab — `bogenfarben` und `filter` meldeten „Chromium oeffnet
+keinen DevTools-Port". Auf `ubuntu-latest` wurde der Browser durch die
+neuen Linux-Pfade gefunden, aber der Start dauerte laenger als die
+**vier Sekunden**, die `browserStarten()` auf `DevToolsActivePort`
+wartete (160 x 25 ms) — kalter Start mit SwiftShader, dazu bis zu vier
+Messungen gleichzeitig auf vier Kernen.
+
+Zwei Aenderungen, beide noetig:
+
+- **Die Wartezeiten**: Port 4 s → 30 s, Messseite 3 s → 15 s. Sie
+  kosten nichts, wenn der Port wie ueblich nach einer halben Sekunde da
+  ist. Zusaetzlich bricht die Schleife sofort ab, wenn Chromium sich
+  beendet hat — dann wartet niemand mehr 30 Sekunden auf einen
+  Prozess, den es nicht mehr gibt.
+- **Die Bauserver-Weiche greift jetzt bei jedem Messfehlschlag**, nicht
+  nur bei „kein Browser gefunden". Der Schutz geht dabei **nicht**
+  verloren: Vorher wurde auf dem Bauserver ueberhaupt nicht gemessen —
+  das hier ist derselbe Stand, nur dass die Messung es jetzt versucht.
+  Am Arbeitsplatz und im PR bleibt jeder Fehlschlag rot; dort kann man
+  ihn beheben, ohne dass eine Webseite dabei stehenbleibt. Und der
+  uebersprungene Teil wird **mit seinem Grund genannt**, nicht
+  verschwiegen.
+
+Die Lehre, schon zweimal bezahlt: Ein Waechter, der eine
+Veroeffentlichung blockieren kann, muss zwischen „die Sache ist kaputt"
+und „ich konnte nicht messen" unterscheiden.
+
 **Nicht behoben, weil nicht dieses Vorhabens:** `pruefe-firestore-trennung`
 bleibt rot, weil Scotophobias Regeldatei in dieser Werkstatt nicht liegt
 (`/home/user/Granithoehle/firestore.rules`, siehe `SCOTOPHOBIA_REGELN`).
