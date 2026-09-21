@@ -61,6 +61,14 @@
 
     const kategorieEinzahl = (s) => datenindex.kategorieInfoHolen(s)?.einzahl ?? kategorieName(s);
 
+    const istNormaleWikiKategorie = (schluessel) => schluessel !== 'werkstatt';
+
+    const normaleKategorien = (welt) => welt.kategorien.filter((kategorie) =>
+      istNormaleWikiKategorie(kategorie.schluessel));
+
+    const normaleEintraege = (welt) => welt.eintraege.filter((eintrag) =>
+      istNormaleWikiKategorie(eintrag.kategorie));
+
     const etikett = (e) => sicher(kategorieEinzahl(e.kategorie)) + (e.unterart ? ' &middot; ' + sicher(e.unterart) : '');
 
     function kachel(e) {
@@ -129,7 +137,7 @@
 
     function navigationZeichnen() {
       const welt = datenindex.weltHolen();
-      navigation.innerHTML = welt.kategorien.map((k) => {
+      navigation.innerHTML = normaleKategorien(welt).map((k) => {
         const liste = datenindex.kategorieHolen(k.schluessel) || [];
         return !liste.length ? '' : '<section class="nav-gruppe" data-kategorie="' + sicher(k.schluessel) + '"><h2 class="mikro"><a href="#/kategorie/' + encodeURIComponent(k.schluessel) + '">' + symbol(k.schluessel, 'nav-marke') + sicher(k.name) + '</a><span class="anzahl">' + liste.length + '</span></h2><ul>' + liste.map((e) => '<li><a href="#/eintrag/' + encodeURIComponent(e.id) + '" data-nav="' + sicher(e.id) + '">' + sicher(e.name) + '</a></li>').join('') + '</ul></section>';
       }).join('');
@@ -141,14 +149,16 @@
 
     function startseiteZeichnen() {
       const welt = datenindex.weltHolen();
-      const kampagne = welt.eintraege.find((e) => e.kategorie === 'wiki');
-      const sortiert = [...welt.eintraege].sort((a, b) => {
+      const eintraege = normaleEintraege(welt);
+      const kategorien = normaleKategorien(welt);
+      const kampagne = eintraege.find((e) => e.kategorie === 'wiki');
+      const sortiert = [...eintraege].sort((a, b) => {
         if (a.kategorie === 'wiki' && b.kategorie !== 'wiki') return -1;
         if (b.kategorie === 'wiki' && a.kategorie !== 'wiki') return 1;
         return welt.kategorien.findIndex((k) => k.schluessel === a.kategorie) - welt.kategorien.findIndex((k) => k.schluessel === b.kategorie) || a.name.localeCompare(b.name, 'de');
       });
 
-      inhalt.innerHTML = '<div class="seitenkopf"><span class="mikro">Arbeitsfläche &middot; ' + anzahlWort(welt.eintraege.length, 'Eintrag', 'Einträge') + ' &middot; Stand ' + datumDeutsch(welt.standDerDaten) + '</span><h1>' + sicher(welt.titel) + '</h1><p class="einleitung" id="start-einleitung">' + (kampagne ? sicher(kampagne.kurz) : sicher(welt.untertitel)) + ' Verlinkte Begriffe zeigen beim Überfahren eine Kurzfassung.</p></div><div class="filter" id="filter"><button type="button" data-filter="alle" aria-pressed="true">Alle</button>' + welt.kategorien.map((k) => '<button type="button" data-filter="' + sicher(k.schluessel) + '" aria-pressed="false" data-kategorie="' + sicher(k.schluessel) + '">' + symbol(k.schluessel, 'filter-marke') + sicher(k.name) + '</button>').join('') + '</div><div class="kacheln" id="kacheln">' + sortiert.map(kachel).join('') + '</div><p class="mikro fusszeile">Die Inhalte stammen aus der Weltenschmiede. Zuletzt dort bearbeitet am ' + datumDeutsch(welt.standDerDaten) + '.</p>';
+      inhalt.innerHTML = '<div class="seitenkopf"><span class="mikro">Arbeitsfläche &middot; ' + anzahlWort(eintraege.length, 'Eintrag', 'Einträge') + ' &middot; Stand ' + datumDeutsch(welt.standDerDaten) + '</span><h1>' + sicher(welt.titel) + '</h1><p class="einleitung" id="start-einleitung">' + (kampagne ? sicher(kampagne.kurz) : sicher(welt.untertitel)) + ' Verlinkte Begriffe zeigen beim Überfahren eine Kurzfassung.</p></div><div class="filter" id="filter"><button type="button" data-filter="alle" aria-pressed="true">Alle</button>' + kategorien.map((k) => '<button type="button" data-filter="' + sicher(k.schluessel) + '" aria-pressed="false" data-kategorie="' + sicher(k.schluessel) + '">' + symbol(k.schluessel, 'filter-marke') + sicher(k.name) + '</button>').join('') + '</div><div class="kacheln" id="kacheln">' + sortiert.map(kachel).join('') + '</div><p class="mikro fusszeile">Die Inhalte stammen aus der Weltenschmiede. Zuletzt dort bearbeitet am ' + datumDeutsch(welt.standDerDaten) + '.</p>';
 
       const e = document.getElementById('start-einleitung');
       if (e) datenindex.verweiseSetzen(e, kampagne?.id);
@@ -157,6 +167,7 @@
     }
 
     function kategorieZeichnen(s) {
+      if (s === 'werkstatt') return werkstattZeichnen();
       const welt = datenindex.weltHolen();
       const k = datenindex.kategorieInfoHolen(s);
       const liste = datenindex.kategorieHolen(s);
@@ -201,7 +212,7 @@
       if (erwaehnungen.length) seite.push('<section><h2 class="mikro">Erwähnt in</h2><ul class="bezugsliste">' + erwaehnungen.map((q) => '<li><a class="verweis" href="#/eintrag/' + encodeURIComponent(q.id) + '" data-ziel="' + sicher(q.id) + '">' + sicher(q.name) + '</a><span class="art">' + sicher(kategorieName(q.kategorie)) + '</span></li>').join('') + '</ul></section>');
       if (e.quelle || e.geaendert) seite.push('<section><h2 class="mikro">Herkunft</h2><dl class="eigenschaften">' + (e.quelle ? '<dt>Regelquelle</dt><dd>' + sicher(e.quelle) + '</dd>' : '') + (e.geaendert ? '<dt>Zuletzt</dt><dd>' + sicher(datumKurz(e.geaendert)) + '</dd>' : '') + '</dl></section>');
 
-      inhalt.innerHTML = '<p class="brotkrumen"><a class="zurueck" href="#/">&lsaquo; Arbeitsfläche</a><span class="pfad">' + sicher(welt.titel) + ' / <a href="#/kategorie/' + encodeURIComponent(e.kategorie) + '">' + sicher(kategorieName(e.kategorie)) + '</a> / ' + sicher(e.name) + '</span></p><article class="artikel" data-eintrag="' + sicher(e.id) + '" data-kategorie="' + sicher(e.kategorie) + '"><span class="mikro mit-marke">' + symbol(e.kategorie, 'etikett-marke') + etikett(e) + '</span>' + (rahmenVorhanden?.(e.id) ? '<a class="modul-knopf assistent-verweis" href="#/rahmen/' + encodeURIComponent(e.id) + '">Im Assistenten bearbeiten →</a>' : '') + '<h1 data-feld="name">' + sicher(e.name) + '</h1>' + (e.bild ? '<figure class="eintrag-bild"><img src="' + sicher(e.bild) + '" alt="Wappen: ' + sicher(e.name) + '" decoding="async"></figure>' : '') + (e.aliase?.length ? '<p class="mikro" style="margin:-1.1rem 0 1.5rem">Auch: ' + sicher(e.aliase.join(' · ')) + '</p>' : '') + '<div class="artikel-raster"><div class="artikel-text">' + text.join('') + '</div>' + (seite.length ? '<aside class="artikel-seite">' + seite.join('') + '</aside>' : '') + '</div></article>';
+      inhalt.innerHTML = '<p class="brotkrumen"><a class="zurueck" href="#/">&lsaquo; Arbeitsfläche</a><span class="pfad">' + sicher(welt.titel) + ' / <a href="#/kategorie/' + encodeURIComponent(e.kategorie) + '">' + sicher(kategorieName(e.kategorie)) + '</a> / ' + sicher(e.name) + '</span></p><article class="artikel" data-eintrag="' + sicher(e.id) + '" data-kategorie="' + sicher(e.kategorie) + '"><span class="mikro mit-marke">' + symbol(e.kategorie, 'etikett-marke') + etikett(e) + '</span>' + (rahmenVorhanden?.(e.id) ? '<a class="modul-knopf assistent-verweis" href="#/rahmen/' + encodeURIComponent(e.id) + '">Im Assistenten bearbeiten →</a>' : '') + (e.spielwerte ? '<a class="modul-knopf assistent-verweis" href="bogen.html?figur=' + encodeURIComponent(e.id) + '">Charakterbogen öffnen →</a>' : '') + '<h1 data-feld="name">' + sicher(e.name) + '</h1>' + (e.bild ? '<figure class="eintrag-bild"><img src="' + sicher(e.bild) + '" alt="Wappen: ' + sicher(e.name) + '" decoding="async"></figure>' : '') + (e.aliase?.length ? '<p class="mikro" style="margin:-1.1rem 0 1.5rem">Auch: ' + sicher(e.aliase.join(' · ')) + '</p>' : '') + '<div class="artikel-raster"><div class="artikel-text">' + text.join('') + '</div>' + (seite.length ? '<aside class="artikel-seite">' + seite.join('') + '</aside>' : '') + '</div></article>';
 
       const belegt = new Set();
       inhalt.querySelectorAll('.artikel-text .anriss, .artikel-text .abschnitt').forEach((bereich) => datenindex.verweiseSetzen(bereich, e.id, belegt));

@@ -5,6 +5,19 @@ Dieselben Änderungen stehen in Entwicklersprache in [CHANGELOG-TECHNIK.md](CHAN
 
 Das Neueste steht immer oben.
 
+## Werkstatt und Charakterbögen sind klar getrennt – 21. September 2026
+
+- Die **Werkstatt** erscheint nicht mehr als normale Kategorie in der
+  linken Leiste, den Startseiten-Filtern oder den Eintragskacheln.
+- Sie bleibt über ihren eigenen Schalter am oberen Rand vollständig
+  erreichbar.
+- Alte direkte Links auf die frühere Werkstatt-Kategorie öffnen nun die
+  richtige Werkstatt-Ansicht statt einer doppelten Kategorieseite.
+- Ein Figuren-Eintrag mit Daggerheart-Werten zeigt jetzt direkt den
+  Knopf **„Charakterbogen öffnen“**.
+- Eine neue Oberflächenprüfung hält diese Trennung mit zehn Kontrollen
+  fest.
+
 ## Der Dolch senkt dein Ausweichen nicht mehr – 6. September 2026
 
 Auf den Charakterbögen stimmte eine Zahl nicht — und zwar so, dass man
