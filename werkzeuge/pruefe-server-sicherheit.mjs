@@ -143,6 +143,7 @@ async function serverPruefen(name, port) {
     '/werkzeuge/welt-dateien.mjs',
     '/werkzeuge/welt-umwandeln.mjs',
     '/werkzeuge/bearbeiten-stellen.mjs',
+    '/werkzeuge/eintrag-anlegen.mjs',
     '/werkzeuge/text-schreibweise.mjs',
     '/werkzeuge/struktur-bearbeiten.mjs',
   ];

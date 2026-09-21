@@ -122,6 +122,7 @@ const OEFFENTLICHE_DATEIEN = new Set([
   'werkzeuge/welt-rahmen.mjs',
   'werkzeuge/vorlagen.mjs',
   'werkzeuge/bearbeiten-stellen.mjs',
+  'werkzeuge/eintrag-anlegen.mjs',
   'werkzeuge/text-schreibweise.mjs',
   'werkzeuge/struktur-bearbeiten.mjs',
 ]);

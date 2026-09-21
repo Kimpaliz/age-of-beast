@@ -10,6 +10,30 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ## [Unveröffentlicht]
 
+### Fehlende Linkziele und Eintrags-Icons
+
+- `#/neu/<kategorie>/<name>` zeigt eine bestätigende Anlageansicht. Nach
+  Anmeldung erzeugt `struktur-bedienung.js` über die reine Logik in
+  `werkzeuge/eintrag-anlegen.mjs` einen leeren Roh-Eintrag, ohne vorhandene
+  IDs oder Inhalte zu überschreiben.
+- `runtime/symbole.js` führt neben den zehn festen Kategoriesymbolen eine
+  geprüfte Auswahl von Eintragsmotiven. Unbekannte Werte werden nie als HTML
+  ausgegeben, sondern fallen auf das Kategorie-Icon zurück.
+- `werkzeuge/welt-umwandeln.mjs` reicht das optionale Feld `icon` bis in die
+  Leserwelt durch. Navigation, Kacheln, Artikeltitel, automatische und
+  gepflegte Verweise, Suche, Vorschau und Favoriten verwenden dasselbe Icon.
+- Der Charakterbogen trennt den Wiki-Link eines Gegenstands von dessen
+  Regelkarten-Popup. Fehlende Gegenstände verlinken zur Anlageansicht;
+  vorhandene Ziele öffnen direkt den Eintrag.
+- `karte/bogen-zeigen.js` verwendet den gemeinsamen Welt-Zwischenspeicher,
+  prüft dessen Stand mit einem einzelnen Firestore-Lesezugriff und lädt die
+  vollständige Welt nur bei einer Änderung nach. Neue Einträge und Icons
+  werden dadurch auch im Bogen ohne Repository-Veröffentlichung sichtbar.
+- `werkzeuge/pruefe-eintrags-verweise.mjs` startete erwartungsgemäß rot, weil
+  das reine Anlagenmodul fehlte, und prüft jetzt dreizehn Zusicherungen.
+- Vorschau-Server und Sicherheitsprüfung erlauben das neue Browsermodul
+  ausdrücklich; der Cache-Graph verfolgt seinen Import automatisch.
+
 ### Spielfiguren vereinheitlicht und Brix-Dublette entfernt
 
 - `character-aob-xeno-sc` ist der einzige kanonische Eintrag für Brix

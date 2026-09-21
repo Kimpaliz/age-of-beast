@@ -19,6 +19,7 @@
    | `pruefe-blase.mjs` | ein Tipp auf eine Zahl öffnet ihr Popup, ein zweiter schliesst es, und die Schadensschwelle sagt, was sie bedeutet | das Popup, das **zwei** Tipps braucht, weil der Fokus es öffnet und der Klick danach wieder schliesst — auf dem Telefon sieht es aus, als gäbe es keins |
    | `pruefe-cache-graph.mjs` | jede veränderliche Browser-Abhängigkeit trägt im Artefakt ihre SHA | ein Besucher mit neuem HTML und altem JavaScript aus dem Zwischenspeicher |
    | `pruefe-datenvertrag.mjs` | IDs, Kategorien, Panels, Verweise, Rahmen, Bildpfade (Legacy-v0) | der Verweis auf einen Eintrag, den es nicht gibt |
+   | `pruefe-eintrags-verweise.mjs` | fehlende Linkziele, eindeutige neue IDs und frei wählbare Eintrags-Icons | ein Bogenlink, der ins Leere führt oder einen bestehenden Eintrag überschreibt |
    | `pruefe-erschaffung.mjs` | die neun Schritte der Charaktererschaffung — Auswahl, Regeln, und dass jeder Schritt sich wirklich **zeichnen** laesst | der Assistent, der bei vier von acht Ruestungen beim Zeichnen wirft und stumm den vorigen Schritt stehen laesst |
    | `pruefe-werte.mjs` | der Bogen rechnet mit der Ausruestung, und die Herleitung nennt ihre Quelle | der Wert, der sich beim Ablegen um etwas anderes aendert als das Stueck beitraegt |
    | `pruefe-favoriten.mjs` | Sterne halten, ohne Anmeldung und über Seitenwechsel | der gesetzte Stern, der beim nächsten Aufruf weg ist |

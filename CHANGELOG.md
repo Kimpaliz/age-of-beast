@@ -5,6 +5,26 @@ Dieselben Änderungen stehen in Entwicklersprache in [CHANGELOG-TECHNIK.md](CHAN
 
 Das Neueste steht immer oben.
 
+## Fehlende Gegenstände lassen sich direkt anlegen – 21. September 2026
+
+- Gegenstände auf einem Charakterbogen führen jetzt als echte Links ins
+  Wiki. Existiert der Eintrag noch nicht, erscheint zuerst eine klare
+  Rückfrage statt einer Fehlerseite.
+- Beim Anlegen bleiben Name und Kategorie vorausgefüllt. Ein bestehender
+  Eintrag wird niemals überschrieben; gleichnamige Kennungen werden sicher
+  durchnummeriert.
+- Die Daggerheart-Regelkarte bleibt über ein eigenes Info-Symbol erreichbar.
+  Wiki-Link und Regelhinweis blockieren einander dadurch nicht mehr.
+- Jeder Wiki-Eintrag kann im Bearbeitungsmodus ein eigenes Icon wählen.
+  Ohne Auswahl bleibt automatisch das vertraute Kategorie-Icon erhalten.
+- Das Icon erscheint in Navigation, Übersichten, Suchergebnissen,
+  Vorschaufenstern, Verknüpfungen, Favoriten und Charakterbögen.
+- Charakterbögen gleichen den zuletzt geladenen gemeinsamen Weltstand ab.
+  Neu angelegte Gegenstände und geänderte Icons bleiben dadurch nicht bis
+  zur nächsten Veröffentlichung veraltet.
+- Eine neue Prüfung kontrolliert Anlage, Namenssuche, Kennungen, Icons und
+  die Trennung zwischen Wiki-Link und Regelkarte.
+
 ## Brix und Lukas haben eindeutige Charakterbögen – 21. September 2026
 
 - **Brix Borin existiert nur noch einmal.** Die zweite Fassung aus der

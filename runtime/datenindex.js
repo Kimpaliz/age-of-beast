@@ -128,7 +128,14 @@
           a.className = 'verweis';
           a.href = '#/eintrag/' + encodeURIComponent(ziel);
           a.dataset.ziel = ziel;
-          a.textContent = wort;
+          const zielEintrag = nachId.get(ziel);
+          const symbole = window.aobSymbole;
+          if (zielEintrag && symbole?.eintragSymbol) {
+            const halter = document.createElement('span');
+            halter.innerHTML = symbole.eintragSymbol(zielEintrag.icon, zielEintrag.kategorie, 'verweis-icon');
+            if (halter.firstElementChild) a.appendChild(halter.firstElementChild);
+          }
+          a.appendChild(document.createTextNode(wort));
           teile.appendChild(a);
           belegt.add(ziel);
           ende = t.index + wort.length;

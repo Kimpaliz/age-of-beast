@@ -366,6 +366,7 @@ export function umwandeln(roh) {
         id,
         name: element.name || id,
         kategorie: kategorieInfo.schluessel,
+        ...(String(element.icon || '').trim() ? { icon: String(element.icon).trim() } : {}),
         unterart,
         kurz: nurText(element.description),
         aliase,

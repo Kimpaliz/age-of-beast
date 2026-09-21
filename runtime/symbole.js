@@ -99,20 +99,111 @@
     ],
   };
 
+  /* Selectable motifs for individual entries. Category symbols stay
+     separate: an empty value deliberately means "use category icon". */
+  const EINTRAGS_MOTIVE = {
+    person: { name: 'Person', pfade: MOTIVE.characters },
+    crown: { name: 'Krone', pfade: [
+      'M4 7l4 4 4-6 4 6 4-4-2 11H6z',
+      'M6 18h12',
+    ] },
+    banner: { name: 'Banner', pfade: MOTIVE.factions },
+    shield: { name: 'Schild', pfade: [
+      'M12 3l7 3v5c0 4.7-2.8 8-7 10-4.2-2-7-5.3-7-10V6z',
+    ] },
+    sword: { name: 'Schwert', pfade: MOTIVE.items },
+    key: { name: 'Schlüssel', pfade: [
+      'M15.5 4.5a4 4 0 1 1-2.8 6.8A4 4 0 0 1 15.5 4.5z',
+      'M12.7 11.3L4 20',
+      'M6.2 17.8l2 2',
+      'M8.5 15.5l2 2',
+    ] },
+    potion: { name: 'Trank', pfade: [
+      'M9 3h6',
+      'M10 3v5l-4 7a2 2 0 0 0 1.7 3h8.6a2 2 0 0 0 1.7-3l-4-7V3',
+      'M7.4 14h9.2',
+    ] },
+    book: { name: 'Buch', pfade: MOTIVE.wiki },
+    scroll: { name: 'Schriftrolle', pfade: [
+      'M7 4h10a2 2 0 0 1 2 2v12H8a3 3 0 0 1-3-3V6a2 2 0 0 1 2-2z',
+      'M8 8h7',
+      'M8 12h7',
+      'M8 16h5',
+    ] },
+    map: { name: 'Karte', pfade: [
+      'M3.5 6l5-2 7 2 5-2v14l-5 2-7-2-5 2z',
+      'M8.5 4v14',
+      'M15.5 6v14',
+    ] },
+    pin: { name: 'Ortsmarke', pfade: [
+      'M12 21s6-6.1 6-11a6 6 0 1 0-12 0c0 4.9 6 11 6 11z',
+      'M12 7.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z',
+    ] },
+    castle: { name: 'Bauwerk', pfade: MOTIVE.places },
+    tree: { name: 'Baum', pfade: [
+      'M12 3l-5 7h3l-4 6h12l-4-6h3z',
+      'M12 16v5',
+    ] },
+    mountain: { name: 'Berg', pfade: [
+      'M3 20L10 7l3 5 2-3 6 11z',
+      'M8.2 10.3L10 12l1.4-1.4',
+    ] },
+    star: { name: 'Stern', pfade: [
+      'M12 3l2.5 5.5 6 .7-4.4 4.1 1.2 5.9-5.3-3-5.3 3 1.2-5.9-4.4-4.1 6-.7z',
+    ] },
+    sun: { name: 'Sonne', pfade: [
+      'M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10z',
+      'M12 2v2', 'M12 20v2', 'M2 12h2', 'M20 12h2',
+      'M4.9 4.9l1.4 1.4', 'M17.7 17.7l1.4 1.4',
+      'M19.1 4.9l-1.4 1.4', 'M6.3 17.7l-1.4 1.4',
+    ] },
+    moon: { name: 'Mond', pfade: [
+      'M18.5 15.5C14 17 9 14 9 9c0-1.4.4-2.6 1-3.7C5.8 6.2 4 9.5 4.8 13c1 4.4 5.4 7.2 9.7 6.2 1.8-.4 3.2-1.8 4-3.7z',
+    ] },
+    flame: { name: 'Flamme', pfade: [
+      'M13 3c.5 4-3 5-3 8 0 1.8 1 2.8 2 3.5-.2-2.4 1.2-3.7 2.4-4.7 2.2 1.8 3.6 4 3.6 6.3a6 6 0 0 1-12 0C6 10.8 10.6 8.2 13 3z',
+    ] },
+    skull: { name: 'Schädel', pfade: [
+      'M5 11C5 6.6 8.1 4 12 4s7 2.6 7 7v3.5l-2 2V20H7v-3.5l-2-2z',
+      'M8.5 11.5h1', 'M14.5 11.5h1', 'M10 16v2', 'M14 16v2',
+    ] },
+    gem: { name: 'Edelstein', pfade: [
+      'M7 4h10l4 5-9 11L3 9z',
+      'M3 9h18', 'M7 4l2 5 3 11', 'M17 4l-2 5-3 11',
+    ] },
+    gear: { name: 'Zahnrad', pfade: [
+      'M12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8z',
+      'M12 2v3', 'M12 19v3', 'M2 12h3', 'M19 12h3',
+      'M4.9 4.9L7 7', 'M17 17l2.1 2.1', 'M19.1 4.9L17 7', 'M7 17l-2.1 2.1',
+    ] },
+    eye: { name: 'Auge', pfade: [
+      'M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z',
+      'M12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6z',
+    ] },
+  };
+
   const ERSATZ = 'wiki';
 
   function kennung(kategorie) {
     return 'aob-symbol-' + String(kategorie || '').replace(/[^a-z0-9-]/gi, '');
   }
 
+  function eintragsKennung(icon) {
+    return 'aob-eintrag-symbol-' + String(icon || '').replace(/[^a-z0-9-]/gi, '');
+  }
+
   /* Der Sprite steht einmal im Dokument, unsichtbar und für Vorlesegeraete
      ausgeblendet. Jedes <use> weiter unten verweist nur noch darauf. */
   function sprite() {
-    const symbole = Object.keys(MOTIVE).map((name) => {
+    const kategorien = Object.keys(MOTIVE).map((name) => {
       const pfade = MOTIVE[name].map((d) => '<path d="' + d + '"/>').join('');
       return '<symbol id="' + kennung(name) + '" viewBox="0 0 24 24">' + pfade + '</symbol>';
     }).join('');
-    return '<svg class="symbol-vorrat" aria-hidden="true" focusable="false" width="0" height="0">' + symbole + '</svg>';
+    const eintraege = Object.entries(EINTRAGS_MOTIVE).map(([name, motiv]) => {
+      const pfade = motiv.pfade.map((d) => '<path d="' + d + '"/>').join('');
+      return '<symbol id="' + eintragsKennung(name) + '" viewBox="0 0 24 24">' + pfade + '</symbol>';
+    }).join('');
+    return '<svg class="symbol-vorrat" aria-hidden="true" focusable="false" width="0" height="0">' + kategorien + eintraege + '</svg>';
   }
 
   /* Liefert ein einzelnes Symbol. Es ist immer schmückend: Daneben steht
@@ -127,8 +218,37 @@
     return Object.prototype.hasOwnProperty.call(MOTIVE, kategorie);
   }
 
+  function eintragSymbol(icon, kategorie, klasse) {
+    const name = String(icon || '');
+    if (!Object.prototype.hasOwnProperty.call(EINTRAGS_MOTIVE, name)) {
+      return symbol(kategorie, 'eintrag-symbol' + (klasse ? ' ' + klasse : ''));
+    }
+    const klassen = 'symbol eintrag-symbol' + (klasse ? ' ' + klasse : '');
+    return '<svg class="' + klassen + '" aria-hidden="true" focusable="false"><use href="#' + eintragsKennung(name) + '"/></svg>';
+  }
+
+  function eintragsMotive() {
+    return Object.entries(EINTRAGS_MOTIVE).map(([kennung, motiv]) => ({
+      kennung, name: motiv.name,
+    }));
+  }
+
+  function api() {
+    return {
+      sprite,
+      symbol,
+      kennt,
+      motive: () => Object.keys(MOTIVE),
+      eintragSymbol,
+      kenntEintrag: (icon) => Object.prototype.hasOwnProperty.call(EINTRAGS_MOTIVE, icon),
+      eintragsMotive,
+    };
+  }
+
   bausteine.symbole = function symboleErstellen() {
-    return { sprite, symbol, kennt, motive: () => Object.keys(MOTIVE) };
+    return api();
   };
+
+  window.aobSymbole = Object.freeze(api());
 
 })();

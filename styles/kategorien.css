@@ -38,6 +38,144 @@
   vertical-align: -0.125em;
 }
 
+.eintrag-symbol {
+  display: inline-block;
+  vertical-align: -0.12em;
+  stroke-width: 1.7;
+}
+
+.nav-eintrag-icon { width: 0.95em; height: 0.95em; opacity: 0.78; }
+.verweis-icon { width: 0.92em; height: 0.92em; margin-right: 0.22em; }
+.such-icon, .vorschau-icon { width: 1em; height: 1em; color: var(--akzent); }
+.titel-eintrag-icon { width: 1em; height: 1em; color: var(--akzent); }
+
+.such-treffer .treffer strong {
+  display: flex;
+  align-items: center;
+  gap: 0.38rem;
+}
+
+.eintrag-titel {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+.eintrag-titel > span { min-width: 0; }
+a.verweis .verweis-icon { color: currentColor; }
+.v-name { display: flex; align-items: center; gap: 0.4rem; }
+
+/* A missing target is a short confirmation page, not a second editor. */
+.eintrag-neu-dialog {
+  width: min(46rem, 100%);
+  margin: 2rem auto;
+  padding: clamp(1rem, 3vw, 1.6rem);
+  background: var(--flaeche);
+  border: 1px solid var(--rand-hell);
+  border-top: 3px double var(--akzent);
+  border-radius: var(--radius);
+  box-shadow: var(--schatten-klein);
+}
+.eintrag-neu-dialog h1 {
+  margin: 0.35rem 0 0.65rem;
+  font-family: var(--serif);
+  font-size: clamp(1.55rem, 1.2rem + 1vw, 2.15rem);
+  letter-spacing: 0;
+}
+.eintrag-neu-dialog > p { color: var(--schrift-matt); line-height: 1.6; }
+.eintrag-neu-form { display: grid; gap: 1rem; margin-top: 1.25rem; }
+.eintrag-neu-feld { display: grid; gap: 0.35rem; }
+.eintrag-neu-feld > span, .icon-auswahl legend {
+  color: var(--schrift-leise);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.eintrag-neu-feld input, .eintrag-neu-feld select {
+  width: 100%;
+  min-height: 2.35rem;
+  padding: 0.45rem 0.6rem;
+  background: var(--grund);
+  color: var(--schrift);
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+  font: inherit;
+}
+.eintrag-neu-feld input:focus, .eintrag-neu-feld select:focus {
+  outline: 2px solid var(--akzent-rand);
+  outline-offset: 1px;
+}
+.eintrag-neu-aktionen { display: flex; flex-wrap: wrap; align-items: center; gap: 0.55rem; }
+
+/* Icon choices use the same compact control in creation and edit mode. */
+.icon-auswahl,
+.eintrags-icon-bearbeitung {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+.eintrags-icon-bearbeitung {
+  margin: 0.75rem 0 1rem;
+  padding: 0.7rem;
+  border: 1px solid var(--rand);
+  border-radius: var(--radius-klein);
+  background: var(--flaeche);
+}
+.eintrags-icon-bearbeitung legend,
+.icon-auswahl legend {
+  margin-bottom: 0.45rem;
+  color: var(--schrift-leise);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.icon-optionen {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(4.25rem, 1fr));
+  gap: 0.35rem;
+}
+.icon-option {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 0.22rem;
+  min-width: 0;
+  padding: 0.35rem 0.2rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-klein);
+  color: var(--schrift-leise);
+  font-size: 0.66rem;
+  text-align: center;
+  cursor: pointer;
+}
+.icon-option input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+.icon-vorschau {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--rand-hell);
+  border-radius: var(--radius-klein);
+  color: var(--schrift-matt);
+  background: var(--grund);
+}
+.icon-auswahl-symbol { width: 1.1rem; height: 1.1rem; }
+.icon-option:hover { color: var(--schrift); background: var(--akzent-schleier); }
+.icon-option input:focus-visible + .icon-vorschau { outline: 2px solid var(--akzent); outline-offset: 2px; }
+.icon-option input:checked + .icon-vorschau {
+  color: var(--akzent-hell);
+  border-color: var(--akzent);
+  background: var(--akzent-schleier);
+  box-shadow: 0 0 0 1px var(--akzent-rand);
+}
+.icon-option:has(input:checked) { color: var(--schrift); }
+
 /* ------------------------------------------------------------------ *
    Wo die Symbole stehen
    ------------------------------------------------------------------ */

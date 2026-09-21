@@ -34,6 +34,7 @@
     let ausblendUhr = null;
 
     const sicher = (t) => String(t ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    const eintragSymbol = (e, klasse) => window.aobSymbole?.eintragSymbol?.(e?.icon, e?.kategorie, klasse) || '';
     const kuerzen = (t, n) => {
       t = String(t || '').trim();
       return t.length <= n ? t : t.slice(0, t.lastIndexOf(' ', n) || n) + ' …';
@@ -62,7 +63,7 @@
       ziel = a;
       a.classList.add('aktiv');
       const zahl = datenindex.verknuepfungsZahl(e);
-      vorschau.innerHTML = '<span class="mikro v-etikett">' + sicher(datenindex.etikettHolen(e)) + '</span><div class="v-name">' + sicher(e.name) + '</div>' + (e.kurz ? '<p class="v-text">' + sicher(kuerzen(e.kurz, 190)) + '</p>' : '') + '<span class="v-fuss"><span>' + zahl + ' ' + (zahl === 1 ? 'Verknüpfung' : 'Verknüpfungen') + ' &middot; ' + datenindex.reifegrad(e) + '</span><a class="v-oeffnen" href="#/eintrag/' + encodeURIComponent(e.id) + '">Öffnen &rarr;</a></span>';
+      vorschau.innerHTML = '<span class="mikro v-etikett">' + sicher(datenindex.etikettHolen(e)) + '</span><div class="v-name">' + eintragSymbol(e, 'vorschau-icon') + sicher(e.name) + '</div>' + (e.kurz ? '<p class="v-text">' + sicher(kuerzen(e.kurz, 190)) + '</p>' : '') + '<span class="v-fuss"><span>' + zahl + ' ' + (zahl === 1 ? 'Verknüpfung' : 'Verknüpfungen') + ' &middot; ' + datenindex.reifegrad(e) + '</span><a class="v-oeffnen" href="#/eintrag/' + encodeURIComponent(e.id) + '">Öffnen &rarr;</a></span>';
       vorschau.hidden = false;
       const platz = a.getBoundingClientRect();
       const eigen = vorschau.getBoundingClientRect();
@@ -89,7 +90,7 @@
         return;
       }
       const hervorheben = (text) => sicher(text).replace(new RegExp('(' + begriff.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi'), '<mark>$1</mark>');
-      suchTreffer.innerHTML = treffer.map((t, i) => '<button type="button" class="treffer" role="option" data-index="' + i + '" data-ziel="' + sicher(t.eintrag.id) + '"><strong>' + hervorheben(t.eintrag.name) + '</strong><small>' + sicher(datenindex.kategorieInfoHolen(t.eintrag.kategorie)?.einzahl || t.eintrag.kategorie) + (t.stelle ? ' &middot; ' + hervorheben(kuerzen(t.stelle, 90)) : '') + '</small></button>').join('');
+      suchTreffer.innerHTML = treffer.map((t, i) => '<button type="button" class="treffer" role="option" data-index="' + i + '" data-ziel="' + sicher(t.eintrag.id) + '"><strong>' + eintragSymbol(t.eintrag, 'such-icon') + '<span>' + hervorheben(t.eintrag.name) + '</span></strong><small>' + sicher(datenindex.kategorieInfoHolen(t.eintrag.kategorie)?.einzahl || t.eintrag.kategorie) + (t.stelle ? ' &middot; ' + hervorheben(kuerzen(t.stelle, 90)) : '') + '</small></button>').join('');
       suchTreffer.hidden = false;
     }
 
@@ -189,6 +190,13 @@
         } else if (!e.target.closest('#vorschau')) verbergen();
       });
       document.addEventListener('click', (e) => {
+        const abbrechen = e.target.closest('[data-neu-abbrechen]');
+        if (abbrechen) {
+          e.preventDefault();
+          if (history.length > 1) history.back();
+          else location.hash = '#/';
+          return;
+        }
         const a = e.target.closest('a.verweis[data-ziel]');
         if (a && letzterZeiger === 'touch' && ziel !== a) {
           e.preventDefault();

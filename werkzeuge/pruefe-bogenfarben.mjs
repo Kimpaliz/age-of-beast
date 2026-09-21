@@ -65,6 +65,7 @@ const KLASSEN = [
    hinzufügt, trägt sie hier ein. */
 const DATEIEN = new Set([
   'bogen.html', 'stil.css', 'daten/welt.js', 'runtime/favoriten.js',
+  'runtime/symbole.js', 'firebase-konfig.js',
   'styles/tokens.css', 'styles/wiki.css', 'styles/bearbeiten.css',
   'styles/werkstatt.css', 'styles/kategorien.css', 'styles/charakterbogen.css',
   'styles/handy.css', 'styles/grundregeln.css', 'styles/eintragsbloecke.css',
@@ -76,6 +77,8 @@ const DATEIEN = new Set([
      06.09.2026 mit `schwellen-text.js` genau so passiert. */
   'karte/schwellen-text.js',
   'karte/karten-daten.js', 'karte/figuren-eigen.js', 'werkzeuge/werte-rechnen.mjs',
+  'werkzeuge/firestore-speicher.mjs', 'werkzeuge/firestore-format.mjs',
+  'werkzeuge/welt-umwandeln.mjs', 'werkzeuge/welt-rahmen.mjs',
   'styles/erschaffung.css',
   'daten/daggerheart-karten.json', 'daten/daggerheart-gegenstaende.json',
 ]);

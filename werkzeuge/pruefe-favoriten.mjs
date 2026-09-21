@@ -214,7 +214,7 @@ if (!existsSync(FAVORITEN)) {
       const szenario = umgebung(speicher);
       assert.doesNotThrow(() => listeStarten(szenario));
       const knoten = alleKnoten(szenario.liste);
-      assert.ok(knoten.some((k) => k.tagName === 'A' && k.href === './#/eintrag/eintrag-1'));
+      assert.ok(knoten.some((k) => k.tagName === 'A' && k.href === 'wiki.html#/eintrag/eintrag-1'));
       assert.ok(knoten.some((k) => k.tagName === 'A' && k.href === 'karten.html?karte=Karte%201'));
       assert.ok(!knoten.some((k) => String(k.textContent).includes('Nicht anzeigen')));
     });

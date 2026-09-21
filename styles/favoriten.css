@@ -79,6 +79,9 @@
 }
 
 .favoriten-verweis {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
   min-width: 0;
   overflow-wrap: anywhere;
   color: var(--verweis);
@@ -86,6 +89,8 @@
   font-weight: 600;
   text-decoration: none;
 }
+
+.favorit-eintrag-icon { flex: none; width: 1em; height: 1em; }
 
 .favoriten-verweis:hover,
 .favoriten-verweis:focus-visible { color: var(--verweis-aktiv); }

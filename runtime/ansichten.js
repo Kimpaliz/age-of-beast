@@ -28,6 +28,9 @@
        Namen der Kategorie. */
     const symbolvorrat = typeof bausteine.symbole === 'function' ? bausteine.symbole() : null;
     const symbol = (kategorie, klasse) => (symbolvorrat ? symbolvorrat.symbol(kategorie, klasse) : '');
+    const eintragSymbol = (eintrag, klasse) => (symbolvorrat
+      ? symbolvorrat.eintragSymbol(eintrag?.icon, eintrag?.kategorie, klasse)
+      : '');
     if (symbolvorrat && !document.querySelector('.symbol-vorrat')) {
       document.body.insertAdjacentHTML('afterbegin', symbolvorrat.sprite());
     }
@@ -71,10 +74,17 @@
 
     const etikett = (e) => sicher(kategorieEinzahl(e.kategorie)) + (e.unterart ? ' &middot; ' + sicher(e.unterart) : '');
 
+    function verweis(eintrag, anzeige) {
+      if (!eintrag) return sicher(anzeige || '');
+      return '<a class="verweis" href="#/eintrag/' + encodeURIComponent(eintrag.id)
+        + '" data-ziel="' + sicher(eintrag.id) + '">'
+        + eintragSymbol(eintrag, 'verweis-icon') + sicher(anzeige || eintrag.name) + '</a>';
+    }
+
     function kachel(e) {
       const zahl = datenindex.verknuepfungsZahl(e);
       const reife = datenindex.reifegrad(e);
-      return '<a class="kachel" href="#/eintrag/' + encodeURIComponent(e.id) + '" data-kategorie="' + sicher(e.kategorie) + '"><span class="k-kopf">' + symbol(e.kategorie, 'k-marke') + '<span class="mikro k-etikett">' + etikett(e) + '</span></span><h2>' + sicher(e.name) + '</h2><p>' + sicher(kuerzen(e.kurz, 150)) + '</p><span class="k-fuss"><span>' + anzahlWort(zahl, 'Verknüpfung', 'Verknüpfungen') + '</span><span class="reife ' + reife + '">' + (reife === 'ausgebaut' ? 'ausgebaut' : 'knapp') + '</span></span></a>';
+      return '<a class="kachel" href="#/eintrag/' + encodeURIComponent(e.id) + '" data-kategorie="' + sicher(e.kategorie) + '"><span class="k-kopf">' + eintragSymbol(e, 'k-marke') + '<span class="mikro k-etikett">' + etikett(e) + '</span></span><h2>' + sicher(e.name) + '</h2><p>' + sicher(kuerzen(e.kurz, 150)) + '</p><span class="k-fuss"><span>' + anzahlWort(zahl, 'Verknüpfung', 'Verknüpfungen') + '</span><span class="reife ' + reife + '">' + (reife === 'ausgebaut' ? 'ausgebaut' : 'knapp') + '</span></span></a>';
     }
 
     /* ── Bloecke nach Unterart ─────────────────────────────────────
@@ -139,7 +149,7 @@
       const welt = datenindex.weltHolen();
       navigation.innerHTML = normaleKategorien(welt).map((k) => {
         const liste = datenindex.kategorieHolen(k.schluessel) || [];
-        return !liste.length ? '' : '<section class="nav-gruppe" data-kategorie="' + sicher(k.schluessel) + '"><h2 class="mikro"><a href="#/kategorie/' + encodeURIComponent(k.schluessel) + '">' + symbol(k.schluessel, 'nav-marke') + sicher(k.name) + '</a><span class="anzahl">' + liste.length + '</span></h2><ul>' + liste.map((e) => '<li><a href="#/eintrag/' + encodeURIComponent(e.id) + '" data-nav="' + sicher(e.id) + '">' + sicher(e.name) + '</a></li>').join('') + '</ul></section>';
+        return !liste.length ? '' : '<section class="nav-gruppe" data-kategorie="' + sicher(k.schluessel) + '"><h2 class="mikro"><a href="#/kategorie/' + encodeURIComponent(k.schluessel) + '">' + symbol(k.schluessel, 'nav-marke') + sicher(k.name) + '</a><span class="anzahl">' + liste.length + '</span></h2><ul>' + liste.map((e) => '<li><a href="#/eintrag/' + encodeURIComponent(e.id) + '" data-nav="' + sicher(e.id) + '">' + eintragSymbol(e, 'nav-eintrag-icon') + '<span>' + sicher(e.name) + '</span></a></li>').join('') + '</ul></section>';
       }).join('');
     }
 
@@ -194,14 +204,14 @@
 
       const seite = [];
       if ((e.attribute || []).length) seite.push('<section class="steckbrief"><h2 class="mikro">Attribute</h2><dl class="eigenschaften">' + e.attribute.map((a) => {
-        const z = a.ziel ? '<a class="verweis" href="#/eintrag/' + encodeURIComponent(a.ziel) + '" data-ziel="' + sicher(a.ziel) + '">' + sicher(a.wert) + '</a>' : sicher(a.wert);
+        const z = a.ziel ? verweis(datenindex.eintragHolen(a.ziel), a.wert) : sicher(a.wert);
         const anker = a.schluessel ? ' data-zeile="' + sicher(a.schluessel) + '"' : '';
         return '<dt' + anker + '>' + sicher(a.beschriftung) + '</dt><dd' + anker + '>' + z + '</dd>';
       }).join('') + '</dl></section>');
 
       const zeile = (v, richtung) => {
         const ziel = datenindex.eintragHolen(v.ziel);
-        return !ziel ? '' : '<li' + (v.text ? ' class="mit-erklaerung"' : '') + '><a class="verweis" href="#/eintrag/' + encodeURIComponent(ziel.id) + '" data-ziel="' + sicher(ziel.id) + '">' + sicher(ziel.name) + '</a><span class="art">' + sicher(richtung === 'hinaus' ? v.art : v.art + ' von') + '</span>' + (v.text ? '<span class="erklaerung">' + sicher(v.text) + '</span>' : '') + '</li>';
+        return !ziel ? '' : '<li' + (v.text ? ' class="mit-erklaerung"' : '') + '>' + verweis(ziel) + '<span class="art">' + sicher(richtung === 'hinaus' ? v.art : v.art + ' von') + '</span>' + (v.text ? '<span class="erklaerung">' + sicher(v.text) + '</span>' : '') + '</li>';
       };
       if (hinaus.length || herein.length) {
         const schon = new Set(hinaus.map((v) => v.ziel));
@@ -209,15 +219,39 @@
       }
 
       const erwaehnungen = [...datenindex.erwaehntVonHolen(e.id)].map((q) => datenindex.eintragHolen(q)).filter(Boolean).filter((q) => !hinaus.some((v) => v.ziel === q.id) && !herein.some((v) => v.ziel === q.id)).sort((a, b) => a.name.localeCompare(b.name, 'de'));
-      if (erwaehnungen.length) seite.push('<section><h2 class="mikro">Erwähnt in</h2><ul class="bezugsliste">' + erwaehnungen.map((q) => '<li><a class="verweis" href="#/eintrag/' + encodeURIComponent(q.id) + '" data-ziel="' + sicher(q.id) + '">' + sicher(q.name) + '</a><span class="art">' + sicher(kategorieName(q.kategorie)) + '</span></li>').join('') + '</ul></section>');
+      if (erwaehnungen.length) seite.push('<section><h2 class="mikro">Erwähnt in</h2><ul class="bezugsliste">' + erwaehnungen.map((q) => '<li>' + verweis(q) + '<span class="art">' + sicher(kategorieName(q.kategorie)) + '</span></li>').join('') + '</ul></section>');
       if (e.quelle || e.geaendert) seite.push('<section><h2 class="mikro">Herkunft</h2><dl class="eigenschaften">' + (e.quelle ? '<dt>Regelquelle</dt><dd>' + sicher(e.quelle) + '</dd>' : '') + (e.geaendert ? '<dt>Zuletzt</dt><dd>' + sicher(datumKurz(e.geaendert)) + '</dd>' : '') + '</dl></section>');
 
-      inhalt.innerHTML = '<p class="brotkrumen"><a class="zurueck" href="#/">&lsaquo; Arbeitsfläche</a><span class="pfad">' + sicher(welt.titel) + ' / <a href="#/kategorie/' + encodeURIComponent(e.kategorie) + '">' + sicher(kategorieName(e.kategorie)) + '</a> / ' + sicher(e.name) + '</span></p><article class="artikel" data-eintrag="' + sicher(e.id) + '" data-kategorie="' + sicher(e.kategorie) + '"><span class="mikro mit-marke">' + symbol(e.kategorie, 'etikett-marke') + etikett(e) + '</span>' + (rahmenVorhanden?.(e.id) ? '<a class="modul-knopf assistent-verweis" href="#/rahmen/' + encodeURIComponent(e.id) + '">Im Assistenten bearbeiten →</a>' : '') + (e.spielwerte ? '<a class="modul-knopf assistent-verweis" href="bogen.html?figur=' + encodeURIComponent(e.id) + '">Charakterbogen öffnen →</a>' : '') + '<h1 data-feld="name">' + sicher(e.name) + '</h1>' + (e.bild ? '<figure class="eintrag-bild"><img src="' + sicher(e.bild) + '" alt="Wappen: ' + sicher(e.name) + '" decoding="async"></figure>' : '') + (e.aliase?.length ? '<p class="mikro" style="margin:-1.1rem 0 1.5rem">Auch: ' + sicher(e.aliase.join(' · ')) + '</p>' : '') + '<div class="artikel-raster"><div class="artikel-text">' + text.join('') + '</div>' + (seite.length ? '<aside class="artikel-seite">' + seite.join('') + '</aside>' : '') + '</div></article>';
+      inhalt.innerHTML = '<p class="brotkrumen"><a class="zurueck" href="#/">&lsaquo; Arbeitsfläche</a><span class="pfad">' + sicher(welt.titel) + ' / <a href="#/kategorie/' + encodeURIComponent(e.kategorie) + '">' + sicher(kategorieName(e.kategorie)) + '</a> / ' + sicher(e.name) + '</span></p><article class="artikel" data-eintrag="' + sicher(e.id) + '" data-kategorie="' + sicher(e.kategorie) + '"><span class="mikro mit-marke">' + symbol(e.kategorie, 'etikett-marke') + etikett(e) + '</span>' + (rahmenVorhanden?.(e.id) ? '<a class="modul-knopf assistent-verweis" href="#/rahmen/' + encodeURIComponent(e.id) + '">Im Assistenten bearbeiten →</a>' : '') + (e.spielwerte ? '<a class="modul-knopf assistent-verweis" href="bogen.html?figur=' + encodeURIComponent(e.id) + '">Charakterbogen öffnen →</a>' : '') + '<h1 class="eintrag-titel" data-feld="name">' + eintragSymbol(e, 'titel-eintrag-icon') + '<span>' + sicher(e.name) + '</span></h1>' + (e.bild ? '<figure class="eintrag-bild"><img src="' + sicher(e.bild) + '" alt="Wappen: ' + sicher(e.name) + '" decoding="async"></figure>' : '') + (e.aliase?.length ? '<p class="mikro" style="margin:-1.1rem 0 1.5rem">Auch: ' + sicher(e.aliase.join(' · ')) + '</p>' : '') + '<div class="artikel-raster"><div class="artikel-text">' + text.join('') + '</div>' + (seite.length ? '<aside class="artikel-seite">' + seite.join('') + '</aside>' : '') + '</div></article>';
 
       const belegt = new Set();
       inhalt.querySelectorAll('.artikel-text .anriss, .artikel-text .abschnitt').forEach((bereich) => datenindex.verweiseSetzen(bereich, e.id, belegt));
       navigationMarkieren(e.id);
       document.title = e.name + ' – ' + welt.titel;
+    }
+
+    function fehlenderEintragZeichnen(kategorie, name) {
+      const welt = datenindex.weltHolen();
+      const kategorien = normaleKategorien(welt);
+      const vorauswahl = kategorien.some((eintrag) => eintrag.schluessel === kategorie)
+        ? kategorie
+        : (kategorien[0]?.schluessel || 'items');
+      const motive = symbolvorrat?.eintragsMotive?.() || [];
+      const iconWahl = '<label class="icon-option standard"><input type="radio" name="icon" value="" checked><span class="icon-vorschau">' + symbol(vorauswahl, 'icon-auswahl-symbol') + '</span><span>Standard</span></label>'
+        + motive.map((motiv) => '<label class="icon-option" title="' + sicher(motiv.name) + '"><input type="radio" name="icon" value="' + sicher(motiv.kennung) + '"><span class="icon-vorschau">' + symbolvorrat.eintragSymbol(motiv.kennung, vorauswahl, 'icon-auswahl-symbol') + '</span><span>' + sicher(motiv.name) + '</span></label>').join('');
+
+      inhalt.innerHTML = '<p class="brotkrumen"><a class="zurueck" href="#/">&lsaquo; Arbeitsfläche</a><span class="pfad">' + sicher(welt.titel) + ' / Neuer Eintrag</span></p>'
+        + '<section class="eintrag-neu-dialog" role="dialog" aria-labelledby="eintrag-neu-titel">'
+        + '<span class="mikro">Noch nicht im Wiki</span><h1 id="eintrag-neu-titel">„' + sicher(name) + '“ anlegen?</h1>'
+        + '<p>Zu diesem Verweis gibt es noch keinen Eintrag. Du kannst ihn jetzt leer anlegen und anschließend wie jeden anderen Eintrag bearbeiten.</p>'
+        + '<form class="eintrag-neu-form" data-neuer-eintrag>'
+        + '<label class="eintrag-neu-feld"><span>Name</span><input name="name" value="' + sicher(name) + '" maxlength="120" required></label>'
+        + '<label class="eintrag-neu-feld"><span>Kategorie</span><select name="kategorie">' + kategorien.map((eintrag) => '<option value="' + sicher(eintrag.schluessel) + '"' + (eintrag.schluessel === vorauswahl ? ' selected' : '') + '>' + sicher(eintrag.name) + '</option>').join('') + '</select></label>'
+        + '<fieldset class="icon-auswahl"><legend>Icon</legend><div class="icon-optionen">' + iconWahl + '</div></fieldset>'
+        + '<div class="eintrag-neu-aktionen"><button type="submit" class="bearbeiten-speichern" data-neu-speichern disabled>Eintrag anlegen</button><button type="button" class="bearbeiten-abbrechen" data-neu-abbrechen>Abbrechen</button><span class="bearbeiten-meldung" data-neu-meldung>Zum Anlegen bitte anmelden.</span></div>'
+        + '</form></section>';
+      navigationMarkieren(null);
+      document.title = name + ' anlegen – ' + welt.titel;
     }
 
     function werkstattZeichnen() {
@@ -250,7 +284,7 @@
     }
 
     return {
-      inhaltHolen: () => inhalt, kopfzeileSetzen, navigationZeichnen, startseiteZeichnen, kategorieZeichnen, eintragZeichnen, werkstattZeichnen, rahmenHinweisZeichnen, nichtGefunden
+      inhaltHolen: () => inhalt, kopfzeileSetzen, navigationZeichnen, startseiteZeichnen, kategorieZeichnen, eintragZeichnen, fehlenderEintragZeichnen, werkstattZeichnen, rahmenHinweisZeichnen, nichtGefunden
     };
 
   };

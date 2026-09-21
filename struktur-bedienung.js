@@ -27,6 +27,10 @@ import {
   zeileLoeschen,
   zeileSetzen,
 } from './werkzeuge/struktur-bearbeiten.mjs';
+import {
+  eintragEntwurf,
+  eintragNachName,
+} from './werkzeuge/eintrag-anlegen.mjs';
 
 /* ================================================================
    Kleine Bausteine
@@ -91,14 +95,81 @@ export function strukturEinrichten(kontext) {
     );
   }
 
+  /** Wires the confirmation form shown for an unresolved link target. */
+  function fehlendenEintragAnbinden() {
+    const form = document.querySelector('[data-neuer-eintrag]:not([data-verdrahtet])');
+    if (!form) return;
+    form.dataset.verdrahtet = 'ja';
+
+    const speichern = form.querySelector('[data-neu-speichern]');
+    const meldung = form.querySelector('[data-neu-meldung]');
+    const kategorieFeld = form.elements.kategorie;
+    const standardIcon = form.querySelector('.icon-option.standard .icon-vorschau');
+
+    if (speichern) speichern.disabled = false;
+    if (meldung) meldung.textContent = 'Bereit zum Anlegen.';
+
+    const standardAktualisieren = () => {
+      if (!standardIcon || !window.aobSymbole?.symbol) return;
+      standardIcon.innerHTML = window.aobSymbole.symbol(kategorieFeld.value, 'icon-auswahl-symbol');
+    };
+    kategorieFeld?.addEventListener('change', standardAktualisieren);
+
+    form.addEventListener('submit', async (ereignis) => {
+      ereignis.preventDefault();
+      const roh = kontext.rohStand();
+      const name = String(form.elements.name?.value || '').replace(/\s+/gu, ' ').trim();
+      const kategorie = String(kategorieFeld?.value || '');
+      const icon = String(form.elements.icon?.value || '');
+
+      if (!name) {
+        if (meldung) meldung.textContent = 'Bitte einen Namen eintragen.';
+        form.elements.name?.focus();
+        return;
+      }
+      if (!roh?.elements?.[kategorie]) {
+        if (meldung) meldung.textContent = 'Diese Kategorie ist gerade nicht verfügbar.';
+        return;
+      }
+
+      const vorhanden = eintragNachName(roh, name, kategorie);
+      if (vorhanden) {
+        location.hash = '#/eintrag/' + encodeURIComponent(vorhanden.id);
+        return;
+      }
+
+      const jetzt = new Date().toISOString();
+      const ids = new Set(Object.values(roh.elements)
+        .flatMap((gruppe) => Object.keys(gruppe || {})));
+      const entwurf = eintragEntwurf({
+        name, kategorie, icon, vorhandeneIds: ids, zeit: jetzt,
+      });
+
+      if (speichern) speichern.disabled = true;
+      if (meldung) meldung.textContent = 'Wird angelegt …';
+      try {
+        await kontext.schreiben({
+          ['elements/' + kategorie + '/' + entwurf.id]: entwurf,
+          updatedAt: jetzt,
+        }, name + ' angelegt');
+        kontext.neuZeichnen();
+        location.hash = '#/eintrag/' + encodeURIComponent(entwurf.id);
+      } catch (fehler) {
+        if (speichern) speichern.disabled = false;
+        if (meldung) meldung.textContent = 'Nicht angelegt: ' + (fehler?.message || fehler);
+      }
+    });
+  }
+
   /* --------------------------------------------------------------
      Aufbauen
      -------------------------------------------------------------- */
 
   function bedienungSetzen() {
     // Alles Frühere entfernen – auch wenn der Modus gerade aus ist.
-    document.querySelectorAll('.struktur-leiste, .struktur-anhang').forEach((alt) => alt.remove());
+    document.querySelectorAll('.struktur-leiste, .struktur-anhang, .eintrags-icon-bearbeitung').forEach((alt) => alt.remove());
     formularSchliessen();
+    fehlendenEintragAnbinden();
     if (!an()) return;
 
     const artikel = document.querySelector('.artikel[data-eintrag]');
@@ -119,6 +190,31 @@ export function strukturEinrichten(kontext) {
 
     const lauf = (schritt) =>
       anwenden(kategorie, eintragId, name, schritt).catch(schiefgegangen);
+
+    /* --- Entry icon --------------------------------------------- */
+
+    const symbolvorrat = window.aobSymbole;
+    const titel = artikel.querySelector('.eintrag-titel');
+    if (titel && symbolvorrat?.eintragsMotive) {
+      const auswahl = document.createElement('fieldset');
+      auswahl.className = 'eintrags-icon-bearbeitung';
+      auswahl.innerHTML = '<legend>Icon des Eintrags</legend><div class="icon-optionen">'
+        + '<label class="icon-option standard"><input type="radio" name="eintrag-icon" value=""'
+        + (element.icon ? '' : ' checked') + '><span class="icon-vorschau">'
+        + symbolvorrat.symbol(kategorie, 'icon-auswahl-symbol') + '</span><span>Standard</span></label>'
+        + symbolvorrat.eintragsMotive().map((motiv) => '<label class="icon-option" title="'
+          + motiv.name.replace(/&/gu, '&amp;').replace(/"/gu, '&quot;') + '"><input type="radio" name="eintrag-icon" value="'
+          + motiv.kennung + '"' + (element.icon === motiv.kennung ? ' checked' : '')
+          + '><span class="icon-vorschau">' + symbolvorrat.eintragSymbol(motiv.kennung, kategorie, 'icon-auswahl-symbol')
+          + '</span><span>' + motiv.name + '</span></label>').join('')
+        + '</div>';
+      auswahl.addEventListener('change', (ereignis) => {
+        const feld = ereignis.target.closest('input[name="eintrag-icon"]');
+        if (!feld) return;
+        lauf({ aenderungen: { icon: feld.value }, beschreibung: 'Icon geändert' });
+      });
+      titel.before(auswahl);
+    }
 
     /* --- Abschnitte: verschieben und löschen -------------------- */
 

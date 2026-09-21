@@ -43,6 +43,7 @@ if (!bausteine || typeof bausteine.symbole !== 'function') {
 
 const symbole = bausteine.symbole();
 const motive = symbole.motive();
+const eintragsMotive = symbole.eintragsMotive();
 
 /* ------------------------------------------------------------------ *
    1. Jede Kategorie hat ein eigenes Symbol
@@ -64,13 +65,14 @@ pruefe(motive.length === KATEGORIEN.length, 'Es muss genau ein Symbol je Kategor
 
 const sprite = symbole.sprite();
 pruefe(sprite.startsWith('<svg') && sprite.endsWith('</svg>'), 'Der Sprite ist ein vollstaendiges SVG-Element.');
-pruefe((sprite.match(/<symbol /gu) || []).length === motive.length, 'Der Sprite enthaelt je Kategorie genau ein <symbol>.');
+pruefe((sprite.match(/<symbol /gu) || []).length === motive.length + eintragsMotive.length,
+  'Der Sprite enthaelt je Kategorie und Eintragsmotiv genau ein <symbol>.');
 pruefe((sprite.match(/<symbol /gu) || []).length === (sprite.match(/<\/symbol>/gu) || []).length, 'Alle <symbol> im Sprite sind geschlossen.');
 pruefe(sprite.includes('aria-hidden="true"'), 'Der Sprite ist fuer Vorlesegeraete ausgeblendet.');
 
 // Alle Pfaddaten aus dem Sprite ziehen und Zahl fuer Zahl nachmessen.
 const pfade = [...sprite.matchAll(/<path d="([^"]+)"\/>/gu)].map((f) => f[1]);
-pruefe(pfade.length >= motive.length, 'Jedes Symbol besteht aus mindestens einem Pfad.');
+pruefe(pfade.length >= motive.length + eintragsMotive.length, 'Jedes Symbol besteht aus mindestens einem Pfad.');
 
 const ERLAUBT = /^[MmLlHhVvCcSsQqTtAaZz0-9 .,-]+$/u;
 
@@ -180,6 +182,11 @@ for (const name of motive) {
 // Eine unbekannte Kategorie darf nicht abstuerzen, sondern faellt zurueck.
 pruefe(symbole.symbol('gibtesnicht').includes('aob-symbol-wiki'), 'Eine unbekannte Kategorie erhaelt das Ersatzsymbol statt eines Fehlers.');
 pruefe(!symbole.kennt('gibtesnicht'), 'kennt() meldet unbekannte Kategorien als unbekannt.');
+pruefe(eintragsMotive.length >= 12, 'Die Eintragsauswahl bietet mindestens zwoelf unterscheidbare Motive.');
+pruefe(symbole.kenntEintrag('key'), 'Der Schluessel ist ein gueltiges Eintragsmotiv.');
+pruefe(!symbole.kenntEintrag('<script>'), 'Freier Text wird niemals als Eintragsmotiv akzeptiert.');
+pruefe(symbole.eintragSymbol('<script>', 'items').includes('aob-symbol-items'),
+  'Ein unbekanntes Eintragsmotiv faellt sicher auf das Kategorie-Icon zurueck.');
 
 /* ------------------------------------------------------------------ *
    4. Die Farben unterscheiden sich messbar

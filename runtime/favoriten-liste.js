@@ -14,6 +14,20 @@
   const ziel = document.getElementById('favoritenliste');
   const favoriten = window.aobFavoriten;
   if (!ziel || !favoriten) return;
+  const eintraege = new Map(((window.AGE_OF_BEAST_WELT || {}).eintraege || [])
+    .map((eintrag) => [eintrag.id, eintrag]));
+  const symbole = window.aobSymbole || null;
+  const wikiKennung = (() => {
+    if (typeof location === 'undefined') return '';
+    const fund = String(location.search || '').match(/(?:^|[?&])w=([^&]*)/u);
+    if (!fund) return '';
+    try { return decodeURIComponent(fund[1].replace(/\+/gu, ' ')); }
+    catch (fehler) { return ''; }
+  })();
+
+  if (symbole && !document.querySelector('.symbol-vorrat')) {
+    document.body.insertAdjacentHTML('afterbegin', symbole.sprite());
+  }
 
   const GRUPPEN = [
     ['eintrag', 'Einträge'],
@@ -27,9 +41,23 @@
   }
 
   function zielAdresse(favorit, name) {
-    if (favorit.typ === 'eintrag') return './#/eintrag/' + encodeURIComponent(favorit.id);
-    if (favorit.typ === 'karte') return 'karten.html?karte=' + encodeURIComponent(name);
-    return 'bogen.html?figur=' + encodeURIComponent(favorit.id);
+    const kennung = wikiKennung ? 'w=' + encodeURIComponent(wikiKennung) : '';
+    if (favorit.typ === 'eintrag') {
+      return 'wiki.html' + (kennung ? '?' + kennung : '') + '#/eintrag/' + encodeURIComponent(favorit.id);
+    }
+    if (favorit.typ === 'karte') {
+      return 'karten.html?' + (kennung ? kennung + '&' : '') + 'karte=' + encodeURIComponent(name);
+    }
+    return 'bogen.html?' + (kennung ? kennung + '&' : '') + 'figur=' + encodeURIComponent(favorit.id);
+  }
+
+  function iconAnhaengen(verweis, favorit) {
+    if (!symbole || !['eintrag', 'bogen'].includes(favorit.typ)) return;
+    const eintrag = eintraege.get(favorit.id);
+    if (!eintrag) return;
+    const halter = document.createElement('span');
+    halter.innerHTML = symbole.eintragSymbol(eintrag.icon, eintrag.kategorie, 'favorit-eintrag-icon');
+    if (halter.firstElementChild) verweis.appendChild(halter.firstElementChild);
   }
 
   function leerZeichnen() {
@@ -59,7 +87,10 @@
       const verweis = document.createElement('a');
       verweis.className = 'favoriten-verweis';
       verweis.href = zielAdresse(favorit, name);
-      verweis.textContent = name;
+      iconAnhaengen(verweis, favorit);
+      const beschriftung = document.createElement('span');
+      beschriftung.textContent = name;
+      verweis.appendChild(beschriftung);
       verweis.title = titel.slice(0, -1) + ' öffnen: ' + name;
 
       const entfernen = favoriten.knopf(typ, favorit.id, name, favorit.zusatz);

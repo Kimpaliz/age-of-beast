@@ -315,7 +315,25 @@ const ROLLENNAMEN = {
   klassengegenstand: 'Klassengegenstand',
 };
 
-function stueckZeile(s) {
+function wikiVerweis(name, optionen, regelname = '') {
+  const ziel = optionen?.wikiVerweisFuer?.(name) || null;
+  if (!ziel) {
+    return '<span class="karte-anker" data-karte="' + sicher(regelname || name) + '">'
+      + sicher(name) + '</span>';
+  }
+
+  const klasse = ziel.fehlend ? 'stueck-wiki-link verweis-fehlt' : 'stueck-wiki-link';
+  return '<span class="stueck-namezeile"><a class="' + klasse + '" href="'
+    + sicher(ziel.href) + '"' + (ziel.ziel ? ' data-ziel="' + sicher(ziel.ziel) + '"' : '')
+    + (ziel.fehlend ? ' title="Eintrag fehlt – anklicken, um ihn anzulegen"' : '') + '>'
+    + (ziel.icon || '') + '<span>' + sicher(name) + '</span></a>'
+    + (regelname || name ? '<button type="button" class="karte-info" data-karte="'
+      + sicher(regelname || name) + '" aria-label="Regelkarte zu ' + sicher(name)
+      + ' anzeigen" title="Regelkarte anzeigen"><span aria-hidden="true">i</span></button>' : '')
+    + '</span>';
+}
+
+function stueckZeile(s, optionen) {
   const t = [];
   t.push('<li class="stueck' + (s.angelegt ? '' : ' abgelegt') + '"'
     + ' data-stueck="' + sicher(s.schluessel) + '">');
@@ -334,8 +352,7 @@ function stueckZeile(s) {
   t.push('<div class="stueck-text">');
   t.push('<span class="mikro">' + sicher(s.hand ? s.hand + ' · Waffe'
     : ROLLENNAMEN[s.rolle] || s.rolle) + '</span>');
-  t.push('<span class="karte-anker" data-karte="'
-    + sicher(s.regelname || s.name) + '">' + sicher(s.name) + '</span>');
+  t.push(wikiVerweis(s.name, optionen, s.regelname || s.name));
 
   /* Was das Stück zahlenmäßig bewirkt, steht direkt daneben. Ohne diese
      Zeile sähe eine Rüstung, die das Ausweichen senkt, wie ein
@@ -360,7 +377,7 @@ function stueckZeile(s) {
   return t.join('');
 }
 
-export function ausruestungHtml(r) {
+export function ausruestungHtml(r, optionen = {}) {
   if (!r.ausruestung.length) {
     return '<ul class="ausruestung"><li class="bogen-luecke">'
       + '<span class="offen">noch offen</span></li></ul>';
@@ -368,7 +385,7 @@ export function ausruestungHtml(r) {
   const t = ['<p class="ausruestung-hinweis">Antippen legt an oder ab. '
     + 'Die Werte oben rechnen sich sofort mit.</p>'];
   t.push('<ul class="ausruestung">');
-  for (const s of r.ausruestung) t.push(stueckZeile(s));
+  for (const s of r.ausruestung) t.push(stueckZeile(s, optionen));
   t.push('</ul>');
 
   /* Der Grundvorrat aus Schritt 5 der Erschaffung (Fackel, Seil, …).
@@ -377,7 +394,7 @@ export function ausruestungHtml(r) {
      Seil dabeihat. */
   if (r.vorrat && r.vorrat.length) {
     t.push('<p class="grundvorrat"><span class="mikro">Immer dabei</span> '
-      + sicher(r.vorrat.join(' · ')) + '</p>');
+      + r.vorrat.map((name) => wikiVerweis(name, optionen)).join(' · ') + '</p>');
   }
 
   /* Wirkungen, die keine Zahl sind, werden **gezeigt und nicht
@@ -407,14 +424,14 @@ export function ausruestungHtml(r) {
  * gezeichnet, nicht der ganze Bogen: Wer die Rüstung ablegt, soll nicht
  * seinen Blätterstand und den Fokus verlieren.
  */
-export function bogenVerdrahten(bereich, rechner, figur) {
+export function bogenVerdrahten(bereich, rechner, figur, optionen = {}) {
   const w = figur.spielwerte || {};
 
   const bereiche = {
     attribute: () => attributeHtml(rechner.ergebnis()),
     verteidigung: () => verteidigungHtml(rechner.ergebnis()),
     vorraete: () => vorraeteHtml(rechner.ergebnis(), w),
-    ausruestung: () => ausruestungHtml(rechner.ergebnis()),
+    ausruestung: () => ausruestungHtml(rechner.ergebnis(), optionen),
   };
 
   function anbinden() {

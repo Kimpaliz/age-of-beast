@@ -26,6 +26,8 @@
 
 import { blasenAnbinden } from './kartenblase.js';
 import { alleFiguren } from './figuren-eigen.js';
+import { standLesen, weltLesen } from '../werkzeuge/firestore-speicher.mjs';
+import { umwandeln } from '../werkzeuge/welt-umwandeln.mjs';
 import {
   attributeHtml, ausruestungHtml, bogenVerdrahten, katalogLaden, rechnerFuer,
   verteidigungHtml, vorraeteHtml,
@@ -33,6 +35,11 @@ import {
 
 const ziel = document.getElementById('boegen');
 const meldung = document.getElementById('bogenmeldung');
+const symbole = window.aobSymbole || null;
+
+if (symbole && !document.querySelector('.symbol-vorrat')) {
+  document.body.insertAdjacentHTML('afterbegin', symbole.sprite());
+}
 
 /* Die Klassenfarbe kommt nicht aus dem Namen der Klasse, sondern aus
    ihrem Paar von Domänen. Fehlt eines der beiden Felder, bleibt der
@@ -87,7 +94,7 @@ function mod(n) {
   return '0';
 }
 
-function bogen(e, rechner) {
+function bogen(e, rechner, optionen) {
   const w = e.spielwerte || {};
   const t = [];
 
@@ -97,7 +104,8 @@ function bogen(e, rechner) {
   /* ── Kopf: Name, Herkunft, Klasse, Stufe ── */
   t.push('<header class="bogen-kopf">');
   t.push('<div class="bogen-kopf-text">');
-  t.push('<h2 class="bogen-name">' + sicher(e.name) + '</h2>');
+  t.push('<h2 class="bogen-name">' + (symbole?.eintragSymbol(e.icon, e.kategorie, 'bogen-eintrag-icon') || '')
+    + '<span>' + sicher(e.name) + '</span></h2>');
 
   /* Abstammung und Gemeinschaft sind eigene Karten — deshalb einzeln
      verlinkt statt als eine zusammengesetzte Zeile. Das Fuerwort ist
@@ -166,7 +174,7 @@ function bogen(e, rechner) {
 
   /* ── Ausrüstung ── */
   t.push('<section class="bogen-block"><h3>Ausrüstung</h3>'
-    + '<div data-bereich="ausruestung">' + ausruestungHtml(rechner.ergebnis())
+    + '<div data-bereich="ausruestung">' + ausruestungHtml(rechner.ergebnis(), optionen)
     + '</div></section>');
 
   /* ── Domänen, Karten, Klassenfertigkeiten ── */
@@ -213,8 +221,9 @@ function bogen(e, rechner) {
     t.push('</ul></section>');
   }
 
-  t.push('<footer class="bogen-fuss"><a href="./#' + encodeURIComponent(e.id)
-    + '">Eintrag im Wiki &rsaquo;</a></footer>');
+  t.push('<footer class="bogen-fuss"><a href="' + sicher(optionen.wikiEintrag(e.id))
+    + '">' + (symbole?.eintragSymbol(e.icon, e.kategorie, 'bogen-verweis-icon') || '')
+    + '<span>Eintrag im Wiki</span> &rsaquo;</a></footer>');
   t.push('</article>');
   return t.join('');
 }
@@ -223,107 +232,192 @@ function bogen(e, rechner) {
  * Laden
  * ------------------------------------------------------------------ */
 
-const welt = window.AGE_OF_BEAST_WELT;
-/* Die Figuren der Welt **und** die selbst erschaffenen. Letztere liegen
-   auf dem Geraet (`karte/figuren-eigen.js`) — `bogen.html` hat keine
-   Anmeldung, und eine Erschaffung, die erst nach einem Google-Konto
-   funktioniert, waere am Spieltisch unbrauchbar. Sie stehen hinten,
-   damit die gemeinsamen Figuren der Runde vorn bleiben. */
-const figuren = [
-  ...((welt && welt.eintraege) || []).filter((e) => e.spielwerte),
-  ...alleFiguren(),
-];
+const WELT_ABLAGE = 'age-of-beast-welt';
+const gebuendelteWelt = window.AGE_OF_BEAST_WELT;
+const wikiKennung = new URLSearchParams(location.search).get('w') || '';
+let alleEintraege = [];
+let figuren = [];
 
-if (!figuren.length) {
-  if (meldung) {
-    meldung.hidden = false;
-    meldung.innerHTML = '<strong>Es sind noch keine Spielwerte hinterlegt.</strong><br>'
-      + 'Der Bogen liest <code>spielwerte</code> aus den Weltdaten. '
-      + 'Solange dort keine Figur welche trägt, ist hier nichts zu zeigen.';
+function wikiAdresse(hash) {
+  return 'wiki.html' + (wikiKennung ? '?w=' + encodeURIComponent(wikiKennung) : '') + hash;
+}
+
+function vergleichswert(wert) {
+  return String(wert || '').replace(/\s+/gu, ' ').trim().toLocaleLowerCase('de-DE');
+}
+
+function wikiEintragNachName(name, kategorie) {
+  const gesucht = vergleichswert(name);
+  return alleEintraege.find((eintrag) => (!kategorie || eintrag.kategorie === kategorie)
+    && [eintrag.name, ...(eintrag.aliase || [])].some((wert) => vergleichswert(wert) === gesucht));
+}
+
+const bogenOptionen = {
+  wikiEintrag: (id) => wikiAdresse('#/eintrag/' + encodeURIComponent(id)),
+  wikiVerweisFuer(name) {
+    const eintrag = wikiEintragNachName(name, 'items');
+    if (eintrag) {
+      return {
+        href: wikiAdresse('#/eintrag/' + encodeURIComponent(eintrag.id)),
+        ziel: eintrag.id,
+        fehlend: false,
+        icon: symbole?.eintragSymbol(eintrag.icon, eintrag.kategorie, 'bogen-verweis-icon') || '',
+      };
+    }
+    return {
+      href: wikiAdresse('#/neu/items/' + encodeURIComponent(name)),
+      ziel: '',
+      fehlend: true,
+      icon: symbole?.eintragSymbol('', 'items', 'bogen-verweis-icon') || '',
+    };
+  },
+};
+
+function zwischenspeicherLesen() {
+  try {
+    const abgelegt = JSON.parse(localStorage.getItem(WELT_ABLAGE) || 'null');
+    if (!abgelegt?.stand || !abgelegt?.quelle) return null;
+    return { ...abgelegt, welt: umwandeln(abgelegt.quelle).welt };
+  } catch {
+    return null;
   }
-} else {
-  /* Wer schon Werte hat, steht vorn — ein leerer Bogen ist der
-     uninteressantere Einstieg. */
-  /* Wer schon Werte hat, steht vorn — ein leerer Bogen ist der
-     uninteressantere Einstieg. */
-  /* Eigene Figuren bleiben hinten — sonst schoebe sich der eigene
-     Entwurf vor die Figuren der Runde. */
+}
+
+function zwischenspeicherSchreiben(quelle, staende) {
+  try {
+    const stand = staende.get('_stand') ?? null;
+    if (!stand) return;
+    localStorage.setItem(WELT_ABLAGE, JSON.stringify({
+      stand,
+      quelle,
+      staende: [...staende.entries()],
+    }));
+  } catch {
+    // A blocked or full local store must not make character sheets fail.
+  }
+}
+
+async function aktuelleWeltHolen(zwischenspeicher, ersatz) {
+  try {
+    if (zwischenspeicher) {
+      const stand = await standLesen();
+      if (stand && stand === zwischenspeicher.stand) return zwischenspeicher.welt;
+    }
+    const { quelle, staende } = await weltLesen();
+    zwischenspeicherSchreiben(quelle, staende);
+    return umwandeln(quelle).welt;
+  } catch {
+    return zwischenspeicher?.welt || ersatz;
+  }
+}
+
+const leiste = document.getElementById('bogenwahl');
+
+/* Welche Figur gezeigt wird, steht in der Adresse. Damit ist ein
+   einzelner Bogen verlinkbar — sonst landete jeder Verweis immer bei
+   derselben Figur. */
+function gewaehlt() {
+  const ausAdresse = new URLSearchParams(location.search).get('figur')
+    || location.hash.replace(/^#/, '');
+  const treffer = figuren.find((f) => f.id === ausAdresse);
+  return treffer || figuren[0];
+}
+
+function leisteZeichnen(aktiv) {
+  if (!leiste) return;
+  leiste.innerHTML = figuren.map((f) => {
+    const an = f.id === aktiv.id;
+    const w = f.spielwerte || {};
+    const unter = [w.klasse, w.abstammung].filter(Boolean).join(' · ');
+    return '<button type="button" class="bogenwahl-knopf" data-figur="'
+      + sicher(f.id) + '"' + (an ? ' aria-pressed="true"' : ' aria-pressed="false"') + '>'
+      + '<span class="bogenwahl-name">' + (symbole?.eintragSymbol(f.icon, f.kategorie, 'bogenwahl-icon') || '')
+      + '<span>' + sicher(f.name) + '</span></span>'
+      + (unter ? '<span class="bogenwahl-unter">' + sicher(unter) + '</span>' : '')
+      + '</button>';
+  }).join('');
+  leiste.insertAdjacentHTML('beforeend',
+    '<a class="bogenwahl-knopf neu" href="erschaffung.html">'
+    + '<span class="bogenwahl-name">+ Neue Figur</span>'
+    + '<span class="bogenwahl-unter">in neun Schritten</span></a>');
+  for (const b of leiste.querySelectorAll('button')) {
+    b.addEventListener('click', () => zeigen(b.dataset.figur, true));
+  }
+}
+
+function sterneSetzen(bereich) {
+  const fav = window.aobFavoriten;
+  if (!fav) return;
+  for (const platz of bereich.querySelectorAll('.stern-platz:empty')) {
+    platz.appendChild(fav.knopf(platz.dataset.favTyp, platz.dataset.favId,
+      platz.dataset.favName));
+  }
+}
+
+function zeigen(id, adresseSetzen) {
+  const figur = figuren.find((f) => f.id === id) || figuren[0];
+  if (!figur) return;
+  const rechner = rechnerFuer(figur);
+  rechner.rechne();
+  ziel.innerHTML = bogen(figur, rechner, bogenOptionen);
+  /* Erst nach dem Zeichnen: Vorher gibt es die Ausloeser noch nicht. */
+  blasenAnbinden(ziel);
+  bogenVerdrahten(ziel, rechner, figur, bogenOptionen);
+  sterneSetzen(ziel);
+  leisteZeichnen(figur);
+  document.title = figur.name + ' – Charakterbogen – Age of Beast';
+  if (adresseSetzen) {
+    const u = new URL(location.href);
+    u.searchParams.set('figur', figur.id);
+    u.hash = '';
+    history.replaceState(null, '', u);
+  }
+}
+
+function weltZeichnen(welt) {
+  alleEintraege = (welt && welt.eintraege) || [];
+  /* Shared figures come first; figures created only on this device stay
+     behind them and remain usable without signing in. */
+  figuren = [
+    ...alleEintraege.filter((e) => e.spielwerte),
+    ...alleFiguren(),
+  ];
+
+  if (!figuren.length) {
+    if (leiste) leiste.innerHTML = '';
+    ziel.innerHTML = '';
+    if (meldung) {
+      meldung.hidden = false;
+      meldung.innerHTML = '<strong>Es sind noch keine Spielwerte hinterlegt.</strong><br>'
+        + 'Der Bogen liest <code>spielwerte</code> aus den Weltdaten. '
+        + 'Solange dort keine Figur welche trägt, ist hier nichts zu zeigen.';
+    }
+    return;
+  }
+
+  if (meldung) meldung.hidden = true;
   figuren.sort((a, b) => (a.eigen ? 1 : 0) - (b.eigen ? 1 : 0)
     || (b.spielwerte.stufe ? 1 : 0) - (a.spielwerte.stufe ? 1 : 0));
-
-  const leiste = document.getElementById('bogenwahl');
-
-  /* Welche Figur gezeigt wird, steht in der Adresse. Damit ist ein
-     einzelner Bogen verlinkbar — sonst landete jeder Verweis immer bei
-     derselben Figur. */
-  function gewaehlt() {
-    const ausAdresse = new URLSearchParams(location.search).get('figur')
-      || location.hash.replace(/^#/, '');
-    const treffer = figuren.find((f) => f.id === ausAdresse);
-    return treffer || figuren[0];
-  }
-
-  function leisteZeichnen(aktiv) {
-    if (!leiste) return;
-    leiste.innerHTML = figuren.map((f) => {
-      const an = f.id === aktiv.id;
-      const w = f.spielwerte || {};
-      const unter = [w.klasse, w.abstammung].filter(Boolean).join(' · ');
-      return '<button type="button" class="bogenwahl-knopf" data-figur="'
-        + sicher(f.id) + '"' + (an ? ' aria-pressed="true"' : ' aria-pressed="false"') + '>'
-        + '<span class="bogenwahl-name">' + sicher(f.name) + '</span>'
-        + (unter ? '<span class="bogenwahl-unter">' + sicher(unter) + '</span>' : '')
-        + '</button>';
-    }).join('');
-    leiste.insertAdjacentHTML('beforeend',
-      '<a class="bogenwahl-knopf neu" href="erschaffung.html">'
-      + '<span class="bogenwahl-name">+ Neue Figur</span>'
-      + '<span class="bogenwahl-unter">in neun Schritten</span></a>');
-    for (const b of leiste.querySelectorAll('button')) {
-      b.addEventListener('click', () => zeigen(b.dataset.figur, true));
-    }
-  }
-
-  function sterneSetzen(bereich) {
-    const fav = window.aobFavoriten;
-    if (!fav) return;
-    for (const platz of bereich.querySelectorAll('.stern-platz:empty')) {
-      platz.appendChild(fav.knopf(platz.dataset.favTyp, platz.dataset.favId,
-        platz.dataset.favName));
-    }
-  }
-
-  function zeigen(id, adresseSetzen) {
-    const figur = figuren.find((f) => f.id === id) || figuren[0];
-    const rechner = rechnerFuer(figur);
-    rechner.rechne();
-    ziel.innerHTML = bogen(figur, rechner);
-    /* Erst nach dem Zeichnen: Vorher gibt es die Ausloeser noch nicht. */
-    blasenAnbinden(ziel);
-    bogenVerdrahten(ziel, rechner, figur);
-    sterneSetzen(ziel);
-    leisteZeichnen(figur);
-    document.title = figur.name + ' – Charakterbogen – Age of Beast';
-    if (adresseSetzen) {
-      const u = new URL(location.href);
-      u.searchParams.set('figur', figur.id);
-      u.hash = '';
-      history.replaceState(null, '', u);
-    }
-  }
-
-  /* ⚠️ **Erst der Katalog, dann der erste Bogen.** Die Wirkungen der
-     Gegenstände stehen in `daten/daggerheart-gegenstaende.json`. Wer
-     ohne sie zeichnet, zeigt bei Brix ein Ausweichen von 14 und
-     korrigiert es Sekundenbruchteile später auf 13 — eine Zahl, die von
-     selbst springt, ist am Spieltisch schlimmer als eine, die kurz auf
-     sich warten lässt. Schlägt das Laden fehl, wird trotzdem gezeichnet:
-     dann ohne Gegenstandswirkungen, und die Ausrüstungsliste sagt das
-     bei jedem Stück selbst. */
-  katalogLaden()
-    .catch(() => null)
-    .then(() => {
-      zeigen(gewaehlt().id, false);
-      window.addEventListener('popstate', () => zeigen(gewaehlt().id, false));
-    });
+  zeigen(gewaehlt().id, false);
 }
+
+/* First render from the shared cache or bundled fallback. A cheap stand
+   request then decides whether the full live world actually needs loading. */
+const zwischenspeicher = zwischenspeicherLesen();
+const startWelt = zwischenspeicher?.welt || gebuendelteWelt;
+
+/* The item catalogue must be ready before the first visible sheet, so
+   armour values never jump after rendering. */
+katalogLaden()
+  .catch(() => null)
+  .then(() => {
+    weltZeichnen(startWelt);
+    window.addEventListener('popstate', () => zeigen(gewaehlt()?.id, false));
+    return aktuelleWeltHolen(zwischenspeicher, startWelt);
+  })
+  .then((aktuelleWelt) => {
+    if (!aktuelleWelt) return;
+    if (aktuelleWelt.standDerDaten === startWelt?.standDerDaten
+        && aktuelleWelt.eintraege?.length === startWelt?.eintraege?.length) return;
+    weltZeichnen(aktuelleWelt);
+  });

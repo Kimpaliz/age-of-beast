@@ -191,11 +191,16 @@ html[data-thema="hell"] .bogen:not([data-klasse]) {
 .bogen-kopf-text { flex: 1; min-width: 0; }
 
 .bogen-name {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
   margin: 0;
   font-size: 1.5rem;
   line-height: 1.15;
   letter-spacing: -0.01em;
 }
+
+.bogen-eintrag-icon { color: var(--akzent-hell); }
 
 .bogen-herkunft {
   margin: 0.25rem 0 0;
@@ -762,7 +767,8 @@ a.karte-anker { cursor: pointer; }
   background: var(--akzent-schleier);
 }
 
-.bogenwahl-name { display: block; font-weight: 600; }
+.bogenwahl-name { display: flex; align-items: center; gap: 0.35rem; font-weight: 600; }
+.bogenwahl-icon { width: 0.95em; height: 0.95em; color: var(--akzent-hell); }
 
 .bogenwahl-unter {
   display: block;
@@ -868,6 +874,45 @@ a.karte-anker { cursor: pointer; }
 
 .stueck-text { display: grid; gap: 0.1rem; min-width: 0; }
 
+.stueck-namezeile {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.stueck-wiki-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+  min-width: 0;
+  color: var(--verweis);
+  text-decoration: none;
+  border-bottom: 1px solid var(--akzent-rand);
+}
+
+.stueck-wiki-link > span { overflow-wrap: anywhere; }
+.stueck-wiki-link:hover, .stueck-wiki-link:focus-visible { color: var(--akzent-hell); border-bottom-color: var(--akzent); }
+.stueck-wiki-link.verweis-fehlt { border-bottom-style: dashed; color: var(--schrift-matt); }
+.bogen-verweis-icon { width: 0.95em; height: 0.95em; flex: none; }
+
+.karte-info {
+  display: inline-grid;
+  place-items: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: none;
+  padding: 0;
+  border: 1px solid var(--rand-hell);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--schrift-matt);
+  font: 700 0.72rem/1 var(--sans);
+  cursor: help;
+}
+.karte-info:hover, .karte-info:focus-visible { color: var(--akzent-hell); border-color: var(--akzent); outline: none; }
+
 .stueck-schalter {
   margin-top: 0.1rem;
   width: 1.5rem;
@@ -901,7 +946,7 @@ a.karte-anker { cursor: pointer; }
 .stueck-schalter[aria-pressed="false"] .stueck-haken { opacity: 0; }
 
 .stueck.abgelegt { opacity: 0.55; }
-.stueck.abgelegt .stueck-text > span:not(.mikro) { text-decoration: line-through; }
+.stueck.abgelegt .stueck-wiki-link { text-decoration: line-through; }
 
 .stueck-fremd { color: var(--schrift-leise); font-style: italic; }
 .stueck-abweichung { color: var(--akzent-hell); }
