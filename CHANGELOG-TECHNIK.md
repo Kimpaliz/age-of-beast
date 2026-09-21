@@ -25,6 +25,17 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 - Neu: `werkzeuge/pruefe-spielfiguren.mjs` mit 27 Zusicherungen. Der
   Erstlauf war erwartungsgemäß rot (15 Fehler), danach grün.
 
+### Werkstatt aus der normalen Wiki-Navigation getrennt
+
+- `runtime/ansichten.js` filtert `werkstatt` aus linker Navigation,
+  Startseiten-Filtern, Kacheln und der dort angezeigten Eintragszahl.
+- `#/kategorie/werkstatt` wird als alter Link auf die eigenständige
+  Werkstatt-Ansicht geführt.
+- Einträge mit strukturiertem `spielwerte`-Feld verlinken direkt auf
+  `bogen.html?figur=<id>`; andere Einträge erhalten den Knopf nicht.
+- Neu: `werkzeuge/pruefe-wiki-navigation.mjs` mit zehn Zusicherungen.
+  Der Erstlauf war erwartungsgemäß rot (acht Fehler), danach grün.
+
 ### Vorgang #12: die verrutschte Merkmalspalte der Tier-1-Waffen
 
 **Befund bestaetigt.** In `docs/daggerheart/REGELN-GRUNDLAGEN.md` stand
