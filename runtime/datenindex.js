@@ -132,7 +132,7 @@
           const symbole = window.aobSymbole;
           if (zielEintrag && symbole?.eintragSymbol) {
             const halter = document.createElement('span');
-            halter.innerHTML = symbole.eintragSymbol(zielEintrag.icon, zielEintrag.kategorie, 'verweis-icon');
+            halter.innerHTML = symbole.eintragSymbol(zielEintrag.icon, zielEintrag.kategorie, 'verweis-icon', zielEintrag.iconColor);
             if (halter.firstElementChild) a.appendChild(halter.firstElementChild);
           }
           a.appendChild(document.createTextNode(wort));

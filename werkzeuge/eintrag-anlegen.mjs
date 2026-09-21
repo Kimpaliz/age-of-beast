@@ -59,6 +59,7 @@ export function eintragEntwurf({
   name,
   kategorie,
   icon = '',
+  iconColor = '',
   vorhandeneIds = new Set(),
   zeit = new Date().toISOString(),
 }) {
@@ -75,6 +76,7 @@ export function eintragEntwurf({
     name: saubererName,
     description: '',
     icon: textwert(icon),
+    iconColor: textwert(iconColor),
     image: '',
     fields: { connections: [] },
     attributeRows: [],

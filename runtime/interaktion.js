@@ -34,7 +34,7 @@
     let ausblendUhr = null;
 
     const sicher = (t) => String(t ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    const eintragSymbol = (e, klasse) => window.aobSymbole?.eintragSymbol?.(e?.icon, e?.kategorie, klasse) || '';
+    const eintragSymbol = (e, klasse) => window.aobSymbole?.eintragSymbol?.(e?.icon, e?.kategorie, klasse, e?.iconColor) || '';
     const kuerzen = (t, n) => {
       t = String(t || '').trim();
       return t.length <= n ? t : t.slice(0, t.lastIndexOf(' ', n) || n) + ' …';

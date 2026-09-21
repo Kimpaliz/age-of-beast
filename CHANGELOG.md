@@ -5,6 +5,19 @@ Dieselben Änderungen stehen in Entwicklersprache in [CHANGELOG-TECHNIK.md](CHAN
 
 Das Neueste steht immer oben.
 
+## Eintrags-Icons können eine eigene Farbe tragen – 21. September 2026
+
+- Beim Anlegen und Bearbeiten eines Wiki-Eintrags stehen jetzt neben dem
+  Icon neun Farbvarianten zur Wahl: die vertraute Kategoriefarbe sowie Gold,
+  Rot, Orange, Grün, Türkis, Blau, Lila und Pink.
+- Die gewählte Farbe erscheint überall, wo das Icon gezeigt wird: in der
+  Navigation, auf Übersichten, in der Suche, in Vorschaufenstern,
+  Verknüpfungen, Favoriten und Charakterbögen.
+- Dunkle und helle Ansicht verwenden eigene Farbtöne. Dadurch bleiben alle
+  acht Farben auf beiden Hintergründen deutlich lesbar.
+- Nicht bekannte Farbwerte werden nicht ausgegeben. Der Eintrag fällt dann
+  sicher auf seine bisherige Kategoriefarbe zurück.
+
 ## Fehlende Gegenstände lassen sich direkt anlegen – 21. September 2026
 
 - Gegenstände auf einem Charakterbogen führen jetzt als echte Links ins

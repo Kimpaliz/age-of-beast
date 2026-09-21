@@ -44,6 +44,7 @@ if (!bausteine || typeof bausteine.symbole !== 'function') {
 const symbole = bausteine.symbole();
 const motive = symbole.motive();
 const eintragsMotive = symbole.eintragsMotive();
+const eintragsFarben = symbole.eintragsFarben();
 
 /* ------------------------------------------------------------------ *
    1. Jede Kategorie hat ein eigenes Symbol
@@ -187,6 +188,22 @@ pruefe(symbole.kenntEintrag('key'), 'Der Schluessel ist ein gueltiges Eintragsmo
 pruefe(!symbole.kenntEintrag('<script>'), 'Freier Text wird niemals als Eintragsmotiv akzeptiert.');
 pruefe(symbole.eintragSymbol('<script>', 'items').includes('aob-symbol-items'),
   'Ein unbekanntes Eintragsmotiv faellt sicher auf das Kategorie-Icon zurueck.');
+pruefe(eintragsFarben.length >= 8, 'Die Eintragsauswahl bietet mindestens acht deutlich benannte Farben.');
+pruefe(new Set(eintragsFarben.map((farbe) => farbe.kennung)).size === eintragsFarben.length,
+  'Jede Eintragsfarbe besitzt eine eindeutige Kennung.');
+pruefe(new Set(eintragsFarben.map((farbe) => farbe.name)).size === eintragsFarben.length,
+  'Jede Eintragsfarbe besitzt einen eindeutigen sichtbaren Namen.');
+pruefe(symbole.kenntFarbe('red'), 'Rot ist eine gueltige Eintragsfarbe.');
+pruefe(!symbole.kenntFarbe('<script>'), 'Freier Text wird niemals als Eintragsfarbe akzeptiert.');
+const rotesIcon = symbole.eintragSymbol('key', 'items', 'pruef-icon', 'red');
+pruefe(rotesIcon.includes('eintrag-farbe-red') && rotesIcon.includes('data-icon-farbe="red"'),
+  'Eine gueltige Farbe wird als sichere Klasse und als Merkmal ausgegeben.');
+const rotesKategorieIcon = symbole.eintragSymbol('', 'items', 'pruef-icon', 'red');
+pruefe(rotesKategorieIcon.includes('aob-symbol-items') && rotesKategorieIcon.includes('eintrag-farbe-red'),
+  'Auch das Standard-Icon einer Kategorie kann eine eigene Farbe tragen.');
+const ungueltigeFarbe = symbole.eintragSymbol('key', 'items', 'pruef-icon', '"><script>');
+pruefe(!ungueltigeFarbe.includes('script') && !ungueltigeFarbe.includes('data-icon-farbe'),
+  'Eine unbekannte Farbe wird weder als HTML noch als Klasse ausgegeben.');
 
 /* ------------------------------------------------------------------ *
    4. Die Farben unterscheiden sich messbar
@@ -199,6 +216,8 @@ pruefe(symbole.eintragSymbol('<script>', 'items').includes('aob-symbol-items'),
 const css = readFileSync(join(WURZEL, 'styles', 'kategorien.css'), 'utf8');
 const werkstattCss = readFileSync(join(WURZEL, 'styles', 'werkstatt.css'), 'utf8');
 const tokensCss = readFileSync(join(WURZEL, 'styles', 'tokens.css'), 'utf8');
+pruefe(/svg\.symbol\.eintrag-symbol\[data-icon-farbe\]\s*\{\s*color:/u.test(css),
+  'Die persoenliche Eintragsfarbe ist spezifisch genug fuer Links, Kacheln und Charakterboegen.');
 
 function akzentLesen(text, kategorie, ansicht) {
   // Der helle Block steht hinter `html[data-thema="hell"]`, der dunkle nicht.
@@ -263,6 +282,14 @@ function grundLesen(ansicht) {
   return (tokensCss.match(muster) || [])[1] || null;
 }
 
+function eintragsFarbeLesen(text, kennung, ansicht) {
+  const selector = ansicht === 'hell'
+    ? 'html\\[data-thema="hell"\\] \\.eintrag-farbe-' + kennung
+    : '\\.eintrag-farbe-' + kennung;
+  const muster = new RegExp('^' + selector + '\\s*\\{[^}]*--eintrag-icon-farbe:\\s*(#[0-9a-f]{6})', 'imu');
+  return (text.match(muster) || [])[1] || null;
+}
+
 /* Die Schwelle ist bewusst massvoll: Zehn Kategorien in einem Entwurf mit
    engem Helligkeitsband lassen keine grossen Abstaende zu. Sie faengt
    versehentlich doppelt vergebene Toene — die Unterscheidung selbst leistet
@@ -320,6 +347,18 @@ for (const ansicht of ['dunkel', 'hell']) {
   }
 
   ergebnis.set(ansicht, { ...engstesPaar, kontrast: schwaechster });
+}
+
+for (const ansicht of ['dunkel', 'hell']) {
+  const grund = grundLesen(ansicht);
+  for (const farbe of eintragsFarben) {
+    const wert = eintragsFarbeLesen(css, farbe.kennung, ansicht);
+    pruefe(Boolean(wert), 'Eintragsfarbe „' + farbe.name + '“ fehlt im ' + ansicht + 'n Stil.');
+    if (wert && grund) {
+      pruefe(kontrast(wert, grund) >= MINDESTKONTRAST,
+        ansicht + ': Eintragsfarbe „' + farbe.name + '“ hat auf dem Grund zu wenig Kontrast.');
+    }
+  }
 }
 
 /* ------------------------------------------------------------------ *

@@ -495,6 +495,21 @@ Figurennamen noch eine fachliche Kontrolle der gepflegten Aliase.
 einen Brix-Eintrag, zwei strukturierte Spielfiguren und die richtige
 Ziel-ID fuer beide Lukas-Aliase.
 
+### E13 · Die richtigen Farbwerte standen im falschen Stylesheet
+
+**Was ich tat:** Die neue Icon-Palette mit einem eigenen `:root`-Block in
+`styles/kategorien.css` angelegt.
+**Was herauskam:** Alle Farb- und Funktionstests waren gruen, aber
+`pruefe-stilstruktur.mjs` stoppte die Freigabe. Der eigene `:root` war ein
+doppelter Stilanker; ein anschliessender Umzug nach `styles/tokens.css`
+verletzte dort den festgehaltenen Original-Hash.
+**Warum:** Die vier ursprünglichen Stylesheets sind als unveränderte
+Ausgangsfassung eingefroren. Neue Gestaltung gehört in eine Zusatzdatei,
+darf dort aber keinen bereits vergebenen Grundanker wiederholen.
+**Woran ich es frueher merke:** Neue Komponentenwerte in der passenden
+Zusatzdatei an deren Klassen binden. Die ursprünglichen vier Stylesheets und
+ihre Grundanker bleiben unverändert.
+
 ## Was daraus folgt
 
 Die fünf wirksamsten Gewohnheiten aus diesen Fällen:

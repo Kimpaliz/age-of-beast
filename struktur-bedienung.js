@@ -46,6 +46,14 @@ function knopfBauen(zeichen, beschriftung, klasse) {
   return knopf;
 }
 
+function sicher(text) {
+  return String(text ?? '')
+    .replace(/&/gu, '&amp;')
+    .replace(/</gu, '&lt;')
+    .replace(/>/gu, '&gt;')
+    .replace(/"/gu, '&quot;');
+}
+
 /** Merkt sich das offene Zeilenformular, damit nie zwei zugleich offen sind. */
 let offenesFormular = null;
 
@@ -105,13 +113,16 @@ export function strukturEinrichten(kontext) {
     const meldung = form.querySelector('[data-neu-meldung]');
     const kategorieFeld = form.elements.kategorie;
     const standardIcon = form.querySelector('.icon-option.standard .icon-vorschau');
+    const symbolvorrat = window.aobSymbole;
 
     if (speichern) speichern.disabled = false;
     if (meldung) meldung.textContent = 'Bereit zum Anlegen.';
 
     const standardAktualisieren = () => {
-      if (!standardIcon || !window.aobSymbole?.symbol) return;
-      standardIcon.innerHTML = window.aobSymbole.symbol(kategorieFeld.value, 'icon-auswahl-symbol');
+      if (!standardIcon || !symbolvorrat?.eintragSymbol) return;
+      standardIcon.innerHTML = symbolvorrat.eintragSymbol(
+        '', kategorieFeld.value, 'icon-auswahl-symbol', form.elements.iconColor?.value,
+      );
     };
     kategorieFeld?.addEventListener('change', standardAktualisieren);
 
@@ -121,6 +132,7 @@ export function strukturEinrichten(kontext) {
       const name = String(form.elements.name?.value || '').replace(/\s+/gu, ' ').trim();
       const kategorie = String(kategorieFeld?.value || '');
       const icon = String(form.elements.icon?.value || '');
+      const iconColor = String(form.elements.iconColor?.value || '');
 
       if (!name) {
         if (meldung) meldung.textContent = 'Bitte einen Namen eintragen.';
@@ -142,7 +154,7 @@ export function strukturEinrichten(kontext) {
       const ids = new Set(Object.values(roh.elements)
         .flatMap((gruppe) => Object.keys(gruppe || {})));
       const entwurf = eintragEntwurf({
-        name, kategorie, icon, vorhandeneIds: ids, zeit: jetzt,
+        name, kategorie, icon, iconColor, vorhandeneIds: ids, zeit: jetzt,
       });
 
       if (speichern) speichern.disabled = true;
@@ -196,22 +208,36 @@ export function strukturEinrichten(kontext) {
     const symbolvorrat = window.aobSymbole;
     const titel = artikel.querySelector('.eintrag-titel');
     if (titel && symbolvorrat?.eintragsMotive) {
-      const auswahl = document.createElement('fieldset');
+      const farben = symbolvorrat.eintragsFarben?.() || [];
+      const auswahl = document.createElement('div');
       auswahl.className = 'eintrags-icon-bearbeitung';
-      auswahl.innerHTML = '<legend>Icon des Eintrags</legend><div class="icon-optionen">'
+      auswahl.innerHTML = '<fieldset class="icon-auswahl"><legend>Icon des Eintrags</legend><div class="icon-optionen">'
         + '<label class="icon-option standard"><input type="radio" name="eintrag-icon" value=""'
         + (element.icon ? '' : ' checked') + '><span class="icon-vorschau">'
-        + symbolvorrat.symbol(kategorie, 'icon-auswahl-symbol') + '</span><span>Standard</span></label>'
+        + symbolvorrat.eintragSymbol('', kategorie, 'icon-auswahl-symbol', element.iconColor) + '</span><span>Standard</span></label>'
         + symbolvorrat.eintragsMotive().map((motiv) => '<label class="icon-option" title="'
-          + motiv.name.replace(/&/gu, '&amp;').replace(/"/gu, '&quot;') + '"><input type="radio" name="eintrag-icon" value="'
-          + motiv.kennung + '"' + (element.icon === motiv.kennung ? ' checked' : '')
-          + '><span class="icon-vorschau">' + symbolvorrat.eintragSymbol(motiv.kennung, kategorie, 'icon-auswahl-symbol')
-          + '</span><span>' + motiv.name + '</span></label>').join('')
-        + '</div>';
+          + sicher(motiv.name) + '"><input type="radio" name="eintrag-icon" value="'
+          + sicher(motiv.kennung) + '"' + (element.icon === motiv.kennung ? ' checked' : '')
+          + '><span class="icon-vorschau">' + symbolvorrat.eintragSymbol(motiv.kennung, kategorie, 'icon-auswahl-symbol', element.iconColor)
+          + '</span><span>' + sicher(motiv.name) + '</span></label>').join('')
+        + '</div></fieldset><fieldset class="icon-farbauswahl"><legend>Farbe</legend><div class="icon-farbe-optionen">'
+        + '<label class="icon-farbe-option standard"><input type="radio" name="eintrag-icon-farbe" value=""'
+        + (element.iconColor ? '' : ' checked') + '><span class="icon-farbe-probe"></span><span>Kategorie</span></label>'
+        + farben.map((farbe) => '<label class="icon-farbe-option"><input type="radio" name="eintrag-icon-farbe" value="'
+          + sicher(farbe.kennung) + '"' + (element.iconColor === farbe.kennung ? ' checked' : '')
+          + '><span class="icon-farbe-probe eintrag-farbe-' + sicher(farbe.kennung) + '"></span><span>'
+          + sicher(farbe.name) + '</span></label>').join('')
+        + '</div></fieldset>';
       auswahl.addEventListener('change', (ereignis) => {
-        const feld = ereignis.target.closest('input[name="eintrag-icon"]');
-        if (!feld) return;
-        lauf({ aenderungen: { icon: feld.value }, beschreibung: 'Icon geändert' });
+        const iconFeld = ereignis.target.closest('input[name="eintrag-icon"]');
+        if (iconFeld) {
+          lauf({ aenderungen: { icon: iconFeld.value }, beschreibung: 'Icon geändert' });
+          return;
+        }
+        const farbeFeld = ereignis.target.closest('input[name="eintrag-icon-farbe"]');
+        if (farbeFeld) {
+          lauf({ aenderungen: { iconColor: farbeFeld.value }, beschreibung: 'Icon-Farbe geändert' });
+        }
       });
       titel.before(auswahl);
     }

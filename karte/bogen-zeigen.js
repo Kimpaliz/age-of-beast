@@ -104,7 +104,7 @@ function bogen(e, rechner, optionen) {
   /* ── Kopf: Name, Herkunft, Klasse, Stufe ── */
   t.push('<header class="bogen-kopf">');
   t.push('<div class="bogen-kopf-text">');
-  t.push('<h2 class="bogen-name">' + (symbole?.eintragSymbol(e.icon, e.kategorie, 'bogen-eintrag-icon') || '')
+  t.push('<h2 class="bogen-name">' + (symbole?.eintragSymbol(e.icon, e.kategorie, 'bogen-eintrag-icon', e.iconColor) || '')
     + '<span>' + sicher(e.name) + '</span></h2>');
 
   /* Abstammung und Gemeinschaft sind eigene Karten — deshalb einzeln
@@ -222,7 +222,7 @@ function bogen(e, rechner, optionen) {
   }
 
   t.push('<footer class="bogen-fuss"><a href="' + sicher(optionen.wikiEintrag(e.id))
-    + '">' + (symbole?.eintragSymbol(e.icon, e.kategorie, 'bogen-verweis-icon') || '')
+    + '">' + (symbole?.eintragSymbol(e.icon, e.kategorie, 'bogen-verweis-icon', e.iconColor) || '')
     + '<span>Eintrag im Wiki</span> &rsaquo;</a></footer>');
   t.push('</article>');
   return t.join('');
@@ -261,7 +261,7 @@ const bogenOptionen = {
         href: wikiAdresse('#/eintrag/' + encodeURIComponent(eintrag.id)),
         ziel: eintrag.id,
         fehlend: false,
-        icon: symbole?.eintragSymbol(eintrag.icon, eintrag.kategorie, 'bogen-verweis-icon') || '',
+        icon: symbole?.eintragSymbol(eintrag.icon, eintrag.kategorie, 'bogen-verweis-icon', eintrag.iconColor) || '',
       };
     }
     return {
@@ -331,7 +331,7 @@ function leisteZeichnen(aktiv) {
     const unter = [w.klasse, w.abstammung].filter(Boolean).join(' · ');
     return '<button type="button" class="bogenwahl-knopf" data-figur="'
       + sicher(f.id) + '"' + (an ? ' aria-pressed="true"' : ' aria-pressed="false"') + '>'
-      + '<span class="bogenwahl-name">' + (symbole?.eintragSymbol(f.icon, f.kategorie, 'bogenwahl-icon') || '')
+      + '<span class="bogenwahl-name">' + (symbole?.eintragSymbol(f.icon, f.kategorie, 'bogenwahl-icon', f.iconColor) || '')
       + '<span>' + sicher(f.name) + '</span></span>'
       + (unter ? '<span class="bogenwahl-unter">' + sicher(unter) + '</span>' : '')
       + '</button>';

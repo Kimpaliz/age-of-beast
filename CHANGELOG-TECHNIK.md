@@ -10,6 +10,26 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ## [Unveröffentlicht]
 
+### Wählbare Farben für Eintrags-Icons
+
+- Das optionale Rohfeld `iconColor` wird von
+  `werkzeuge/welt-umwandeln.mjs` bis in die Leserwelt durchgereicht.
+  Bestehende Einträge ohne dieses Feld bleiben unverändert.
+- `runtime/symbole.js` führt eine feste Allowlist aus acht Farben. Nur deren
+  Kennungen werden als CSS-Klasse und `data-icon-farbe` ausgegeben;
+  unbekannte Werte fallen ohne HTML-Ausgabe auf die Kategoriefarbe zurück.
+- `struktur-bedienung.js` und `runtime/ansichten.js` bieten dieselbe Palette
+  beim Bearbeiten und beim Anlegen eines fehlenden Linkziels an.
+- Navigation, Kacheln, Artikeltitel, automatische und gepflegte Verweise,
+  Suche, Vorschau, Favoriten sowie Charakterbögen reichen `iconColor` an
+  denselben zentralen Symbolzeichner weiter.
+- `styles/kategorien.css` enthält getrennte Dunkel- und Hellwerte. Die
+  Symbolprüfung misst für jede Palettenfarbe mindestens 4,5:1 Kontrast gegen
+  den jeweiligen Seitengrund.
+- `werkzeuge/pruefe-symbole.mjs` und
+  `werkzeuge/pruefe-eintrags-verweise.mjs` prüfen Allowlist, sichere Ausgabe,
+  Speicherung, Umwandlung, beide Auswahlelemente und alle Anzeigeorte.
+
 ### Fehlende Linkziele und Eintrags-Icons
 
 - `#/neu/<kategorie>/<name>` zeigt eine bestätigende Anlageansicht. Nach

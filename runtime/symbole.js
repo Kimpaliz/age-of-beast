@@ -14,8 +14,9 @@
 
    Bauart: Ein einziger Sprite mit zehn <symbol>, jedes Icon steht genau
    einmal im Dokument und wird über <use> beliebig oft eingesetzt. Alle
-   Pfade tragen keine eigene Farbe, sondern erben `currentColor` — dadurch
-   nimmt ein Symbol die Farbe seiner Kategorie automatisch an.
+   Pfade tragen keine eigene Farbe, sondern erben `currentColor`. Ohne
+   persönliche Auswahl folgt ein Symbol seiner Kategorie; eine bewusst
+   gewählte Eintragsfarbe überschreibt nur dieses einzelne Symbol.
 
    Der Baustein fasst kein DOM an. Er liefert Zeichenketten; wer sie
    einsetzt, entscheiden die Ansichten. */
@@ -182,6 +183,19 @@
     ] },
   };
 
+  /* Fixed names keep stored values safe and make the palette predictable.
+     The actual dark/light colors live in CSS. */
+  const EINTRAGS_FARBEN = {
+    gold: 'Gold',
+    red: 'Rot',
+    orange: 'Orange',
+    green: 'Grün',
+    turquoise: 'Türkis',
+    blue: 'Blau',
+    purple: 'Lila',
+    pink: 'Pink',
+  };
+
   const ERSATZ = 'wiki';
 
   function kennung(kategorie) {
@@ -218,19 +232,30 @@
     return Object.prototype.hasOwnProperty.call(MOTIVE, kategorie);
   }
 
-  function eintragSymbol(icon, kategorie, klasse) {
+  function eintragSymbol(icon, kategorie, klasse, farbe) {
     const name = String(icon || '');
+    const farbName = String(farbe || '');
+    const hatFarbe = Object.prototype.hasOwnProperty.call(EINTRAGS_FARBEN, farbName);
+    const klassen = 'symbol eintrag-symbol' + (klasse ? ' ' + klasse : '')
+      + (hatFarbe ? ' eintrag-farbe-' + farbName : '');
+    const farbMerkmal = hatFarbe ? ' data-icon-farbe="' + farbName + '"' : '';
     if (!Object.prototype.hasOwnProperty.call(EINTRAGS_MOTIVE, name)) {
-      return symbol(kategorie, 'eintrag-symbol' + (klasse ? ' ' + klasse : ''));
+      const kategorieName = Object.prototype.hasOwnProperty.call(MOTIVE, kategorie) ? kategorie : ERSATZ;
+      return '<svg class="' + klassen + '"' + farbMerkmal
+        + ' aria-hidden="true" focusable="false"><use href="#' + kennung(kategorieName) + '"/></svg>';
     }
-    const klassen = 'symbol eintrag-symbol' + (klasse ? ' ' + klasse : '');
-    return '<svg class="' + klassen + '" aria-hidden="true" focusable="false"><use href="#' + eintragsKennung(name) + '"/></svg>';
+    return '<svg class="' + klassen + '"' + farbMerkmal
+      + ' aria-hidden="true" focusable="false"><use href="#' + eintragsKennung(name) + '"/></svg>';
   }
 
   function eintragsMotive() {
     return Object.entries(EINTRAGS_MOTIVE).map(([kennung, motiv]) => ({
       kennung, name: motiv.name,
     }));
+  }
+
+  function eintragsFarben() {
+    return Object.entries(EINTRAGS_FARBEN).map(([kennung, name]) => ({ kennung, name }));
   }
 
   function api() {
@@ -242,6 +267,8 @@
       eintragSymbol,
       kenntEintrag: (icon) => Object.prototype.hasOwnProperty.call(EINTRAGS_MOTIVE, icon),
       eintragsMotive,
+      kenntFarbe: (farbe) => Object.prototype.hasOwnProperty.call(EINTRAGS_FARBEN, farbe),
+      eintragsFarben,
     };
   }
 

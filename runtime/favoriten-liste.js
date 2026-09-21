@@ -56,7 +56,7 @@
     const eintrag = eintraege.get(favorit.id);
     if (!eintrag) return;
     const halter = document.createElement('span');
-    halter.innerHTML = symbole.eintragSymbol(eintrag.icon, eintrag.kategorie, 'favorit-eintrag-icon');
+    halter.innerHTML = symbole.eintragSymbol(eintrag.icon, eintrag.kategorie, 'favorit-eintrag-icon', eintrag.iconColor);
     if (halter.firstElementChild) verweis.appendChild(halter.firstElementChild);
   }
 

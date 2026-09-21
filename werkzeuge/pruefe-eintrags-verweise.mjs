@@ -35,12 +35,14 @@ const entwurf = eintragEntwurf({
   name: 'Fälscherwerkzeug',
   kategorie: 'items',
   icon: 'key',
+  iconColor: 'red',
   vorhandeneIds: vorhandene,
   zeit: '2026-09-21T12:00:00.000Z',
 });
 pruefe(entwurf.id === 'items-faelscherwerkzeug', 'Umlaute werden in einer stabilen Kennung umgesetzt.');
 pruefe(entwurf.module === 'items', 'Der Entwurf landet in der gewaehlten Kategorie.');
 pruefe(entwurf.icon === 'key', 'Das gewaehlte Icon wird am Roh-Eintrag gespeichert.');
+pruefe(entwurf.iconColor === 'red', 'Die gewaehlte Icon-Farbe wird am Roh-Eintrag gespeichert.');
 pruefe(Array.isArray(entwurf.customPanels) && entwurf.customPanels.length === 0,
   'Ein neuer Linkeintrag erhaelt keine erfundenen Inhaltsfelder.');
 
@@ -68,6 +70,7 @@ pruefe(eintragNachName(roh, 'Short Sword')?.id === 'items-kurzschwert',
 const { welt } = umwandeln(roh);
 const gelesen = welt.eintraege.find((eintrag) => eintrag.id === entwurf.id);
 pruefe(gelesen?.icon === 'key', 'Das Icon gelangt aus der Quelle in die Leserwelt.');
+pruefe(gelesen?.iconColor === 'red', 'Die Icon-Farbe gelangt aus der Quelle in die Leserwelt.');
 
 const bogen = readFileSync(join(WURZEL, 'karte', 'bogen-werte.js'), 'utf8');
 pruefe(/verweis-fehlt/u.test(bogen), 'Der Charakterbogen kennzeichnet ein fehlendes Wiki-Ziel.');
@@ -82,6 +85,25 @@ const ansichten = readFileSync(join(WURZEL, 'runtime', 'ansichten.js'), 'utf8');
 pruefe(/fehlenderEintragZeichnen/u.test(ansichten),
   'Das Wiki besitzt eine eigene Rueckfrage fuer fehlende Eintraege.');
 pruefe(/eintragSymbol/u.test(ansichten), 'Die Wiki-Ansichten verwenden Eintrags-Icons.');
+pruefe(/name="iconColor"/u.test(ansichten),
+  'Beim Anlegen eines Eintrags steht eine Farbauswahl bereit.');
+
+const struktur = readFileSync(join(WURZEL, 'struktur-bedienung.js'), 'utf8');
+pruefe(/name="eintrag-icon-farbe"/u.test(struktur),
+  'Im Bearbeitungsmodus steht eine Farbauswahl fuer vorhandene Eintraege bereit.');
+pruefe(/iconColor/u.test(struktur),
+  'Die Bearbeitung schreibt die gewaehlte Icon-Farbe in den Eintrag.');
+
+for (const datei of [
+  'runtime/ansichten.js',
+  'runtime/datenindex.js',
+  'runtime/interaktion.js',
+  'runtime/favoriten-liste.js',
+  'karte/bogen-zeigen.js',
+]) {
+  const text = readFileSync(join(WURZEL, ...datei.split('/')), 'utf8');
+  pruefe(/iconColor/u.test(text), datei + ' reicht die Eintragsfarbe bis zum gezeichneten Icon durch.');
+}
 
 if (fehler.length) {
   console.error('Eintragsverweis-Pruefung fehlgeschlagen:\n- ' + fehler.join('\n- '));

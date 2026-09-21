@@ -44,6 +44,28 @@
   stroke-width: 1.7;
 }
 
+/* Entry colors are deliberately fixed names. Dark and light themes use
+   separate values so every choice stays readable on both backgrounds. */
+.eintrag-farbe-gold { --eintrag-icon-farbe: #e3bd5b; }
+.eintrag-farbe-red { --eintrag-icon-farbe: #ef8178; }
+.eintrag-farbe-orange { --eintrag-icon-farbe: #eda365; }
+.eintrag-farbe-green { --eintrag-icon-farbe: #7bc98c; }
+.eintrag-farbe-turquoise { --eintrag-icon-farbe: #64c8bd; }
+.eintrag-farbe-blue { --eintrag-icon-farbe: #7fb0ea; }
+.eintrag-farbe-purple { --eintrag-icon-farbe: #bd91e6; }
+.eintrag-farbe-pink { --eintrag-icon-farbe: #ea8fc4; }
+
+html[data-thema="hell"] .eintrag-farbe-gold { --eintrag-icon-farbe: #735600; }
+html[data-thema="hell"] .eintrag-farbe-red { --eintrag-icon-farbe: #98342e; }
+html[data-thema="hell"] .eintrag-farbe-orange { --eintrag-icon-farbe: #8f470d; }
+html[data-thema="hell"] .eintrag-farbe-green { --eintrag-icon-farbe: #296b39; }
+html[data-thema="hell"] .eintrag-farbe-turquoise { --eintrag-icon-farbe: #1b6b66; }
+html[data-thema="hell"] .eintrag-farbe-blue { --eintrag-icon-farbe: #285d96; }
+html[data-thema="hell"] .eintrag-farbe-purple { --eintrag-icon-farbe: #673b91; }
+html[data-thema="hell"] .eintrag-farbe-pink { --eintrag-icon-farbe: #8f3567; }
+
+svg.symbol.eintrag-symbol[data-icon-farbe] { color: var(--eintrag-icon-farbe); }
+
 .nav-eintrag-icon { width: 0.95em; height: 0.95em; opacity: 0.78; }
 .verweis-icon { width: 0.92em; height: 0.92em; margin-right: 0.22em; }
 .such-icon, .vorschau-icon { width: 1em; height: 1em; color: var(--akzent); }
@@ -108,6 +130,7 @@ a.verweis .verweis-icon { color: currentColor; }
 
 /* Icon choices use the same compact control in creation and edit mode. */
 .icon-auswahl,
+.icon-farbauswahl,
 .eintrags-icon-bearbeitung {
   margin: 0;
   padding: 0;
@@ -122,12 +145,18 @@ a.verweis .verweis-icon { color: currentColor; }
   background: var(--flaeche);
 }
 .eintrags-icon-bearbeitung legend,
-.icon-auswahl legend {
+.icon-auswahl legend,
+.icon-farbauswahl legend {
   margin-bottom: 0.45rem;
   color: var(--schrift-leise);
   font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
+}
+.icon-farbauswahl {
+  margin-top: 0.75rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--rand);
 }
 .icon-optionen {
   display: grid;
@@ -175,6 +204,55 @@ a.verweis .verweis-icon { color: currentColor; }
   box-shadow: 0 0 0 1px var(--akzent-rand);
 }
 .icon-option:has(input:checked) { color: var(--schrift); }
+
+.icon-farbe-optionen {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(4.2rem, 1fr));
+  gap: 0.4rem;
+}
+.icon-farbe-option {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 0.28rem;
+  min-width: 0;
+  padding: 0.4rem 0.25rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-klein);
+  color: var(--schrift-leise);
+  font-size: 0.66rem;
+  text-align: center;
+  cursor: pointer;
+}
+.icon-farbe-option input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+.icon-farbe-probe {
+  display: block;
+  width: 1.65rem;
+  height: 1.65rem;
+  border: 2px solid var(--rand-hell);
+  border-radius: 50%;
+  background: var(--eintrag-icon-farbe, transparent);
+  box-shadow: inset 0 0 0 3px var(--grund);
+}
+.icon-farbe-option.standard .icon-farbe-probe {
+  border-color: var(--schrift-matt);
+  background: transparent;
+}
+.icon-farbe-option:hover { color: var(--schrift); background: var(--akzent-schleier); }
+.icon-farbe-option input:focus-visible + .icon-farbe-probe {
+  outline: 2px solid var(--akzent);
+  outline-offset: 2px;
+}
+.icon-farbe-option input:checked + .icon-farbe-probe {
+  border-color: var(--schrift);
+  box-shadow: inset 0 0 0 3px var(--grund), 0 0 0 2px var(--akzent-rand);
+}
+.icon-farbe-option:has(input:checked) { color: var(--schrift); }
 
 /* ------------------------------------------------------------------ *
    Wo die Symbole stehen

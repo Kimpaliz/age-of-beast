@@ -29,7 +29,7 @@
     const symbolvorrat = typeof bausteine.symbole === 'function' ? bausteine.symbole() : null;
     const symbol = (kategorie, klasse) => (symbolvorrat ? symbolvorrat.symbol(kategorie, klasse) : '');
     const eintragSymbol = (eintrag, klasse) => (symbolvorrat
-      ? symbolvorrat.eintragSymbol(eintrag?.icon, eintrag?.kategorie, klasse)
+      ? symbolvorrat.eintragSymbol(eintrag?.icon, eintrag?.kategorie, klasse, eintrag?.iconColor)
       : '');
     if (symbolvorrat && !document.querySelector('.symbol-vorrat')) {
       document.body.insertAdjacentHTML('afterbegin', symbolvorrat.sprite());
@@ -237,8 +237,11 @@
         ? kategorie
         : (kategorien[0]?.schluessel || 'items');
       const motive = symbolvorrat?.eintragsMotive?.() || [];
-      const iconWahl = '<label class="icon-option standard"><input type="radio" name="icon" value="" checked><span class="icon-vorschau">' + symbol(vorauswahl, 'icon-auswahl-symbol') + '</span><span>Standard</span></label>'
+      const farben = symbolvorrat?.eintragsFarben?.() || [];
+      const iconWahl = '<label class="icon-option standard"><input type="radio" name="icon" value="" checked><span class="icon-vorschau">' + symbolvorrat.eintragSymbol('', vorauswahl, 'icon-auswahl-symbol') + '</span><span>Standard</span></label>'
         + motive.map((motiv) => '<label class="icon-option" title="' + sicher(motiv.name) + '"><input type="radio" name="icon" value="' + sicher(motiv.kennung) + '"><span class="icon-vorschau">' + symbolvorrat.eintragSymbol(motiv.kennung, vorauswahl, 'icon-auswahl-symbol') + '</span><span>' + sicher(motiv.name) + '</span></label>').join('');
+      const farbWahl = '<label class="icon-farbe-option standard"><input type="radio" name="iconColor" value="" checked><span class="icon-farbe-probe"></span><span>Kategorie</span></label>'
+        + farben.map((farbe) => '<label class="icon-farbe-option"><input type="radio" name="iconColor" value="' + sicher(farbe.kennung) + '"><span class="icon-farbe-probe eintrag-farbe-' + sicher(farbe.kennung) + '"></span><span>' + sicher(farbe.name) + '</span></label>').join('');
 
       inhalt.innerHTML = '<p class="brotkrumen"><a class="zurueck" href="#/">&lsaquo; Arbeitsfläche</a><span class="pfad">' + sicher(welt.titel) + ' / Neuer Eintrag</span></p>'
         + '<section class="eintrag-neu-dialog" role="dialog" aria-labelledby="eintrag-neu-titel">'
@@ -248,8 +251,21 @@
         + '<label class="eintrag-neu-feld"><span>Name</span><input name="name" value="' + sicher(name) + '" maxlength="120" required></label>'
         + '<label class="eintrag-neu-feld"><span>Kategorie</span><select name="kategorie">' + kategorien.map((eintrag) => '<option value="' + sicher(eintrag.schluessel) + '"' + (eintrag.schluessel === vorauswahl ? ' selected' : '') + '>' + sicher(eintrag.name) + '</option>').join('') + '</select></label>'
         + '<fieldset class="icon-auswahl"><legend>Icon</legend><div class="icon-optionen">' + iconWahl + '</div></fieldset>'
+        + '<fieldset class="icon-farbauswahl"><legend>Farbe</legend><div class="icon-farbe-optionen">' + farbWahl + '</div></fieldset>'
         + '<div class="eintrag-neu-aktionen"><button type="submit" class="bearbeiten-speichern" data-neu-speichern disabled>Eintrag anlegen</button><button type="button" class="bearbeiten-abbrechen" data-neu-abbrechen>Abbrechen</button><span class="bearbeiten-meldung" data-neu-meldung>Zum Anlegen bitte anmelden.</span></div>'
         + '</form></section>';
+      const form = inhalt.querySelector('[data-neuer-eintrag]');
+      form?.addEventListener('change', (ereignis) => {
+        const feld = ereignis.target.closest('input[name="iconColor"]');
+        if (!feld) return;
+        for (const icon of form.querySelectorAll('.icon-vorschau .eintrag-symbol')) {
+          for (const farbe of farben) icon.classList.remove('eintrag-farbe-' + farbe.kennung);
+          icon.removeAttribute('data-icon-farbe');
+          if (!symbolvorrat?.kenntFarbe?.(feld.value)) continue;
+          icon.classList.add('eintrag-farbe-' + feld.value);
+          icon.dataset.iconFarbe = feld.value;
+        }
+      });
       navigationMarkieren(null);
       document.title = name + ' anlegen – ' + welt.titel;
     }
