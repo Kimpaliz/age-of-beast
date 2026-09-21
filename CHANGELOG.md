@@ -5,6 +5,24 @@ Dieselben Änderungen stehen in Entwicklersprache in [CHANGELOG-TECHNIK.md](CHAN
 
 Das Neueste steht immer oben.
 
+## Brix und Lukas haben eindeutige Charakterbögen – 21. September 2026
+
+- **Brix Borin existiert nur noch einmal.** Die zweite Fassung aus der
+  Werkstatt wurde mit seinem Figuren-Eintrag zusammengeführt.
+- Brix zeigt jetzt seine Spielwerte, Ausrüstung, Herkunftsmerkmale,
+  Klassenmerkmale und Fähigkeitskarten direkt im Wiki.
+- Aus den bereits bekannten Angaben wurden vorläufig die Erfahrungen
+  **Taschendieb +2** und **Pokerface +2** abgeleitet. Sie sind sichtbar
+  als noch von Xeno zu bestätigen gekennzeichnet.
+- Unbekannte Angaben wurden nicht erfunden. Alter, Gold, Beutelinhalt,
+  Kurzschwert-Regelquelle und die alte Notiz „Ausdenken 3“ bleiben offen.
+- Lukas’ Figur heißt nun ehrlich **„Aktuell noch ohne Namen“**, ohne den
+  Spieler Lukas als Figur auszugeben.
+- Ein zuvor falsch gesetzter Verweis auf Lukas’ Figur führt nun zum
+  richtigen Eintrag.
+- Eine neue Prüfung hält beide Spielfiguren, ihre sichtbaren Werte und
+  die entfernte Dublette dauerhaft fest.
+
 ## Der Dolch senkt dein Ausweichen nicht mehr – 6. September 2026
 
 Auf den Charakterbögen stimmte eine Zahl nicht — und zwar so, dass man

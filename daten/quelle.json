@@ -55,24 +55,24 @@
           {
             "attributes": [
               {
-                "id": "custom-attribute-lukas-sc-player",
+                "id": "custom-attribute-brix-player",
                 "label": "Spieler",
                 "value": "Xeno"
               },
               {
-                "id": "custom-attribute-lukas-sc-name",
+                "id": "custom-attribute-brix-name",
                 "label": "Charaktername",
                 "value": "Brix Borin"
               },
               {
-                "id": "custom-attribute-lukas-sc-existence",
+                "id": "custom-attribute-brix-status",
                 "label": "Charakterstatus",
-                "value": "Werte vollständig, Stufe 1"
+                "value": "Spielbereit, Stufe 1; Erfahrungen vorläufig"
               },
               {
-                "id": "custom-attribute-lukas-sc-type",
+                "id": "custom-attribute-brix-type",
                 "label": "Typ",
-                "value": "Spielercharakter"
+                "value": "Spielfigur"
               }
             ],
             "id": "panel-xeno-sc-stand",
@@ -88,10 +88,14 @@
             "kind": "attributes",
             "text": "",
             "textLayout": "single",
-            "title": "Gesicherter Stand"
+            "title": "Charakterbogen"
           },
           {
-            "id": "panel-xeno-sc-offen",
+            "id": "panel-brix-spielwerte",
+            "kind": "text",
+            "title": "Spielwerte",
+            "text": "<h3>Attribute</h3><ul><li><strong>Agility (Beweglichkeit):</strong> +1</li><li><strong>Strength (Stärke):</strong> −1</li><li><strong>Finesse (Fingerfertigkeit):</strong> +2</li><li><strong>Instinct (Instinkt):</strong> +1</li><li><strong>Presence (Ausstrahlung):</strong> 0</li><li><strong>Knowledge (Wissen):</strong> 0</li></ul><h3>Verteidigung und Vorräte</h3><ul><li><strong>Ausweichen (Evasion):</strong> 13</li><li><strong>Rüstung:</strong> Gambeson, Rüstungswert 3</li><li><strong>Schadensschwellen:</strong> Grundwerte 5 / 11; auf Stufe 1 derzeit 6 / 12</li><li><strong>Trefferpunkte:</strong> 6</li><li><strong>Stress:</strong> 6</li><li><strong>Hoffnung:</strong> Start 2, höchstens 6</li></ul><h3>Bewaffnung</h3><ul><li><strong>Dolch</strong> (Hauptwaffe)</li><li><strong>Kurzschwert</strong> (Zweitwaffe; im geladenen Regelkatalog nicht eindeutig zugeordnet)</li><li><strong>Fälscherwerkzeug</strong> (Klassengegenstand)</li></ul>",
+            "textLayout": "single",
             "image": "",
             "imageSettings": {
               "color": "gold",
@@ -100,19 +104,39 @@
               "positionX": 50,
               "positionY": 50,
               "zoom": 100
-            },
+            }
+          },
+          {
+            "id": "panel-brix-erfahrungen",
             "kind": "text",
-            "text": "Zwei Erfahrungen mit je +2 fehlen — sie gehören zu einer Figur der Stufe 1 dazu. Ebenso offen: Alter, Gold und was genau im Beutel steckt.",
-            "textFields": [
-              {
-                "html": "<p>Zwei Erfahrungen mit je +2 fehlen — sie gehören zu einer Figur der Stufe 1 dazu. Ebenso offen: Alter, Gold und was genau im Beutel steckt.</p>",
-                "id": "text-lukas-sc-offen",
-                "label": "Text",
-                "text": "Zwei Erfahrungen mit je +2 fehlen — sie gehören zu einer Figur der Stufe 1 dazu. Ebenso offen: Alter, Gold und was genau im Beutel steckt."
-              }
-            ],
+            "title": "Erfahrungen und Fähigkeitskarten",
+            "text": "<h3>Erfahrungen</h3><ul><li><strong>Taschendieb</strong> +2</li><li><strong>Pokerface</strong> +2</li></ul><p><em>Beide Erfahrungen sind aus Brix’ bisherigen Angaben abgeleitet und noch von Xeno zu bestätigen.</em></p><h3>Gewählte Fähigkeitskarten</h3><ul><li><strong>Pick and Pull</strong> (Midnight, Stufe 1)</li><li><strong>Deft Deceiver</strong> (Grace, Stufe 1)</li></ul>",
             "textLayout": "single",
-            "title": "Noch offen"
+            "image": "",
+            "imageSettings": {
+              "color": "gold",
+              "fit": "contain",
+              "frame": "simple",
+              "positionX": 50,
+              "positionY": 50,
+              "zoom": 100
+            }
+          },
+          {
+            "id": "panel-brix-merkmale",
+            "kind": "text",
+            "title": "Herkunfts- und Klassenmerkmale",
+            "text": "<h3>Ribbet</h3><ul><li><strong>Amphibisch:</strong> Brix kann unter Wasser natürlich atmen und sich dort ohne Einschränkung bewegen.</li><li><strong>Lange Zunge:</strong> Er kann damit Dinge in naher Reichweite greifen oder sie für 1 Stress als Finesse-Waffe einsetzen, die mit Kompetenz W12 körperlichen Schaden verursacht.</li></ul><h3>Underborne</h3><p><strong>Low-Light Living:</strong> Vorteil bei wenig Licht oder starkem Schatten beim Verstecken, Untersuchen und Wahrnehmen.</p><h3>Schurke und Nachtwandler</h3><ul><li><strong>Cloaked &amp; Sneak Attack</strong> (Klassenfertigkeit)</li><li><strong>Rogue’s Dodge:</strong> +2 Ausweichen bis zum nächsten erfolgreichen gegnerischen Treffer oder bis zur nächsten Rast.</li><li><strong>Shadow Stepper:</strong> Für 1 Stress von einem Schatten zu einem anderen in weiter Reichweite wechseln; danach ist Brix Cloaked (verborgen).</li></ul>",
+            "textLayout": "single",
+            "image": "",
+            "imageSettings": {
+              "color": "gold",
+              "fit": "contain",
+              "frame": "simple",
+              "positionX": 50,
+              "positionY": 50,
+              "zoom": 100
+            }
           },
           {
             "id": "panel-xeno-sc-bekannt",
@@ -161,11 +185,41 @@
               "positionY": 50,
               "zoom": 100
             }
+          },
+          {
+            "id": "panel-xeno-sc-offen",
+            "image": "",
+            "imageSettings": {
+              "color": "gold",
+              "fit": "contain",
+              "frame": "simple",
+              "positionX": 50,
+              "positionY": 50,
+              "zoom": 100
+            },
+            "kind": "text",
+            "text": "<p><strong>Noch zu bestätigen:</strong> die aus Brix’ Hintergrund abgeleiteten Erfahrungen <em>Taschendieb</em> und <em>Pokerface</em>.</p><p>Offen bleiben Alter, Gold, der genaue Inhalt des Beutels, die Bedeutung der älteren Notiz „Ausdenken 3“ und die Regelquelle des Kurzschwerts.</p>",
+            "textFields": [
+              {
+                "id": "text-brix-offen",
+                "label": "Text",
+                "text": "Noch zu bestätigen: die aus Brix’ Hintergrund abgeleiteten Erfahrungen Taschendieb und Pokerface. Offen bleiben Alter, Gold, der genaue Inhalt des Beutels, die Bedeutung der älteren Notiz „Ausdenken 3“ und die Regelquelle des Kurzschwerts.",
+                "html": "<p><strong>Noch zu bestätigen:</strong> die aus Brix’ Hintergrund abgeleiteten Erfahrungen <em>Taschendieb</em> und <em>Pokerface</em>.</p><p>Offen bleiben Alter, Gold, der genaue Inhalt des Beutels, die Bedeutung der älteren Notiz „Ausdenken 3“ und die Regelquelle des Kurzschwerts.</p>"
+              }
+            ],
+            "textLayout": "single",
+            "title": "Noch offen"
           }
         ],
-        "description": "Xenos Spielfigur: ein diebischer Ribbet aus dem Underborne, Schurke und Nachtwandler. Traegt immer einen Piratenhut — und einen Beutel, dessen Inhalt niemand wissen darf.",
+        "description": "Xenos Spielfigur: Brix Borin ist ein diebischer Ribbet aus dem Underborne, Schurke und Nachtwandler. Er trägt immer einen Piratenhut und einen Beutel, dessen Inhalt niemand wissen darf.",
         "descriptionPanelIds": [
           "panel-xeno-sc-stand",
+          "panel-brix-spielwerte",
+          "panel-brix-erfahrungen",
+          "panel-brix-merkmale",
+          "panel-xeno-sc-bekannt",
+          "panel-brix-erscheinung",
+          "panel-brix-hintergrund",
           "panel-xeno-sc-offen"
         ],
         "fields": {
@@ -177,12 +231,6 @@
               "kind": "Gehört zur Kampagne",
               "label": "Spielfigur von Xeno",
               "targetId": "wiki-sturmwende-kampagnenframe"
-            },
-            {
-              "id": "connection-brix-werkstatt",
-              "kind": "Baubogen",
-              "label": "Derselbe Charakter im Figurenbaukasten",
-              "targetId": "werkstatt-figur-brix-borin"
             },
             {
               "id": "connection-brix-lukas",
@@ -199,7 +247,7 @@
           ],
           "factionId": "",
           "gender": "männlich",
-          "info": "Die Figur heißt vorläufig nach ihrem Spieler. Ihr eigener Name steht noch aus.",
+          "info": "Brix Borin ist Xenos Spielfigur. Seine beiden Erfahrungen wurden aus den vorhandenen Angaben abgeleitet und müssen noch von Xeno bestätigt werden.",
           "motive": "",
           "occupation": "",
           "pressure": "",
@@ -261,7 +309,18 @@
               }
             ],
             "klassengegenstand": "Fälscherwerkzeug",
-            "erfahrungen": [],
+            "erfahrungen": [
+              {
+                "name": "Taschendieb",
+                "bonus": 2,
+                "vorlaeufig": true
+              },
+              {
+                "name": "Pokerface",
+                "bonus": 2,
+                "vorlaeufig": true
+              }
+            ],
             "karten": [
               "Pick and Pull",
               "Deft Deceiver"
@@ -269,9 +328,12 @@
             "klassenfertigkeit": "Cloaked & Sneak Attack",
             "hoffnungsfertigkeit": "Rogue's Dodge",
             "offen": [
-              "Zwei Erfahrungen mit je +2",
+              "Erfahrungen „Taschendieb“ und „Pokerface“ von Xeno bestätigen lassen",
               "Alter",
-              "Gold"
+              "Gold",
+              "Inhalt des Beutels",
+              "Bedeutung der Notiz „Ausdenken 3“",
+              "Regelquelle des Kurzschwerts"
             ]
           },
           "community": "Underborne",
@@ -294,24 +356,39 @@
         "module": "characters",
         "name": "Brix Borin",
         "panelHeights": {
-          "panel-xeno-sc-offen": 3,
-          "panel-xeno-sc-stand": 3
+          "panel-xeno-sc-stand": 3,
+          "panel-brix-spielwerte": 5,
+          "panel-brix-erfahrungen": 3,
+          "panel-brix-merkmale": 5,
+          "panel-xeno-sc-bekannt": 4,
+          "panel-brix-erscheinung": 2,
+          "panel-brix-hintergrund": 2,
+          "panel-xeno-sc-offen": 3
         },
         "panelOrder": [
           "core-connections",
           "references",
           "panel-xeno-sc-stand",
-          "panel-xeno-sc-offen",
+          "panel-brix-spielwerte",
+          "panel-brix-erfahrungen",
+          "panel-brix-merkmale",
           "panel-xeno-sc-bekannt",
           "panel-brix-erscheinung",
-          "panel-brix-hintergrund"
+          "panel-brix-hintergrund",
+          "panel-xeno-sc-offen"
         ],
         "panelWidths": {
-          "panel-xeno-sc-offen": "wide",
-          "panel-xeno-sc-stand": "standard"
+          "panel-xeno-sc-stand": "standard",
+          "panel-brix-spielwerte": "wide",
+          "panel-brix-erfahrungen": "standard",
+          "panel-brix-merkmale": "wide",
+          "panel-xeno-sc-bekannt": "wide",
+          "panel-brix-erscheinung": "standard",
+          "panel-brix-hintergrund": "wide",
+          "panel-xeno-sc-offen": "wide"
         },
         "richText": {
-          "info": "<p>Die Figur heißt vorläufig nach ihrem Spieler <strong>Xeno</strong>. Ihr eigener Name steht noch aus.</p>",
+          "info": "<p><strong>Brix Borin</strong> ist Xenos Spielfigur. Seine beiden Erfahrungen wurden aus den vorhandenen Angaben abgeleitet und müssen noch von Xeno bestätigt werden.</p>",
           "motive": "",
           "pressure": "",
           "role": "<p>Spielfigur von Xeno</p>",
@@ -328,13 +405,13 @@
             "systemId": ""
           }
         },
-        "updatedAt": "2026-09-04T13:07:33.097Z"
+        "updatedAt": "2026-09-21T09:12:11.035Z"
       },
       "character-aob-lukas-sc": {
         "id": "character-aob-lukas-sc",
         "module": "characters",
-        "name": "Lukas",
-        "description": "Lukas’ Spielfigur: ein seegeborener Faun, Waldläufer und Wegfinder. „Lukas“ ist ein Platzhalter — der Name der Figur steht noch aus.",
+        "name": "Aktuell noch ohne Namen",
+        "description": "Lukas’ Spielfigur hat noch keinen Namen: ein seegeborener Faun, Waldläufer und Wegfinder.",
         "image": "",
         "imageSettings": {
           "color": "gold",
@@ -345,7 +422,7 @@
           "zoom": 100
         },
         "createdAt": "2026-09-04T13:07:33.097Z",
-        "updatedAt": "2026-09-04T13:07:33.097Z",
+        "updatedAt": "2026-09-21T09:12:11.035Z",
         "attributeRows": [
           {
             "id": "attribute-lukas-sc-characterType",
@@ -404,8 +481,8 @@
           "weapon": "Machete",
           "status": "aktiv",
           "role": "Spielfigur von Lukas",
-          "info": "Die Figur heißt vorläufig nach ihrem Spieler. Ihr eigener Name steht noch aus.",
-          "title": "Platzhaltername",
+          "info": "Lukas ist der Spieler. Der Name seiner Figur steht noch aus.",
+          "title": "Name noch offen",
           "gender": "",
           "age": "",
           "occupation": "",
@@ -513,7 +590,7 @@
         },
         "richText": {
           "role": "<p>Spielfigur von Lukas</p>",
-          "info": "<p>Die Figur heißt vorläufig nach ihrem Spieler <strong>Lukas</strong>. Ihr eigener Name steht noch aus.</p>",
+          "info": "<p><strong>Lukas</strong> ist der Spieler. Der Name seiner Figur steht noch aus.</p>",
           "motive": "",
           "pressure": "",
           "traits": ""
@@ -555,7 +632,7 @@
             "id": "panel-lukas-sc-tisch",
             "kind": "text",
             "title": "Am Tisch",
-            "text": "<p><strong>Ein freundlicher Wettstreit</strong> mit Xenos Figur: Wer findet und isst die schrecklichste örtliche Spezialität?</p><p><strong>Eine offene Frage</strong> an Xenos Figur: „Was ist in deinen… Beutel?“</p><p><strong>Eine Bitte, die er angenommen hat:</strong> Xenos Figur hat ihn gebeten, sie zu warnen, sobald die <em>Goldene Garde</em> auftaucht. In der Gossensprache heißen die Gardisten herablassend <em>Gelbröcke</em>.</p>",
+            "text": "<p><strong>Ein freundlicher Wettstreit</strong> mit Brix Borin: Wer findet und isst die schrecklichste örtliche Spezialität?</p><p><strong>Eine offene Frage</strong> an Brix Borin: „Was ist in deinen… Beutel?“</p><p><strong>Eine Bitte, die er angenommen hat:</strong> Brix Borin hat ihn gebeten, sie zu warnen, sobald die <em>Goldene Garde</em> auftaucht. In der Gossensprache heißen die Gardisten herablassend <em>Gelbröcke</em>.</p>",
             "textLayout": "single",
             "image": "",
             "imageSettings": {
@@ -5323,13 +5400,13 @@
               "zoom": 100
             },
             "kind": "text",
-            "text": "Spielerzuordnung: Lukas ist ein Spieler und keine Figur der Welt. Seine Spielfigur existiert bereits, besitzt aber aktuell noch keinen Namen. Sie wird vorläufig als Unbenannte Spielfigur von Lukas geführt. Ob sie Begleiter für die Artefaktsuche sucht, ist noch offen.\nGemeinschaften: Wanderborne, Seaborne und Underborne sind besonders stark vertreten.\nAbstammungen, Klassen und weitere Fragen zur Charaktererschaffung sind noch offen.",
+            "text": "Spielerzuordnung: Lukas ist ein Spieler und keine Figur der Welt. Seine Spielfigur existiert bereits, besitzt aber aktuell noch keinen Namen. Sie wird vorläufig als „Aktuell noch ohne Namen“ geführt. Ob sie Begleiter für die Artefaktsuche sucht, ist noch offen.\nGemeinschaften: Wanderborne, Seaborne und Underborne sind besonders stark vertreten.\nAbstammungen, Klassen und weitere Fragen zur Charaktererschaffung sind noch offen.",
             "textFields": [
               {
-                "html": "<h3>Spielerzuordnung</h3><p><strong>Lukas ist ein Spieler und keine Figur der Welt.</strong> Seine Spielfigur existiert bereits, besitzt aber aktuell noch keinen Namen. Sie wird vorläufig als <strong>Unbenannte Spielfigur von Lukas</strong> geführt. Ob sie Begleiter für die Artefaktsuche sucht, ist noch offen.</p><h3>Gemeinschaften</h3><p>Wanderborne, Seaborne und Underborne sind besonders stark vertreten.</p><h3>Noch offen</h3><ul><li>Anmerkungen zu Abstammungen</li><li>Anmerkungen zu Klassen</li><li>Name der Spielfigur von Lukas</li><li>Zuordnung der Artefaktsuche</li><li>Fragen zur Charaktererschaffung</li></ul>",
+                "html": "<h3>Spielerzuordnung</h3><p><strong>Lukas ist ein Spieler und keine Figur der Welt.</strong> Seine Spielfigur existiert bereits, besitzt aber aktuell noch keinen Namen. Sie wird vorläufig als <strong>Aktuell noch ohne Namen</strong> geführt. Ob sie Begleiter für die Artefaktsuche sucht, ist noch offen.</p><h3>Gemeinschaften</h3><p>Wanderborne, Seaborne und Underborne sind besonders stark vertreten.</p><h3>Noch offen</h3><ul><li>Anmerkungen zu Abstammungen</li><li>Anmerkungen zu Klassen</li><li>Name der Spielfigur von Lukas</li><li>Zuordnung der Artefaktsuche</li><li>Fragen zur Charaktererschaffung</li></ul>",
                 "id": "text-sturmwende-charaktere",
                 "label": "Text",
-                "text": "Spielerzuordnung\nLukas ist ein Spieler und keine Figur der Welt. Seine Spielfigur existiert bereits, besitzt aber aktuell noch keinen Namen. Sie wird vorläufig als Unbenannte Spielfigur von Lukas geführt. Ob sie Begleiter für die Artefaktsuche sucht, ist noch offen.\nGemeinschaften\nWanderborne, Seaborne und Underborne sind besonders stark vertreten.\nNoch offen\nAnmerkungen zu Abstammungen\nAnmerkungen zu Klassen\nName der Spielfigur von Lukas\nZuordnung der Artefaktsuche\nFragen zur Charaktererschaffung"
+                "text": "Spielerzuordnung\nLukas ist ein Spieler und keine Figur der Welt. Seine Spielfigur existiert bereits, besitzt aber aktuell noch keinen Namen. Sie wird vorläufig als „Aktuell noch ohne Namen“ geführt. Ob sie Begleiter für die Artefaktsuche sucht, ist noch offen.\nGemeinschaften\nWanderborne, Seaborne und Underborne sind besonders stark vertreten.\nNoch offen\nAnmerkungen zu Abstammungen\nAnmerkungen zu Klassen\nName der Spielfigur von Lukas\nZuordnung der Artefaktsuche\nFragen zur Charaktererschaffung"
               }
             ],
             "textLayout": "single",
@@ -5499,7 +5576,7 @@
           },
           "unbenannte spielfigur von lukas": {
             "central": false,
-            "id": "character-aob-xeno-sc",
+            "id": "character-aob-lukas-sc",
             "kind": "element",
             "moon": false,
             "parentBodyId": "",
@@ -5514,228 +5591,21 @@
             "parentBodyId": "",
             "parentId": "",
             "systemId": ""
+          },
+          "aktuell noch ohne namen": {
+            "central": false,
+            "id": "character-aob-lukas-sc",
+            "kind": "element",
+            "moon": false,
+            "parentBodyId": "",
+            "parentId": "",
+            "systemId": ""
           }
         },
-        "updatedAt": "2026-08-07T22:09:05.871Z"
+        "updatedAt": "2026-09-21T09:12:11.035Z"
       }
     },
     "werkstatt": {
-      "werkstatt-figur-brix-borin": {
-        "attributeRows": [
-          {
-            "id": "attribute-werkstatt-figur-brix-borin-art",
-            "key": "werkstattArt",
-            "label": "Art"
-          },
-          {
-            "id": "attribute-werkstatt-figur-brix-borin-werkstattKlasse",
-            "key": "werkstattKlasse",
-            "label": "Klasse"
-          },
-          {
-            "id": "attribute-werkstatt-figur-brix-borin-werkstattUnterklasse",
-            "key": "werkstattUnterklasse",
-            "label": "Unterklasse"
-          },
-          {
-            "id": "attribute-werkstatt-figur-brix-borin-werkstattAbstammung",
-            "key": "werkstattAbstammung",
-            "label": "Abstammung"
-          },
-          {
-            "id": "attribute-werkstatt-figur-brix-borin-werkstattGemeinschaft",
-            "key": "werkstattGemeinschaft",
-            "label": "Gemeinschaft"
-          },
-          {
-            "id": "attribute-werkstatt-figur-brix-borin-werkstattStufe",
-            "key": "werkstattStufe",
-            "label": "Stufe"
-          },
-          {
-            "id": "attribute-werkstatt-figur-brix-borin-werkstattFuerwort",
-            "key": "werkstattFuerwort",
-            "label": "Fürwort"
-          },
-          {
-            "id": "attribute-werkstatt-figur-brix-borin-werkstattWerte",
-            "key": "werkstattWerte",
-            "label": "Eigenschaften"
-          },
-          {
-            "id": "attribute-werkstatt-figur-brix-borin-werkstattAusweichen",
-            "key": "werkstattAusweichen",
-            "label": "Ausweichen"
-          }
-        ],
-        "createdAt": "2026-08-25T22:53:51.317Z",
-        "customPanels": [
-          {
-            "id": "panel-werkstatt-figur-brix-borin-erscheinung",
-            "image": "",
-            "imageSettings": {
-              "color": "gold",
-              "fit": "contain",
-              "frame": "simple",
-              "positionX": 50,
-              "positionY": 50,
-              "zoom": 100
-            },
-            "kind": "text",
-            "text": "Diebischer Ribbet, trägt immer einen Piraten hut",
-            "textFields": [
-              {
-                "html": "<p>Diebischer Ribbet, trägt immer einen Piraten hut</p>",
-                "id": "text-panel-werkstatt-figur-brix-borin-erscheinung",
-                "label": "Text",
-                "text": "Diebischer Ribbet, trägt immer einen Piraten hut"
-              }
-            ],
-            "textLayout": "single",
-            "title": "Erscheinung"
-          },
-          {
-            "id": "panel-werkstatt-figur-brix-borin-hintergrund",
-            "image": "",
-            "imageSettings": {
-              "color": "gold",
-              "fit": "contain",
-              "frame": "simple",
-              "positionX": 50,
-              "positionY": 50,
-              "zoom": 100
-            },
-            "kind": "text",
-            "text": "Von meiner Familie\n\nDie Dorfbewohner des Heimatdorfs\n\nDiebstahl, aber so dass das Dorf überrumpelt worden ist.",
-            "textFields": [
-              {
-                "html": "<p>Von meiner Familie</p><p>Die Dorfbewohner des Heimatdorfs</p><p>Diebstahl, aber so dass das Dorf überrumpelt worden ist.</p>",
-                "id": "text-panel-werkstatt-figur-brix-borin-hintergrund",
-                "label": "Text",
-                "text": "Von meiner Familie\n\nDie Dorfbewohner des Heimatdorfs\n\nDiebstahl, aber so dass das Dorf überrumpelt worden ist."
-              }
-            ],
-            "textLayout": "single",
-            "title": "Hintergrund"
-          },
-          {
-            "id": "panel-werkstatt-figur-brix-borin-ausruestung",
-            "image": "",
-            "imageSettings": {
-              "color": "gold",
-              "fit": "contain",
-              "frame": "simple",
-              "positionX": 50,
-              "positionY": 50,
-              "zoom": 100
-            },
-            "kind": "text",
-            "text": "Hauptwaffe: dagger\n\nZweitwaffe: shortsword\n\nRüstung: gambeson\n\nKlassengegenstand: Fälscherwerkzeug",
-            "textFields": [
-              {
-                "html": "<p>Hauptwaffe: dagger</p><p>Zweitwaffe: shortsword</p><p>Rüstung: gambeson</p><p>Klassengegenstand: Fälscherwerkzeug</p>",
-                "id": "text-panel-werkstatt-figur-brix-borin-ausruestung",
-                "label": "Text",
-                "text": "Hauptwaffe: dagger\n\nZweitwaffe: shortsword\n\nRüstung: gambeson\n\nKlassengegenstand: Fälscherwerkzeug"
-              }
-            ],
-            "textLayout": "single",
-            "title": "Ausrüstung"
-          },
-          {
-            "id": "panel-werkstatt-figur-brix-borin-domaenen",
-            "image": "",
-            "imageSettings": {
-              "color": "gold",
-              "fit": "contain",
-              "frame": "simple",
-              "positionX": 50,
-              "positionY": 50,
-              "zoom": 100
-            },
-            "kind": "text",
-            "text": "pick-and-pull, deft-deceiver",
-            "textFields": [
-              {
-                "html": "<p>pick-and-pull, deft-deceiver</p>",
-                "id": "text-panel-werkstatt-figur-brix-borin-domaenen",
-                "label": "Text",
-                "text": "pick-and-pull, deft-deceiver"
-              }
-            ],
-            "textLayout": "single",
-            "title": "Domänenkarten"
-          },
-          {
-            "id": "panel-werkstatt-figur-brix-borin-verbindungen",
-            "image": "",
-            "imageSettings": {
-              "color": "gold",
-              "fit": "contain",
-              "frame": "simple",
-              "positionX": 50,
-              "positionY": 50,
-              "zoom": 100
-            },
-            "kind": "text",
-            "text": "Ausdenken 3\n\nIch hab einen Beutel bei mir und der beinhaltet:\nMein Gedühns\n() - Darf aber keiner wissen\n\nWir schließen eine Wette ab, wenn Lukas verliert trägt er meine Hut einen ganzen Tag lang.\nWenn ich verliere muss ich ihn mit Chef ansprechenund sein persönlicher Assistent sein.",
-            "textFields": [
-              {
-                "html": "<p>Ausdenken 3</p><p>Ich hab einen Beutel bei mir und der beinhaltet:<br>Mein Gedühns<br>() - Darf aber keiner wissen</p><p>Wir schließen eine Wette ab, wenn Lukas verliert trägt er meine Hut einen ganzen Tag lang.<br>Wenn ich verliere muss ich ihn mit Chef ansprechenund sein persönlicher Assistent sein.</p>",
-                "id": "text-panel-werkstatt-figur-brix-borin-verbindungen",
-                "label": "Text",
-                "text": "Ausdenken 3\n\nIch hab einen Beutel bei mir und der beinhaltet:\nMein Gedühns\n() - Darf aber keiner wissen\n\nWir schließen eine Wette ab, wenn Lukas verliert trägt er meine Hut einen ganzen Tag lang.\nWenn ich verliere muss ich ihn mit Chef ansprechenund sein persönlicher Assistent sein."
-              }
-            ],
-            "textLayout": "single",
-            "title": "Verbindungen zur Gruppe"
-          }
-        ],
-        "description": "rogue · ribbet · underborne",
-        "descriptionPanelIds": [
-          "panel-werkstatt-figur-brix-borin-erscheinung",
-          "panel-werkstatt-figur-brix-borin-hintergrund",
-          "panel-werkstatt-figur-brix-borin-ausruestung",
-          "panel-werkstatt-figur-brix-borin-domaenen",
-          "panel-werkstatt-figur-brix-borin-verbindungen"
-        ],
-        "fields": {
-          "werkstattArt": "Spielfigur",
-          "werkstattKlasse": "rogue",
-          "werkstattUnterklasse": "nightwalker",
-          "werkstattAbstammung": "ribbet",
-          "werkstattGemeinschaft": "underborne",
-          "werkstattStufe": "1",
-          "werkstattFuerwort": "Er",
-          "werkstattWerte": "Beweglichkeit +1, Stärke -1, Fingerfertigkeit +2, Instinkt +1, Ausstrahlung 0, Wissen 0",
-          "werkstattAusweichen": "13"
-        },
-        "id": "werkstatt-figur-brix-borin",
-        "image": "",
-        "imageSettings": {
-          "color": "gold",
-          "fit": "contain",
-          "frame": "simple",
-          "positionX": 50,
-          "positionY": 50,
-          "zoom": 100
-        },
-        "module": "werkstatt",
-        "name": "Brix Borin",
-        "panelHeights": {},
-        "panelOrder": [
-          "core-connections",
-          "references",
-          "panel-werkstatt-figur-brix-borin-erscheinung",
-          "panel-werkstatt-figur-brix-borin-hintergrund",
-          "panel-werkstatt-figur-brix-borin-ausruestung",
-          "panel-werkstatt-figur-brix-borin-domaenen",
-          "panel-werkstatt-figur-brix-borin-verbindungen"
-        ],
-        "panelWidths": {},
-        "richText": {},
-        "updatedAt": "2026-09-01T04:22:54.346Z"
-      },
       "werkstatt-karte-clank": {
         "attributeRows": [
           {
@@ -13642,7 +13512,7 @@
       }
     }
   },
-  "updatedAt": "2026-09-04T13:07:33.097Z",
+  "updatedAt": "2026-09-21T09:12:11.035Z",
   "version": 42,
   "rahmen": {
     "rahmen-prototyp": {

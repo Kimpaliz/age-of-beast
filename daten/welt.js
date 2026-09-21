@@ -2,7 +2,7 @@
 window.AGE_OF_BEAST_WELT = {
   "titel": "Age of Beast",
   "untertitel": "Daggerheart-Welt zwischen Magie, Natur und Maschinen",
-  "standDerDaten": "2026-09-04T13:07:33.097Z",
+  "standDerDaten": "2026-09-21T09:12:11.035Z",
   "kategorien": [
     {
       "schluessel": "wiki",
@@ -128,7 +128,7 @@ window.AGE_OF_BEAST_WELT = {
         },
         {
           "titel": "Charakteranker und Gemeinschaften",
-          "html": "<h3>Spielerzuordnung</h3><p><strong>Lukas ist ein Spieler und keine Figur der Welt.</strong> Seine Spielfigur existiert bereits, besitzt aber aktuell noch keinen Namen. Sie wird vorläufig als <strong>Unbenannte Spielfigur von Lukas</strong> geführt. Ob sie Begleiter für die Artefaktsuche sucht, ist noch offen.</p><h3>Gemeinschaften</h3><p>Wanderborne, Seaborne und Underborne sind besonders stark vertreten.</p><h3>Noch offen</h3><ul><li>Anmerkungen zu Abstammungen</li><li>Anmerkungen zu Klassen</li><li>Name der Spielfigur von Lukas</li><li>Zuordnung der Artefaktsuche</li><li>Fragen zur Charaktererschaffung</li></ul>",
+          "html": "<h3>Spielerzuordnung</h3><p><strong>Lukas ist ein Spieler und keine Figur der Welt.</strong> Seine Spielfigur existiert bereits, besitzt aber aktuell noch keinen Namen. Sie wird vorläufig als <strong>Aktuell noch ohne Namen</strong> geführt. Ob sie Begleiter für die Artefaktsuche sucht, ist noch offen.</p><h3>Gemeinschaften</h3><p>Wanderborne, Seaborne und Underborne sind besonders stark vertreten.</p><h3>Noch offen</h3><ul><li>Anmerkungen zu Abstammungen</li><li>Anmerkungen zu Klassen</li><li>Name der Spielfigur von Lukas</li><li>Zuordnung der Artefaktsuche</li><li>Fragen zur Charaktererschaffung</li></ul>",
           "herkunft": {
             "art": "panel",
             "panel": 6,
@@ -171,7 +171,7 @@ window.AGE_OF_BEAST_WELT = {
         "x": 780,
         "y": 400
       },
-      "geaendert": "2026-08-07T22:09:05.871Z"
+      "geaendert": "2026-09-21T09:12:11.035Z"
     },
     {
       "id": "faction-sturmwende-gelbroecke-provisorisch",
@@ -1767,7 +1767,7 @@ window.AGE_OF_BEAST_WELT = {
       "name": "Brix Borin",
       "kategorie": "characters",
       "unterart": "Spielfigur",
-      "kurz": "Xenos Spielfigur: ein diebischer Ribbet aus dem Underborne, Schurke und Nachtwandler. Traegt immer einen Piratenhut — und einen Beutel, dessen Inhalt niemand wissen darf.",
+      "kurz": "Xenos Spielfigur: Brix Borin ist ein diebischer Ribbet aus dem Underborne, Schurke und Nachtwandler. Er trägt immer einen Piratenhut und einen Beutel, dessen Inhalt niemand wissen darf.",
       "aliase": [],
       "quelle": "",
       "attribute": [
@@ -1820,13 +1820,30 @@ window.AGE_OF_BEAST_WELT = {
       ],
       "abschnitte": [
         {
-          "titel": "Noch offen",
-          "html": "<p>Zwei Erfahrungen mit je +2 fehlen — sie gehören zu einer Figur der Stufe 1 dazu. Ebenso offen: Alter, Gold und was genau im Beutel steckt.</p>",
+          "titel": "Spielwerte",
+          "html": "<h3>Attribute</h3><ul><li><strong>Agility (Beweglichkeit):</strong> +1</li><li><strong>Strength (Stärke):</strong> −1</li><li><strong>Finesse (Fingerfertigkeit):</strong> +2</li><li><strong>Instinct (Instinkt):</strong> +1</li><li><strong>Presence (Ausstrahlung):</strong> 0</li><li><strong>Knowledge (Wissen):</strong> 0</li></ul><h3>Verteidigung und Vorräte</h3><ul><li><strong>Ausweichen (Evasion):</strong> 13</li><li><strong>Rüstung:</strong> Gambeson, Rüstungswert 3</li><li><strong>Schadensschwellen:</strong> Grundwerte 5 / 11; auf Stufe 1 derzeit 6 / 12</li><li><strong>Trefferpunkte:</strong> 6</li><li><strong>Stress:</strong> 6</li><li><strong>Hoffnung:</strong> Start 2, höchstens 6</li></ul><h3>Bewaffnung</h3><ul><li><strong>Dolch</strong> (Hauptwaffe)</li><li><strong>Kurzschwert</strong> (Zweitwaffe; im geladenen Regelkatalog nicht eindeutig zugeordnet)</li><li><strong>Fälscherwerkzeug</strong> (Klassengegenstand)</li></ul>",
           "herkunft": {
             "art": "panel",
             "panel": 1,
-            "panelId": "panel-xeno-sc-offen",
-            "feld": 0
+            "panelId": "panel-brix-spielwerte"
+          }
+        },
+        {
+          "titel": "Erfahrungen und Fähigkeitskarten",
+          "html": "<h3>Erfahrungen</h3><ul><li><strong>Taschendieb</strong> +2</li><li><strong>Pokerface</strong> +2</li></ul><p><em>Beide Erfahrungen sind aus Brix’ bisherigen Angaben abgeleitet und noch von Xeno zu bestätigen.</em></p><h3>Gewählte Fähigkeitskarten</h3><ul><li><strong>Pick and Pull</strong> (Midnight, Stufe 1)</li><li><strong>Deft Deceiver</strong> (Grace, Stufe 1)</li></ul>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 2,
+            "panelId": "panel-brix-erfahrungen"
+          }
+        },
+        {
+          "titel": "Herkunfts- und Klassenmerkmale",
+          "html": "<h3>Ribbet</h3><ul><li><strong>Amphibisch:</strong> Brix kann unter Wasser natürlich atmen und sich dort ohne Einschränkung bewegen.</li><li><strong>Lange Zunge:</strong> Er kann damit Dinge in naher Reichweite greifen oder sie für 1 Stress als Finesse-Waffe einsetzen, die mit Kompetenz W12 körperlichen Schaden verursacht.</li></ul><h3>Underborne</h3><p><strong>Low-Light Living:</strong> Vorteil bei wenig Licht oder starkem Schatten beim Verstecken, Untersuchen und Wahrnehmen.</p><h3>Schurke und Nachtwandler</h3><ul><li><strong>Cloaked &amp; Sneak Attack</strong> (Klassenfertigkeit)</li><li><strong>Rogue’s Dodge:</strong> +2 Ausweichen bis zum nächsten erfolgreichen gegnerischen Treffer oder bis zur nächsten Rast.</li><li><strong>Shadow Stepper:</strong> Für 1 Stress von einem Schatten zu einem anderen in weiter Reichweite wechseln; danach ist Brix Cloaked (verborgen).</li></ul>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 3,
+            "panelId": "panel-brix-merkmale"
           }
         },
         {
@@ -1834,7 +1851,7 @@ window.AGE_OF_BEAST_WELT = {
           "html": "<p>Er trägt einen <strong>Beutel</strong>, dessen Inhalt niemand wissen darf — Lukas’ Figur hat ausdrücklich danach gefragt: „Was ist in deinen… Beutel?“ Auf seinem eigenen Bogen steht dazu nur: <em>„Mein Gedöns“</em>.</p><p>Er hat Lukas’ Figur darum gebeten, ihn zu <strong>warnen, sobald die Goldene Garde auftaucht</strong>. In der Gossensprache heißen die Gardisten herablassend <em>Gelbröcke</em>.</p><p>Mit Lukas’ Figur verbinden ihn zwei Wetten. Die eine: Wer findet und isst die <strong>schrecklichste örtliche Spezialität</strong>? Die andere: Verliert Lukas, trägt er einen Tag lang <strong>Brix’ Piratenhut</strong>; verliert Brix, muss er Lukas einen Tag lang <strong>„Chef“</strong> nennen und sein persönlicher Assistent sein.</p>",
           "herkunft": {
             "art": "panel",
-            "panel": 2,
+            "panel": 4,
             "panelId": "panel-xeno-sc-bekannt"
           }
         },
@@ -1843,7 +1860,7 @@ window.AGE_OF_BEAST_WELT = {
           "html": "<p>Ein diebischer <strong>Ribbet</strong> — und er trägt <strong>immer</strong> einen Piratenhut.</p>",
           "herkunft": {
             "art": "panel",
-            "panel": 3,
+            "panel": 5,
             "panelId": "panel-brix-erscheinung"
           }
         },
@@ -1852,13 +1869,23 @@ window.AGE_OF_BEAST_WELT = {
           "html": "<p>Er stammt aus einem Dorf, das er bestohlen hat — und zwar so, dass die Dorfbewohner überrumpelt wurden. Zurückgelassen hat er dabei seine Familie.</p>",
           "herkunft": {
             "art": "panel",
-            "panel": 4,
+            "panel": 6,
             "panelId": "panel-brix-hintergrund"
           }
         },
         {
+          "titel": "Noch offen",
+          "html": "<p><strong>Noch zu bestätigen:</strong> die aus Brix’ Hintergrund abgeleiteten Erfahrungen <em>Taschendieb</em> und <em>Pokerface</em>.</p><p>Offen bleiben Alter, Gold, der genaue Inhalt des Beutels, die Bedeutung der älteren Notiz „Ausdenken 3“ und die Regelquelle des Kurzschwerts.</p>",
+          "herkunft": {
+            "art": "panel",
+            "panel": 7,
+            "panelId": "panel-xeno-sc-offen",
+            "feld": 0
+          }
+        },
+        {
           "titel": "Hinweis",
-          "html": "<p>Die Figur heißt vorläufig nach ihrem Spieler <strong>Xeno</strong>. Ihr eigener Name steht noch aus.</p>",
+          "html": "<p><strong>Brix Borin</strong> ist Xenos Spielfigur. Seine beiden Erfahrungen wurden aus den vorhandenen Angaben abgeleitet und müssen noch von Xeno bestätigt werden.</p>",
           "herkunft": {
             "art": "richText",
             "schluessel": "info"
@@ -1880,11 +1907,6 @@ window.AGE_OF_BEAST_WELT = {
           "art": "Gehört zur Kampagne",
           "text": "Spielfigur von Xeno",
           "ziel": "wiki-sturmwende-kampagnenframe"
-        },
-        {
-          "art": "Baubogen",
-          "text": "Derselbe Charakter im Figurenbaukasten",
-          "ziel": "werkstatt-figur-brix-borin"
         },
         {
           "art": "Reisegefährte",
@@ -1949,7 +1971,18 @@ window.AGE_OF_BEAST_WELT = {
           }
         ],
         "klassengegenstand": "Fälscherwerkzeug",
-        "erfahrungen": [],
+        "erfahrungen": [
+          {
+            "name": "Taschendieb",
+            "bonus": 2,
+            "vorlaeufig": true
+          },
+          {
+            "name": "Pokerface",
+            "bonus": 2,
+            "vorlaeufig": true
+          }
+        ],
         "karten": [
           "Pick and Pull",
           "Deft Deceiver"
@@ -1957,19 +1990,22 @@ window.AGE_OF_BEAST_WELT = {
         "klassenfertigkeit": "Cloaked & Sneak Attack",
         "hoffnungsfertigkeit": "Rogue's Dodge",
         "offen": [
-          "Zwei Erfahrungen mit je +2",
+          "Erfahrungen „Taschendieb“ und „Pokerface“ von Xeno bestätigen lassen",
           "Alter",
-          "Gold"
+          "Gold",
+          "Inhalt des Beutels",
+          "Bedeutung der Notiz „Ausdenken 3“",
+          "Regelquelle des Kurzschwerts"
         ]
       },
-      "geaendert": "2026-09-04T13:07:33.097Z"
+      "geaendert": "2026-09-21T09:12:11.035Z"
     },
     {
       "id": "character-aob-lukas-sc",
-      "name": "Lukas",
+      "name": "Aktuell noch ohne Namen",
       "kategorie": "characters",
       "unterart": "Spielfigur",
-      "kurz": "Lukas’ Spielfigur: ein seegeborener Faun, Waldläufer und Wegfinder. „Lukas“ ist ein Platzhalter — der Name der Figur steht noch aus.",
+      "kurz": "Lukas’ Spielfigur hat noch keinen Namen: ein seegeborener Faun, Waldläufer und Wegfinder.",
       "aliase": [],
       "quelle": "",
       "attribute": [
@@ -2041,7 +2077,7 @@ window.AGE_OF_BEAST_WELT = {
         },
         {
           "titel": "Am Tisch",
-          "html": "<p><strong>Ein freundlicher Wettstreit</strong> mit Xenos Figur: Wer findet und isst die schrecklichste örtliche Spezialität?</p><p><strong>Eine offene Frage</strong> an Xenos Figur: „Was ist in deinen… Beutel?“</p><p><strong>Eine Bitte, die er angenommen hat:</strong> Xenos Figur hat ihn gebeten, sie zu warnen, sobald die <em>Goldene Garde</em> auftaucht. In der Gossensprache heißen die Gardisten herablassend <em>Gelbröcke</em>.</p>",
+          "html": "<p><strong>Ein freundlicher Wettstreit</strong> mit Brix Borin: Wer findet und isst die schrecklichste örtliche Spezialität?</p><p><strong>Eine offene Frage</strong> an Brix Borin: „Was ist in deinen… Beutel?“</p><p><strong>Eine Bitte, die er angenommen hat:</strong> Brix Borin hat ihn gebeten, sie zu warnen, sobald die <em>Goldene Garde</em> auftaucht. In der Gossensprache heißen die Gardisten herablassend <em>Gelbröcke</em>.</p>",
           "herkunft": {
             "art": "panel",
             "panel": 2,
@@ -2068,7 +2104,7 @@ window.AGE_OF_BEAST_WELT = {
         },
         {
           "titel": "Hinweis",
-          "html": "<p>Die Figur heißt vorläufig nach ihrem Spieler <strong>Lukas</strong>. Ihr eigener Name steht noch aus.</p>",
+          "html": "<p><strong>Lukas</strong> ist der Spieler. Der Name seiner Figur steht noch aus.</p>",
           "herkunft": {
             "art": "richText",
             "schluessel": "info"
@@ -2177,7 +2213,7 @@ window.AGE_OF_BEAST_WELT = {
           "Gold"
         ]
       },
-      "geaendert": "2026-09-04T13:07:33.097Z"
+      "geaendert": "2026-09-21T09:12:11.035Z"
     },
     {
       "id": "item-sturmwende-uniform-goldene-garde",
@@ -2259,117 +2295,6 @@ window.AGE_OF_BEAST_WELT = {
       ],
       "bild": "",
       "geaendert": "2026-08-01T12:36:23.031Z"
-    },
-    {
-      "id": "werkstatt-figur-brix-borin",
-      "name": "Brix Borin",
-      "kategorie": "werkstatt",
-      "unterart": "Spielfigur",
-      "kurz": "rogue · ribbet · underborne",
-      "aliase": [],
-      "quelle": "",
-      "attribute": [
-        {
-          "schluessel": "werkstattArt",
-          "beschriftung": "Art",
-          "wert": "Spielfigur"
-        },
-        {
-          "schluessel": "werkstattKlasse",
-          "beschriftung": "Klasse",
-          "wert": "rogue"
-        },
-        {
-          "schluessel": "werkstattUnterklasse",
-          "beschriftung": "Unterklasse",
-          "wert": "nightwalker"
-        },
-        {
-          "schluessel": "werkstattAbstammung",
-          "beschriftung": "Abstammung",
-          "wert": "ribbet"
-        },
-        {
-          "schluessel": "werkstattGemeinschaft",
-          "beschriftung": "Gemeinschaft",
-          "wert": "underborne"
-        },
-        {
-          "schluessel": "werkstattStufe",
-          "beschriftung": "Stufe",
-          "wert": "1"
-        },
-        {
-          "schluessel": "werkstattFuerwort",
-          "beschriftung": "Fürwort",
-          "wert": "Er"
-        },
-        {
-          "schluessel": "werkstattWerte",
-          "beschriftung": "Eigenschaften",
-          "wert": "Beweglichkeit +1, Stärke -1, Fingerfertigkeit +2, Instinkt +1, Ausstrahlung 0, Wissen 0"
-        },
-        {
-          "schluessel": "werkstattAusweichen",
-          "beschriftung": "Ausweichen",
-          "wert": "13"
-        }
-      ],
-      "abschnitte": [
-        {
-          "titel": "Erscheinung",
-          "html": "<p>Diebischer Ribbet, trägt immer einen Piraten hut</p>",
-          "herkunft": {
-            "art": "panel",
-            "panel": 0,
-            "panelId": "panel-werkstatt-figur-brix-borin-erscheinung",
-            "feld": 0
-          }
-        },
-        {
-          "titel": "Hintergrund",
-          "html": "<p>Von meiner Familie</p><p>Die Dorfbewohner des Heimatdorfs</p><p>Diebstahl, aber so dass das Dorf überrumpelt worden ist.</p>",
-          "herkunft": {
-            "art": "panel",
-            "panel": 1,
-            "panelId": "panel-werkstatt-figur-brix-borin-hintergrund",
-            "feld": 0
-          }
-        },
-        {
-          "titel": "Ausrüstung",
-          "html": "<p>Hauptwaffe: dagger</p><p>Zweitwaffe: shortsword</p><p>Rüstung: gambeson</p><p>Klassengegenstand: Fälscherwerkzeug</p>",
-          "herkunft": {
-            "art": "panel",
-            "panel": 2,
-            "panelId": "panel-werkstatt-figur-brix-borin-ausruestung",
-            "feld": 0
-          }
-        },
-        {
-          "titel": "Domänenkarten",
-          "html": "<p>pick-and-pull, deft-deceiver</p>",
-          "herkunft": {
-            "art": "panel",
-            "panel": 3,
-            "panelId": "panel-werkstatt-figur-brix-borin-domaenen",
-            "feld": 0
-          }
-        },
-        {
-          "titel": "Verbindungen zur Gruppe",
-          "html": "<p>Ausdenken 3</p><p>Ich hab einen Beutel bei mir und der beinhaltet:<br>Mein Gedühns<br>() - Darf aber keiner wissen</p><p>Wir schließen eine Wette ab, wenn Lukas verliert trägt er meine Hut einen ganzen Tag lang.<br>Wenn ich verliere muss ich ihn mit Chef ansprechenund sein persönlicher Assistent sein.</p>",
-          "herkunft": {
-            "art": "panel",
-            "panel": 4,
-            "panelId": "panel-werkstatt-figur-brix-borin-verbindungen",
-            "feld": 0
-          }
-        }
-      ],
-      "verbindungen": [],
-      "bild": "",
-      "geaendert": "2026-09-01T04:22:54.346Z"
     },
     {
       "id": "werkstatt-karte-clank",
@@ -5757,7 +5682,8 @@ window.AGE_OF_BEAST_WELT = {
     "clanks": "species-dh-clank",
     "die goldene garde": "faction-sturmwende-gelbroecke-provisorisch",
     "gelbröcke": "faction-sturmwende-gelbroecke-provisorisch",
-    "unbenannte spielfigur von lukas": "character-aob-xeno-sc",
+    "unbenannte spielfigur von lukas": "character-aob-lukas-sc",
+    "aktuell noch ohne namen": "character-aob-lukas-sc",
     "kampagnen-frame: age of beast": "wiki-sturmwende-kampagnenframe",
     "aetheris": "species-dh-aetheris",
     "drakona": "species-dh-drakona",
@@ -5792,7 +5718,6 @@ window.AGE_OF_BEAST_WELT = {
     "zwerg": "species-dh-zwerg",
     "dwarf": "species-dh-zwerg",
     "brix borin": "character-aob-xeno-sc",
-    "lukas": "character-aob-lukas-sc",
     "spielfluss und spotlight": "regel-spielfluss-spotlight",
     "aktionswurf": "regel-aktionswurf",
     "die fünf wurfergebnisse": "regel-wurf-ergebnisse",

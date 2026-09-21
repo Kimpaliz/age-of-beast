@@ -10,6 +10,21 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ## [Unveröffentlicht]
 
+### Spielfiguren vereinheitlicht und Brix-Dublette entfernt
+
+- `character-aob-xeno-sc` ist der einzige kanonische Eintrag für Brix
+  Borin. `werkstatt-figur-brix-borin` und die Verbindung dorthin sind
+  entfernt; die unklare Altnotiz „Ausdenken 3“ bleibt als offener Punkt.
+- Brix besitzt zwei vorläufige Experiences (`Taschendieb +2`,
+  `Pokerface +2`) sowie sichtbare Panels für Werte, Karten und Merkmale.
+  Regelwerte wurden gegen die lokalen Daggerheart-Kataloge geprüft.
+- `character-aob-lukas-sc` heißt `Aktuell noch ohne Namen`; der falsche
+  gepflegte Alias zeigte vorher auf Brix und zeigt nun auf Lukas’ Figur.
+- `daten/welt.json` und `daten/welt.js` wurden ausschließlich mit
+  `node werkzeuge/welt-aufbereiten.mjs` neu erzeugt.
+- Neu: `werkzeuge/pruefe-spielfiguren.mjs` mit 27 Zusicherungen. Der
+  Erstlauf war erwartungsgemäß rot (15 Fehler), danach grün.
+
 ### Vorgang #12: die verrutschte Merkmalspalte der Tier-1-Waffen
 
 **Befund bestaetigt.** In `docs/daggerheart/REGELN-GRUNDLAGEN.md` stand
