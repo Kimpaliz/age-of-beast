@@ -35,6 +35,7 @@
    | `pruefe-rueckweg.mjs` | ein Verweis führt dahin, wo sein Text es verspricht | „Zurück ins Wiki", das seit dem Hauptmenü ins **Menü** führt |
    | `pruefe-schreibweise.mjs` | sichtbarer Text übersteht die Umwandlung | ein Absatz, der beim Speichern zu HTML-Text zerfällt |
    | `pruefe-server-sicherheit.mjs` | Freigabelisten, Methoden, Loopback der lokalen Server | die `.env`, die der Vorschau-Server ins Netz stellt |
+   | `pruefe-spielfiguren.mjs` | Brix und Lukas bleiben eindeutige Daggerheart-Bögen mit sichtbaren Werten | eine Figuren-Dublette, ein falscher Name oder ein leer wirkender Charakterbogen |
    | `pruefe-stilstruktur.mjs` | die Stildateien ergeben zusammen den bisherigen Inhalt | eine Regel, die beim Aufteilen verlorengegangen ist |
    | `pruefe-struktur.mjs` | Anlegen, Löschen, Sortieren lässt keine Rohdatenreste | der gelöschte Abschnitt, der als Waise in der Quelle bleibt |
    | `pruefe-symbole.mjs` | jede Kategorie hat eigenes Symbol, Farbton und Kontrast | zwei Kategorien, die auf dem Bildschirm gleich aussehen |

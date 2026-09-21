@@ -481,6 +481,20 @@ Muster, das im eigenen Befehl vorkommt. Entweder den Server auf einem
 anderen Port starten (`PORT=4180 node …`) oder die PID beim Start
 merken.
 
+### E12 · Zwei Datensaetze nannten dieselbe Figur, ein Alias die falsche
+
+**Was ich tat:** Die beiden vorhandenen Spielfiguren und ihre
+Charakterboegen gegen die Rohdaten geprueft.
+**Was herauskam:** Brix Borin stand einmal als Figur und einmal als
+Werkstatt-Figur in der Quelle. Gleichzeitig zeigte der gepflegte Begriff
+„unbenannte Spielfigur von Lukas“ ausgerechnet auf Brix' ID.
+**Warum:** Figurenbaukasten und Wiki wurden frueher getrennt gepflegt;
+beim spaeteren Uebernehmen gab es weder eine Eindeutigkeitspruefung fuer
+Figurennamen noch eine fachliche Kontrolle der gepflegten Aliase.
+**Woran ich es frueher merke:** `pruefe-spielfiguren.mjs` fordert genau
+einen Brix-Eintrag, zwei strukturierte Spielfiguren und die richtige
+Ziel-ID fuer beide Lukas-Aliase.
+
 ## Was daraus folgt
 
 Die fünf wirksamsten Gewohnheiten aus diesen Fällen:
