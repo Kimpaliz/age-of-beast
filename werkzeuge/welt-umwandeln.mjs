@@ -21,6 +21,7 @@
 // Weltenschmiede übernommen, weil das Projekt dort weiterhin unter dem
 // alten Namen 'Sturmwende' geführt wird.
 import { mitRahmen } from './welt-rahmen.mjs';
+import { isCharacterSheet, SHEET_TYPE } from './charakterbogen-daten.mjs';
 
 const WELT_TITEL = 'Age of Beast';
 
@@ -366,6 +367,7 @@ export function umwandeln(roh) {
         id,
         name: element.name || id,
         kategorie: kategorieInfo.schluessel,
+        ...(isCharacterSheet(element) ? { entryType: SHEET_TYPE } : {}),
         ...(String(element.icon || '').trim() ? { icon: String(element.icon).trim() } : {}),
         ...(String(element.iconColor || '').trim() ? { iconColor: String(element.iconColor).trim() } : {}),
         unterart,

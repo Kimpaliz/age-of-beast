@@ -10,6 +10,30 @@ Eine Fassung desselben Protokolls in Alltagssprache liegt unter
 
 ## [Unveröffentlicht]
 
+### Charakterbogen-Eintragsart und A4-Ausgabe (25.10.2026)
+
+- Neues optionales `fields.entryType: character-sheet`, kompatible Erkennung
+  älterer Daggerheart-`spielwerte`, Anlegen und Umwandeln von Figuren.
+- Gemeinsamer interaktiver Renderer `karte/bogen-layout.js` für Wiki und
+  Einzelbogen; eigener Formularvertrag mit Validierung und Konfliktprüfung.
+- A4-Vorschau und nativer PDF-/Papierdruck aus den berechneten Werten.
+  Die Basisdatenfassung erstellt eine bereinigte Kopie und speichert nichts.
+- Brix und Lukas: expliziter Typ, Spielerzuordnung und regelbelegte Übung 1.
+  Waffenattribut und Reichweite kommen aus dem bestehenden Regelkatalog.
+- Explizit bearbeitete Ausrüstungswerte erhalten Vorrang vor Katalogvorgaben.
+  Fehlende Zahlen bleiben unbekannt; vorhandene Regelkartenschwellen werden
+  auch ohne doppelte manuelle Eingabe angezeigt und gedruckt.
+- `ersterRang` liefert für leere Werte `null` statt eines falschen Rüstungswerts 0.
+- Der vorhandene CDP-Browserhelfer kann nun isolierte Interaktionstests ausführen;
+  Vorschau- und Heimserver liefern die neuen Bogenmodule samt Abhängigkeiten.
+- Regressionstest `pruefe-charakterboegen.mjs`: 58 Zusicherungen.
+  Gegenprobe `--beweis-rot` schlägt bei gefüllter statt leerer Druckfassung an.
+- 41 Chromium-Prüfungen für beide Figuren, A4, Mobilansicht, unveränderte Druckdaten,
+  Speichern, Konflikte, Fehler mit erneutem Speichern und neue leere Bögen.
+  Vier PDF-Ausgaben geprüft: jeweils zwei A4-Seiten, ausgefüllt oder Basisdaten.
+  Sicherheitsabstand am rechten Druckrand verhindert abgeschnittene Rahmen.
+- Gesamte Prüfkette lokal grün. Keine Live-Datenbank-Änderung oder Veröffentlichung.
+
 ### Wählbare Farben für Eintrags-Icons
 
 - Das optionale Rohfeld `iconColor` wird von

@@ -165,7 +165,7 @@ async function cdpOeffnen(adresse) {
   };
 }
 
-export async function browserStarten(url, ergebnisId = 'aob-bogenfarben-ergebnis') {
+export async function withBrowser(url, run) {
   const programm = browserPfad();
   if (!programm) throw new Error('Weder Chrome noch Edge wurden gefunden.');
   const profil = mkdtempSync(join(tmpdir(), 'aob-bogenfarben-'));
@@ -207,19 +207,28 @@ export async function browserStarten(url, ergebnisId = 'aob-bogenfarben-ergebnis
     const cdp = await cdpOeffnen(ziel.webSocketDebuggerUrl);
     try {
       await cdp.ruf('Page.navigate', { url });
-      for (let versuch = 0; versuch < 600; versuch += 1) {
-        const antwort = await cdp.ruf('Runtime.evaluate', { expression: 'document.getElementById(' + JSON.stringify(ergebnisId) + ')?.textContent', returnByValue: true });
-        const text = antwort.result?.value;
-        if (text && text !== 'wartet') return JSON.parse(Buffer.from(text, 'base64').toString('utf8'));
-        await warte(25);
-      }
-      throw new Error('Chromium gab innerhalb von 15 Sekunden kein Messergebnis aus.');
+      return await run(cdp);
     } finally { cdp.schliessen(); }
   } finally {
     if (kind.exitCode === null) kind.kill();
     for (let versuch = 0; versuch < 40 && kind.exitCode === null; versuch += 1) await warte(25);
     await profilRaeumen(profil);
   }
+}
+
+export async function browserStarten(url, ergebnisId = 'aob-bogenfarben-ergebnis') {
+  return withBrowser(url, async (cdp) => {
+    for (let attempt = 0; attempt < 600; attempt += 1) {
+      const response = await cdp.ruf('Runtime.evaluate', {
+        expression: 'document.getElementById(' + JSON.stringify(ergebnisId) + ')?.textContent',
+        returnByValue: true,
+      });
+      const text = response.result?.value;
+      if (text && text !== 'wartet') return JSON.parse(Buffer.from(text, 'base64').toString('utf8'));
+      await warte(25);
+    }
+    throw new Error('Chromium gab innerhalb von 15 Sekunden kein Messergebnis aus.');
+  });
 }
 
 /**

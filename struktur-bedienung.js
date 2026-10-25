@@ -31,6 +31,7 @@ import {
   eintragEntwurf,
   eintragNachName,
 } from './werkzeuge/eintrag-anlegen.mjs';
+import { sheetEditingInstall } from './runtime/charakterbogen-bearbeiten.js';
 
 /* ================================================================
    Kleine Bausteine
@@ -68,6 +69,7 @@ function formularSchliessen() {
    ================================================================ */
 
 export function strukturEinrichten(kontext) {
+  sheetEditingInstall(kontext);
   /** Ist der Bearbeitungsmodus gerade an? */
   const an = () => document.documentElement.dataset.bearbeiten === 'an';
 
@@ -154,7 +156,8 @@ export function strukturEinrichten(kontext) {
       const ids = new Set(Object.values(roh.elements)
         .flatMap((gruppe) => Object.keys(gruppe || {})));
       const entwurf = eintragEntwurf({
-        name, kategorie, icon, iconColor, vorhandeneIds: ids, zeit: jetzt,
+        name, kategorie, icon, iconColor, entryType: form.elements.entryType?.value,
+        vorhandeneIds: ids, zeit: jetzt,
       });
 
       if (speichern) speichern.disabled = true;

@@ -36,6 +36,14 @@ const TYPEN = {
 };
 
 const FREIGEGEBENE_DATEIEN = new Set([
+  'styles/bogen-arbeitsblatt.css',
+  'karte/bogen-layout.js',
+  'karte/bogen-druck.mjs',
+  'karte/bogen-drucken.js',
+  'runtime/charakterboegen.js',
+  'runtime/charakterbogen-bearbeiten.js',
+  'werkzeuge/charakterbogen-daten.mjs',
+  'werkzeuge/charakterbogen-formular.mjs',
   'index.html',
   'wiki.html',
   'karte.html',

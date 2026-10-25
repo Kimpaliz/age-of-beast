@@ -24,7 +24,7 @@ import { browserPfad, starteServer, browserStarten } from './browser-messen.mjs'
 const WURZEL = join(dirname(fileURLToPath(import.meta.url)), '..');
 const BOGEN = join(WURZEL, 'bogen.html');
 const STIL = join(WURZEL, 'styles', 'charakterbogen.css');
-const ZEICHNER = join(WURZEL, 'karte', 'bogen-zeigen.js');
+const ZEICHNER = join(WURZEL, 'karte', 'bogen-layout.js');
 /* ⚠️ **0,05 statt der 0,08 aus `pruefe-symbole.mjs` — und das ist eine
    Entscheidung, keine Nachlaessigkeit.** Zwei Gruende, beide nachpruefbar:
 
@@ -64,6 +64,14 @@ const KLASSEN = [
    Wer am Bogen ein Modul, ein Stylesheet oder eine Datendatei
    hinzufügt, trägt sie hier ein. */
 const DATEIEN = new Set([
+  'styles/bogen-arbeitsblatt.css',
+  'karte/bogen-layout.js',
+  'karte/bogen-druck.mjs',
+  'karte/bogen-drucken.js',
+  'runtime/charakterboegen.js',
+  'runtime/charakterbogen-bearbeiten.js',
+  'werkzeuge/charakterbogen-daten.mjs',
+  'werkzeuge/charakterbogen-formular.mjs',
   'bogen.html', 'stil.css', 'daten/welt.js', 'runtime/favoriten.js',
   'runtime/symbole.js', 'firebase-konfig.js',
   'styles/tokens.css', 'styles/wiki.css', 'styles/bearbeiten.css',

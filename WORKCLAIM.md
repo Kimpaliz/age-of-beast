@@ -17,7 +17,7 @@ unten und nicht dieser Absatz.
 
 | Bereich | Besitzer | Ziel | Seit |
 | --- | --- | --- | --- |
-| frei | frei | – | – |
+| Charakterbogen, Eintragsart, A4-Ausgabe | frei | Im isolierten Zweig umgesetzt und geprueft; Veroeffentlichung ausstehend | 25.10.2026 |
 
 ## Der Zwischenfall vom 04.09.2026 — hier passiert, während die Datei entstand
 
