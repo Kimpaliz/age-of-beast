@@ -1,45 +1,10 @@
-/* ===================================================================
-   Age of Beast — die Werte des Bogens rechnen, zeigen und umschalten
-   [Aufgabe: Charakterbogen]
-
-   -------------------------------------------------------------------
-   Janniks Wunsch vom 04.09.2026, wörtlich: „Die Charakterbögen, die
-   Werte wie Stress, HP, Rüstung usw. sollen sich automatisch ändern
-   beim An- oder Ablegen von Items. Und beim Drüberhalten wird angezeigt,
-   was Grundwert und was Bonus oder Malus ist und wodurch es verursacht
-   wird."
-
-   Dieses Modul ist die **Bedienung** dazu. Gerechnet wird nicht hier,
-   sondern in `werkzeuge/werte-rechnen.mjs` — dort ohne DOM, damit
-   `werkzeuge/pruefe-werte.mjs` es in Node an den echten Bogendaten
-   nachrechnen kann. Was hier steht, ist nur: Zeichnen, Umschalten,
-   Merken.
-
-   ── Drei Entscheidungen ─────────────────────────────────────────────
-
-   **Der Bogen wird erst gezeichnet, wenn der Gegenstandskatalog da
-   ist.** Sonst stünde einen Moment lang eine Zahl da, die sich gleich
-   darauf ändert — bei Brix von 14 auf 13, weil die Wirkung des Dolchs
-   verspätet ankommt. Eine Zahl, die von selbst springt, ist am
-   Spieltisch schlimmer als eine, die kurz auf sich warten lässt.
-
-   **Die Herleitung benutzt dieselbe Blase wie die Karten.** Ein zweites
-   Kästchen mit eigener Platzierung, eigener Tastaturbedienung und
-   eigenem Escape wäre nicht nur doppelte Arbeit — beide könnten
-   gleichzeitig offen stehen und sich überdecken. `kartenblase.js` kann
-   seit dem 05.09.2026 auch fertigen Inhalt annehmen.
-
-   **Abgelegt wird je Gerät gemerkt, nicht in den Weltdaten.** Was
-   gerade getragen wird, ist ein Spielzustand am Tisch und keine
-   Aussage über die Figur. Die Weltdaten bleiben unangetastet; damit
-   braucht dieser Schritt auch keine Datenfreigabe.
-
-   Arbeitet zusammen mit: `karte/bogen-zeigen.js` (ruft die Bausteine),
-   `karte/karten-daten.js` (Gegenstände), `karte/kartenblase.js`
-   (Herleitung), `werkzeuge/werte-rechnen.mjs` (die Rechnung).
-   =================================================================== */
+/* [Aufgabe: Charakterbogen]
+   Interactive equipment and calculated values for both sheet views.
+   Equipment state remains local; the campaign source is never mutated.
+   Missing inputs stay unknown, and only affected regions are redrawn. */
 
 import { bogenAusDaten, herleitung } from '../werkzeuge/werte-rechnen.mjs';
+import { preserveUnknownSheetValues } from '../werkzeuge/charakterbogen-daten.mjs';
 import { ladeKarten, namensKern } from './karten-daten.js';
 import { blaseAnbinden, blasenAnbinden } from './kartenblase.js';
 import { schwellenErklaerung } from './schwellen-text.js';
@@ -126,7 +91,7 @@ export function rechnerFuer(figur) {
   let letztes = null;
 
   const rechne = () => {
-    letztes = bogenAusDaten(werte, katalog || (() => null), angelegt);
+    letztes = preserveUnknownSheetValues(bogenAusDaten(werte, katalog || (() => null), angelegt), werte);
     return letztes;
   };
 
@@ -240,16 +205,16 @@ export function attributeHtml(r) {
 export function verteidigungHtml(r) {
   const ev = r.werte.evasion;
   const rs = r.werte.ruestungswert;
-  const a = r.werte.schwelleSchwer.endwert;
-  const b = r.werte.schwelleErnst.endwert;
+  const a = r.werte.schwelleSchwer.endwert ?? '—';
+  const b = r.werte.schwelleErnst.endwert ?? '—';
 
   const t = ['<div class="verteidigung">'];
   t.push('<div class="schild' + (ev.hatBeitraege ? ' veraendert' : '') + '">'
     + '<span class="mikro">Ausweichen</span>'
-    + '<strong data-wert="evasion" tabindex="0">' + ev.endwert + '</strong></div>');
+    + '<strong data-wert="evasion" tabindex="0">' + (ev.endwert ?? '—') + '</strong></div>');
   t.push('<div class="schild' + (rs.hatBeitraege ? ' veraendert' : '') + '">'
     + '<span class="mikro">Rüstung</span>'
-    + '<strong data-wert="ruestungswert" tabindex="0">' + rs.endwert + '</strong>'
+    + '<strong data-wert="ruestungswert" tabindex="0">' + (rs.endwert ?? '—') + '</strong>'
     + '<small>' + (rs.hatBeitraege
       ? sicher(rs.beitraege.map((x) => x.quelle).join(', '))
       : 'ohne Rüstung') + '</small></div>');
@@ -293,7 +258,7 @@ export function vorraeteHtml(r, w) {
     const wert = r.werte[schluessel];
     t.push('<div class="vorrat' + (wert.hatBeitraege ? ' veraendert' : '') + '">'
       + '<span class="mikro">' + beschriftung
-      + ' <b data-wert="' + schluessel + '" tabindex="0">' + wert.endwert + '</b></span>'
+      + ' <b data-wert="' + schluessel + '" tabindex="0">' + (wert.endwert ?? '—') + '</b></span>'
       + leiste(wert.endwert, 0, schluessel) + '</div>');
   }
   /* Hoffnung hängt an keiner Ausrüstung — sie kommt unverändert aus den
@@ -359,15 +324,15 @@ function stueckZeile(s, optionen) {
      Tippfehler im Bogen aus. */
   const teile = [];
   if (typeof s.score === 'number') teile.push('Rüstungswert ' + s.score);
-  if (s.schwellen) teile.push('Schwellen ' + s.schwellen.schwer + '/' + s.schwellen.ernst);
+  if (s.schwellen) teile.push('Schwellen ' + (s.schwellen.schwer ?? '—') + '/' + (s.schwellen.ernst ?? '—'));
+  if (s.attribut || s.reichweite) teile.push([s.attribut, s.reichweite].filter(Boolean).join(' / '));
   if (s.schaden) teile.push(s.schaden);
   if (s.merkmal) teile.push(s.merkmal + (s.wirkung ? ': ' + s.wirkung : ''));
   else if (s.wirkung) teile.push(s.wirkung);
   if (teile.length) t.push('<small>' + sicher(teile.join(' · ')) + '</small>');
 
   if (!s.imRegelwerk) {
-    t.push('<small class="stueck-fremd">Steht in keinem geladenen Regelwerk —'
-      + ' es wird nichts eingerechnet.</small>');
+    t.push('<small class="stueck-fremd">Keine passende Regelkarte. Es gelten die eingetragenen Werte.</small>');
   }
   for (const a of s.abweichungen || []) {
     t.push('<small class="stueck-abweichung">' + sicher(a) + '</small>');
@@ -438,6 +403,7 @@ export function bogenVerdrahten(bereich, rechner, figur, optionen = {}) {
     /* Herleitung an jede Zahl, die aus der Rechnung kommt. */
     for (const el of bereich.querySelectorAll('[data-wert]:not([data-blase])')) {
       const schluessel = el.dataset.wert;
+      if (!Number.isFinite(rechner.ergebnis().werte[schluessel]?.endwert)) continue;
       herleitungAnbinden(
         el,
         () => rechner.ergebnis().werte[schluessel],

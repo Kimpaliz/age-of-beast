@@ -1,0 +1,135 @@
+/* Character-sheet workspace and A4 output. Print ink is always black on white. */
+.bogen {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  border-radius: 4px;
+}
+.bogen > .bogen-kopf, .bogen > .bogen-kurz, .bogen > .bogen-attribute,
+.bogen > .bogen-fuss, .bogen > [data-bereich="abgelegt-hinweis"] { grid-column: 1 / -1; }
+.bogen > .bogen-block { margin: 0; min-width: 0; }
+.bogen .bogen-kopf { margin-bottom: 0; flex-wrap: wrap; }
+.bogen .bogen-kopf-text { flex: 1 1 18rem; }
+.bogen .bogen-name { letter-spacing: 0; }
+.bogen .bogen-herkunft { flex-wrap: wrap; letter-spacing: 0; }
+.bogen .bogen-kopf-rechts { flex-wrap: wrap; }
+.bogen .bogen-block h3 { display: flex; gap: 0.35rem; align-items: center; margin-top: 0; }
+.bogen .bogen-block .mikro { letter-spacing: 0; }
+.bogen .bogen-kurz { margin: 0; }
+.bogen .attribute { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0.35rem; }
+.bogen .attribut { padding: 0.6rem 0.15rem; min-width: 0; }
+.bogen .attribut-name { font-size: 0.65rem; letter-spacing: 0; overflow-wrap: anywhere; }
+.bogen .attribut-de { font-size: 0.62rem; overflow-wrap: anywhere; }
+.sheet-section-icon { width: 1.1em; height: 1.1em; flex: none; }
+.sheet-provisional { color: var(--schrift-matt); font-size: 0.75rem; }
+[data-character-sheet] { margin: 1.25rem 0; }
+[data-character-sheet] .bogen { box-shadow: none; }
+[data-character-sheet] .bogen-name { font-size: 1.4rem; }
+.sheet-lore { border-top: 1px solid var(--rand-hell); padding-top: 1rem; }
+.sheet-lore > summary { cursor: pointer; font-weight: 600; padding: 0.4rem 0; }
+.sheet-lore .artikel-raster { margin-top: 1rem; }
+.sheet-editor-launch { margin: 0.5rem 0; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.sheet-edit-dialog, .sheet-print-dialog {
+  background: var(--grund); color: var(--schrift); border: 1px solid var(--rand-hell);
+  border-radius: 4px; width: min(64rem, calc(100vw - 2rem)); max-height: calc(100dvh - 2rem);
+  padding: 0; overflow: auto;
+}
+.sheet-edit-dialog::backdrop, .sheet-print-dialog::backdrop { background: rgb(0 0 0 / 0.7); }
+.sheet-print-toolbar, .sheet-edit-toolbar {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 0.75rem; padding: 0.8rem;
+  background: var(--flaeche); border-bottom: 1px solid var(--rand-hell);
+  position: sticky; top: 0; z-index: 2;
+}
+.sheet-print-toolbar h2, .sheet-edit-toolbar h2 { margin: 0 auto 0 0; font-size: 1.05rem; }
+.sheet-print-toolbar fieldset { display: flex; gap: 0.8rem; border: 0; margin: 0; padding: 0; }
+.sheet-print-toolbar legend { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.sheet-print-toolbar label { display: flex; align-items: center; gap: 0.35rem; font-size: 0.85rem; }
+.sheet-print-toolbar button, .sheet-edit-toolbar button, .sheet-editor-launch button {
+  border: 1px solid var(--rand-hell); background: var(--flaeche-hoch); color: var(--schrift);
+  min-height: 2.5rem; padding: 0.35rem 0.7rem; font: inherit; border-radius: 3px; cursor: pointer;
+}
+.sheet-print-note { font-size: 0.85rem; padding: 0.8rem; margin: 0; color: var(--schrift-matt); }
+.sheet-print-preview { padding: 1rem; overflow: auto; background: #464646; }
+#sheet-print-output { display: none; }
+.sheet-print-page {
+  box-sizing: border-box; width: 190mm; min-height: 276mm; margin: 0 auto 1rem;
+  padding: 8mm; background: #fff; color: #111; font: 10pt/1.35 Arial, sans-serif;
+  letter-spacing: 0; position: relative; overflow-wrap: anywhere;
+}
+.sheet-print-page * { box-sizing: border-box; letter-spacing: 0; }
+.sheet-print-page h1, .sheet-print-page h3, .sheet-print-page p { margin: 0; color: #111; }
+.print-header { display: flex; justify-content: space-between; gap: 5mm; border-bottom: 2px solid #222; padding-bottom: 3mm; margin-bottom: 3mm; }
+.print-header h1 { font: bold 22pt/1.15 Georgia, serif; overflow-wrap: anywhere; margin: 1mm 0; }
+.print-header > div:first-child { min-width: 0; }
+.print-header > div > span { font-size: 8pt; text-transform: uppercase; }
+.print-header p { font-size: 9pt; }
+.print-field { border: 1px solid #777; padding: 1.3mm 2mm; min-width: 0; }
+.print-field > span { display: block; font-size: 7.5pt; font-weight: normal; color: #333; }
+.print-field > strong { display: block; min-height: 5.5mm; font-size: 10pt; line-height: 1.3; overflow-wrap: anywhere; }
+.print-level { flex: 0 0 18mm; text-align: center; align-self: start; }
+.print-level > strong { font-size: 20pt; }
+.print-identity { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2mm; margin: 3mm 0; }
+.print-traits { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 2mm; margin: 4mm 0; }
+.print-number { text-align: center; }
+.print-number > strong { font-size: 21pt; min-height: 10mm; }
+.print-defenses { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 3mm; }
+.print-rule { font-size: 8pt; margin: 2mm 0 3mm !important; }
+.print-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5mm; }
+.print-columns > div { min-width: 0; }
+.print-block { margin: 3mm 0; break-inside: avoid; }
+.print-block h3 { font: bold 11pt/1.3 Arial, sans-serif; border-bottom: 1.3px solid #222; padding-bottom: 1mm; margin-bottom: 2mm; display: flex; align-items: center; gap: 2mm; }
+.print-track { margin: 3mm 0; }
+.print-track > div:first-child { display: flex; justify-content: space-between; gap: 2mm; font-size: 9pt; }
+.print-track > div > span { font-size: 8pt; }
+.print-boxes { display: flex; flex-wrap: wrap; gap: 1.5mm; margin-top: 1.5mm; }
+.print-boxes i { width: 4.5mm; height: 4.5mm; border: 1px solid #222; }
+.print-boxes .filled { background: #222; }
+.print-experience { border: 1px solid #888; min-height: 9mm; display: grid; grid-template-columns: 1fr 12mm; margin-bottom: 2mm; }
+.print-experience > span { padding: 1mm 2mm; }
+.print-experience > strong { border-left: 1px solid #888; text-align: center; padding-top: 2mm; }
+.print-experience small { display: block; font-size: 8pt; }
+.print-pair, .print-gold { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.print-gold { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.print-proficiency { margin-bottom: 2mm; }
+.print-weapon { margin-bottom: 3mm; }
+.print-weapon small { font-size: 8pt; }
+.print-lines > div { height: 7.5mm; border-bottom: 1px solid #aaa; }
+.print-card { border-bottom: 1px solid #999; min-height: 8mm; padding: 1mm 0; }
+.print-block ul { padding-left: 5mm; margin: 2mm 0; font-size: 9pt; }
+.print-footer { display: flex; justify-content: space-between; gap: 4mm; border-top: 1px solid #777; padding-top: 2mm; margin-top: 5mm; font-size: 8pt; }
+.sheet-edit-fields { padding: 1rem; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.sheet-edit-fields fieldset { min-width: 0; border: 1px solid var(--rand); padding: 0.8rem; display: grid; gap: 0.7rem; }
+.sheet-edit-fields label { display: grid; gap: 0.2rem; font-size: 0.85rem; min-width: 0; }
+.sheet-edit-fields input, .sheet-edit-fields textarea {
+  box-sizing: border-box; width: 100%; background: var(--flaeche); color: var(--schrift);
+  border: 1px solid var(--rand-hell); padding: 0.45rem; font: inherit;
+}
+.sheet-edit-fields textarea { min-height: 5rem; resize: vertical; }
+.sheet-edit-fields .sheet-check { display: flex; align-items: center; gap: 0.4rem; }
+.sheet-check input { width: auto; }
+.sheet-edit-message { padding: 0 1rem; }
+.sheet-edit-wide { grid-column: 1 / -1; }
+@media (max-width: 50rem) {
+  .bogen { grid-template-columns: minmax(0, 1fr); }
+  .bogen .attribute { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .sheet-edit-fields { grid-template-columns: minmax(0, 1fr); }
+  .sheet-print-toolbar { position: static; }
+  .bogen .bogen-kopf-text { flex-basis: 100%; }
+  .bogen .bogen-kopf { gap: 0.6rem; }
+}
+@page { size: A4 portrait; margin: 10mm; }
+@media print {
+  html:has(body.sheet-print-active), body.sheet-print-active {
+    background: #fff !important; color: #111 !important; margin: 0 !important;
+    padding: 0 !important; height: auto !important; overflow: visible !important;
+  }
+  body.sheet-print-active > :not(#sheet-print-output):not(.symbol-vorrat) { display: none !important; }
+  body.sheet-print-active > .symbol-vorrat { position: absolute; width: 0; height: 0; }
+  body.sheet-print-active #sheet-print-output { display: block !important; }
+  /* Leave room for Chromium's fractional rounding at the printable right edge. */
+  .sheet-print-page { width: 189mm; max-width: 100%; min-height: 0; margin: 0 auto; padding: 0; box-shadow: none; break-after: page; }
+  .sheet-print-page:last-child { break-after: auto; }
+  .sheet-print-page a { color: #111; text-decoration: none; }
+  .sheet-print-page svg { color: #111; }
+  .sheet-print-page .print-field, .sheet-print-page .print-track { break-inside: avoid; }
+}

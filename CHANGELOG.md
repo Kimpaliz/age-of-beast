@@ -5,6 +5,23 @@ Dieselben Änderungen stehen in Entwicklersprache in [CHANGELOG-TECHNIK.md](CHAN
 
 Das Neueste steht immer oben.
 
+## Charakterbögen im Wiki und auf A4 – 25. Oktober 2026
+
+- Figuren können als zusätzliche Eintragsart „Charakterbogen“ angelegt
+  oder umgestellt werden. Brix Borin und Lukas' Figur öffnen direkt
+  ihre Spielwerte mit Kästchen, passenden Symbolen und Ausrüstung.
+- Brix' vorhandene Werte sind übernommen. Beide Stufe-1-Figuren haben
+  Übung 1. Brix' Erfahrungen bleiben als vorläufig gekennzeichnet;
+  unbekannte Waffenwerte werden nicht erfunden.
+- Die Druckansicht bietet A4-Seiten mit allen Werten oder nur Basisdaten:
+  Name, Spieler, Pronomen, Herkunft und Klasse. In der Ausfüllfassung bleiben
+  alle übrigen Felder leer. Das verändert keine gespeicherten Daten.
+- Spielwerte lassen sich gesammelt bearbeiten. Leere Werte bleiben offen.
+  Die übrigen Texte und Verknüpfungen bleiben unter dem Bogen erreichbar.
+- Selbst angepasste Ausrüstungswerte werden auch in der Berechnung und auf
+  Papier berücksichtigt. Bei Speicherfehlern bleibt die Eingabe erhalten;
+  zwischenzeitlich geänderte Werte werden nicht einfach überschrieben.
+
 ## Eintrags-Icons können eine eigene Farbe tragen – 21. September 2026
 
 - Beim Anlegen und Bearbeiten eines Wiki-Eintrags stehen jetzt neben dem

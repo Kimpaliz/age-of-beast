@@ -3,6 +3,8 @@
    knows neither the DOM nor Firebase, so browser code and tests use the
    same safe draft shape. */
 
+import { emptySheetValues, SHEET_TYPE } from './charakterbogen-daten.mjs';
+
 function textwert(wert) {
   return String(wert ?? '').replace(/\s+/gu, ' ').trim();
 }
@@ -60,6 +62,7 @@ export function eintragEntwurf({
   kategorie,
   icon = '',
   iconColor = '',
+  entryType = '',
   vorhandeneIds = new Set(),
   zeit = new Date().toISOString(),
 }) {
@@ -78,7 +81,8 @@ export function eintragEntwurf({
     icon: textwert(icon),
     iconColor: textwert(iconColor),
     image: '',
-    fields: { connections: [] },
+    fields: { connections: [], ...(entryType === SHEET_TYPE && saubereKategorie === 'characters'
+      ? { entryType: SHEET_TYPE, characterType: 'sc', spielwerte: emptySheetValues() } : {}) },
     attributeRows: [],
     customPanels: [],
     panelOrder: ['core-connections', 'references'],

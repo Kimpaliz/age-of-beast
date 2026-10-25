@@ -16,6 +16,8 @@
    | `pruefe-bearbeitungskontext.mjs` | der eingefrorene Kontext, seine Delegation und Fehlerpfade | ein Bearbeitungsmodul, das sich still an eine globale Variable hängt |
    | `pruefe-besucheransicht.mjs` | wer nur liest, lädt kein fremdes Skript | drei gstatic-Skripte für **jeden** Besucher, auch ohne Anmeldung |
    | `pruefe-bogenfarben.mjs` | jede Klasse hat eigene Bogenfarben mit belegtem Abstand | zwei Charakterbögen, die auf dem Bildschirm gleich aussehen |
+   | `pruefe-charakterboegen.mjs` | Charakterbogen-Typ, echte Werte und verlustfreier Leerdruck | erfundene Zahlen oder versehentlich gelöschte Spieldaten |
+   | `pruefe-charakterbogen-browser.mjs` | echte Wiki-Ansicht, zwei A4-Seiten und Bearbeitung | abgeschnittener Druck oder eine nicht bedienbare Eintragsart |
    | `pruefe-blase.mjs` | ein Tipp auf eine Zahl öffnet ihr Popup, ein zweiter schliesst es, und die Schadensschwelle sagt, was sie bedeutet | das Popup, das **zwei** Tipps braucht, weil der Fokus es öffnet und der Klick danach wieder schliesst — auf dem Telefon sieht es aus, als gäbe es keins |
    | `pruefe-cache-graph.mjs` | jede veränderliche Browser-Abhängigkeit trägt im Artefakt ihre SHA | ein Besucher mit neuem HTML und altem JavaScript aus dem Zwischenspeicher |
    | `pruefe-datenvertrag.mjs` | IDs, Kategorien, Panels, Verweise, Rahmen, Bildpfade (Legacy-v0) | der Verweis auf einen Eintrag, den es nicht gibt |

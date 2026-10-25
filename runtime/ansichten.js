@@ -72,7 +72,9 @@
     const normaleEintraege = (welt) => welt.eintraege.filter((eintrag) =>
       istNormaleWikiKategorie(eintrag.kategorie));
 
-    const etikett = (e) => sicher(kategorieEinzahl(e.kategorie)) + (e.unterart ? ' &middot; ' + sicher(e.unterart) : '');
+    const etikett = (e) => e.entryType === 'character-sheet' || e.spielwerte
+      ? 'Charakterbogen &middot; Daggerheart'
+      : sicher(kategorieEinzahl(e.kategorie)) + (e.unterart ? ' &middot; ' + sicher(e.unterart) : '');
 
     function verweis(eintrag, anzeige) {
       if (!eintrag) return sicher(anzeige || '');
@@ -183,6 +185,8 @@
       const liste = datenindex.kategorieHolen(s);
       if (!k || !liste) return nichtGefunden();
       inhalt.innerHTML = '<p class="brotkrumen"><a class="zurueck" href="#/">&lsaquo; Arbeitsfläche</a><span class="pfad">' + sicher(welt.titel) + ' / ' + sicher(k.name) + '</span></p><div class="seitenkopf" data-kategorie="' + sicher(k.schluessel) + '"><span class="mikro">' + anzahlWort(liste.length, 'Eintrag', 'Einträge') + '</span><h1 class="mit-marke">' + symbol(k.schluessel, 'titel-marke') + sicher(k.name) + '</h1></div>' + kachelnOderBloecke(liste);
+      if (s === 'characters') inhalt.querySelector('.seitenkopf')?.insertAdjacentHTML('beforeend',
+        '<a class="modul-knopf" href="#/bogen-neu">Charakterbogen anlegen</a>');
       navigationMarkieren(null);
       document.title = k.name + ' – ' + welt.titel;
     }
@@ -225,12 +229,24 @@
       inhalt.innerHTML = '<p class="brotkrumen"><a class="zurueck" href="#/">&lsaquo; Arbeitsfläche</a><span class="pfad">' + sicher(welt.titel) + ' / <a href="#/kategorie/' + encodeURIComponent(e.kategorie) + '">' + sicher(kategorieName(e.kategorie)) + '</a> / ' + sicher(e.name) + '</span></p><article class="artikel" data-eintrag="' + sicher(e.id) + '" data-kategorie="' + sicher(e.kategorie) + '"><span class="mikro mit-marke">' + symbol(e.kategorie, 'etikett-marke') + etikett(e) + '</span>' + (rahmenVorhanden?.(e.id) ? '<a class="modul-knopf assistent-verweis" href="#/rahmen/' + encodeURIComponent(e.id) + '">Im Assistenten bearbeiten →</a>' : '') + (e.spielwerte ? '<a class="modul-knopf assistent-verweis" href="bogen.html?figur=' + encodeURIComponent(e.id) + '">Charakterbogen öffnen →</a>' : '') + '<h1 class="eintrag-titel" data-feld="name">' + eintragSymbol(e, 'titel-eintrag-icon') + '<span>' + sicher(e.name) + '</span></h1>' + (e.bild ? '<figure class="eintrag-bild"><img src="' + sicher(e.bild) + '" alt="Wappen: ' + sicher(e.name) + '" decoding="async"></figure>' : '') + (e.aliase?.length ? '<p class="mikro" style="margin:-1.1rem 0 1.5rem">Auch: ' + sicher(e.aliase.join(' · ')) + '</p>' : '') + '<div class="artikel-raster"><div class="artikel-text">' + text.join('') + '</div>' + (seite.length ? '<aside class="artikel-seite">' + seite.join('') + '</aside>' : '') + '</div></article>';
 
       const belegt = new Set();
+      if (e.entryType === 'character-sheet' || e.spielwerte) {
+        const article = inhalt.querySelector('.artikel');
+        const content = article?.querySelector('.artikel-raster');
+        if (article && content) {
+          const details = document.createElement('details');
+          details.className = 'sheet-lore';
+          details.innerHTML = '<summary>Hintergrund und Verknüpfungen</summary>';
+          content.before(details);
+          details.append(content);
+          details.insertAdjacentHTML('beforebegin', '<div data-character-sheet="' + sicher(e.id) + '"></div>');
+        }
+      }
       inhalt.querySelectorAll('.artikel-text .anriss, .artikel-text .abschnitt').forEach((bereich) => datenindex.verweiseSetzen(bereich, e.id, belegt));
       navigationMarkieren(e.id);
       document.title = e.name + ' – ' + welt.titel;
     }
 
-    function fehlenderEintragZeichnen(kategorie, name) {
+    function fehlenderEintragZeichnen(kategorie, name, entryType = '') {
       const welt = datenindex.weltHolen();
       const kategorien = normaleKategorien(welt);
       const vorauswahl = kategorien.some((eintrag) => eintrag.schluessel === kategorie)
@@ -250,11 +266,22 @@
         + '<form class="eintrag-neu-form" data-neuer-eintrag>'
         + '<label class="eintrag-neu-feld"><span>Name</span><input name="name" value="' + sicher(name) + '" maxlength="120" required></label>'
         + '<label class="eintrag-neu-feld"><span>Kategorie</span><select name="kategorie">' + kategorien.map((eintrag) => '<option value="' + sicher(eintrag.schluessel) + '"' + (eintrag.schluessel === vorauswahl ? ' selected' : '') + '>' + sicher(eintrag.name) + '</option>').join('') + '</select></label>'
+        + '<label class="eintrag-neu-feld" data-sheet-type' + (vorauswahl === 'characters' ? '' : ' hidden') + '><span>Eintragsart</span><select name="entryType"><option value="">Wiki-Eintrag</option><option value="character-sheet">Charakterbogen · Daggerheart</option></select></label>'
         + '<fieldset class="icon-auswahl"><legend>Icon</legend><div class="icon-optionen">' + iconWahl + '</div></fieldset>'
         + '<fieldset class="icon-farbauswahl"><legend>Farbe</legend><div class="icon-farbe-optionen">' + farbWahl + '</div></fieldset>'
         + '<div class="eintrag-neu-aktionen"><button type="submit" class="bearbeiten-speichern" data-neu-speichern disabled>Eintrag anlegen</button><button type="button" class="bearbeiten-abbrechen" data-neu-abbrechen>Abbrechen</button><span class="bearbeiten-meldung" data-neu-meldung>Zum Anlegen bitte anmelden.</span></div>'
         + '</form></section>';
       const form = inhalt.querySelector('[data-neuer-eintrag]');
+      if (entryType === 'character-sheet' && form) {
+        form.elements.entryType.value = entryType;
+        document.getElementById('eintrag-neu-titel').textContent = 'Charakterbogen anlegen';
+        form.elements.name.placeholder = 'Name der Figur';
+        const intro = inhalt.querySelector('.eintrag-neu-dialog > p');
+        if (intro) intro.remove();
+      }
+      form?.elements?.kategorie?.addEventListener('change', () => {
+        form.querySelector('[data-sheet-type]').hidden = form.elements.kategorie.value !== 'characters';
+      });
       form?.addEventListener('change', (ereignis) => {
         const feld = ereignis.target.closest('input[name="iconColor"]');
         if (!feld) return;

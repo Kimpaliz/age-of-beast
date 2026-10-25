@@ -68,6 +68,7 @@
       else if (teile[0] === 'eintrag' && teile[1]) ansichten.eintragZeichnen(decodeURIComponent(teile[1]), (id) => String(id || '').startsWith('rahmen-'));
 
       else if (teile[0] === 'neu' && teile[1] && teile[2]) ansichten.fehlenderEintragZeichnen(decodeURIComponent(teile[1]), decodeURIComponent(teile.slice(2).join('/')));
+      else if (teile[0] === 'bogen-neu') ansichten.fehlenderEintragZeichnen('characters', '', 'character-sheet');
 
       else if (teile[0] === 'kategorie' && teile[1]) ansichten.kategorieZeichnen(decodeURIComponent(teile[1]));
 

@@ -298,6 +298,7 @@ export function herleitung(ergebnis) {
  */
 export function ersterRang(text) {
   const erster = String(text ?? '').split(/[·,]/u)[0]?.trim();
+  if (!erster) return null;
   const n = Number(erster);
   return Number.isFinite(n) ? n : null;
 }
@@ -316,6 +317,7 @@ export function ausruestungBauen(spielwerte = {}, finde = () => null) {
   const nimm = (rolle, name, regelname, bogen = {}) => {
     if (!name) return;
     const regel = finde(regelname || name) || null;
+    const overrides = bogen.overrides || {};
     const stueck = {
       /* Der Schlüssel muss über Neuladen hinweg derselbe bleiben —
          daran hängt, welches Stück angelegt war. Die Position in der
@@ -343,20 +345,22 @@ export function ausruestungBauen(spielwerte = {}, finde = () => null) {
       stueck.merkmal = regel.merkmal || null;
       stueck.wirkung = regel.wirkung || null;
       stueck.schaden = regel.schaden ? regel.schaden.text : null;
+      stueck.attribut = regel.attribut || null;
+      stueck.reichweite = regel.reichweite || null;
 
       /* Weicht der Bogen vom Regelwerk ab, wird das **gezeigt** statt
          still entschieden. Eine der beiden Zahlen ist dann falsch, und
          welche, kann nur ein Mensch sagen. */
-      if (typeof bogen.score === 'number' && bogen.score !== stueck.score) {
+      if (!Object.hasOwn(overrides, 'score') && typeof bogen.score === 'number' && bogen.score !== stueck.score) {
         stueck.abweichungen.push('Bogen sagt Rüstungswert ' + bogen.score
           + ', Regelwerk ' + stueck.score);
       }
-      if (typeof bogen.schwer === 'number' && stueck.schwellen
+      if (!Object.hasOwn(overrides, 'basisSchwer') && typeof bogen.schwer === 'number' && stueck.schwellen
         && bogen.schwer !== stueck.schwellen.schwer) {
         stueck.abweichungen.push('Bogen sagt schwere Schwelle ' + bogen.schwer
           + ', Regelwerk ' + stueck.schwellen.schwer);
       }
-      if (typeof bogen.ernst === 'number' && stueck.schwellen
+      if (!Object.hasOwn(overrides, 'basisErnst') && typeof bogen.ernst === 'number' && stueck.schwellen
         && bogen.ernst !== stueck.schwellen.ernst) {
         stueck.abweichungen.push('Bogen sagt ernste Schwelle ' + bogen.ernst
           + ', Regelwerk ' + stueck.schwellen.ernst);
@@ -368,19 +372,37 @@ export function ausruestungBauen(spielwerte = {}, finde = () => null) {
         ? { schwer: bogen.schwer, ernst: bogen.ernst } : null;
       stueck.merkmal = bogen.merkmal || null;
       stueck.wirkung = bogen.merkmal || null;
-      stueck.schaden = null;
+      stueck.schaden = bogen.schaden || null;
+      stueck.attribut = bogen.attribut || null;
+      stueck.reichweite = bogen.reichweite || null;
     }
 
+    // Manual weapon details and explicit form edits take precedence over defaults.
+    for (const key of ['schaden', 'attribut', 'reichweite']) {
+      if (bogen[key]) stueck[key] = bogen[key];
+      if (Object.hasOwn(overrides, key)) stueck[key] = overrides[key] || null;
+    }
+    if (Object.hasOwn(overrides, 'score')) stueck.score = overrides.score;
+    for (const [key, target] of [['basisSchwer', 'schwer'], ['basisErnst', 'ernst']]) {
+      if (Object.hasOwn(overrides, key)) {
+        stueck.schwellen ||= {};
+        stueck.schwellen[target] = overrides[key];
+      }
+    }
+    if (Object.hasOwn(overrides, 'merkmal')) {
+      stueck.merkmal = null;
+      stueck.wirkung = overrides.merkmal || null;
+    }
     stuecke.push(stueck);
   };
 
   for (const x of spielwerte.waffen || []) {
-    nimm('waffe', x.name, x.regelname, { hand: x.hand });
+    nimm('waffe', x.name, x.regelname, x);
   }
   const r = spielwerte.ruestung;
   if (r && r.name) {
     nimm('ruestung', r.name, r.regelname, {
-      score: r.score, schwer: r.basisSchwer, ernst: r.basisErnst, merkmal: r.merkmal,
+      score: r.score, schwer: r.basisSchwer, ernst: r.basisErnst, merkmal: r.merkmal, overrides: r.overrides,
     });
   }
   if (spielwerte.klassengegenstand) {
